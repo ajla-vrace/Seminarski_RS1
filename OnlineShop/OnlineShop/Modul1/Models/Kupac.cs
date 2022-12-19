@@ -1,9 +1,13 @@
-﻿namespace OnlineShop.Modul1.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace OnlineShop.Modul1.Models
 {
-    public class Kupac:Korisnik
+    [Table("Kupac")]
+    public class Kupac : Korisnik
     {
-        public DateTime DatumPrveNarudzbe { get; set; }
-        public DateTime DatumPretplate { get; set; }
+        public DateTime? DatumPrveNarudzbe { get; set; }
+        public DateTime? DatumPretplate { get; set; }
         public bool isPretplacen { get; set; }
+        public string? AdresaIsporuke { get; set; }
+    } 
     }
-}

@@ -20,7 +20,20 @@ namespace OnlineShop.Data
         public DbSet<Skladiste> Skladiste { get; set; }
         public DbSet<Grad> Grad { get; set; }
         public DbSet<SkladisteProizvod> SkladisteProizvod { get; set; }
-
+        public DbSet<Korisnik> Korisnik { get; set; }
+        public DbSet<Kupac> Kupac { get; set; }
+        public DbSet<Zaposlenik> Zaposlenik { get; set; }
+        public DbSet<Spol> Spol { get; set; }
+        public DbSet<Narudzba> Narudzba { get; set; }
+        public DbSet<NarudzbaStavka> NarudzbaStavka { get; set; }
+        public DbSet<Korpa> Korpa { get; set; }
+        public DbSet<KorpaStavka> KorpaStavka { get; set; }
+        public DbSet<Favorit> Favorit { get; set; }
+        public DbSet<Ocjena> Ocjena { get; set; }
+        public DbSet<Komentar> Komentar { get; set; }
+        public DbSet<Zvjezdica> Zvjezdica { get; set; }
+        public DbSet<Prodavnica> Prodavnica { get; set; }
+        
         public ApplicationDbContext(
             DbContextOptions options) : base(options)
         {

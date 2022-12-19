@@ -39,7 +39,7 @@ namespace OnlineShop.Migrations
                         column: x => x.bojaId,
                         principalTable: "Boja",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Proizvod_Kategorija_kategorijaId",
                         column: x => x.kategorijaId,

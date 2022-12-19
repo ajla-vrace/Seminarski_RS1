@@ -176,7 +176,7 @@ namespace OnlineShop.Migrations
                     b.HasOne("OnlineShop.Modul1.Models.Kategorija", "Kategorija")
                         .WithMany()
                         .HasForeignKey("KategorijaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Kategorija");

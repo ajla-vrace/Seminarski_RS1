@@ -386,7 +386,7 @@ namespace OnlineShop.Migrations
                     b.HasOne("OnlineShop.Modul1.Models.Kategorija", "Kategorija")
                         .WithMany()
                         .HasForeignKey("KategorijaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Kategorija");
@@ -397,7 +397,7 @@ namespace OnlineShop.Migrations
                     b.HasOne("OnlineShop.Modul1.Models.Boja", "boja")
                         .WithMany()
                         .HasForeignKey("bojaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("OnlineShop.Modul1.Models.Kategorija", "kategorija")
@@ -438,7 +438,7 @@ namespace OnlineShop.Migrations
                     b.HasOne("OnlineShop.Modul1.Models.Grad", "grad")
                         .WithMany()
                         .HasForeignKey("gradId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("grad");

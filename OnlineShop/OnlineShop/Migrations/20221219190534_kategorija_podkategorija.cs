@@ -45,7 +45,7 @@ namespace OnlineShop.Migrations
                         column: x => x.KategorijaId,
                         principalTable: "Kategorija",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(

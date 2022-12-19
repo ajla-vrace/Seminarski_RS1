@@ -13,5 +13,8 @@ namespace OnlineShop.Modul1.Models
         [ForeignKey("KupacId")]
         public Kupac Kupac { get; set; }
         public int? KupacId { get; set; }
+        [ForeignKey("ZaposlenikId")]
+        public Zaposlenik Zaposlenik { get; set; }
+        public int? ZaposlenikId { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace OnlineShop.Modul1.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace OnlineShop.Modul1.Models
 {
     public class Korisnik
     {
@@ -8,10 +10,14 @@
         public string Username { get; set; }
         public string Lozinka { get; set; }
         public string Email { get; set; }
+        public string BrojTelefona {get; set; }
         public DateTime DatumRegistracije { get; set; }
-        public bool isAdmin { get; set; }
-        public bool isZaposlenik { get; set; }
-        public bool isKupac { get; set; }
+        public bool? isAdmin { get; set; }
+        public bool? isZaposlenik { get; set; }
+        public bool? isKupac { get; set; }
+        [ForeignKey("SpolId")]
+        public Spol Spol { get; set; }
+        public int? SpolId { get; set; }
 
     }
 }

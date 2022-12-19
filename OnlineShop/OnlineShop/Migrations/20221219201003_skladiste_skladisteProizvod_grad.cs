@@ -43,7 +43,7 @@ namespace OnlineShop.Migrations
                         column: x => x.gradId,
                         principalTable: "Grad",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
