@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.Data;
 
@@ -11,9 +12,11 @@ using OnlineShop.Data;
 namespace OnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221219195826_specPonuda")]
+    partial class specPonuda
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,23 +40,6 @@ namespace OnlineShop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Boja");
-                });
-
-            modelBuilder.Entity("OnlineShop.Modul1.Models.Grad", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Naziv")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Grad");
                 });
 
             modelBuilder.Entity("OnlineShop.Modul1.Models.Kategorija", b =>
@@ -259,65 +245,6 @@ namespace OnlineShop.Migrations
                     b.ToTable("Sezona");
                 });
 
-            modelBuilder.Entity("OnlineShop.Modul1.Models.Skladiste", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Adresa")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BrojTelefona")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Naziv")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Povrsina")
-                        .HasColumnType("real");
-
-                    b.Property<int>("gradId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("gradId");
-
-                    b.ToTable("Skladiste");
-                });
-
-            modelBuilder.Entity("OnlineShop.Modul1.Models.SkladisteProizvod", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("kolicina")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("proizvodId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("skladisteId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("proizvodId");
-
-                    b.HasIndex("skladisteId");
-
-                    b.ToTable("SkladisteProizvod");
-                });
-
             modelBuilder.Entity("OnlineShop.Modul1.Models.SpecijalnaPonuda", b =>
                 {
                     b.Property<int>("Id")
@@ -428,32 +355,6 @@ namespace OnlineShop.Migrations
                     b.Navigation("podkategorija");
 
                     b.Navigation("sezona");
-                });
-
-            modelBuilder.Entity("OnlineShop.Modul1.Models.Skladiste", b =>
-                {
-                    b.HasOne("OnlineShop.Modul1.Models.Grad", "grad")
-                        .WithMany()
-                        .HasForeignKey("gradId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("grad");
-                });
-
-            modelBuilder.Entity("OnlineShop.Modul1.Models.SkladisteProizvod", b =>
-                {
-                    b.HasOne("OnlineShop.Modul1.Models.Proizvod", "proizvod")
-                        .WithMany()
-                        .HasForeignKey("proizvodId");
-
-                    b.HasOne("OnlineShop.Modul1.Models.Skladiste", "skladiste")
-                        .WithMany()
-                        .HasForeignKey("skladisteId");
-
-                    b.Navigation("proizvod");
-
-                    b.Navigation("skladiste");
                 });
 
             modelBuilder.Entity("OnlineShop.Modul1.Models.SpecijalnaPonudaProizvod", b =>
