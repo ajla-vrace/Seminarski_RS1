@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.1">
       <PrivateAssets>all</PrivateAssets>
@@ -23,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modul1\Models\" />
     <Folder Include="Modul1\ViewModels\" />
   </ItemGroup>
 
