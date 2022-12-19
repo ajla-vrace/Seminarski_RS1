@@ -33,7 +33,8 @@ namespace OnlineShop.Data
         public DbSet<Komentar> Komentar { get; set; }
         public DbSet<Zvjezdica> Zvjezdica { get; set; }
         public DbSet<Prodavnica> Prodavnica { get; set; }
-        
+        public DbSet<ProizvodSlika> ProizvodSlika { get; set; }
+
         public ApplicationDbContext(
             DbContextOptions options) : base(options)
         {

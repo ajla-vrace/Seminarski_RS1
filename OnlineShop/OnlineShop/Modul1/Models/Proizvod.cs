@@ -10,7 +10,7 @@ namespace OnlineShop.Modul1.Models
         public float Cijena { get; set; }
         public string Opis { get; set; }
         public DateTime datum_kreiranja { get; set; }
-        public DateTime datum_modifikacije { get; set; }
+        public DateTime? datum_modifikacije { get; set; }
         public bool Aktivan { get; set; }
 
         [ForeignKey("bojaId")]
