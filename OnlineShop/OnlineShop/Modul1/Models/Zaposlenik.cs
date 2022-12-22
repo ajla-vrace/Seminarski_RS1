@@ -10,6 +10,9 @@ namespace OnlineShop.Modul1.Models
         public string AdresaStanovanja { get; set; }
         public DateTime DatumRodjenja { get; set; }
         public string JMBG { get; set; }
-       
+        [ForeignKey("ProdavnicaId")]
+        public Prodavnica Prodavnica { get; set; }
+        public int? ProdavnicaId { get; set; }
+
     }
 }
