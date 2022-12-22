@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import{Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "./moj-config";
 
@@ -14,13 +14,15 @@ export class AppComponent implements  OnInit{
   }
   title = 'AngularApp';
 
+  constructor(private router:Router) {
+  }
 
   pocetna() {
 
   }
 
   otvoriFaq() {
-
+    this.router.navigate(['/faq'])
   }
 
   otvoriHelp() {
