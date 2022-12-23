@@ -22,10 +22,10 @@ export class AppComponent implements  OnInit{
   }
 
   otvoriFaq() {
-    this.router.navigate(['/faq'])
+    this.router.navigate(['/faq']);
   }
 
   otvoriHelp() {
-
+this.router.navigate(['/help1']);
   }
 }
