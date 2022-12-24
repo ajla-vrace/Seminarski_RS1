@@ -1,6 +1,32 @@
-img{
+img.gore{
   width:30px;
   padding: 3%;
-  padding-top: 4%;
 }
+
+li{
+  display: inline;
+  padding-left: 1%;
+
+}
+ img{
+  width: 30px;
+
+}
+footer {
+
+  background-color: black;
+  color:white;
+width: 100%;
+  padding: 1%;
+}
+
+#glavnidivfooter{
+  display: flex;
+  justify-content: space-between;
+  padding: 1%;
+}
+a.drustvenemreze{
+  display: block;
+}
+
 
