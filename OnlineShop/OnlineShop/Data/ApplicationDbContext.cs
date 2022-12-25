@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OnlineShop.Modul0_Autentifikacija.Models;
 using OnlineShop.Modul1.Models;
 
 namespace OnlineShop.Data
@@ -20,7 +21,7 @@ namespace OnlineShop.Data
         public DbSet<Skladiste> Skladiste { get; set; }
         public DbSet<Grad> Grad { get; set; }
         public DbSet<SkladisteProizvod> SkladisteProizvod { get; set; }
-        public DbSet<Korisnik> Korisnik { get; set; }
+        public DbSet<KorisnickiNalog> KorisnickiNalog { get; set; }
         public DbSet<Kupac> Kupac { get; set; }
         public DbSet<Zaposlenik> Zaposlenik { get; set; }
         public DbSet<Spol> Spol { get; set; }
@@ -34,6 +35,8 @@ namespace OnlineShop.Data
         public DbSet<Zvjezdica> Zvjezdica { get; set; }
         public DbSet<Prodavnica> Prodavnica { get; set; }
         public DbSet<ProizvodSlika> ProizvodSlika { get; set; }
+
+        public DbSet<AutentifikacijaToken> AutentifikacijaToken { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)

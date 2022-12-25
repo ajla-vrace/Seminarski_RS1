@@ -48,7 +48,7 @@ this.router.navigate(['/help1']);
 
   prikaziPrijava() {
     this.potvrda=true;
-    this.router.navigate(['/prijaviSe']);
+    this.router.navigate(['/prijavi-se']);
   }
 
   prikaziFavorite() {

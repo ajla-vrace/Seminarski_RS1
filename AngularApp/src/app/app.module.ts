@@ -16,6 +16,9 @@ import { PocetnaComponent } from './pocetna/pocetna.component';
 import { PravilaPrivatnostiComponent } from './pravila-privatnosti/pravila-privatnosti.component';
 import { KontaktComponent } from './kontakt/kontakt.component';
 import { ProdavniceComponent } from './prodavnice/prodavnice.component';
+import { ZaposlenikPocetnaComponent } from './zaposlenik-pocetna/zaposlenik-pocetna.component';
+import { AdminPocetnaComponent } from './admin-pocetna/admin-pocetna.component';
+
 
 
 @NgModule({
@@ -33,23 +36,29 @@ import { ProdavniceComponent } from './prodavnice/prodavnice.component';
     PravilaPrivatnostiComponent,
     KontaktComponent,
     ProdavniceComponent,
+    ZaposlenikPocetnaComponent,
+    AdminPocetnaComponent,
+
+
 
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
       {path: 'pocetna', component: PocetnaComponent},
-    {path: 'faq', component: FaqComponent},
-    {path: 'help1', component: Help1Component},
+      {path: 'faq', component: FaqComponent},
+      {path: 'help1', component: Help1Component},
       {path: 'favoriti', component: FavoritiComponent},
       {path: 'kosarica', component: KosaricaComponent},
-      {path: 'prijaviSe', component: PrijaviSeComponent},
+      {path: 'prijavi-se', component: PrijaviSeComponent},
       {path: 'registracija', component: RegistracijaComponent},
       {path: 'zene', component: ZeneComponent},
       {path: 'muskarci', component: MuskarciComponent},
       {path: 'pravila-privatnosti', component: PravilaPrivatnostiComponent},
       {path: 'kontakt', component: KontaktComponent},
       {path: 'prodavnice', component: ProdavniceComponent},
+      {path: 'zaposlenik-pocetna', component:ZaposlenikPocetnaComponent},
+      {path: 'admin-pocetna',component:AdminPocetnaComponent}
 
   ]),
     FormsModule

@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using OnlineShop.Modul0_Autentifikacija.Models;
 
 namespace OnlineShop.Modul1.Models
 {
     [Table("Zaposlenik")]
-    public class Zaposlenik:Korisnik
+    public class Zaposlenik:KorisnickiNalog
     {
         public DateTime DatumZaposlenja { get; set; }
         public DateTime? DatumOtkaza { get; set; }
