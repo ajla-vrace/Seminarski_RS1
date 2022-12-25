@@ -13,8 +13,14 @@
 
   <div class="mb-3 row">
 
-    <div class="col-sm-3">
-      <input id="txtKorisnickoIme" [(ngModel)]="txtKorisnickoIme" class="form-control">
+    <div class="col-sm-3" [class.has-error]="username_inp.invalid && username_inp.touched">
+      <input id="txtKorisnickoIme" [(ngModel)]="txtKorisnickoIme" class="form-control"
+      #username_inp="ngModel" required pattern="^[a-zA-Z]{3}[a-zA-Z]{0,}$">
+
+      <span class="poruka-validacija" *ngIf="username_inp.invalid && username_inp.touched">
+         <p>Unesite ispravan unos</p>
+      </span>
+
     </div>
 
     <label for="txtKorisnickoIme" class="col-sm-2 col-form-label">Korisničko ime</label>
@@ -23,8 +29,14 @@
 
   <div class="mb-3 row">
 
-    <div class="col-sm-3">
-      <input id="txtLozinka" [(ngModel)]="txtLozinka" class="form-control" type="password">
+    <div class="col-sm-3" [class.has-error]="password_inp.invalid && password_inp.touched">
+      <input id="txtLozinka" [(ngModel)]="txtLozinka" class="form-control" type="password"
+      #password_inp="ngModel" required pattern="^[a-z]{3,10}$">
+
+      <span class="poruka-validacija" *ngIf="password_inp.invalid && password_inp.touched">
+       <p>Unesite ispravan unos</p>
+      </span>
+
     </div>
 
     <label for="txtLozinka" class="col-sm-2 col-form-label">Lozinka</label>
@@ -33,7 +45,8 @@
 
 
   <div class="dugme-login">
-    <button class="btn" (click)="btnLogin()">Prijavi se</button>
+    <button class="btn" [disabled]="!(username_inp.valid && password_inp.valid)" (click)="btnLogin()" >
+      Prijavi se</button>
   </div>
 
 

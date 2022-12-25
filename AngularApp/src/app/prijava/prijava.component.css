@@ -1,4 +1,9 @@
-
+.poruka-validacija{
+  color:red;
+  width:60%;
+  margin:auto;
+  text-align: center;
+}
 
 .login{
   background-color: #ffdddc;
