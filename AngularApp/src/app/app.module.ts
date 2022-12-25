@@ -8,7 +8,6 @@ import { FaqComponent } from './faq/faq.component';
 import { Help1Component } from './help1/help1.component';
 import { ZeneComponent } from './zene/zene.component';
 import { MuskarciComponent } from './muskarci/muskarci.component';
-import { PrijaviSeComponent } from './prijavi-se/prijavi-se.component';
 import { FavoritiComponent } from './favoriti/favoriti.component';
 import { KosaricaComponent } from './kosarica/kosarica.component';
 import { RegistracijaComponent } from './registracija/registracija.component';
@@ -29,7 +28,6 @@ import { PrijavaComponent } from './prijava/prijava.component';
     Help1Component,
     ZeneComponent,
     MuskarciComponent,
-    PrijaviSeComponent,
     FavoritiComponent,
     KosaricaComponent,
     RegistracijaComponent,
@@ -52,7 +50,6 @@ import { PrijavaComponent } from './prijava/prijava.component';
       {path: 'help1', component: Help1Component},
       {path: 'favoriti', component: FavoritiComponent},
       {path: 'kosarica', component: KosaricaComponent},
-      {path: 'prijavi-se', component: PrijaviSeComponent},
       {path: 'registracija', component: RegistracijaComponent},
       {path: 'zene', component: ZeneComponent},
       {path: 'muskarci', component: MuskarciComponent},
