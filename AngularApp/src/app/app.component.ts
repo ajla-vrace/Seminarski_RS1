@@ -79,10 +79,14 @@ export class AppComponent {
   }
 
 
+
   submit_newsletter() {}
 
 
-    odjaviSe()
+
+
+//odjava
+  odjaviSe()
     {
       // @ts-ignore
       AutentifikacijaHelper.setLoginInfo(null);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Duende.IdentityServer.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.Data;
@@ -24,11 +25,16 @@ namespace OnlineShop.Modul1.Controllers
             objekat = new KorisnickiNalog();
             // objekat.Id = x.Id;
             _dbContext.Add(objekat);
-            objekat.Ime = x.Ime;
-            objekat.Prezime = x.Prezime;
-            objekat.Email = x.Email;
-            objekat.Username = x.Username;
-            objekat.Lozinka = x.Lozinka;
+            if(!x.Ime.IsNullOrEmpty())
+                objekat.Ime = x.Ime;
+            if (!x.Prezime.IsNullOrEmpty())
+                objekat.Prezime = x.Prezime;
+            if (!x.Email.IsNullOrEmpty())
+                objekat.Email = x.Email;
+            if (!x.Username.IsNullOrEmpty())
+                objekat.Username = x.Username;
+            if (!x.Lozinka.IsNullOrEmpty())
+                objekat.Lozinka = x.Lozinka;
             //objekat.BrojTelefona = x.BrojTelefona;
             objekat.isKupac = x.isKupac;
             objekat.DatumRegistracije = DateTime.Now;
