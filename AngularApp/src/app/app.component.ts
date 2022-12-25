@@ -76,20 +76,21 @@ this.router.navigate(['/help1']);
     this.router.navigate(['/prodavnice']);
   }
 
-<<<<<<< HEAD
+
   submit_newsletter() {
-
-=======
-//odjava
-  logoutButton() {
-    // @ts-ignore
-    AutentifikacijaHelper.setLoginInfo(null);
-
-    this.httpKlijent.post(MojConfig.adresa_servera + "/api/Autentifikacija", null, MojConfig.http_opcije())
-      .subscribe((x: any) => {
-        this.router.navigateByUrl("/pocetna");
-        alert("Uspješno ste se odjavili.");
-      });
->>>>>>> ed8391ebf473afb1d217f17348b1314cb5ebb6c9
   }
+
+//odjava
+  logoutButton()
+    {
+      // @ts-ignore
+      AutentifikacijaHelper.setLoginInfo(null);
+
+      this.httpKlijent.post(MojConfig.adresa_servera + "/api/Autentifikacija", null, MojConfig.http_opcije())
+        .subscribe((x: any) => {
+          this.router.navigateByUrl("/pocetna");
+          alert("Uspješno ste se odjavili.");
+        });
+    }
+
 }

@@ -18,15 +18,19 @@ email:any;
 lozinka:any;
 datumregistracije:any;
 iskupac:boolean=true;
+  hero: any;
   constructor(private httpKlijent: HttpClient, private router: Router) {
   }
 
   ngOnInit(): void {
     this.fetchKorisnici();
   }
+validacija(){
 
-  btn_registracija(ime_input:HTMLInputElement,prezime_input:HTMLInputElement,email_input:HTMLInputElement,
-                   username_input:HTMLInputElement, lozinka_input:HTMLInputElement) {
+}
+  btn_registracija(ime_input:any,prezime_input:any,
+                   username_input:any, lozinka_input:any,email_input:any,) {
+
     this.noviKorisnik={
       id:0,
       ime:ime_input.value,
@@ -35,8 +39,11 @@ iskupac:boolean=true;
       username:username_input.value,
       lozinka:lozinka_input.value,
       iskupac:true,
-
     }
+   if(this.ime=="" || this.prezime==""){
+     alert("neuspjesno");
+     return;
+   }
     this.httpKlijent.post(`${MojConfig.adresa_servera}/Korisnik/Add`, this.noviKorisnik, MojConfig.http_opcije()).subscribe(x => {
       this.fetchKorisnici();
 
@@ -45,13 +52,21 @@ iskupac:boolean=true;
   }
 
 
+
+
+
+
   fetchKorisnici() :void
   {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Korisnik/GetAll", MojConfig.http_opcije()).subscribe(x=>{
       this.korisniciPodaci = x;
+
     });
 
   }
 
 
+  onSubmit() {
+
+  }
 }

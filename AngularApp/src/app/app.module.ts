@@ -32,7 +32,7 @@ import { SpecPonComponent } from './spec-pon/spec-pon.component';
 import { KatPodkatComponent } from './kat-podkat/kat-podkat.component';
 import { StatistikaComponent } from './statistika/statistika.component';
 import { ProfilAdminComponent } from './profil-admin/profil-admin.component';
-
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
