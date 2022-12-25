@@ -13,10 +13,12 @@ export class AppComponent {
 
 
   title = 'AngularApp';
-potvrda:any=false;
-  constructor(private router:Router, private httpKlijent:HttpClient) {
+  potvrda: any = false;
+
+  constructor(private router: Router, private httpKlijent: HttpClient) {
   }
-  reloadPage(){
+
+  reloadPage() {
     window.location.reload()
   }
 
@@ -26,70 +28,74 @@ potvrda:any=false;
   }
 
   otvoriFaq() {
-    this.potvrda=true;
+    this.potvrda = true;
     this.router.navigate(['/faq']);
   }
 
   otvoriHelp() {
-    this.potvrda=true;
-this.router.navigate(['/help1']);
+    this.potvrda = true;
+    this.router.navigate(['/help1']);
   }
 
   prikaziZene() {
-    this.potvrda=true;
+    this.potvrda = true;
     this.router.navigate(['/zene']);
   }
 
   prikaziMuskarce() {
-    this.potvrda=true;
+    this.potvrda = true;
     this.router.navigate(['/muskarci']);
   }
 
   prikaziPrijava() {
-    this.potvrda=true;
+    this.potvrda = true;
     this.router.navigate(['prijava']);
   }
 
   prikaziFavorite() {
-    this.potvrda=true;
+    this.potvrda = true;
     this.router.navigate(['/favoriti']);
   }
 
   prikaziKosaricu() {
-    this.potvrda=true;
+    this.potvrda = true;
     this.router.navigate(['/kosarica']);
   }
 
 
   prikaziPravila() {
-    this.potvrda=true;
+    this.potvrda = true;
     this.router.navigate(['/pravila-privatnosti']);
   }
 
   prikaziKontakt() {
-    this.potvrda=true;
+    this.potvrda = true;
     this.router.navigate(['/kontakt']);
   }
 
   prikaziProdavnice() {
-    this.potvrda=true;
+    this.potvrda = true;
     this.router.navigate(['/prodavnice']);
   }
 
-<<<<<<< HEAD
-  submit_newsletter() {
 
-=======
-//odjava
-  logoutButton() {
-    // @ts-ignore
-    AutentifikacijaHelper.setLoginInfo(null);
+  submit_newsletter() {}
 
-    this.httpKlijent.post(MojConfig.adresa_servera + "/api/Autentifikacija", null, MojConfig.http_opcije())
-      .subscribe((x: any) => {
-        this.router.navigateByUrl("/pocetna");
-        alert("Uspješno ste se odjavili.");
-      });
->>>>>>> ed8391ebf473afb1d217f17348b1314cb5ebb6c9
-  }
+
+    odjaviSe()
+    {
+      // @ts-ignore
+      AutentifikacijaHelper.setLoginInfo(null);
+
+      this.httpKlijent.post(MojConfig.adresa_servera + "/api/Autentifikacija", null, MojConfig.http_opcije())
+        .subscribe((x: any) => {
+          this.router.navigateByUrl("/pocetna");
+          alert("Uspješno ste se odjavili.");
+        });
+    }
+
+
 }
+
+
+

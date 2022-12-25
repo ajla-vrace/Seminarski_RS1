@@ -1,0 +1,90 @@
+h4{
+  margin: 3% auto 2% auto;
+  width:70%;
+  text-align: center;
+}
+
+h5{
+  text-align: center;
+  font-size: smaller;
+}
+
+h6{
+  opacity: 70%;
+  position:absolute;
+  bottom:0;
+  left:2%;
+}
+
+.sredina{
+  width:90%;
+  margin:auto;
+  padding:1%;
+  display: flex;
+  /*justify-content: space-between;
+  align-items: center;*/
+}
+
+.add{
+  width:60%;
+  display: grid;
+  gap:3%;
+}
+
+.add-kat, .add-podkat {
+  width:90%;
+  border:groove;
+  padding:8%;
+  position: relative;
+}
+
+.submit-podkat, .submit-kat{
+  margin:auto;
+  width:100%;
+}
+
+.btn-kat, .btn-podkat{
+  width:100%;
+  text-align: center;
+  margin-top:2%;
+}
+
+.pretraga{
+  width:70%;
+  margin:0;
+  padding:1%;
+  border:groove;
+}
+
+.input-pretraga-div{
+  width:100%;
+  margin:1% auto 1% auto;
+  text-align: center;
+}
+
+.input-pretraga{
+  width:90%;
+  border: groove;
+  border-radius: 30px;
+  margin:2% auto 6% auto;
+  text-align: center;
+}
+
+.add-kat input{
+  width:100%;
+}
+
+.add-podkat input{
+  width:100%;
+}
+
+.mb-3{
+  text-align: center;
+}
+img{
+  cursor: pointer;
+}
+
+table{
+  overflow: scroll;
+}

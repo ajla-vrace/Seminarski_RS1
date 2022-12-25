@@ -1,3 +1,73 @@
 <app-navbar-admin></app-navbar-admin>
 
-<p>kat-podkat works!</p>
+
+
+<div class="sredina">
+  <div class="add">
+
+    <div class="add-kat">
+      <input class="input-kat" type="text" placeholder="upišite naziv kategorije"
+             #nazivKat>
+      <div class="btn-kat">
+        <button class="submit-kat" (click)="dodajKategoriju(nazivKat.value)">Spasi</button>
+      </div>
+      <h6>Dodaj kategoriju</h6>
+    </div>
+
+    <div class="add-podkat">
+
+      <div class="mb-3">
+        <label class="form-label">Izaberite kategoriju</label>
+        <select class="form-control" #katId [(ngModel)]="kat_id">
+          <option *ngFor="let k of podaci_kategorije" [value]="k.id">{{k.naziv}}</option>
+        </select>
+      </div>
+
+
+      <input class="input-podkat" type="text" placeholder="upišite naziv podkategorije"
+             #nazivPodkat>
+
+
+      <div class="btn-podkat">
+        <button class="submit-podkat" (click)="dodajPodkategoriju(nazivPodkat.value)">Spasi</button>
+      </div>
+
+      <h6>Dodaj podkategoriju</h6>
+
+    </div>
+  </div>
+
+  <div class="pretraga">
+
+    <div class="input-pretraga-div">
+      <input type="text" class="input-pretraga" #pretraga placeholder="pretražite podkategoriju ili kategoriju">
+      <img class="img-search" src="assets/slike/search.svg">
+    </div>
+
+
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Naziv podkategorije</th>
+        <th scope="col">Naziv kategorije</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let p of podaci_podkategorije">
+        <th scope="row">{{p.id}}</th>
+        <td>{{p.naziv}}</td>
+        <td>{{p.kategorijaOpis}}</td>
+        <td> <img src="assets/slike/x-square.svg"> </td>
+      </tr>
+
+
+
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
