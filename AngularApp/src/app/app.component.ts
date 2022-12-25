@@ -2,20 +2,19 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "./moj-config";
+import {AutentifikacijaHelper} from "./helpers/autentifikacija-helper";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements  OnInit{
-  ngOnInit(): void {
-      throw new Error('Method not implemented.');
-  }
+export class AppComponent {
+
 
   title = 'AngularApp';
 potvrda:any=false;
-  constructor(private router:Router) {
+  constructor(private router:Router, private httpKlijent:HttpClient) {
   }
   reloadPage(){
     window.location.reload()
@@ -75,5 +74,17 @@ this.router.navigate(['/help1']);
   prikaziProdavnice() {
     this.potvrda=true;
     this.router.navigate(['/prodavnice']);
+  }
+
+//odjava
+  logoutButton() {
+    // @ts-ignore
+    AutentifikacijaHelper.setLoginInfo(null);
+
+    this.httpKlijent.post(MojConfig.adresa_servera + "/api/Autentifikacija", null, MojConfig.http_opcije())
+      .subscribe((x: any) => {
+        this.router.navigateByUrl("/pocetna");
+        alert("Uspješno ste se odjavili.");
+      });
   }
 }
