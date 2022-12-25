@@ -18,7 +18,7 @@
       #username_inp="ngModel" required pattern="^[a-zA-Z]{3}[a-zA-Z]{0,}$">
 
       <span class="poruka-validacija" *ngIf="username_inp.invalid && username_inp.touched">
-         <p>Unesite ispravan unos</p>
+         <p>Unesite ispravno korisničko ime</p>
       </span>
 
     </div>
@@ -34,7 +34,7 @@
       #password_inp="ngModel" required pattern="^[a-z]{3,10}$">
 
       <span class="poruka-validacija" *ngIf="password_inp.invalid && password_inp.touched">
-       <p>Unesite ispravan unos</p>
+       <p>Unesite ispravnu lozinku</p>
       </span>
 
     </div>
