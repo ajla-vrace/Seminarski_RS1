@@ -21,7 +21,7 @@ namespace OnlineShop.Modul0_Autentifikacija.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("x")]
         public ActionResult<LoginInformacije> Login([FromBody] LoginVM x)
         {
             //1- provjera logina
