@@ -1,0 +1,28 @@
+nav{
+  background-color: white;
+}
+
+#navbarNavDropdown{
+  width:50%;
+  background-color: white;
+}
+
+.navbar-nav{
+  margin-left:75%;
+  padding:1%;
+}
+
+a{
+  color:black;
+}
+
+a:hover{
+  color:black;
+  opacity: 70%;
+  font-size: larger;
+  cursor: pointer;
+}
+
+a:visited{
+  color: black;
+}

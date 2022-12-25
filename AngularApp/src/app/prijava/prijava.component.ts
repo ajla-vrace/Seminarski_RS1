@@ -60,6 +60,9 @@ export class PrijavaComponent implements OnInit {
           // @ts-ignore
           AutentifikacijaHelper.setLoginInfo(null)
           // porukaError("neispravan login");
+          alert("Pogrešno korisničko ime ili lozinka.");
+          this.txtKorisnickoIme="";
+          this.txtLozinka="";
         }
 
 

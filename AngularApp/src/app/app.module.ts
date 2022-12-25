@@ -18,6 +18,20 @@ import { ProdavniceComponent } from './prodavnice/prodavnice.component';
 import { ZaposlenikPocetnaComponent } from './zaposlenik-pocetna/zaposlenik-pocetna.component';
 import { AdminPocetnaComponent } from './admin-pocetna/admin-pocetna.component';
 import { PrijavaComponent } from './prijava/prijava.component';
+import { NavbarZaposlenikComponent } from './navbar-zaposlenik/navbar-zaposlenik.component';
+import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
+import { NarudzbeComponent } from './narudzbe/narudzbe.component';
+import { ProizvodiComponent } from './proizvodi/proizvodi.component';
+import { SkladisteComponent } from './skladiste/skladiste.component';
+import { ProfilZaposlenikComponent } from './profil-zaposlenik/profil-zaposlenik.component';
+import { EvidZaposlComponent } from './evid-zaposl/evid-zaposl.component';
+import { RecenzijeComponent } from './recenzije/recenzije.component';
+import { KataloziComponent } from './katalozi/katalozi.component';
+import { SezKolComponent } from './sez-kol/sez-kol.component';
+import { SpecPonComponent } from './spec-pon/spec-pon.component';
+import { KatPodkatComponent } from './kat-podkat/kat-podkat.component';
+import { StatistikaComponent } from './statistika/statistika.component';
+import { ProfilAdminComponent } from './profil-admin/profil-admin.component';
 
 
 
@@ -38,6 +52,20 @@ import { PrijavaComponent } from './prijava/prijava.component';
     ZaposlenikPocetnaComponent,
     AdminPocetnaComponent,
     PrijavaComponent,
+    NavbarZaposlenikComponent,
+    NavbarAdminComponent,
+    NarudzbeComponent,
+    ProizvodiComponent,
+    SkladisteComponent,
+    ProfilZaposlenikComponent,
+    EvidZaposlComponent,
+    RecenzijeComponent,
+    KataloziComponent,
+    SezKolComponent,
+    SpecPonComponent,
+    KatPodkatComponent,
+    StatistikaComponent,
+    ProfilAdminComponent,
 
 
 
@@ -58,7 +86,21 @@ import { PrijavaComponent } from './prijava/prijava.component';
       {path: 'prodavnice', component: ProdavniceComponent},
       {path: 'zaposlenik-pocetna', component:ZaposlenikPocetnaComponent},
       {path: 'admin-pocetna',component:AdminPocetnaComponent},
-      {path: 'prijava', component:PrijavaComponent}
+      {path: 'prijava', component:PrijavaComponent},
+      {path: 'navbar-zaposlenik', component:NavbarZaposlenikComponent},
+      {path: 'navbar-admin', component:NavbarAdminComponent},
+      {path: 'narudzbe', component:NarudzbeComponent},
+      {path: 'skladiste', component:SkladisteComponent},
+      {path: 'profil-zaposlenik', component:ProfilZaposlenikComponent},
+      {path: 'proizvodi', component:ProizvodiComponent},
+      {path: 'evid-zaposl', component:EvidZaposlComponent},
+      {path: 'recenzije', component:RecenzijeComponent},
+      {path: 'katalozi', component:KataloziComponent},
+      {path: 'sez-kol', component:SezKolComponent},
+      {path: 'spec-pon', component:SpecPonComponent},
+      {path: 'kat-podkat', component:KatPodkatComponent},
+      {path: 'statistika', component:StatistikaComponent},
+      {path: 'profil-admin', component:ProfilAdminComponent}
 
   ]),
     FormsModule,
