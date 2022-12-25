@@ -1,1 +1,24 @@
-<p>Registracija</p>
+
+<div id="registracija">
+  <h2 style="text-align: center;">Registracija</h2>
+  <hr>
+  <label>Ime</label>
+  <input type="text" required="required" #ime_input>
+  <label>Prezime</label>
+  <input type="text" required="required" #prezime_input>
+  <label>Email</label>
+  <input type="text" required="required" #email_input>
+  <label>Username</label>
+  <input type="text" required="required" #username_input>
+  <label>Lozinka</label>
+  <input type="password" required="required"  #lozinka_input>
+
+
+  <div style="text-align: center;">
+    <label style="display: inline">Već imate račun? </label>
+    <a routerLink="/prijava" style="display: inline;">Prijava</a>
+  </div>
+
+  <button type="button" class="btn btn-primary" (click)="btn_registracija(ime_input,prezime_input,username_input,lozinka_input,email_input)" style="display: block;width: 100%;background-color: hotpink">Registracija</button>
+</div>
+

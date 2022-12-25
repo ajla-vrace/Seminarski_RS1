@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.Data;
 
@@ -11,9 +12,11 @@ using OnlineShop.Data;
 namespace OnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221225174958_boolkupac")]
+    partial class boolkupac
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,9 +84,6 @@ namespace OnlineShop.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SpolId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -98,8 +98,6 @@ namespace OnlineShop.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SpolId");
 
                     b.ToTable("KorisnickiNalog");
 
@@ -854,15 +852,6 @@ namespace OnlineShop.Migrations
                         .IsRequired();
 
                     b.Navigation("korisnickiNalog");
-                });
-
-            modelBuilder.Entity("OnlineShop.Modul0_Autentifikacija.Models.KorisnickiNalog", b =>
-                {
-                    b.HasOne("OnlineShop.Modul1.Models.Spol", "Spol")
-                        .WithMany()
-                        .HasForeignKey("SpolId");
-
-                    b.Navigation("Spol");
                 });
 
             modelBuilder.Entity("OnlineShop.Modul1.Models.Favorit", b =>

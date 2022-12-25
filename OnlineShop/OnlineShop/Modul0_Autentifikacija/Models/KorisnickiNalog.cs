@@ -14,12 +14,12 @@ namespace OnlineShop.Modul0_Autentifikacija.Models
         public string Email { get; set; }
         public string? BrojTelefona { get; set; }
         public DateTime DatumRegistracije { get; set; }
-        public bool? isAdmin { get; set; }
-        public bool? isZaposlenik { get; set; }
-        public bool? isKupac { get; set; }
+        public bool? isAdmin { get; set; } = false;
+        public bool? isZaposlenik { get; set; } = false;
+        public bool? isKupac { get; set; } = true;
         [ForeignKey("SpolId")]
-        public Spol Spol { get; set; }
+        public Spol? Spol { get; set; }
         public int? SpolId { get; set; }
-
+        
     }
 }

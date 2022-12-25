@@ -76,4 +76,8 @@ this.router.navigate(['/help1']);
     this.potvrda=true;
     this.router.navigate(['/prodavnice']);
   }
+
+  submit_newsletter() {
+
+  }
 }
