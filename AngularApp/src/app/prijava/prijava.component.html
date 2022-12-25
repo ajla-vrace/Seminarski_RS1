@@ -1,0 +1,45 @@
+
+<div class="login">
+
+  <div class="naslov">
+    <h4>Dobrodošli na našu stranicu</h4>
+  </div>
+
+  <div class="prijaviteSe">
+    <h5>Izvršite prijavu</h5>
+  </div>
+
+  <hr>
+
+  <div class="mb-3 row">
+
+    <div class="col-sm-3">
+      <input id="txtKorisnickoIme" [(ngModel)]="txtKorisnickoIme" class="form-control">
+    </div>
+
+    <label for="txtKorisnickoIme" class="col-sm-2 col-form-label">Korisničko ime</label>
+
+  </div>
+
+  <div class="mb-3 row">
+
+    <div class="col-sm-3">
+      <input id="txtLozinka" [(ngModel)]="txtLozinka" class="form-control" type="password">
+    </div>
+
+    <label for="txtLozinka" class="col-sm-2 col-form-label">Lozinka</label>
+
+  </div>
+
+
+  <div class="dugme-login">
+    <button class="btn" (click)="btnLogin()">Prijavi se</button>
+  </div>
+
+
+  <br>
+  <div class="registracija">
+    <a routerLink="/registracija">Registracija</a>
+  </div>
+
+</div>

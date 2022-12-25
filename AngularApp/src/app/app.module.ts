@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { AppComponent } from './app.component';
 import { FaqComponent } from './faq/faq.component';
 import { Help1Component } from './help1/help1.component';
@@ -18,6 +18,7 @@ import { KontaktComponent } from './kontakt/kontakt.component';
 import { ProdavniceComponent } from './prodavnice/prodavnice.component';
 import { ZaposlenikPocetnaComponent } from './zaposlenik-pocetna/zaposlenik-pocetna.component';
 import { AdminPocetnaComponent } from './admin-pocetna/admin-pocetna.component';
+import { PrijavaComponent } from './prijava/prijava.component';
 
 
 
@@ -38,6 +39,7 @@ import { AdminPocetnaComponent } from './admin-pocetna/admin-pocetna.component';
     ProdavniceComponent,
     ZaposlenikPocetnaComponent,
     AdminPocetnaComponent,
+    PrijavaComponent,
 
 
 
@@ -58,10 +60,12 @@ import { AdminPocetnaComponent } from './admin-pocetna/admin-pocetna.component';
       {path: 'kontakt', component: KontaktComponent},
       {path: 'prodavnice', component: ProdavniceComponent},
       {path: 'zaposlenik-pocetna', component:ZaposlenikPocetnaComponent},
-      {path: 'admin-pocetna',component:AdminPocetnaComponent}
+      {path: 'admin-pocetna',component:AdminPocetnaComponent},
+      {path: 'prijava', component:PrijavaComponent}
 
   ]),
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

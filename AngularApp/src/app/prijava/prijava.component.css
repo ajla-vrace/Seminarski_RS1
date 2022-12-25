@@ -1,0 +1,78 @@
+
+
+.login{
+  background-color: #ffdddc;
+  width:50%;
+  margin:4% auto 4% auto;
+  padding:2%;
+  border-radius: 30px;
+  box-shadow: 5px 10px #c4a298;
+}
+
+.dugme-login{
+  width:90%;
+  margin:auto;
+}
+
+.btn{
+  width:100%;
+  background-color: hotpink;
+  font-size: larger;
+  color:white;
+  font-weight: 700;
+}
+
+.col-sm-3{
+  width:90%;
+  margin:auto;
+}
+
+input{
+  width:100%;
+  border-radius: 30px;
+  font-size: larger;
+  text-align: center;
+}
+
+.col-form-label{
+  width:30%;
+  margin: auto;
+  text-align: center;
+}
+
+.registracija{
+  width:10%;
+  margin: auto;
+}
+
+a{
+  text-decoration: none;
+  color:hotpink;
+}
+
+a:hover{
+  color: lightpink;
+}
+
+.naslov, .prijaviteSe{
+  width:50%;
+
+}
+
+.naslov{
+  margin:auto;
+}
+
+.prijaviteSe{
+  margin:auto auto 2% auto;
+}
+
+h5, h4{
+  width:100%;
+  text-align: center;
+  padding:2%;
+}
+
+hr{
+  margin-bottom: 3%;
+}
