@@ -18,7 +18,7 @@ email:any;
 lozinka:any;
 datumregistracije:any;
 iskupac:boolean=true;
-  hero: any;
+   spolid: any;
   constructor(private httpKlijent: HttpClient, private router: Router) {
   }
 
@@ -29,7 +29,7 @@ validacija(){
 
 }
   btn_registracija(ime_input:any,prezime_input:any,
-                   username_input:any, lozinka_input:any,email_input:any,) {
+                   username_input:any, lozinka_input:any,email_input:any) {
 
     this.noviKorisnik={
       id:0,
@@ -39,11 +39,9 @@ validacija(){
       username:username_input.value,
       lozinka:lozinka_input.value,
       iskupac:true,
+      spolid:3,
     }
-   if(this.ime=="" || this.prezime==""){
-     alert("neuspjesno");
-     return;
-   }
+
     this.httpKlijent.post(`${MojConfig.adresa_servera}/Korisnik/Add`, this.noviKorisnik, MojConfig.http_opcije()).subscribe(x => {
       this.fetchKorisnici();
 
