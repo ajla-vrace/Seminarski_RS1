@@ -35,6 +35,7 @@ import { ProfilAdminComponent } from './profil-admin/profil-admin.component';
 import {ReactiveFormsModule} from "@angular/forms";
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -104,7 +105,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 
   ]),
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

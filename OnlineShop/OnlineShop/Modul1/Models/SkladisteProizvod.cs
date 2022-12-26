@@ -16,5 +16,7 @@ namespace OnlineShop.Modul1.Models
 
         public int kolicina { get; set; }
 
+        //datum kreiranja i modifikacije
+
     }
 }

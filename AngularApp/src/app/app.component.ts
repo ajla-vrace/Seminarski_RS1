@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+﻿import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "./moj-config";
@@ -80,13 +80,13 @@ export class AppComponent {
 
 
 
+
   submit_newsletter() {}
 
 
 
+    odjaviSe()
 
-//odjava
-  odjaviSe()
     {
       // @ts-ignore
       AutentifikacijaHelper.setLoginInfo(null);

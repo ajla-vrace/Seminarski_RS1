@@ -26,8 +26,8 @@ namespace OnlineShop.Modul1.Controllers
             public string KategorijaOpis { get; set; }
         }
 
-        [HttpPost]
-        public ActionResult Snimi(PodkategorijaVM x)
+        [HttpPost("nova_p")]
+        public ActionResult Snimi([FromBody] PodkategorijaVM x)
         {
             Podkategorija? pk;
 
@@ -68,7 +68,7 @@ namespace OnlineShop.Modul1.Controllers
                 KategorijaID = x.KategorijaId,
                 KategorijaOpis = x.Kategorija.Naziv
             });
-            return data.OrderBy(s => s.KategorijaOpis).ToList();
+            return data.OrderByDescending(s => s.Id).ToList();
         }
 
 
