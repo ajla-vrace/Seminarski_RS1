@@ -51,11 +51,6 @@ validacija(){
 
   }
 
-
-
-
-
-
   fetchKorisnici() :void
   {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Korisnik/GetAll", MojConfig.http_opcije()).subscribe(x=>{
