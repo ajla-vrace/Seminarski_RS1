@@ -33,6 +33,7 @@ import { KatPodkatComponent } from './kat-podkat/kat-podkat.component';
 import { StatistikaComponent } from './statistika/statistika.component';
 import { ProfilAdminComponent } from './profil-admin/profil-admin.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { VodiczavelicineComponent } from './vodiczavelicine/vodiczavelicine.component';
 
 
 
@@ -67,6 +68,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     KatPodkatComponent,
     StatistikaComponent,
     ProfilAdminComponent,
+    VodiczavelicineComponent,
 
 
 
@@ -101,8 +103,8 @@ import {ReactiveFormsModule} from "@angular/forms";
       {path: 'spec-pon', component:SpecPonComponent},
       {path: 'kat-podkat', component:KatPodkatComponent},
       {path: 'statistika', component:StatistikaComponent},
-      {path: 'profil-admin', component:ProfilAdminComponent}
-
+      {path: 'profil-admin', component:ProfilAdminComponent},
+      {path: 'vodiczavelicine', component:VodiczavelicineComponent},
   ]),
     FormsModule,
     HttpClientModule,
