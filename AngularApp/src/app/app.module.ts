@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import {NgxPaginationModule} from "ngx-pagination";
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
@@ -108,6 +109,7 @@ import { VodiczavelicineComponent } from './vodiczavelicine/vodiczavelicine.comp
   ]),
     FormsModule,
     HttpClientModule,
+    NgxPaginationModule,
     ReactiveFormsModule
   ],
   providers: [],

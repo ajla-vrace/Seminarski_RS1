@@ -18,7 +18,7 @@ h6{
 
 .sredina{
   width:90%;
-  margin:auto;
+  margin:3% auto 3% auto;
   padding:1%;
   display: flex;
   /*justify-content: space-between;
@@ -81,10 +81,20 @@ h6{
 .mb-3{
   text-align: center;
 }
+
 img{
   cursor: pointer;
 }
 
-table{
-  overflow: scroll;
+.my-pagination /deep/ .ngx-pagination .current
+{
+  background-color: pink;
+  border-radius: 30px;
+}
+
+
+.submit-kat, .submit-podkat{
+  background-color: #ffdddc;
+  border:groove;
+  border-color: pink;
 }
