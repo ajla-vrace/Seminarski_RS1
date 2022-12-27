@@ -1,7 +1,15 @@
+.filtriranje{
+  display: grid;
+  grid-template-columns: 75% 20% 30%;
+  grid-auto-rows: 40px;
+  width:50%;
+  gap:2%;
+}
+
 .pretraga-div{
   display: flex;
-  width:20%;
-  margin:2% auto 2% auto;
+  width:90%;
+ /* margin:2% auto 2% auto;*/
 }
 
 .pretraga-div .pretrazi-proizvode{
@@ -10,6 +18,14 @@
   border-top-left-radius: 30px;
   border:groove;
   padding:2%;
+}
+
+.cmb-aktivnost{
+  width:100%;
+}
+
+.sortiranje{
+  width: 100%;
 }
 
 .pretraga-div .img-search{
@@ -22,10 +38,10 @@
   cursor: pointer;
 }
 
+
 .pretraga-div .img-search:hover{
   background-color: #d7f5ff;
 }
-
 
 
 .help-block{
@@ -35,41 +51,20 @@
   color:red;
 }
 
-/*
-.pretraga-dodajProizvod{
+
+.pretraga{
+  margin:3% auto 3% auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  width:90%;
 }
-*/
-.pretraga{
- width:20%;
-  margin:3% auto 0 auto;
-  /*margin-right: 85%;*/
-}
-/*
-.filter{
-  width:100%;
-  border-bottom:solid;
-  border-top:none;
-  border-right: none;
-  border-left:none;
-  padding:1%;
-  text-align: center;
-}
-*/
 
 .add-proizvod-div{
-   width: 20%;
- /* margin-left:85%;*/
-   margin:0 auto 0 auto;
+   width: 15%;
 }
 
 .add-proizvod{
-  /*
-  width:100%;
-  border-radius: 30px;
-  background-color: cornflowerblue;*/
-
   width:100%;
   border:groove;
   border-radius: 30px;
@@ -78,6 +73,9 @@
   color:black;
 }
 
+.form-control{
+  background-color: #95e4ff;
+}
 
 /*tabela*/
 
@@ -85,17 +83,6 @@ table{
   width:90%;
   margin:2% auto 2% auto;
 }
-
-/*
-.edit-btn, .delete-btn{
-  width:100%;
-  border:groove;
-  border-radius: 30px;
-  padding:2%;
-  background-color: #95e4ff;
-  color:black;
-}
-*/
 
 table img{
   width:30px;

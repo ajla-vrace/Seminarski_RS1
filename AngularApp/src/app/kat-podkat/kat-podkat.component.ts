@@ -33,6 +33,15 @@ export class KatPodkatComponent implements OnInit {
       datum_modifikacije:"2022-12-26T10:48:35.045Z"
     }
 
+
+    this.nova_kategorija={
+      id:0,
+      naziv:"",
+      datum_kreiranja: "2022-12-25T00:00:00",
+      datum_modifikacije: "2022-12-25T00:00:00"
+    }
+
+
     this.getPodkategorije();
     this.getKategorije();
   }
@@ -61,29 +70,45 @@ export class KatPodkatComponent implements OnInit {
 
     if(this.kliknuoPretrazi){
       let filtriraniPodaci= this.podaci_podkategorije?.filter((x:any)=>(
-        x.naziv.toLowerCase().startsWith(pretraga.toLowerCase())))
+        x.naziv.toLowerCase().startsWith(pretraga.toLowerCase())));
 
-      this.totalLength=filtriraniPodaci.length==0?0:filtriraniPodaci.length;
+      this.totalLength=filtriraniPodaci?.length==0?0:filtriraniPodaci?.length;
 
       return filtriraniPodaci;
     }
     else{
-      this.totalLength=this.podaci_podkategorije.length==0?0:this.podaci_podkategorije.length;
+      this.totalLength=this.podaci_podkategorije?.length==0?0:this.podaci_podkategorije?.length;
       return this.podaci_podkategorije;
     }
 
 
   }
 
-  dodajKategoriju(nazivKat: string) {
+  dodajKategoriju() {
+    /*
     this.nova_kategorija={
       id:0,
-      naziv:nazivKat
+      naziv:nazivKat,
+      datum_kreiranja: "2022-12-25T00:00:00",
+      datum_modifikacije: "2022-12-25T00:00:00"
     }
-
+*/
     this.httpKlijent.post(MojConfig.adresa_servera+"/api/Kategorija",this.nova_kategorija)
       .subscribe((x:any)=>{
-        console.log(this.podaci_kategorije)
+
+        this.getKategorije();
+
+        this.nova_kategorija={
+          id:0,
+          naziv:"",
+          datum_kreiranja: "2022-12-25T00:00:00",
+          datum_modifikacije: "2022-12-25T00:00:00"
+        }
+
+        console.log(this.nova_kategorija);
+
+        console.log(this.podaci_kategorije);
+
 
       })
 
@@ -106,6 +131,7 @@ export class KatPodkatComponent implements OnInit {
           datum_modifikacije:"2022-12-26T10:48:35.045Z"
         }
 
+        console.log(this.nova_podkategorija);
       })
   }
 

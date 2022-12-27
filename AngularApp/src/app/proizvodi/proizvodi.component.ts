@@ -13,6 +13,8 @@ export class ProizvodiComponent implements OnInit {
   constructor(private httpKlijent:HttpClient) { }
 
   proizvodi:any;
+  proizvodi_rastuci:any;
+  proizvod_opadajuci:any;
   odabrani_proizvod:any;
   podkategorije:any;
   kategorije:any;
@@ -24,11 +26,18 @@ export class ProizvodiComponent implements OnInit {
   kliknuoPretrazi:boolean=false;
   kliknuoEdit:boolean=false;
   naslov:string="";
+  staJeIzabrano: string="Sve";  //aktivni neaktivni proizvodi
+  //paginacija
+  totalLength:number=0;
+  page:number=1;
+  sortirajPo: string="Datum opadajući";
 
 
 
   ngOnInit(): void {
-    this.getProizvodPodaci();
+  //  this.getProizvodPodaci();
+    this.getProizvodRastuci();
+    this.getProizvodOpadajući();
     this.getKategorije();
     this.getSezone();
     this.getBoje();
@@ -40,6 +49,20 @@ export class ProizvodiComponent implements OnInit {
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod").subscribe((x:any)=>{
       this.proizvodi=x;
       console.log(this.proizvodi);
+    })
+  }
+
+  getProizvodRastuci(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/datumRastuci").subscribe((x:any)=>{
+      this.proizvodi_rastuci=x;
+      console.log(this.proizvodi_rastuci);
+    })
+  }
+
+  getProizvodOpadajući(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/datumOpadajuci").subscribe((x:any)=>{
+      this.proizvod_opadajuci=x;
+      console.log(this.proizvod_opadajuci);
     })
   }
 
@@ -130,24 +153,65 @@ export class ProizvodiComponent implements OnInit {
 
   }
 
+  filtering(x:any, p:any):any{
+    return ( x.naziv.toLowerCase().includes(p.toLowerCase()) ||
+      x.opis.toLowerCase().includes(p.toLowerCase()) || x.bojaOpis.toLowerCase().includes(p.toLowerCase())
+      || x.podkategorijaOpis.toLowerCase().includes(p.toLowerCase()) || x.kategorijaOpis.toLowerCase().includes(p.toLowerCase())
+      || x.sezonaOpis.toLowerCase().includes(p.toLowerCase()) || x.kolekcijaOpis.toLowerCase().includes(p.toLowerCase())
+      || x.odjelOpis.toLowerCase().includes(p.toLowerCase()))
+  }
+
+  filterNiz(niz:any, p:any):any{
+
+    let aktivnost=this.staJeIzabrano=="Aktivan"?true:false;
+
+    if(this.staJeIzabrano=="Sve"){
+      if(this.kliknuoPretrazi){
+        let data=niz.filter((x:any)=>( this.filtering(x,p)));
+        this.totalLength=data?.length>0?data.length:0;
+        return data;
+      }
+      else {
+        this.totalLength = niz?.length>0 ? niz.length : 0;
+        return niz;
+      }
+    }
+    else {
+      if (this.kliknuoPretrazi) {
+        let data=niz.filter((x: any) => (((this.filtering(x,p)) && x.aktivan == aktivnost)));
+        this.totalLength=data?.length>0?data.length:0;
+        return data;
+      } else{
+        let data2=niz.filter((x:any)=>(x.aktivan==aktivnost));
+        this.totalLength=data2?.length>0?data2.length:0;
+        return data2;
+      }
+    }
+  }
+
+
   getFilterProizvodi(p: string) {
     if(p==null) p="";
 
-    if(this.kliknuoPretrazi){
-      return  this.proizvodi.filter((x:any)=>( x.naziv.toLowerCase().startsWith(p.toLowerCase())))
+    if(this.sortirajPo=="Datum opadajući"){
+      return this.filterNiz(this.proizvod_opadajuci,p);
     }
-    else
-      return this.proizvodi;
+    else{
+      return this.filterNiz(this.proizvodi_rastuci,p);
+    }
+
   }
 
   dodajProizvod() {
     this.kliknuoEdit=false;
 
+    this.naslov="Dodaj novi proizvod";
+
     this.odabrani_proizvod={
       id:0,
       sifra:0,
       naziv:"",
-      cijena:0.0,
+      cijena:1.0,
       opis:"",
       aktivan:true,
       bojaId:1,

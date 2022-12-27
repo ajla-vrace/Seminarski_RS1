@@ -7,9 +7,9 @@
 
     <div class="add-kat">
       <input class="input-kat" type="text" placeholder="upišite naziv kategorije"
-             #nazivKat>
+           [(ngModel)]="nova_kategorija.naziv"  #nazivKat >
       <div class="btn-kat">
-        <button class="submit-kat" (click)="dodajKategoriju(nazivKat.value)">Spasi</button>
+        <button class="submit-kat" (click)="dodajKategoriju()">Spasi</button>
       </div>
       <h6>Dodaj kategoriju</h6>
     </div>

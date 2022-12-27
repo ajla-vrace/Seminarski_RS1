@@ -46,16 +46,6 @@ namespace OnlineShop.Modul1.Controllers
             public int? sezonaId { get; set; }
             public string sezonaOpis { get; set; }
 
- 
-            //skladiste se mora dodati prije dodavanja proizvoda (treba imati svoj controller)
-
-
-            //za skladiste-proizvod
-            
-            //public int skladisteId { get; set; }
-            //public string skladisteOpis { get; set; }
-            //public int kolicina { get; set; }
-
         }
 
 
@@ -94,16 +84,6 @@ namespace OnlineShop.Modul1.Controllers
 
             context.SaveChanges();
 
-            //SkladisteProizvod sp = new SkladisteProizvod()
-            //{
-            //    proizvodId = p.Id,
-            //    skladisteId = x.skladisteId,
-            //    kolicina = x.kolicina
-            //};
-
-            //context.Add(sp);
-            //context.SaveChanges();
-
             return Ok(p);
 
         }
@@ -132,14 +112,76 @@ namespace OnlineShop.Modul1.Controllers
                 kolekcijaId=x.kolekcijaId,
                 kolekcijaOpis=x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                 sezonaId=x.sezonaId,
-                sezonaOpis=x.sezona.Naziv,
-              
-               
+                sezonaOpis=x.sezona.Naziv,          
 
             });
 
             return data.OrderByDescending(x=>x.Id).ToList();
         }
+
+        [HttpGet("datumRastuci")]
+        public List<ProizvodVM> GetProizvodeDatumRastuci()
+        {
+            var data = context.Proizvod.Select(x => new ProizvodVM
+            {
+                Id = x.Id,
+                Sifra = x.Sifra,
+                Naziv = x.Naziv,
+                Cijena = x.Cijena,
+                Opis = x.Opis,
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije,
+                Aktivan = x.Aktivan,
+                bojaId = x.bojaId,
+                bojaOpis = x.boja.Naziv,
+                odjelId = x.odjelId,
+                odjelOpis = x.odjel.Naziv,
+                kategorijaId = x.kategorijaId,
+                kategorijaOpis = x.kategorija.Naziv,
+                podkategorijaId = x.podkategorijaId,
+                podkategorijaOpis = x.podkategorija.Naziv,
+                kolekcijaId = x.kolekcijaId,
+                kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
+                sezonaId = x.sezonaId,
+                sezonaOpis = x.sezona.Naziv,
+
+            });
+
+            return data.OrderBy(x=>x.datum_kreiranja).ToList();
+        }
+
+
+        [HttpGet("datumOpadajuci")]
+        public List<ProizvodVM> GetProizvodeDatumOpadajuci()
+        {
+            var data = context.Proizvod.Select(x => new ProizvodVM
+            {
+                Id = x.Id,
+                Sifra = x.Sifra,
+                Naziv = x.Naziv,
+                Cijena = x.Cijena,
+                Opis = x.Opis,
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije,
+                Aktivan = x.Aktivan,
+                bojaId = x.bojaId,
+                bojaOpis = x.boja.Naziv,
+                odjelId = x.odjelId,
+                odjelOpis = x.odjel.Naziv,
+                kategorijaId = x.kategorijaId,
+                kategorijaOpis = x.kategorija.Naziv,
+                podkategorijaId = x.podkategorijaId,
+                podkategorijaOpis = x.podkategorija.Naziv,
+                kolekcijaId = x.kolekcijaId,
+                kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
+                sezonaId = x.sezonaId,
+                sezonaOpis = x.sezona.Naziv,
+
+            });
+
+            return data.OrderByDescending(x => x.datum_kreiranja).ToList();
+        }
+
 
         [HttpDelete]
         public ActionResult ObrisiProizvod (int id)
@@ -151,19 +193,6 @@ namespace OnlineShop.Modul1.Controllers
 
             if (p == null)
                 return BadRequest("nema proizvoda u bazi.");
-
-            //prvo uraditi remove stavke skladiste-proizvod koji ima ovaj id proizvoda. (provjeriti)
-
-            //List<SkladisteProizvod> sp = context.SkladisteProizvod.Where(x => x.proizvodId == id).ToList();
-
-            //if (sp.Count > 0)
-            //{
-            //    foreach (var x in sp)
-            //    {
-            //        context.Remove(x);
-            //        context.SaveChanges();
-            //    }
-            //}
 
             context.Remove(p);
             context.SaveChanges();
