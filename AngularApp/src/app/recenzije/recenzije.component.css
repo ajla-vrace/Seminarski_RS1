@@ -1,0 +1,17 @@
+table,tr,td,th{
+  border:1px black solid;
+  width: 100%;
+  margin-top: 1%;
+}
+#divTabela{
+
+
+}
+thead,th {
+  background-color: black;
+color: white;
+  border-right: 0.3mm  solid grey;
+}
+tbody{
+  background-color: cornflowerblue;
+}

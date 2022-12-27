@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.Data;
+using OnlineShop.Modul1.Models;
 
 namespace OnlineShop.Modul1.Controllers
 {
@@ -32,6 +34,14 @@ namespace OnlineShop.Modul1.Controllers
                 }).ToList();
 
             return data;
+        }
+
+        [HttpGet("id")] 
+        public List<Prodavnica> GetAll1()
+        {
+            var priprema = context.Prodavnica.ToList();
+
+            return priprema;
         }
 
         public class ProdavnicaGetAllVM

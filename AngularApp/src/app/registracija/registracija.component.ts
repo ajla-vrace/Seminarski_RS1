@@ -21,7 +21,7 @@ iskupac:boolean=true;
    spolid: any;
   constructor(private httpKlijent: HttpClient, private router: Router) {
   }
-
+greska:any;
   ngOnInit(): void {
     this.fetchKorisnici();
   }

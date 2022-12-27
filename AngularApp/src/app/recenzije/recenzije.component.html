@@ -1,3 +1,37 @@
 <app-navbar-admin></app-navbar-admin>
 
-<p>recenzije works!</p>
+<div style="margin: 2% 15%">
+  <label>Filter prodavnica: </label>
+  <input type="text" [(ngModel)]="pretraga" style="margin-left:1% ">
+  <div id="divTabela">
+    <table class="table table-warning">
+      <thead style="background-color: black;">
+      <tr style="background-color: black;">
+        <th style="width: 20px;">ID</th>
+        <th>Opis</th>
+        <th>Kupac</th>
+        <th>Prodavnica</th>
+        <th>Datum</th>
+        <th>Akcija</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let s of get_podaci_filtrirano()">
+        <td style="width: 20px;">{{s.id}}</td>
+        <td>{{s.opis}}</td>
+        <td>{{s.kupac}}</td>
+        <td>{{s.prodavnica}}</td>
+        <td>{{s.datumKreiranja}}</td>
+        <td>
+          <button (click)="brisi_komenatar(s)">Obrisi</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+
+
