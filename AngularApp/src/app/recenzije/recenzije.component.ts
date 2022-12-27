@@ -15,7 +15,7 @@ export class RecenzijeComponent implements OnInit {
   }
   fetchProdavnice() :void
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "Prodavnica/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "Prodavnica/GetByAll", MojConfig.http_opcije()).subscribe(x=>{
       this.komentariPodaci = x;
     });
   }
