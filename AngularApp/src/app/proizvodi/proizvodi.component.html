@@ -1,3 +1,242 @@
 <app-navbar-zaposlenik></app-navbar-zaposlenik>
 
-<p>proizvodi works!</p>
+<div class="pretraga-dodajProizvod">
+
+<div class="pretraga-div">
+  <input class="pretrazi-proizvode" type="text" placeholder="pretrazi proizvod..." #pretraga_proizvoda>
+  <img class="img-search" src="assets/slike/search.svg" (click)="kliknuoPretrazi=true">
+</div>
+
+
+
+<div class="add-proizvod-div">
+  <button class="add-proizvod" (click)="dodajProizvod()">Dodaj proizvod</button>
+
+</div>
+
+</div>
+<br><br>
+
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col">Šifra</th>
+    <th scope="col">Naziv</th>
+    <th scope="col">Cijena</th>
+    <th scope="col">Opis</th>
+    <th scope="col">Datum kreiranja</th>
+    <th scope="col">Datum modifikacije</th>
+    <th scope="col">Aktivan</th>
+    <th scope="col">Boja</th>
+    <th scope="col">Odjel</th>
+    <th scope="col">Kategorija</th>
+    <th scope="col">Podkategorija</th>
+    <th scope="col">Kolekcija</th>
+    <th scope="col">Sezona</th>
+    <th></th>
+    <th></th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <!--proizvodi-->
+  <tr *ngFor="let p of getFilterProizvodi(pretraga_proizvoda.value)">
+    <th scope="row">{{p.id}}</th>
+    <td>{{p.sifra}}</td>
+    <td>{{p.naziv}}</td>
+    <td>{{p.cijena}}</td>
+    <td>{{p.opis}}</td>
+    <td>{{p.datum_kreiranja}}</td>
+    <td>{{p.datum_modifikacije}}</td>
+    <td>{{p.aktivan}}</td>
+    <td>{{p.bojaOpis}}</td>
+    <td>{{p.odjelOpis}}</td>
+    <td>{{p.kategorijaOpis}}</td>
+    <td>{{p.podkategorijaOpis}}</td>
+    <td>{{p.kolekcijaOpis}}</td>
+    <td>{{p.sezonaOpis}}</td>
+    <td> <img src="assets/slike/pencil-square.svg" class="edit-btn" (click)="EditDugme(p)"></td>
+    <td> <img src="assets/slike/x-square.svg" class="delete-btn" (click)="DeleteDugme(p)"></td>
+
+  </tr>
+
+  </tbody>
+</table>
+
+
+
+
+<div *ngIf="odabrani_proizvod!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel" > {{naslov}} </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="odabrani_proizvod=null; getProizvodPodaci(); "></button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="mb-3" [class.has-error]="sifraControll.invalid && sifraControll.touched && !dozvoljenaSifra(sifraInput.value)">
+          <label class="form-label">sifra</label>
+          <input type="number" #sifraInput required pattern="^\d+$" #sifraControll="ngModel" class="form-control" placeholder="Sifra" [(ngModel)]="odabrani_proizvod.sifra" [disabled]="jelDisabledSifra(odabrani_proizvod)" (click)="dozvoljenaSifra(sifraInput.value)" >
+
+          <span class="help-block" *ngIf="kliknuoEdit==false && ((sifraControll.invalid && sifraControll.touched) || dozvoljenaSifra(sifraInput.value)==false)">
+              this is required and can only have numbers and cannot be duplicated
+          </span>
+
+        </div>
+
+
+
+        <div class="mb-3" [class.has-error]="nazivControll.invalid && nazivControll.touched">
+          <label class="form-label">naziv</label>
+          <input type="text" required minlength="3" #nazivControll="ngModel" class="form-control" placeholder="Naziv" [(ngModel)]="odabrani_proizvod.naziv" >
+
+          <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">
+            Ovo polje je obavezno i mora imati najmanje 3 karaktera
+          </span>
+
+        </div>
+
+
+
+        <div class="mb-3" [class.has-error]="cijenaControll.invalid && cijenaControll.touched">
+          <label class="form-label">cijena</label>
+          <input required #cijenaControll="ngModel" pattern="^[0-9]+\.?[0-9]+$" #cijena class="form-control" placeholder="Cijena" [(ngModel)]="odabrani_proizvod.cijena"/>
+
+          <span class="help-block" *ngIf="(cijenaControll.invalid && cijenaControll.touched) || jelUnesenaNula(cijena.value)">
+              Ovo polje je obavezno
+          </span>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="opisControll.invalid && opisControll.touched">
+          <label class="form-label">opis</label>
+          <input required #opisControll="ngModel" class="form-control" placeholder="Opis" [(ngModel)]="odabrani_proizvod.opis" />
+
+          <span class="help-block" *ngIf="opisControll.invalid && opisControll.touched">
+              Ovo polje je obavezno
+          </span>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="bojaControll.invalid && bojaControll.touched">
+          <label class="form-label">Boja</label>
+
+          <select required #bojaControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.bojaId"  >
+            <option *ngFor="let b of boje " [value]="b?.id">{{b.naziv}}</option>
+
+          </select>
+
+          <span class="help-block" *ngIf="bojaControll.invalid && bojaControll.touched">
+              Ovo polje je obavezno
+          </span>
+        </div>
+
+
+        <!--
+<div class="radio-odjel" >
+        <div class="form-check" [(ngModel)]="odabrani_proizvod.odjelId">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked (click)="odabrani_proizvod.odjelId=1" >
+          <label  class="form-check-label" for="flexRadioDefault1"  >
+            Muški odjel
+          </label>
+        </div>
+        <div class="form-check" [(ngModel)]="odabrani_proizvod.odjelId">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"  (click)="odabrani_proizvod.odjelId=2">
+          <label class="form-check-label" for="flexRadioDefault2">
+            Ženski odjel
+          </label>
+        </div>
+</div>
+
+-->
+
+        <div class="mb-3" [class.has-error]="odjelControll.invalid && odjelControll.touched">
+          <label class="form-label">Odjel</label>
+
+          <select required #odjelControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.odjelId"  >
+            <option *ngFor="let o of odjeli " [value]="o?.id"> {{o.naziv}}</option>
+          </select>
+
+          <span class="help-block" *ngIf="odjelControll.invalid && odjelControll.touched">
+              Ovo polje je obavezno
+          </span>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="katControll.invalid && katControll.touched">
+          <label class="form-label">Kategorija</label>
+
+          <select required #katControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.kategorijaId" (click)="kliknuoEdit=false; getPodkategorijeByKatID();" >
+            <option *ngFor="let k of kategorije " [value]="k?.id"  >{{k.naziv}}</option>
+
+          </select>
+
+          <span class="help-block" *ngIf="katControll.invalid && katControll.touched">
+              Ovo polje je obavezno
+          </span>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="podkatControll.invalid && podkatControll.touched">
+          <label class="form-label">Podkategorija</label>
+
+          <select required #podkatControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.podkategorijaId">
+
+            <option *ngFor="let p of podkategorije " [value]="p?.id" >{{p.naziv}} </option>
+
+          </select>
+
+          <span class="help-block" *ngIf="podkatControll.invalid && podkatControll.touched">
+              Ovo polje je obavezno
+          </span>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="sezonaControll.invalid && sezonaControll.touched">
+          <label class="form-label">Sezona</label>
+
+          <select required #sezonaControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.sezonaId" (click)="kliknuoEdit=false; getKolekcijeBySezonaID();" >
+            <option *ngFor="let s of sezone " [value]="s?.id"  >{{s.naziv}}</option>
+
+          </select>
+
+          <span class="help-block" *ngIf="sezonaControll.invalid && sezonaControll.touched">
+              Ovo polje je obavezno
+          </span>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="kolekcijaControll.invalid && kolekcijaControll.touched">
+          <label class="form-label">Kolekcija</label>
+
+          <select required #kolekcijaControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.kolekcijaId">
+
+            <option *ngFor="let kol of kolekcije " [value]="kol?.id" >{{kol.naziv}} </option>
+
+          </select>
+
+          <span class="help-block" *ngIf="kolekcijaControll.invalid && kolekcijaControll.touched">
+              Ovo polje je obavezno
+          </span>
+        </div>
+
+        <div class="mb-3">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="odabrani_proizvod.aktivan">
+          <label class="form-check-label" for="exampleCheck1" >Aktivan</label>
+        </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="jelOmogucenSave(sifraControll, sifraInput, nazivControll,cijenaControll,opisControll,bojaControll, podkatControll,katControll,sezonaControll,kolekcijaControll)" type="button" class="btn btn-primary" (click)="spasi(odabrani_proizvod)" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

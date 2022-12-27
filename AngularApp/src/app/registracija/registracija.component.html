@@ -3,26 +3,26 @@
   <h2 style="text-align: center;">Registracija</h2>
   <hr>
 
- <form formGroup="registeredForm" >
+ <form >
    <div>
      <label>Ime</label>
-     <input type="text"  ngModel #ime_input="ngModel" required pattern="^[A-Z][a-z]{10}$" />
+     <input type="text"   #ime_input required pattern="^[A-Z][a-z]{10}$" />
    </div>
    <div class="form_group">
      <label>Prezime</label>
-     <input type="text" ngModel #prezime_input="ngModel" required/>
+     <input type="text"  #prezime_input required/>
    </div>
    <div class="form_group">
      <label>Email</label>
-     <input type="text" ngModel #email_input="ngModel" required/>
+     <input type="text"  #email_input required/>
    </div>
    <div class="form_group">
      <label>Username</label>
-     <input type="text" ngModel #username_input="ngModel" required/>
+     <input type="text"  #username_input required/>
    </div>
    <div class="form_group">
      <label>Lozinka</label>
-     <input type="password" ngModel #lozinka_input="ngModel" required/>
+     <input type="password"  #lozinka_input required/>
    </div>
 
  </form>

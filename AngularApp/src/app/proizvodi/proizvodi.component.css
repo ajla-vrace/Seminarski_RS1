@@ -1,0 +1,106 @@
+.pretraga-div{
+  display: flex;
+  width:20%;
+  margin:2% auto 2% auto;
+}
+
+.pretraga-div .pretrazi-proizvode{
+  width:100%;
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
+  border:groove;
+  padding:2%;
+}
+
+.pretraga-div .img-search{
+  border:groove;
+  background-color: white;
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 30px;
+  border-left: none;
+  padding:2%;
+  cursor: pointer;
+}
+
+.pretraga-div .img-search:hover{
+  background-color: #d7f5ff;
+}
+
+
+
+.help-block{
+  color:red;
+}
+.dozv-sifra-span{
+  color:red;
+}
+
+/*
+.pretraga-dodajProizvod{
+  display: flex;
+  justify-content: space-between;
+}
+*/
+.pretraga{
+ width:20%;
+  margin:3% auto 0 auto;
+  /*margin-right: 85%;*/
+}
+/*
+.filter{
+  width:100%;
+  border-bottom:solid;
+  border-top:none;
+  border-right: none;
+  border-left:none;
+  padding:1%;
+  text-align: center;
+}
+*/
+
+.add-proizvod-div{
+   width: 20%;
+ /* margin-left:85%;*/
+   margin:0 auto 0 auto;
+}
+
+.add-proizvod{
+  /*
+  width:100%;
+  border-radius: 30px;
+  background-color: cornflowerblue;*/
+
+  width:100%;
+  border:groove;
+  border-radius: 30px;
+  padding:2%;
+  background-color: #95e4ff;
+  color:black;
+}
+
+
+/*tabela*/
+
+table{
+  width:90%;
+  margin:2% auto 2% auto;
+}
+
+/*
+.edit-btn, .delete-btn{
+  width:100%;
+  border:groove;
+  border-radius: 30px;
+  padding:2%;
+  background-color: #95e4ff;
+  color:black;
+}
+*/
+
+table img{
+  width:30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {MojConfig} from "../moj-config";
+import {NgModel} from "@angular/forms";
 
 @Component({
   selector: 'app-proizvodi',
@@ -7,9 +10,219 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProizvodiComponent implements OnInit {
 
-  constructor() { }
+  constructor(private httpKlijent:HttpClient) { }
+
+  proizvodi:any;
+  odabrani_proizvod:any;
+  podkategorije:any;
+  kategorije:any;
+  kolekcije:any;
+  sezone:any;
+  boje:any;
+  sifre:any;
+  odjeli:any;
+  kliknuoPretrazi:boolean=false;
+  kliknuoEdit:boolean=false;
+  naslov:string="";
+
+
 
   ngOnInit(): void {
+    this.getProizvodPodaci();
+    this.getKategorije();
+    this.getSezone();
+    this.getBoje();
+    this.getSifre();
+    this.getOdjeli();
   }
 
+  getProizvodPodaci(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod").subscribe((x:any)=>{
+      this.proizvodi=x;
+      console.log(this.proizvodi);
+    })
+  }
+
+  getKategorije(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Kategorija").subscribe((x:any)=>{
+      this.kategorije=x;
+    })
+  }
+
+  getPodkategorijeByKatID(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Kategorija/GetPodkategorije?katID="+
+      this.odabrani_proizvod.kategorijaId).subscribe((x:any)=>{
+      this.podkategorije=x;
+      if(this.kliknuoEdit==false){
+        if(this.podkategorije.length>0)
+           this.odabrani_proizvod.podkategorijaId=this.podkategorije[0].id;
+        else
+          this.podkategorije=[];
+      }
+
+
+    })
+  }
+
+  getSezone(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/sezone")
+      .subscribe((x:any)=>{
+        this.sezone=x;
+      })
+  }
+
+  getKolekcijeBySezonaID(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/getKolekcije?id="+
+    this.odabrani_proizvod.sezonaId).subscribe((x:any)=>{
+      this.kolekcije=x;
+      if(this.kliknuoEdit==false){
+        if(this.kolekcije.length>0)
+           this.odabrani_proizvod.kolekcijaId=this.kolekcije[0].id;
+        else
+          this.kolekcije=[];
+      }
+    })
+  }
+
+  getBoje(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Boja")
+      .subscribe((x:any)=>{
+        this.boje=x;
+      })
+  }
+
+  getSifre(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/sifra")
+      .subscribe((x:any)=>{
+        this.sifre=x;
+      })
+  }
+
+  getOdjeli(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/odjeli")
+      .subscribe((x:any)=>{
+        this.odjeli=x;
+      })
+  }
+
+
+
+  EditDugme(p: any) {
+    this.kliknuoEdit=true;
+    this.odabrani_proizvod=p;
+    this.naslov="Edit proizvoda (ID: "+p.id+")";
+
+    this.getPodkategorijeByKatID();
+    this.getKolekcijeBySezonaID();
+
+  }
+
+  DeleteDugme(p: any) {
+
+    this.kliknuoEdit=false;
+
+    if(confirm("Jeste li sigurni da želite obrisati ovaj zapis?"))
+      this.httpKlijent.delete(MojConfig.adresa_servera + "/api/Proizvod?id=" + p.id)
+        .subscribe((x: any) => {
+          this.getProizvodPodaci();
+          alert("Zapis uspješno obrisan");
+        })
+
+  }
+
+  getFilterProizvodi(p: string) {
+    if(p==null) p="";
+
+    if(this.kliknuoPretrazi){
+      return  this.proizvodi.filter((x:any)=>( x.naziv.toLowerCase().startsWith(p.toLowerCase())))
+    }
+    else
+      return this.proizvodi;
+  }
+
+  dodajProizvod() {
+    this.kliknuoEdit=false;
+
+    this.odabrani_proizvod={
+      id:0,
+      sifra:0,
+      naziv:"",
+      cijena:0.0,
+      opis:"",
+      aktivan:true,
+      bojaId:1,
+      bojaOpis:"",
+      odjelId:1,
+      odjelOpis:"",
+      podkategorijaOpis:"",
+      kategorijaOpis:"",
+      sezonaOpis:"",
+      kolekcijaOpis:""
+    }
+
+    //mozda su viska getKategorije i getSezone, u objektu mozemo
+    //postaviti difoltnu vrijednost
+    this.getKategorije();
+    this.odabrani_proizvod.kategorijaId=1; //difoltna vrijednost
+    this.getPodkategorijeByKatID();
+
+    this.getSezone();
+    this.odabrani_proizvod.sezonaId=1; //difotna vrijednost
+    this.getKolekcijeBySezonaID();
+
+  }
+
+
+  dozvoljenaSifra(sifra: string) {
+    for(let s of this.sifre){
+      if(s==sifra)
+        return false;
+    }
+    return true;
+  }
+
+  jelOmogucenSave(sifraControll: NgModel, sifraInput: HTMLInputElement, nazivControll: NgModel, cijenaControll: NgModel, opisControll: NgModel,
+                  bojaControll:NgModel,
+                  podkatControll: NgModel, katControll: NgModel,
+                  sezonaControll:NgModel, kolekcijaControll:NgModel) {
+    if(this.kliknuoEdit==true){
+      if(nazivControll.valid && cijenaControll.valid && opisControll.valid && katControll.valid
+        && bojaControll.valid && podkatControll.valid && sezonaControll.valid && kolekcijaControll.valid
+      ){
+        return false;
+      }
+      else return true;
+    }
+    else{
+      if(sifraControll.valid && this.dozvoljenaSifra(sifraInput.value) && nazivControll.valid && cijenaControll.valid && opisControll.valid && katControll.valid
+        && bojaControll.valid && podkatControll.valid && sezonaControll.valid && kolekcijaControll.valid
+      ){
+        return false;
+      }
+      else return true;
+    }
+  }
+
+  spasi(o: any) {
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Proizvod",o).subscribe(
+      (x:any)=>{
+        this.getProizvodPodaci();
+        this.odabrani_proizvod=null;
+      }
+    )
+  }
+
+  jelDisabledSifra(p: any) {
+    if(p.id==0)
+      return false;
+    else
+      return true;
+  }
+
+  jelUnesenaNula(cijena: string) {
+    let parsirana=parseFloat(cijena);
+    if(parsirana==0.0)
+      return true;
+    return false;
+  }
 }

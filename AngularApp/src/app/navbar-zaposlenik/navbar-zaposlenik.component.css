@@ -1,7 +1,7 @@
 nav{
   background-color: white;
 }
-
+/*
 #navbarNavDropdown{
   width:50%;
   background-color: white;
@@ -10,7 +10,21 @@ nav{
 .navbar-nav{
   margin-left:75%;
   padding:1%;
+}*/
+
+
+#navbarNavDropdown{
+  text-align: end;
+  display: flex;
+  justify-content: flex-end;
+  background-color: white;
 }
+
+.navbar-nav{
+  margin-left:20%;
+  padding:1%;
+}
+
 
 a{
   color:black;

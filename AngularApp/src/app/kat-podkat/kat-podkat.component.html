@@ -18,18 +18,20 @@
 
       <div class="mb-3">
         <label class="form-label">Izaberite kategoriju</label>
-        <select class="form-control" #katId [(ngModel)]="kat_id">
+        <select class="form-control" #katId [(ngModel)]="nova_podkategorija.kategorijaID">
           <option *ngFor="let k of podaci_kategorije" [value]="k.id">{{k.naziv}}</option>
         </select>
+
       </div>
 
 
       <input class="input-podkat" type="text" placeholder="upišite naziv podkategorije"
-             #nazivPodkat>
+             #nazivPodkat [(ngModel)]="nova_podkategorija.naziv">
+
 
 
       <div class="btn-podkat">
-        <button class="submit-podkat" (click)="dodajPodkategoriju(nazivPodkat.value)">Spasi</button>
+        <button class="submit-podkat" (click)="dodajPodkategoriju()">Spasi</button>
       </div>
 
       <h6>Dodaj podkategoriju</h6>
@@ -39,9 +41,11 @@
 
   <div class="pretraga">
 
+
     <div class="input-pretraga-div">
-      <input type="text" class="input-pretraga" #pretraga placeholder="pretražite podkategoriju ili kategoriju">
-      <img class="img-search" src="assets/slike/search.svg">
+      <input type="text" class="input-pretraga" #pretraga placeholder="pretražite podkategoriju"
+             [ngStyle]="{'text-align':'center'}">
+      <img class="img-search" src="assets/slike/search.svg" (click)="kliknuoPretrazi=true">
     </div>
 
 
@@ -53,20 +57,28 @@
         <th scope="col">Naziv podkategorije</th>
         <th scope="col">Naziv kategorije</th>
         <th></th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let p of podaci_podkategorije">
+      <tr *ngFor="let p of getFilterPodkategorije(pretraga.value) | paginate:
+   {
+        itemsPerPage: 5,
+        currentPage:page,
+        totalItems:totalLength
+        }">
         <th scope="row">{{p.id}}</th>
         <td>{{p.naziv}}</td>
         <td>{{p.kategorijaOpis}}</td>
-        <td> <img src="assets/slike/x-square.svg"> </td>
+        <td> <img src="assets/slike/x-square.svg" (click)="obrisiPodkat(p)"> </td>
       </tr>
 
-
-
       </tbody>
+
+
     </table>
+
+    <pagination-controls class="text-center my-pagination" (pageChange)="page=$event"></pagination-controls>
 
   </div>
 

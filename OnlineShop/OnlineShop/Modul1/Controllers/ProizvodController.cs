@@ -52,9 +52,9 @@ namespace OnlineShop.Modul1.Controllers
 
             //za skladiste-proizvod
             
-            public int skladisteId { get; set; }
-            public string skladisteOpis { get; set; }
-            public int kolicina { get; set; }
+            //public int skladisteId { get; set; }
+            //public string skladisteOpis { get; set; }
+            //public int kolicina { get; set; }
 
         }
 
@@ -94,15 +94,15 @@ namespace OnlineShop.Modul1.Controllers
 
             context.SaveChanges();
 
-            SkladisteProizvod sp = new SkladisteProizvod()
-            {
-                proizvodId = p.Id,
-                skladisteId = x.skladisteId,
-                kolicina = x.kolicina
-            };
+            //SkladisteProizvod sp = new SkladisteProizvod()
+            //{
+            //    proizvodId = p.Id,
+            //    skladisteId = x.skladisteId,
+            //    kolicina = x.kolicina
+            //};
 
-            context.Add(sp);
-            context.SaveChanges();
+            //context.Add(sp);
+            //context.SaveChanges();
 
             return Ok(p);
 
@@ -132,9 +132,12 @@ namespace OnlineShop.Modul1.Controllers
                 kolekcijaId=x.kolekcijaId,
                 kolekcijaOpis=x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                 sezonaId=x.sezonaId,
-                sezonaOpis=x.sezona.Naziv
-                //dodati skladisteId? skladisteOpis? i kolicinu?
+                sezonaOpis=x.sezona.Naziv,
+              
+               
+
             });
+
             return data.OrderByDescending(x=>x.Id).ToList();
         }
 
@@ -151,6 +154,17 @@ namespace OnlineShop.Modul1.Controllers
 
             //prvo uraditi remove stavke skladiste-proizvod koji ima ovaj id proizvoda. (provjeriti)
 
+            //List<SkladisteProizvod> sp = context.SkladisteProizvod.Where(x => x.proizvodId == id).ToList();
+
+            //if (sp.Count > 0)
+            //{
+            //    foreach (var x in sp)
+            //    {
+            //        context.Remove(x);
+            //        context.SaveChanges();
+            //    }
+            //}
+
             context.Remove(p);
             context.SaveChanges();
             return Ok(p);
@@ -163,6 +177,11 @@ namespace OnlineShop.Modul1.Controllers
             return context.Proizvod.Select(x => x.Sifra).ToList();
         }
 
+        [HttpGet("odjeli")]
+        public List<Odjel> GetOdjele()
+        {
+            return context.Odjel.ToList();
+        }
 
     }
 }

@@ -1,0 +1,129 @@
+<div>
+  <div style="margin: 1%">
+    <h2>Vodič za veličine</h2>
+    <h6>Pronađite svoju veličinu</h6>
+  </div>
+
+<div style="align-items: center;margin: 0% 44%">
+  <button (click)="prikaziZenski()">Ženski</button>
+  <button (click)="prikaziMuski()">Muški</button>
+</div>
+
+
+  <table *ngIf="zenski==true"  class="table table-hover" id="zenski">
+    <thead >
+    <tr>
+      <th scope="col">Veličina</th>
+      <th scope="col">Poprsje</th>
+      <th scope="col">Struk</th>
+      <th scope="col">Bedra</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row">XXS</th>
+      <td>78</td>
+      <td>59</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <th scope="row">XS</th>
+      <td>82</td>
+      <td>63</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th scope="row">S</th>
+      <td>86</td>
+      <td>66</td>
+      <td>94</td>
+    </tr>
+    <tr>
+      <th scope="row">M</th>
+      <td>92</td>
+      <td>72</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th scope="row">L</th>
+      <td>98</td>
+      <td>78</td>
+      <td>106</td>
+    </tr>
+    <tr>
+      <th scope="row">XL</th>
+      <td>104</td>
+      <td>85</td>
+      <td>112</td>
+    </tr>
+    <tr>
+      <th scope="row">XXL</th>
+      <td>110</td>
+      <td>92</td>
+      <td>118</td>
+    </tr>
+    </tbody>
+  </table>
+
+
+  <table *ngIf="muski==true"  class="table table-hover" id="muski">
+    <thead >
+    <tr>
+      <th scope="col">Veličina</th>
+      <th scope="col">Poprsje</th>
+      <th scope="col">Struk</th>
+      <th scope="col">Bedra</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row">XS</th>
+      <td>89</td>
+      <td>76</td>
+      <td>92</td>
+    </tr>
+    <tr>
+      <th scope="row">S</th>
+      <td>95</td>
+      <td>80</td>
+      <td>96</td>
+    </tr>
+    <tr>
+      <th scope="row">M</th>
+      <td>101</td>
+      <td>84</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th scope="row">L</th>
+      <td>107</td>
+      <td>90</td>
+      <td>106</td>
+    </tr>
+    <tr>
+      <th scope="row">XL</th>
+      <td>113</td>
+      <td>97</td>
+      <td>112</td>
+    </tr>
+    <tr>
+      <th scope="row">XXL</th>
+      <td>117</td>
+      <td>101</td>
+      <td>116</td>
+    </tr>
+
+    </tbody>
+  </table>
+
+<p style="text-align: center">Vrijednosti su izražene u cm.</p>
+
+
+
+</div>
+<div>
+  <h3 style="text-align: center;">Kako uzeti mjere?</h3>
+</div>
+<div style="margin: 2% 33%">
+  <img src="assets/slike/measures.png" title="mjere" style="border: 1px grey solid;">
+</div>
