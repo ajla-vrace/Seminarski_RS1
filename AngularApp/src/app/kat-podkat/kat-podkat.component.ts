@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-kat-podkat',
@@ -9,7 +10,7 @@ import {MojConfig} from "../moj-config";
 })
 export class KatPodkatComponent implements OnInit {
 
-  constructor(private httpKlijent:HttpClient) { }
+  constructor(private httpKlijent:HttpClient, private route:ActivatedRoute) { }
 
   podaci_podkategorije:any;
   podaci_kategorije:any;
@@ -17,6 +18,8 @@ export class KatPodkatComponent implements OnInit {
   nova_kategorija:any;
   nova_podkategorija:any;
 
+
+  admin_id:any;
 
   totalLength:number=0;
   page:number=1;
@@ -44,6 +47,10 @@ export class KatPodkatComponent implements OnInit {
 
     this.getPodkategorije();
     this.getKategorije();
+
+    this.route.params.subscribe(s=>{
+      this.admin_id=+s["id"];
+    })
   }
 
   getPodkategorije(){

@@ -1,3 +1,108 @@
 <app-navbar-zaposlenik></app-navbar-zaposlenik>
 
-<p>profil-zaposlenik works!</p>
+
+<div class="slika-glavni">
+
+<br>
+
+<div class="slika">
+  <img src="assets/slike/user.png" [ngStyle]="{'max-width':'auto', 'height':'250px'}">
+  <button class="dodaj-sliku">Dodaj novu sliku</button>
+</div>
+
+  <br><br>
+  <hr [ngStyle]="{'width':'90%','margin':'auto'}">
+
+<div class="glavni">
+
+  <div class="osnovni-podaci">
+    <h4>Osnovni podaci</h4>
+    <hr>
+    <div class="ime">
+      <h6>Ime: </h6>
+      <h5>{{podaci_zaposlenika.ime}}</h5>
+    </div>
+
+    <div class="prezime">
+      <h6>Prezime: </h6>
+      <h5>{{podaci_zaposlenika.prezime}}</h5>
+    </div>
+
+    <div class="jmbg">
+      <h6>JMBG: </h6>
+      <h5>{{podaci_zaposlenika.jmbg}}</h5>
+    </div>
+
+    <div class="spol">
+      <h6>Spol: </h6>
+      <h5>{{podaci_zaposlenika.spolOpis}}</h5>
+    </div>
+
+    <div class="datumrodj">
+      <h6>Datum rođenja: </h6>
+      <h5>{{podaci_zaposlenika.datumRodjenja}}</h5>
+    </div>
+
+    <div class="datumreg">
+      <h6>Datum registracije: </h6>
+      <h5>{{podaci_zaposlenika.datumRegistracije}}</h5>
+    </div>
+
+    <div class="datumZaposl">
+      <h6>Datum zaposlenja: </h6>
+      <h5>{{podaci_zaposlenika.datumZaposlenja}}</h5>
+    </div>
+
+    <div class="datumotkaza">
+      <h6>Datum otkaza: </h6>
+      <h5>{{podaci_zaposlenika.datumOtkaza==null?"-":podaci_zaposlenika.datumOtkaza}}</h5>
+    </div>
+
+    <div class="prodavnica">
+      <h6>Uposlen u: </h6>
+      <h5>{{podaci_zaposlenika.prodavnicaOpis}}</h5>
+    </div>
+
+  </div>
+
+  <div class="kontakt-podaci">
+    <h4>Kontakt podaci</h4>
+    <hr>
+    <div class="email">
+      <h6>Email: </h6>
+      <h5>{{podaci_zaposlenika.email}}</h5>
+    </div>
+
+    <div class="tel">
+      <h6>Broj telefona: </h6>
+      <h5>{{podaci_zaposlenika.brojTelefona}}</h5>
+    </div>
+
+    <div class="adresa">
+      <h6>Adresa stanovanja: </h6>
+      <h5>{{podaci_zaposlenika.adresaStanovanja}}</h5>
+    </div>
+
+  </div>
+
+  <div class="pristupni-podaci">
+    <h4>Pristupni podaci</h4>
+    <hr>
+
+    <div class="username">
+      <h6>Korisničko ime: </h6>
+      <h5>{{podaci_zaposlenika.username}}</h5>
+    </div>
+
+    <div class="lozinka">
+      <h6>Lozinka: </h6>
+      <h5 type="password">{{podaci_zaposlenika.lozinka}}</h5>
+    </div>
+
+
+
+  </div>
+
+</div>
+
+</div>

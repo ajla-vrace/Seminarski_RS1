@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
 import {NgModel} from "@angular/forms";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-proizvodi',
@@ -10,7 +11,7 @@ import {NgModel} from "@angular/forms";
 })
 export class ProizvodiComponent implements OnInit {
 
-  constructor(private httpKlijent:HttpClient) { }
+  constructor(private httpKlijent:HttpClient, private route:ActivatedRoute) { }
 
   proizvodi:any;
   proizvodi_rastuci:any;
@@ -33,6 +34,8 @@ export class ProizvodiComponent implements OnInit {
   sortirajPo: string="Datum opadajući";
 
 
+  zaposlenik_id:any;
+
 
   ngOnInit(): void {
   //  this.getProizvodPodaci();
@@ -43,6 +46,11 @@ export class ProizvodiComponent implements OnInit {
     this.getBoje();
     this.getSifre();
     this.getOdjeli();
+
+    this.route.params.subscribe(s=>{
+      this.zaposlenik_id=+s["id"];
+    })
+
   }
 
   getProizvodPodaci(){

@@ -37,17 +37,22 @@ export class PrijavaComponent implements OnInit {
             x.autentifikacijaToken.korisnickiNalog.isKupac,
             x.autentifikacijaToken.korisnickiNalog.isZaposlenik)
 
+          console.log(x.autentifikacijaToken.korisnickiNalog.id);
+
+
           if(x.autentifikacijaToken.korisnickiNalog.isAdmin==true){
             AutentifikacijaHelper.setLoginInfo(x)
-            this.router.navigate(['/admin-pocetna']);
+            //this.router.navigate(['/admin-pocetna',x.autentifikacijaToken.korisnickiNalog.id]);
+            this.router.navigate(['navbar-admin',x.autentifikacijaToken.korisnickiNalog.id])
           }
           else if(x.autentifikacijaToken.korisnickiNalog.isKupac==true){
             AutentifikacijaHelper.setLoginInfo(x)
-            this.router.navigateByUrl("/pocetna");
+            this.router.navigateByUrl("/pocetna"); //vidjeti za ovu stranicu
           }
           else if(x.autentifikacijaToken.korisnickiNalog.isZaposlenik==true){
             AutentifikacijaHelper.setLoginInfo(x)
-            this.router.navigateByUrl("/zaposlenik-pocetna");
+           // this.router.navigate(["/zaposlenik-pocetna"]);
+            this.router.navigate(['navbar-zaposlenik',x.autentifikacijaToken.korisnickiNalog.id])
           }
           else{
             AutentifikacijaHelper.setLoginInfo(x)

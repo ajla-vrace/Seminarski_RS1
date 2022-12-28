@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar-zaposlenik',
@@ -9,33 +9,39 @@ import {Router} from "@angular/router";
 export class NavbarZaposlenikComponent implements OnInit {
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private route:ActivatedRoute) { }
+
+  zaposlenik_id:any;
 
   ngOnInit(): void {
+    this.route.params.subscribe(s=>{
+      this.zaposlenik_id=+s["id"];
+    })
+
   }
 
   narudzbe() {
 
-    this.router.navigate(['/narudzbe'])
+    this.router.navigate(['/narudzbe',this.zaposlenik_id])
   }
 
   pocetna() {
 
-    this.router.navigate(['/zaposlenik-pocetna'])
+    this.router.navigate(['/zaposlenik-pocetna',this.zaposlenik_id])
   }
 
   proizvodi(){
 
-    this.router.navigate(['/proizvodi'])
+    this.router.navigate(['/proizvodi',this.zaposlenik_id])
   }
 
   profil(){
 
-    this.router.navigate(['/profil-zaposlenik'])
+    this.router.navigate(['/profil-zaposlenik',this.zaposlenik_id])
   }
 
   skladiste(){
 
-    this.router.navigate(['/skladiste'])
+    this.router.navigate(['/skladiste',this.zaposlenik_id])
   }
 }
