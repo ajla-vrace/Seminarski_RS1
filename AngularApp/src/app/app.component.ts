@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "./moj-config";
 import {AutentifikacijaHelper} from "./helpers/autentifikacija-helper";
+import {LoginInformacije} from "./helpers/login-informacije";
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,10 @@ export class AppComponent {
 
   reloadPage() {
     window.location.reload()
+  }
+
+  loginInfo():LoginInformacije {
+    return AutentifikacijaHelper.getLoginInfo();
   }
 
   pocetna() {

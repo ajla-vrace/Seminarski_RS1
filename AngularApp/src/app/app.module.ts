@@ -36,6 +36,8 @@ import { ProfilAdminComponent } from './profil-admin/profil-admin.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { VodiczavelicineComponent } from './vodiczavelicine/vodiczavelicine.component';
 import { KupacPocetnaComponent } from './kupac-pocetna/kupac-pocetna.component';
+import { NavKupacComponent } from './nav-kupac/nav-kupac.component';
+import { NeregistrovanComponent } from './neregistrovan/neregistrovan.component';
 
 
 
@@ -73,6 +75,8 @@ import { KupacPocetnaComponent } from './kupac-pocetna/kupac-pocetna.component';
     VodiczavelicineComponent,
     KupacPocetnaComponent,
    PravilaPrivatnostiComponent,
+   NavKupacComponent,
+   NeregistrovanComponent,
 
 
 
@@ -111,6 +115,8 @@ import { KupacPocetnaComponent } from './kupac-pocetna/kupac-pocetna.component';
       {path: 'vodiczavelicine', component:VodiczavelicineComponent},
       {path: 'kupac-pocetna', component:KupacPocetnaComponent},
       {path: 'pravila-privatnosti', component:PravilaPrivatnostiComponent},
+      {path:'nav-kupac', component: NavKupacComponent},
+      {path:'neregistrovan', component: NeregistrovanComponent},
   ]),
     FormsModule,
     HttpClientModule,
@@ -120,4 +126,4 @@ import { KupacPocetnaComponent } from './kupac-pocetna/kupac-pocetna.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule{ }

@@ -47,7 +47,7 @@ export class PrijavaComponent implements OnInit {
           }
           else if(x.autentifikacijaToken.korisnickiNalog.isKupac==true){
             AutentifikacijaHelper.setLoginInfo(x)
-            this.router.navigateByUrl("/pocetna"); //vidjeti za ovu stranicu
+            this.router.navigateByUrl("/kupac-pocetna"); //vidjeti za ovu stranicu
           }
           else if(x.autentifikacijaToken.korisnickiNalog.isZaposlenik==true){
             AutentifikacijaHelper.setLoginInfo(x)
@@ -56,7 +56,7 @@ export class PrijavaComponent implements OnInit {
           }
           else{
             AutentifikacijaHelper.setLoginInfo(x)
-            this.router.navigateByUrl("/pocetna");
+            this.router.navigateByUrl("/neregistrovan");
           }
 
         }

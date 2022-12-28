@@ -1,0 +1,21 @@
+
+<nav>
+  <div id="kat" style="display: inline">
+    <li (click)="prikaziZene()">Žene<img src="assets/slike/dress.png" title="Zenski odjel" style="width: 40px;"></li>
+    <li (click)="prikaziMuskarce()">Muškarci <img src="assets/slike/suit.png" title="Muski odjel" style="width: 40px; " ></li>
+  </div>
+  <div id="desno" style="display: inline">
+    <li style="padding-right: 30%;padding-left: 30%"></li>
+    <li ><input  type="text" value="Search" style="padding-left: 1%"></li>
+
+
+
+    <li (click)="prikaziPrijava()"><img src="assets/slike/login.png" ></li>
+    <li (click)="prikaziFavorite()"><img src="assets/slike/heart_f.png"a title="Favoriti" ></li>
+    <li (click)="prikaziKosaricu()"><img src="assets/slike/cartt.png" title="Košarica"></li>
+  </div>
+
+
+</nav>
+<hr style="margin-bottom: 0%" >
+<img  *ngIf="potvrda==false;" src="assets/slike/copy.jpg" style="width: 100%;">
