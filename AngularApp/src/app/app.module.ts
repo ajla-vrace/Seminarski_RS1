@@ -35,6 +35,7 @@ import { StatistikaComponent } from './statistika/statistika.component';
 import { ProfilAdminComponent } from './profil-admin/profil-admin.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { VodiczavelicineComponent } from './vodiczavelicine/vodiczavelicine.component';
+import { KupacPocetnaComponent } from './kupac-pocetna/kupac-pocetna.component';
 
 
 
@@ -70,6 +71,8 @@ import { VodiczavelicineComponent } from './vodiczavelicine/vodiczavelicine.comp
     StatistikaComponent,
     ProfilAdminComponent,
     VodiczavelicineComponent,
+    KupacPocetnaComponent,
+   PravilaPrivatnostiComponent,
 
 
 
@@ -106,6 +109,8 @@ import { VodiczavelicineComponent } from './vodiczavelicine/vodiczavelicine.comp
       {path: 'statistika', component:StatistikaComponent},
       {path: 'profil-admin', component:ProfilAdminComponent},
       {path: 'vodiczavelicine', component:VodiczavelicineComponent},
+      {path: 'kupac-pocetna', component:KupacPocetnaComponent},
+      {path: 'pravila-privatnosti', component:PravilaPrivatnostiComponent},
   ]),
     FormsModule,
     HttpClientModule,
