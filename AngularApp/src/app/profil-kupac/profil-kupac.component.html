@@ -1,0 +1,79 @@
+<app-nav-kupac></app-nav-kupac>
+
+KUPAC ID: {{kupac_id}}
+
+<h4 style="margin: 1%">Moj profil</h4>
+
+<div id="kupacPodaci">
+  <h6>Ime: {{kupac_podaci.ime}}</h6>
+  <h6>Prezime: {{kupac_podaci.prezime}}</h6>
+  <h6>Email: {{kupac_podaci.email}}</h6>
+  <h6>Username: {{kupac_podaci.username}}</h6>
+  <h6>Broj telefona: {{kupac_podaci.brojTelefona}}</h6>
+  <h6>Datum registracije: {{kupac_podaci.datum_kreiranja}}</h6>
+
+
+  <h6>Pretplata:  {{kupac_podaci.isPretplacen}}</h6>
+  <h6>Adresa: {{kupac_podaci.adresaIsporuke}}</h6>
+
+
+</div>
+
+
+<button (click)="prikazKomm()" style="margin: 1%;">Komentari</button>
+<div *ngIf="komm==true" style="margin: 2% 3%;">
+  <div id="divTabela">
+    <table class="table table-warning">
+      <thead style="background-color: black;">
+      <tr style="background-color: black;">
+        <th>Opis</th>
+        <th>Kupac</th>
+        <th>Prodavnica</th>
+        <th>Datum</th>
+        <th>Modifikacija</th>
+        <th>Brisanje</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let s of prikaziMojeKomentare()">
+        <td>{{s.opis}}</td>
+        <td>{{s.kupac}}</td>
+        <td>{{s.prodavnica}}</td>
+        <td>{{s.datumKreiranja}}</td>
+        <td>
+          <button (click)="modifikuj(s)">Modifikacija</button>
+        </td>
+        <td>
+          <button (click)="brisikomm(s)">Obrisi</button>
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div *ngIf="odabranikomentar!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLiveLabel">Novi semestar za </h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="odabranikomentar=null"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Ime</label>
+            <input class="form-control" placeholder="Ime" [(ngModel)]="odabranikomentar.opis" >
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="odabranikomentar=null">Close</button>
+          <button type="button" class="btn btn-primary"  (click)="modifikuj1(odabranikomentar)">Save changes</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

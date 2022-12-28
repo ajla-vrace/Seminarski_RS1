@@ -7,7 +7,6 @@ namespace OnlineShop.Modul1.Models
         public int Id { get; set; }
         public string Naziv { get; set; }
         public DateTime DatumKreiranja { get; set; }
-        public DateTime DatumModifikacije { get; set; }
         [ForeignKey("KupacId")]
         public Kupac Kupac { get; set; }
         public int? KupacId { get; set; }

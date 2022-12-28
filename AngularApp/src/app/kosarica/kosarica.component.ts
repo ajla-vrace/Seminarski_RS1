@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-kosarica',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KosaricaComponent implements OnInit {
 
-  constructor() { }
+  kupac_id:any;
 
+  constructor(private router: Router, private route:ActivatedRoute) {
+  }
   ngOnInit(): void {
+
+    this.route.params.subscribe(s=>{
+      this.kupac_id=+s["id"];
+    })
+
   }
 
 }

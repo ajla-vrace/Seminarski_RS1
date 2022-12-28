@@ -11,7 +11,8 @@ namespace OnlineShop.Modul1.ViewModels
         public DateTime? DatumModifikacije { get; set; }
         public int? KupacId { get; set; }
         public int? ProdavnicaId { get; set; }
+        /*public Kupac Kupac { get; set; }
+        public Prodavnica Prodavnica { get; set; }*/
 
-        
     }
 }

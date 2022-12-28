@@ -10,7 +10,9 @@
 </div>
 
 <hr>
-<div *ngIf="loginInfo().isLogiran==false"><app-neregistrovan></app-neregistrovan></div>
+
+  <app-neregistrovan *ngIf="loginInfo().isLogiran==false"></app-neregistrovan>
+
 <router-outlet></router-outlet>
 <footer>
   <div id="glavnidivfooter" >

@@ -11,7 +11,7 @@ namespace OnlineShop.Modul1.Models
         public string Povrsina { get; set; }
 
         [ForeignKey("gradId")]
-        public int gradId { get; set; }
+        public int? gradId { get; set; }
         public Grad grad { get; set; }
 
     }

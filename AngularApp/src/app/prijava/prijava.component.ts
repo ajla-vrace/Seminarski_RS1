@@ -47,7 +47,7 @@ export class PrijavaComponent implements OnInit {
           }
           else if(x.autentifikacijaToken.korisnickiNalog.isKupac==true){
             AutentifikacijaHelper.setLoginInfo(x)
-            this.router.navigateByUrl("/kupac-pocetna"); //vidjeti za ovu stranicu
+            this.router.navigate(['nav-kupac',x.autentifikacijaToken.korisnickiNalog.id]);
           }
           else if(x.autentifikacijaToken.korisnickiNalog.isZaposlenik==true){
             AutentifikacijaHelper.setLoginInfo(x)

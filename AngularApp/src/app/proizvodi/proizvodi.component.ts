@@ -297,4 +297,72 @@ export class ProizvodiComponent implements OnInit {
       return true;
     return false;
   }
+
+
+
+  //slike
+
+  slike_by_proizvodId:any;
+
+  getSlikeByProizvodId(p:number){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/ProizvodSlika/slikaByProizvodId?id="
+    +p).subscribe((x:any)=>{
+      this.slike_by_proizvodId=x;
+      console.log(this.slike_by_proizvodId);
+    })
+  }
+
+
+
+  proizvod_id:any;
+  kliknuoDodajSliku:boolean=false;
+  slika_proizvod_objekat:any;
+
+  dodajSliku(p: any) {
+
+    console.log(p.id);
+
+    this.kliknuoDodajSliku=true;
+    this.proizvod_id=p.id;
+
+    this.slika_proizvod_objekat={
+      id:0,
+      proizvodId:this.proizvod_id,
+      proizvodOpis:"",
+      slika_nova:""
+    }
+
+    this.getSlikeByProizvodId(this.proizvod_id);
+
+  }
+
+  generisi_preview() {
+    // @ts-ignore
+    var file = document.getElementById("slika-input").files[0];
+    if (file) {
+      var reader = new FileReader();
+      let this2 = this;
+      reader.onload = function () {
+        this2.slika_proizvod_objekat.slika_nova = reader.result?.toString();
+      }
+      console.log("file: ", file);
+      reader.readAsDataURL(file);
+    }
+  }
+
+  snimi_sliku() {
+    this.kliknuoDodajSliku=false;
+
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/ProizvodSlika", this.slika_proizvod_objekat)
+      .subscribe(x=>{
+        this.slika_proizvod_objekat=null;
+        this.getProizvodPodaci();
+      });
+  }
+
+
+  get_slika_FS(p: any) {
+    return "data:image/png;base64,"+p.fileContents;
+  }
+
 }

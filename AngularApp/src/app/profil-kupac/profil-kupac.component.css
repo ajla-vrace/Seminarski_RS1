@@ -1,0 +1,18 @@
+
+#kupacPodaci{
+  background-color: #ffdddc;
+  border: 1px solid black;
+  width: 40%;
+margin: 1%;
+  padding: 1%;
+}
+.komentari1{
+  display: inline;
+  border: 1px solid deeppink;
+  padding: 2%;
+  margin:2%;
+  width:20%;
+}
+#zakomm1{
+  display: flex;
+}

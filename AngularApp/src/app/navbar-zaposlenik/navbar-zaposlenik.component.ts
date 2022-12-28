@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {LoginInformacije} from "../helpers/login-informacije";
+import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 
 @Component({
   selector: 'app-navbar-zaposlenik',
@@ -12,6 +14,7 @@ export class NavbarZaposlenikComponent implements OnInit {
   constructor(private router: Router, private route:ActivatedRoute) { }
 
   zaposlenik_id:any;
+
 
   ngOnInit(): void {
     this.route.params.subscribe(s=>{

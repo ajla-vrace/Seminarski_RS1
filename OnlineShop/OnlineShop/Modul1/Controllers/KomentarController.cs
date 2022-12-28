@@ -31,6 +31,8 @@ namespace OnlineShop.Modul1.Controllers
             objekat.ProdavnicaId = x.ProdavnicaId;
             objekat.DatumKreiranja = DateTime.Now;
             objekat.DatumModifikacije = DateTime.Now;
+            /*objekat.Kupac = x.Kupac;
+            objekat.Prodavnica = x.Prodavnica;*/
             
             _dbContext.SaveChanges();
             return Ok(objekat);
@@ -58,6 +60,50 @@ namespace OnlineShop.Modul1.Controllers
             return Ok(data.ToList());
         }
 
+        [HttpGet]
+        public ActionResult Get5()
+        {
+            var data = _dbContext.Komentar
+                .OrderByDescending(s => s.Id)
+                .Select(s => new
+                {
+                    Id = s.Id,
+                    Opis = s.Opis,
+                    Kupac = s.Kupac.Username,
+                    DatumKreiranja = s.DatumKreiranja,
+                    Prodavnica = s.Prodavnica.Naziv,
+                    KupacId=s.KupacId,
+
+                })
+                .AsQueryable();
+
+
+            return Ok(data.Take(5).ToList());
+        }
+
+
+        [HttpGet("{id}")]
+        public ActionResult GetById(int id)
+        {
+            var data = _dbContext.Komentar
+                .OrderByDescending(s => s.Id)
+                .Where(s=>s.KupacId==id)
+                .Select(s => new
+                {
+                    Id = s.Id,
+                    Opis = s.Opis,
+                    Kupac = s.Kupac.Username,
+                    DatumKreiranja = s.DatumKreiranja,
+                    Prodavnica = s.Prodavnica.Naziv,
+                    KupacId = s.KupacId,
+
+                })
+                .AsQueryable();
+
+
+            return Ok(data.ToList());
+        }
+
 
 
 
@@ -70,6 +116,25 @@ namespace OnlineShop.Modul1.Controllers
 
             return priprema;
         }*/
+
+
+        [HttpPost("{id}")]
+        public ActionResult Update([FromBody] KomentarAddVM x)
+        {
+            Komentar objekat = _dbContext.Komentar.Find(x.Id);
+            if (objekat == null)
+            {
+                return BadRequest("ne postoji takav id");
+            }
+            objekat.Opis = x.Opis;
+            objekat.DatumModifikacije=DateTime.Now;
+            _dbContext.SaveChanges();
+            return Ok(objekat);
+        }
+
+
+
+
 
         [HttpPost("{id}")]
         public ActionResult Brisanje(int id)
@@ -87,11 +152,9 @@ namespace OnlineShop.Modul1.Controllers
         [HttpPost("{id}")]
         public ActionResult Delete(int id)
         {
-            
-
             Komentar komentar= _dbContext.Komentar.Find(id);
 
-            if (komentar == null || id == 1)
+            if (komentar == null)
                 return BadRequest("pogresan ID");
 
             _dbContext.Remove(komentar);

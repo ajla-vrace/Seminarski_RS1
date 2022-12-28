@@ -1,13 +1,16 @@
 <app-navbar-zaposlenik></app-navbar-zaposlenik>
 
+<div class="odjava">
+  <button class="btn-odjava" (click)="odjaviSe()">Odjavi se</button>
+</div>
 
 <div class="slika-glavni">
 
 <br>
 
 <div class="slika">
-  <img src="assets/slike/user.png" [ngStyle]="{'max-width':'auto', 'height':'250px'}">
-  <button class="dodaj-sliku">Dodaj novu sliku</button>
+  <img src="" [ngStyle]="{'max-width':'auto', 'height':'250px'}">
+  <button class="dodaj-sliku" (click)="dodajSliku()">Dodaj novu sliku</button>
 </div>
 
   <br><br>
@@ -20,47 +23,47 @@
     <hr>
     <div class="ime">
       <h6>Ime: </h6>
-      <h5>{{podaci_zaposlenika.ime}}</h5>
+      <h5>{{podaci_zaposlenika?.ime}}</h5>
     </div>
 
     <div class="prezime">
       <h6>Prezime: </h6>
-      <h5>{{podaci_zaposlenika.prezime}}</h5>
+      <h5>{{podaci_zaposlenika?.prezime}}</h5>
     </div>
 
     <div class="jmbg">
       <h6>JMBG: </h6>
-      <h5>{{podaci_zaposlenika.jmbg}}</h5>
+      <h5>{{podaci_zaposlenika?.jmbg}}</h5>
     </div>
 
     <div class="spol">
       <h6>Spol: </h6>
-      <h5>{{podaci_zaposlenika.spolOpis}}</h5>
+      <h5>{{podaci_zaposlenika?.spolOpis}}</h5>
     </div>
 
     <div class="datumrodj">
       <h6>Datum rođenja: </h6>
-      <h5>{{podaci_zaposlenika.datumRodjenja}}</h5>
+      <h5>{{podaci_zaposlenika?.datumRodjenja}}</h5>
     </div>
 
     <div class="datumreg">
       <h6>Datum registracije: </h6>
-      <h5>{{podaci_zaposlenika.datumRegistracije}}</h5>
+      <h5>{{podaci_zaposlenika?.datumRegistracije}}</h5>
     </div>
 
     <div class="datumZaposl">
       <h6>Datum zaposlenja: </h6>
-      <h5>{{podaci_zaposlenika.datumZaposlenja}}</h5>
+      <h5>{{podaci_zaposlenika?.datumZaposlenja}}</h5>
     </div>
 
     <div class="datumotkaza">
       <h6>Datum otkaza: </h6>
-      <h5>{{podaci_zaposlenika.datumOtkaza==null?"-":podaci_zaposlenika.datumOtkaza}}</h5>
+      <h5>{{podaci_zaposlenika?.datumOtkaza==null?"-":podaci_zaposlenika?.datumOtkaza}}</h5>
     </div>
 
     <div class="prodavnica">
       <h6>Uposlen u: </h6>
-      <h5>{{podaci_zaposlenika.prodavnicaOpis}}</h5>
+      <h5>{{podaci_zaposlenika?.prodavnicaOpis}}</h5>
     </div>
 
   </div>
@@ -70,17 +73,17 @@
     <hr>
     <div class="email">
       <h6>Email: </h6>
-      <h5>{{podaci_zaposlenika.email}}</h5>
+      <h5>{{podaci_zaposlenika?.email}}</h5>
     </div>
 
     <div class="tel">
       <h6>Broj telefona: </h6>
-      <h5>{{podaci_zaposlenika.brojTelefona}}</h5>
+      <h5>{{podaci_zaposlenika?.brojTelefona}}</h5>
     </div>
 
     <div class="adresa">
       <h6>Adresa stanovanja: </h6>
-      <h5>{{podaci_zaposlenika.adresaStanovanja}}</h5>
+      <h5>{{podaci_zaposlenika?.adresaStanovanja}}</h5>
     </div>
 
   </div>
@@ -91,12 +94,12 @@
 
     <div class="username">
       <h6>Korisničko ime: </h6>
-      <h5>{{podaci_zaposlenika.username}}</h5>
+      <h5>{{podaci_zaposlenika?.username}}</h5>
     </div>
 
     <div class="lozinka">
       <h6>Lozinka: </h6>
-      <h5 type="password">{{podaci_zaposlenika.lozinka}}</h5>
+      <h5 type="password">{{podaci_zaposlenika?.lozinka}}</h5>
     </div>
 
 
@@ -105,4 +108,35 @@
 
 </div>
 
+</div>
+
+
+
+
+<div *ngIf="slika_obj!=null" class="modal fade show"  tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" > Dodaj sliku </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="slika_obj=null; kliknuoDodajSliku=false;" ></button>
+      </div>
+      <div class="modal-body">
+
+
+
+
+
+        <div class="mb-3">
+          <label class="form-label">Nova slika</label>
+          <input class="form-control" id="slika-input" type="file"  accept="image/jpg" (change)="generisi_preview()" />
+          <img style="max-width: 100%; height: 200px" src="{{slika_obj.slika_nova}}">
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-primary" (click)="snimi_sliku()">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>

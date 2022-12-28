@@ -1,7 +1,5 @@
 <app-navbar-zaposlenik></app-navbar-zaposlenik>
 
-<input disabled [value]="zaposlenik_id">
-
 <div class="pretraga">
 
   <div class="filtriranje">
@@ -65,6 +63,8 @@
     <th scope="col">Sezona</th>
     <th></th>
     <th></th>
+    <th></th>
+    <th></th>
 
   </tr>
   </thead>
@@ -92,6 +92,7 @@
     <td>{{p.sezonaOpis}}</td>
     <td> <img src="assets/slike/pencil-square.svg" class="edit-btn" (click)="EditDugme(p)"></td>
     <td> <img src="assets/slike/x-square.svg" class="delete-btn" (click)="DeleteDugme(p)"></td>
+    <td> <td><button (click)="dodajSliku(p)">Dodaj sliku</button></td>
 
   </tr>
 
@@ -274,3 +275,46 @@
 </div>
 
 
+
+
+<div *ngIf="slika_proizvod_objekat!=null" class="modal fade show"  tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" > Dodaj sliku </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="slika_proizvod_objekat=null; kliknuoDodajSliku=false;" ></button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="mb-3" >
+          <label class="form-label">Proizvod:</label>
+          <input disabled [value]="proizvod_id" [(ngModel)]="slika_proizvod_objekat.proizvodId">
+        </div>
+
+        <div class="mb-3"  >
+          <label class="form-label">Stare slike</label>
+          <p *ngFor="let x of slike_by_proizvodId">
+
+            <img style="display:block;max-width: 100%; height: 200px" src="{{get_slika_FS(x)}}">
+
+          </p>
+        </div>
+
+
+
+
+        <div class="mb-3">
+          <label class="form-label">Nova slika</label>
+          <input class="form-control" id="slika-input" type="file"  accept="image/jpg" (change)="generisi_preview()" />
+          <img style="max-width: 100%; height: 200px" src="{{slika_proizvod_objekat.slika_nova}}">
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-primary" (click)="snimi_sliku()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

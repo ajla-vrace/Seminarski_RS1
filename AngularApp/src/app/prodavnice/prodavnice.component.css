@@ -1,0 +1,46 @@
+div{
+  display: inline;
+}
+#prodavnice{
+  display: flex;
+  margin: 2% 5%;
+  width: 100%;
+}
+.mali_prod{
+  border: 1px solid black;
+  padding: 1%;
+  margin: 1%;
+  width: 20%;
+}
+button{
+  background-color: lightblue;
+  margin-right: 5px;
+}
+button:hover{
+  background-color: blue;
+  color:white;
+}
+h2,h3,h4,h5,h6{
+  text-align: center;
+}
+.komentari{
+  display: inline;
+  border: 1px solid deeppink;
+  padding: 2%;
+  margin:2%;
+  width:20%;
+}
+#zakomm{
+  display: flex;
+}
+#komm{
+
+
+}
+
+
+
+
+
+
+

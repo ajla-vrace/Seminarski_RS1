@@ -395,9 +395,6 @@ namespace OnlineShop.Migrations
                     b.Property<DateTime>("DatumKreiranja")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DatumModifikacije")
-                        .HasColumnType("datetime2");
-
                     b.Property<int?>("KupacId")
                         .IsRequired()
                         .HasColumnType("int");
@@ -506,7 +503,7 @@ namespace OnlineShop.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("gradId")
+                    b.Property<int?>("gradId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -592,10 +589,6 @@ namespace OnlineShop.Migrations
 
                     b.Property<int?>("proizvodId")
                         .HasColumnType("int");
-
-                    b.Property<string>("slika")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -770,9 +763,6 @@ namespace OnlineShop.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DatumKreiranja")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DatumModifikacije")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("KupacId")
@@ -998,9 +988,7 @@ namespace OnlineShop.Migrations
                 {
                     b.HasOne("OnlineShop.Modul1.Models.Grad", "grad")
                         .WithMany()
-                        .HasForeignKey("gradId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("gradId");
 
                     b.Navigation("grad");
                 });

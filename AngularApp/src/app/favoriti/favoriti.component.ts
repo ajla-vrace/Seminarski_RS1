@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-favoriti',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FavoritiComponent implements OnInit {
 
-  constructor() { }
+  kupac_id:any;
 
-  ngOnInit(): void {
+  constructor(private router: Router, private route:ActivatedRoute) {
   }
+  ngOnInit(): void {
 
+    this.route.params.subscribe(s=>{
+      this.kupac_id=+s["id"];
+    })
+
+  }
 }

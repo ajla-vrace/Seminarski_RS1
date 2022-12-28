@@ -42,7 +42,7 @@ validacija(){
       spolid:3,
     }
 
-    this.httpKlijent.post(`${MojConfig.adresa_servera}/Korisnik/Add`, this.noviKorisnik, MojConfig.http_opcije()).subscribe(x => {
+    this.httpKlijent.post(`${MojConfig.adresa_servera}/Kupac/Add`, this.noviKorisnik, MojConfig.http_opcije()).subscribe(x => {
       this.fetchKorisnici();
 
     });
@@ -51,7 +51,7 @@ validacija(){
 
   fetchKorisnici() :void
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/Korisnik/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Kupac/GetAll", MojConfig.http_opcije()).subscribe(x=>{
       this.korisniciPodaci = x;
 
     });

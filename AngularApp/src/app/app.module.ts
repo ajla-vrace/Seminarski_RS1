@@ -38,6 +38,7 @@ import { VodiczavelicineComponent } from './vodiczavelicine/vodiczavelicine.comp
 import { KupacPocetnaComponent } from './kupac-pocetna/kupac-pocetna.component';
 import { NavKupacComponent } from './nav-kupac/nav-kupac.component';
 import { NeregistrovanComponent } from './neregistrovan/neregistrovan.component';
+import { ProfilKupacComponent } from './profil-kupac/profil-kupac.component';
 
 
 
@@ -77,6 +78,7 @@ import { NeregistrovanComponent } from './neregistrovan/neregistrovan.component'
    PravilaPrivatnostiComponent,
    NavKupacComponent,
    NeregistrovanComponent,
+   ProfilKupacComponent,
 
 
 
@@ -87,14 +89,14 @@ import { NeregistrovanComponent } from './neregistrovan/neregistrovan.component'
       {path: 'pocetna', component: PocetnaComponent},
       {path: 'faq', component: FaqComponent},
       {path: 'help1', component: Help1Component},
-      {path: 'favoriti', component: FavoritiComponent},
-      {path: 'kosarica', component: KosaricaComponent},
+      {path: 'favoriti/:id', component: FavoritiComponent},
+      {path: 'kosarica/:id', component: KosaricaComponent},
       {path: 'registracija', component: RegistracijaComponent},
       {path: 'zene', component: ZeneComponent},
       {path: 'muskarci', component: MuskarciComponent},
       {path: 'pravila-privatnosti', component: PravilaPrivatnostiComponent},
       {path: 'kontakt', component: KontaktComponent},
-      {path: 'prodavnice', component: ProdavniceComponent},
+      {path: 'prodavnice/:id', component: ProdavniceComponent},
       {path: 'zaposlenik-pocetna/:id', component:ZaposlenikPocetnaComponent},
       {path: 'admin-pocetna/:id',component:AdminPocetnaComponent},
       {path: 'prijava', component:PrijavaComponent},
@@ -113,10 +115,11 @@ import { NeregistrovanComponent } from './neregistrovan/neregistrovan.component'
       {path: 'statistika/:id', component:StatistikaComponent},
       {path: 'profil-admin/:id', component:ProfilAdminComponent},
       {path: 'vodiczavelicine', component:VodiczavelicineComponent},
-      {path: 'kupac-pocetna', component:KupacPocetnaComponent},
+      {path: 'kupac-pocetna/:id', component:KupacPocetnaComponent},
       {path: 'pravila-privatnosti', component:PravilaPrivatnostiComponent},
-      {path:'nav-kupac', component: NavKupacComponent},
+      {path:'nav-kupac/:id', component: NavKupacComponent},
       {path:'neregistrovan', component: NeregistrovanComponent},
+      {path:'profil-kupac/:id', component:ProfilKupacComponent}
   ]),
     FormsModule,
     HttpClientModule,
@@ -126,4 +129,4 @@ import { NeregistrovanComponent } from './neregistrovan/neregistrovan.component'
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule{ }
+export class AppModule { }

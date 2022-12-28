@@ -1,37 +1,195 @@
 <app-navbar-admin></app-navbar-admin>
-
-<div style="margin: 2% 15%">
-  <label>Filter prodavnica: </label>
-  <input type="text" [(ngModel)]="pretraga" style="margin-left:1% ">
-  <div id="divTabela">
-    <table class="table table-warning">
-      <thead style="background-color: black;">
-      <tr style="background-color: black;">
-        <th style="width: 20px;">ID</th>
-        <th>Opis</th>
-        <th>Kupac</th>
-        <th>Prodavnica</th>
-        <th>Datum</th>
-        <th>Akcija</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <tr *ngFor="let s of get_podaci_filtrirano()">
-        <td style="width: 20px;">{{s.id}}</td>
-        <td>{{s.opis}}</td>
-        <td>{{s.kupac}}</td>
-        <td>{{s.prodavnica}}</td>
-        <td>{{s.datumKreiranja}}</td>
-        <td>
-          <button (click)="brisi_komenatar(s)">Obrisi</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-
-  </div>
+<div id="recenzijeNaslov">
+  <h1 style="text-align: center;">Recenzije</h1>
+  <h2>Pogledajte kako se kupcima svidjaju naše prodavnice i proizvodi.</h2>
+  <label class="broj">Ukupno komentara: {{getBrojKom()}}</label>
+  <label class="broj">Ukupno ocjena prodavnica: {{getBrojOcjena()}}</label>
+  <label class="broj">Ukupno ocjena proizvoda: {{getBrojOcjenaProizvoda()}}</label>
 </div>
+
+<div style="width: 80%; margin: 2% 10%;">
+
+
+<div class="accordion faq-accordian" id="faqAccordion">
+  <div class="card border-0 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+    <div class="card-header" id="headingOne">
+      <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Prikaz komentara<span class="lni-chevron-up"></span></h6>
+    </div>
+    <div class="collapse" id="collapseOne" aria-labelledby="headingOne" data-parent="#faqAccordion">
+      <div class="card-body">
+
+
+
+        <div style="margin: 2% 15%">
+          <label>Filter prodavnica: </label>
+          <input type="text" [(ngModel)]="pretraga" style="margin-left:1% ">
+          <div id="divTabela">
+            <table class="table table-warning">
+              <thead style="background-color: black;">
+              <tr style="background-color: black;">
+                <th style="width: 20px;">ID</th>
+                <th>Opis</th>
+                <th>Kupac</th>
+                <th>Prodavnica</th>
+                <th>Datum</th>
+                <th>Akcija</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <tr *ngFor="let s of get_podaci_filtrirano()">
+                <td style="width: 20px;">{{s.id}}</td>
+                <td>{{s.opis}}</td>
+                <td>{{s.kupac}}</td>
+                <td>{{s.prodavnica}}</td>
+                <td>{{s.datumKreiranja}}</td>
+                <td>
+                  <button (click)="brisi_komenatar(s)">Obrisi</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+
+
+
+
+
+      </div>
+
+
+
+
+
+    </div>
+    </div>
+  </div>
+
+  <div class="card border-0 wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+    <div class="card-header" id="headingTwo">
+      <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">Prikaz ocjena prodavnica<span class="lni-chevron-up"></span></h6>
+    </div>
+    <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+      <div class="card-body">
+
+
+        <label>Filter prodavnica: </label>
+        <input type="text" [(ngModel)]="pretragaOcjena" style="margin-left:1% ">
+        <div id="divTabela2" style="margin:2% 15%;">
+          <table class="table table-warning">
+            <thead style="background-color: black;">
+            <tr style="background-color: black;">
+              <th style="width: 20px;">ID</th>
+              <th>Ocjena</th>
+              <th>Kupac</th>
+              <th>Prodavnica</th>
+              <th>Datum</th>
+              <th>Akcija</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let s of getOcjene()">
+              <td style="width: 20px;">{{s.id}}</td>
+              <td>{{s.naziv}}</td>
+              <td>{{s.kupac}}</td>
+              <td>{{s.prodavnica}}</td>
+              <td>{{s.datumKreiranja}}</td>
+              <td>
+                <button (click)="brisi_ocjenu(s)">Obrisi</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card border-0 wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+    <div class="card-header" id="headingThree">
+      <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">Prikaz ocjena proizvoda <span class="lni-chevron-up"></span></h6>
+    </div>
+    <div class="collapse" id="collapseThree" aria-labelledby="headingThree" data-parent="#faqAccordion">
+      <div class="card-body">
+
+
+        <label>Filter proizvoda: </label>
+        <input type="text" [(ngModel)]="pretragaOcjenaProizvoda" style="margin-left:1% ">
+        <div id="divTabela3" style="margin:2% 15%;">
+          <table class="table table-warning">
+            <thead style="background-color: black;">
+            <tr style="background-color: black;">
+              <th style="width: 20px;">ID</th>
+              <th>Ocjena</th>
+              <th>Kupac</th>
+              <th>Proizvod</th>
+              <th>Datum</th>
+              <th>Akcija</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let s of getOcjeneProizvoda()">
+              <td style="width: 20px;">{{s.id}}</td>
+              <td>{{s.naziv}}</td>
+              <td>{{s.kupac}}</td>
+              <td>{{s.proizvod}}</td>
+              <td>{{s.datumKreiranja}}</td>
+              <td>
+                <button (click)="brisi_ocjenuProizvoda(s)">Obrisi</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

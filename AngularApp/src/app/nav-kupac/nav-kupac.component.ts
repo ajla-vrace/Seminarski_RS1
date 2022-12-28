@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 
 @Component({
@@ -11,18 +11,21 @@ export class NavKupacComponent implements OnInit {
 
   potvrda: any = false;
 
-  constructor(private router: Router, private httpKlijent: HttpClient) {
+  kupac_id:any;
+
+  constructor(private router: Router, private httpKlijent: HttpClient, private route:ActivatedRoute) {
   }
   ngOnInit(): void {
+
+    this.route.params.subscribe(s=>{
+      this.kupac_id=+s["id"];
+    })
+
   }
   reloadPage() {
     window.location.reload()
   }
 
-  pocetna() {
-
-    this.router.navigate(['/pocetna']);
-  }
 
   otvoriFaq() {
     this.potvrda = true;
@@ -44,20 +47,20 @@ export class NavKupacComponent implements OnInit {
     this.router.navigate(['/muskarci']);
   }
 
-  prikaziPrijava() {
-    this.potvrda = true;
-    this.router.navigate(['prijava']);
-  }
-
   prikaziFavorite() {
     this.potvrda = true;
-    this.router.navigate(['/favoriti']);
+    this.router.navigate(['/favoriti',this.kupac_id]);
   }
 
   prikaziKosaricu() {
     this.potvrda = true;
-    this.router.navigate(['/kosarica']);
+    this.router.navigate(['/kosarica',this.kupac_id]);
   }
 
 
+  prikaziProfil() {
+    this.potvrda = true;
+
+    this.router.navigate(['/profil-kupac',this.kupac_id]);
+  }
 }

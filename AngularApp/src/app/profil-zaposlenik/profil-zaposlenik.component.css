@@ -70,3 +70,16 @@ h5{
   color: grey;
 }
 
+.odjava{
+  width: 90%;
+  margin:auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-odjava{
+  padding:0.5%;
+  border: groove;
+  background-color: #ffdddc;
+  border-radius: 20px;
+}

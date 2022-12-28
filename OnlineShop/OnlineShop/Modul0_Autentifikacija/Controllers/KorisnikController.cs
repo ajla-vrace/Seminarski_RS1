@@ -52,7 +52,7 @@ namespace OnlineShop.Modul1.Controllers
             _dbContext.SaveChanges();
             return Ok(objekat);
         }
-        [HttpPost]
+        [HttpGet]
         public List<KorisnickiNalog> GetAll()
         {
             var priprema = _dbContext.KorisnickiNalog.ToList();
