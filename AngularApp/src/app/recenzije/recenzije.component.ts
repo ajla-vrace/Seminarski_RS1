@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MojConfig} from "../moj-config";
 
 @Component({
@@ -11,11 +11,11 @@ import {MojConfig} from "../moj-config";
 export class RecenzijeComponent implements OnInit {
    komentariPodaci: any;
   pretraga: any;
-  constructor(private httpKlijent: HttpClient, private router: Router) {
+  constructor(private httpKlijent: HttpClient, private router: Router, private route:ActivatedRoute) {
   }
   fetchProdavnice() :void
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "Prodavnica/GetByAll", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "Prodavnica/GetAll", MojConfig.http_opcije()).subscribe(x=>{
       this.komentariPodaci = x;
     });
   }
@@ -26,9 +26,15 @@ export class RecenzijeComponent implements OnInit {
     });
   }
 
+  admin_id:any;
+
   ngOnInit(): void {
     this.fetchKomentari();
     this.fetchProdavnice();
+
+    this.route.params.subscribe(s=>{
+      this.admin_id=+s["id"];
+    })
   }
   get_podaci_filtrirano() {
     if (this.komentariPodaci == null)
