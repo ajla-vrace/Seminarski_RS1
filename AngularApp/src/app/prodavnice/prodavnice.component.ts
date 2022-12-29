@@ -20,6 +20,9 @@ export class ProdavniceComponent implements OnInit {
 
 
   kupac_id:any;
+  ocjena: any;
+  novaOcjena: any;
+   ocjenePodaci: any;
 
   constructor(private httpKlijent: HttpClient, private router: Router,
               private route: ActivatedRoute) {}
@@ -34,6 +37,12 @@ export class ProdavniceComponent implements OnInit {
   {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Prodavnica/GetByAll", MojConfig.http_opcije()).subscribe(x=>{
       this.prodavnicePodaci = x;
+    });
+  }
+  fetchOcjene() :void
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Ocjena/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+      this.ocjenePodaci = x;
     });
   }
   ngOnInit(): void {
@@ -74,4 +83,27 @@ export class ProdavniceComponent implements OnInit {
     });
 
   }
+
+  postavi_ocjenu(a:any, s:any) {
+
+    this.novaOcjena={
+      id:0,
+      ocjena:s,
+      kupacId:this.kupac_id,
+      prodavnicaId:a,
+
+    }
+
+
+    this.httpKlijent.post(`${MojConfig.adresa_servera}/Ocjena/Add`, this.novaOcjena, MojConfig.http_opcije()).subscribe(x => {
+      this.fetchOcjene();
+
+    });
+  alert("uspjesno");
+  }
+
+
+
+
+
 }

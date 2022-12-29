@@ -5,9 +5,21 @@ KUPAC ID: {{kupac_id}}
 
 <div id="prodavnice">
   <div *ngFor="let p of getProdavnice()" class="mali_prod">
-    <h3>{{p.naziv}}</h3>
+    <h3>{{p.ocjena}}</h3>
     <h5>{{p.adresa}}</h5>
     <h5>{{p.brojTelefona}}</h5>
+
+  <br>
+    <div style="margin: 15%">
+      <label>Ocijenite prodavnicu</label>
+      <br>
+      <label class="ocjena" (click)="postavi_ocjenu(p.id,1)">1</label>
+      <label class="ocjena" (click)="postavi_ocjenu(p.id,2)">2</label>
+      <label class="ocjena" (click)="postavi_ocjenu(p.id,2)">3</label>
+      <label class="ocjena" (click)="postavi_ocjenu(p.id,4)">4</label>
+      <label class="ocjena" (click)="postavi_ocjenu(p.id,5)">5</label>
+
+    </div>
 
 
       <div style="background-color: red; width: 90%; margin:0 5%;">

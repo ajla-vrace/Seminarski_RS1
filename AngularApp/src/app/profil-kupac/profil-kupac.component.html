@@ -21,6 +21,7 @@ KUPAC ID: {{kupac_id}}
 
 
 <button (click)="prikazKomm()" style="margin: 1%;">Komentari</button>
+<button (click)="prikazOcjene()" style="margin: 1%;">Ocjene prodavnica</button>
 <div *ngIf="komm==true" style="margin: 2% 3%;">
   <div id="divTabela">
     <table class="table table-warning">
@@ -53,6 +54,42 @@ KUPAC ID: {{kupac_id}}
     </table>
 
   </div>
+</div>
+
+
+
+  <div *ngIf="ocjene==true" style="margin: 2% 3%;">
+    <div id="divTabela1">
+      <table class="table table-warning">
+        <thead style="background-color: black;">
+        <tr style="background-color: black;">
+          <th>Ocjena</th>
+          <th>Kupac</th>
+          <th>Prodavnica</th>
+          <th>Datum</th>
+          <th>Brisanje</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let o of prikaziMojeOcjeneProdavnica()">
+          <td>{{o.ocjena}}</td>
+          <td>{{o.kupac}}</td>
+          <td>{{o.prodavnica}}</td>
+          <td>{{o.datumKreiranja}}</td>
+          <td>
+            <button (click)="brisiOcjenu(o)">Obrisi</button>
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+</div>
+
+
   <div *ngIf="odabranikomentar!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -76,4 +113,4 @@ KUPAC ID: {{kupac_id}}
     </div>
 
   </div>
-</div>
+

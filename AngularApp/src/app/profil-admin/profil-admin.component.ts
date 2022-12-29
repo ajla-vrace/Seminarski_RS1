@@ -14,6 +14,7 @@ export class ProfilAdminComponent implements OnInit {
               private httpKlijent:HttpClient) { }
 
   admin_id:any;
+  jelKliknuoPromijeniLoz: boolean=false;
 
   ngOnInit(): void {
     this.route.params.subscribe(s=>{
@@ -30,5 +31,13 @@ export class ProfilAdminComponent implements OnInit {
         this.router.navigateByUrl("/pocetna");
         alert("Uspješno ste se odjavili.");
       });
+  }
+
+  spasi_promjene() {
+
+  }
+
+  edit() {
+
   }
 }

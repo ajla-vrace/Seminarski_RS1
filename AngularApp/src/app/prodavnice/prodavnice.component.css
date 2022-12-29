@@ -33,11 +33,12 @@ h2,h3,h4,h5,h6{
 #zakomm{
   display: flex;
 }
-#komm{
-
-
+.ocjena{
+  margin: 5%;
 }
-
+.ocjena:hover{
+  color:red;
+}
 
 
 

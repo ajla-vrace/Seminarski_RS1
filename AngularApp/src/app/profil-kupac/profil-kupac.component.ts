@@ -15,6 +15,9 @@ kupac_podaci:any;
    komentariPodaci1: any;
   odabranikomentar: any=null;
    komentariPodaciMoji: any;
+   ocjeneProdavnica: any;
+   ocjene: any=false;
+   ocjeneProdavnicaMoje: any;
 
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient) { }
 
@@ -26,6 +29,8 @@ kupac_podaci:any;
     this.getKupca();
     this.fetchKomentari();
     this.fetchKomentariMoji();
+    this.fetchOcjeneProdavnice();
+    this.fetchOcjeneProdavniceMoje();
   }
 
 
@@ -50,6 +55,24 @@ kupac_podaci:any;
     });
   }
 
+  fetchOcjeneProdavnice() :void
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Ocjena/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+      this.ocjeneProdavnica = x;
+    });
+  }
+
+
+
+
+
+  fetchOcjeneProdavniceMoje() :void
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Ocjena/GetById/"+this.kupac_id, MojConfig.http_opcije()).subscribe(x=>{
+      this.ocjeneProdavnicaMoje = x;
+    });
+  }
+
   prikaziMojeKomentare() {
     if (this.komentariPodaci1 == null)
       return [];
@@ -58,6 +81,16 @@ kupac_podaci:any;
 
   prikazKomm() {
     this.komm = true;
+  }
+
+  prikaziMojeOcjeneProdavnica() {
+    if (this.ocjeneProdavnica == null)
+      return [];
+    return this.ocjeneProdavnica.filter((a:any)=>a.kupacId==this.kupac_id);
+  }
+
+  prikazOcjene() {
+    this.ocjene = true;
   }
 
   brisikomm(s: any) {
@@ -88,6 +121,19 @@ this.odabranikomentar=null;
 }
 
 
+  brisiOcjenu(s: any) {
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/Ocjena/Delete/" + s.id,null, MojConfig.http_opcije())
+      .subscribe((povratnaVrijednost:any) =>{
+        const index = this.ocjeneProdavnica.indexOf(s);
+        if (index > -1) {
+          this.ocjeneProdavnica.splice(index, 1);
+        }
+
+      });
 
 
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/Ocjena/GetById/"+s.id,MojConfig.http_opcije()).subscribe(x=>{
+      this.ocjeneProdavnica= x;
+    });
+  }
 }

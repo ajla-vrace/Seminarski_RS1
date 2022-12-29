@@ -6,7 +6,7 @@ namespace OnlineShop.Modul1.ViewModels
     public class OcjenaProdavnicaVM
     {
         public int Id { get; set; }
-        public string Naziv { get; set; }
+        public int Ocjena { get; set; }
         public DateTime DatumKreiranja { get; set; }
         public int? KupacId { get; set; }
         public int? ProdavnicaId { get; set; }

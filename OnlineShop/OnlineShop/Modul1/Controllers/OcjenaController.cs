@@ -22,7 +22,7 @@ namespace OnlineShop.Modul1.Controllers
             objekat = new Ocjena();
             // objekat.Id = x.Id;
             _dbContext.Add(objekat);
-            objekat.Naziv = x.Naziv;
+            objekat.OcjenaBrojcano = x.Ocjena;
             objekat.KupacId = x.KupacId;
             objekat.ProdavnicaId = x.ProdavnicaId;
             objekat.DatumKreiranja = DateTime.Now;
@@ -43,10 +43,31 @@ namespace OnlineShop.Modul1.Controllers
                 .Select(s => new
                 {
                     Id = s.Id,
-                    Naziv = s.Naziv,
+                    Ocjena = s.OcjenaBrojcano,
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.DatumKreiranja,
                     Prodavnica = s.Prodavnica.Naziv,
+                    KupacId = s.KupacId,
+                })
+                .AsQueryable();
+
+
+            return Ok(data.ToList());
+        }
+        [HttpGet("{id}")]
+        public ActionResult GetById(int id)
+        {
+            var data = _dbContext.Ocjena
+                .OrderByDescending(s => s.Id)
+                .Where(s => s.KupacId == id)
+                .Select(s => new
+                {
+                    Id = s.Id,
+                    Ocjena= s.OcjenaBrojcano,
+                    Kupac = s.Kupac.Username,
+                    DatumKreiranja = s.DatumKreiranja,
+                    Prodavnica = s.Prodavnica.Naziv,
+                    KupacId = s.KupacId,
 
                 })
                 .AsQueryable();
@@ -54,7 +75,6 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(data.ToList());
         }
-
         [HttpPost("{id}")]
         public ActionResult Delete(int id)
         {

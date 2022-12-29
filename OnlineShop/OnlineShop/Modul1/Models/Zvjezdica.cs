@@ -5,7 +5,7 @@ namespace OnlineShop.Modul1.Models
     public class Zvjezdica
     {
         public int Id { get; set; }
-        public string Naziv { get; set; }
+        public int OcjenaBrojcano { get; set; }
         public DateTime DatumKreiranja { get; set; }
         [ForeignKey("KupacId")]
         public Kupac Kupac { get; set; }

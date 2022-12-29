@@ -22,7 +22,7 @@ namespace OnlineShop.Modul1.Controllers
             objekat = new Zvjezdica();
             // objekat.Id = x.Id;
             _dbContext.Add(objekat);
-            objekat.Naziv = x.Naziv;
+            objekat.OcjenaBrojcano = x.Ocjena;
             objekat.KupacId = x.KupacId;
             objekat.ProizvodId = x.ProizvodId;
             objekat.DatumKreiranja = DateTime.Now;
@@ -43,7 +43,7 @@ namespace OnlineShop.Modul1.Controllers
                 .Select(s => new
                 {
                     Id = s.Id,
-                    Naziv = s.Naziv,
+                    Ocjena = s.OcjenaBrojcano,
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.DatumKreiranja,
                     Proizvod = s.Proizvod.Naziv,

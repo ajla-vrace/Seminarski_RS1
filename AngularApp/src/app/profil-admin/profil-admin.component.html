@@ -1,7 +1,120 @@
 <app-navbar-admin></app-navbar-admin>
 
-<p>profil-admin works! {{admin_id}}</p>
-
 <div class="odjava">
   <button class="btn-odjava" (click)="odjaviSe()">Odjavi se</button>
+</div>
+
+
+<div class="glavni">
+
+  <div class="moji-podaci">
+
+    <h4>Moji podaci</h4>
+    <hr>
+    <div class="ime">
+      <h6>Ime:</h6>
+      <h5>Neko ime</h5>
+    </div>
+
+    <div class="prezime">
+      <h6>Prezime:</h6>
+      <h5>Neko ime</h5>
+    </div>
+
+    <div class="spol">
+      <h6>Spol:</h6>
+      <h5>Neko ime</h5>
+    </div>
+
+    <hr>
+
+    <div class="email">
+      <h6>Email:</h6>
+      <h5>Neko ime</h5>
+    </div>
+
+    <div class="tel">
+      <h6>Broj telefona:</h6>
+      <h5>Neko ime</h5>
+    </div>
+
+    <hr>
+
+    <div class="datumreg">
+      <h6>Datum registracije:</h6>
+      <h5>Neko ime</h5>
+    </div>
+
+    <hr>
+
+    <h4>Pristupni podaci</h4>
+
+    <hr>
+
+    <div class="username">
+      <h6>Korisničko ime:</h6>
+      <h5>Neko ime</h5>
+    </div>
+
+    <div class="promijeni-lozinku">
+      <h6>Lozinka: </h6>
+      <button class="edit-lozinku" (click)="jelKliknuoPromijeniLoz=true"><h5>Promijeni lozinku</h5></button>
+    </div>
+
+    <hr>
+
+    <div class="edit">
+      <button class="edit-podatke" (click)="edit()">Izmijeni podatke</button>
+    </div>
+
+    <hr>
+
+  </div>
+
+</div>
+
+
+
+<div class="moja-slika">
+  <img src="assets/slike/user-m2.jpg">
+  <button class="promijeni-sliku">Promijeni sliku</button>
+</div>
+
+
+
+
+<div *ngIf="jelKliknuoPromijeniLoz==true" class="modal fade show"  tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" > Promijeni lozinku </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="jelKliknuoPromijeniLoz=false;" ></button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="mb-3" >
+          <label class="form-label">Sadašnja lozinka:</label>
+          <input type="password"  >
+        </div>
+
+
+        <div class="mb-3" >
+          <label class="form-label">Nova lozinka:</label>
+          <input type="password" >
+        </div>
+
+
+        <div class="mb-3" >
+          <label class="form-label">Ponovite novu lozinku:</label>
+          <input type="password" >
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-primary" (click)="spasi_promjene()">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>

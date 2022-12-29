@@ -11,3 +11,71 @@
   background-color: #ffdddc;
   border-radius: 20px;
 }
+
+.glavni{
+  display: flex;
+  width: 85%;
+  margin: 3% auto 5% auto;
+  justify-content: flex-start;
+}
+
+
+.moja-slika{
+  display: grid;
+  grid-template-columns: auto;
+  width:5%;
+  margin:auto;
+  position: absolute;
+  top:38%;
+  left:60%;
+}
+
+.moji-podaci{
+  /*background-color: #95e4ff;*/
+  padding: 2%;
+  width:50%;
+  border:groove;
+}
+
+h4{
+  text-align: center;
+}
+
+.edit-podatke{
+  width: 100%;
+  border: groove;
+  border-radius: 30px;
+  padding:1%;
+}
+
+.edit-lozinku{
+  border: none;
+ /* background-color: #95e4ff;*/
+  background-color: white;
+}
+
+.edit-lozinku:hover{
+  color: rgba(255,219,218,0.88)
+}
+
+.promijeni-sliku{
+  border: groove;
+  padding:1%;
+}
+
+img{
+  border:groove;
+  width: 400px;
+  height: 360px;
+}
+
+.mb-3 input{
+  width: 100%;
+}
+
+.ime, .prezime, .email, .tel, .datumreg, .spol, .username, .promijeni-lozinku
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
