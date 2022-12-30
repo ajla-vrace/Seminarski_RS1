@@ -8,8 +8,12 @@
 .btn-odjava{
   padding:0.5%;
   border: groove;
-  background-color: #ffdddc;
+  background-color: rgba(255,128,99,0.68);
   border-radius: 20px;
+}
+
+.btn-odjava:hover{
+  background-color: rgba(255,128,99,0.45);
 }
 
 .glavni{
@@ -41,6 +45,10 @@ h4{
   text-align: center;
 }
 
+h5{
+  color:grey;
+}
+
 .edit-podatke{
   width: 100%;
   border: groove;
@@ -48,14 +56,16 @@ h4{
   padding:1%;
 }
 
-.edit-lozinku{
-  border: none;
- /* background-color: #95e4ff;*/
-  background-color: white;
+.edit-lozinku, .edit-username{
+  border: groove;
+  border-radius: 20px;
+  padding:1%;
+  color:black;
+  margin:0.5%;
 }
 
-.edit-lozinku:hover{
-  color: rgba(255,219,218,0.88)
+.edit-lozinku:hover, .edit-username:hover{
+  color: rgba(0,0,0,0.68)
 }
 
 .promijeni-sliku{
@@ -78,4 +88,9 @@ img{
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.help-block{
+  color:red;
+  text-align: center;
 }

@@ -41,25 +41,7 @@
       <h5>{{podaci_zaposlenika?.spolOpis}}</h5>
     </div>
 
-    <div class="datumrodj">
-      <h6>Datum rođenja: </h6>
-      <h5>{{podaci_zaposlenika?.datumRodjenja}}</h5>
-    </div>
 
-    <div class="datumreg">
-      <h6>Datum registracije: </h6>
-      <h5>{{podaci_zaposlenika?.datumRegistracije}}</h5>
-    </div>
-
-    <div class="datumZaposl">
-      <h6>Datum zaposlenja: </h6>
-      <h5>{{podaci_zaposlenika?.datumZaposlenja}}</h5>
-    </div>
-
-    <div class="datumotkaza">
-      <h6>Datum otkaza: </h6>
-      <h5>{{podaci_zaposlenika?.datumOtkaza==null?"-":podaci_zaposlenika?.datumOtkaza}}</h5>
-    </div>
 
     <div class="prodavnica">
       <h6>Uposlen u: </h6>
@@ -88,9 +70,34 @@
 
   </div>
 
-  <div class="pristupni-podaci">
-    <h4>Pristupni podaci</h4>
+
+
+  <div class="datum-podaci">
+    <h4>Datumi </h4>
     <hr>
+
+    <div class="datumrodj">
+      <h6>Datum rođenja: </h6>
+      <h5>{{podaci_zaposlenika?.datumRodjenja}}</h5>
+    </div>
+
+    <div class="datumreg">
+      <h6>Datum registracije: </h6>
+      <h5>{{podaci_zaposlenika?.datumRegistracije}}</h5>
+    </div>
+
+    <div class="datumZaposl">
+      <h6>Datum zaposlenja: </h6>
+      <h5>{{podaci_zaposlenika?.datumZaposlenja}}</h5>
+    </div>
+
+    <div class="datumotkaza">
+      <h6>Datum otkaza: </h6>
+      <h5>{{podaci_zaposlenika?.datumOtkaza==null?"-":podaci_zaposlenika?.datumOtkaza}}</h5>
+    </div>
+<!--
+
+pristupni podaci:
 
     <div class="username">
       <h6>Korisničko ime: </h6>
@@ -102,7 +109,7 @@
       <h5 type="password">{{podaci_zaposlenika?.lozinka}}</h5>
     </div>
 
-
+-->
 
   </div>
 

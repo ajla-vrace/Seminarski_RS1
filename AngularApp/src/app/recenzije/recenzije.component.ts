@@ -77,14 +77,11 @@ export class RecenzijeComponent implements OnInit {
         if (index > -1) {
           this.komentariPodaci.splice(index, 1);
         }
-
       });
-
-
     this.httpKlijent.post(MojConfig.adresa_servera+ "/Komentar/GetAll",MojConfig.http_opcije()).subscribe(x=>{
       this.komentariPodaci = x;
     });
-
+    alert("Odabrani komentar je obrisan!");
   }
 
   getBrojKom(){
@@ -119,6 +116,7 @@ export class RecenzijeComponent implements OnInit {
     this.httpKlijent.post(MojConfig.adresa_servera+ "/Ocjens/GetAll",MojConfig.http_opcije()).subscribe(x=>{
       this.ocjenePodaci = x;
     });
+    alert("Odabrani ocjena je obrisana!");
   }
 
 
@@ -148,6 +146,7 @@ export class RecenzijeComponent implements OnInit {
     this.httpKlijent.post(MojConfig.adresa_servera+ "/Zvjezdica/GetAll",MojConfig.http_opcije()).subscribe(x=>{
       this.ocjeneProizvodaPodaci = x;
     });
+    alert("Odabrani ocjena je obrisana!");
   }
 
 

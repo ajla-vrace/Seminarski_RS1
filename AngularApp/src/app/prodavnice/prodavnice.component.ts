@@ -17,12 +17,16 @@ export class ProdavniceComponent implements OnInit {
   prod:any;
   noviKomentar: any;
   komentarisi: any;
-
-
+ocistiInputPolje:any=false;
+BrojKP:any;
   kupac_id:any;
   ocjena: any;
   novaOcjena: any;
    ocjenePodaci: any;
+   dodanKomentar: any=false;
+  opisK: any;
+   ocjenaPostavljena: any=false;
+   ovajOcjena: any;
 
   constructor(private httpKlijent: HttpClient, private router: Router,
               private route: ActivatedRoute) {}
@@ -68,24 +72,34 @@ export class ProdavniceComponent implements OnInit {
     this.komentarisi=true;
 }
   postavi_komentar(opis_input:any, s:any) {
+      if(opis_input.value!="") {
+        this.noviKomentar = {
+          id: 0,
+          opis: opis_input.value,
+          kupacId: this.kupac_id,
+          prodavnicaId: s,
 
-    this.noviKomentar={
-      id:0,
-      opis:opis_input.value,
-      kupacId:this.kupac_id,
-      prodavnicaId:s,
+        }
 
-    }
+        this.httpKlijent.post(`${MojConfig.adresa_servera}/Komentar/Add`, this.noviKomentar, MojConfig.http_opcije()).subscribe(x => {
+          this.fetchKomentari();
 
-    this.httpKlijent.post(`${MojConfig.adresa_servera}/Komentar/Add`, this.noviKomentar, MojConfig.http_opcije()).subscribe(x => {
-      this.fetchKomentari();
+        });
+        alert("Uspješno dodan komentar!");
+        this.ocistiInput(opis_input);
+      }
+      else{
+        alert("Nije moguce dodati prazan komentar!");
 
-    });
+      }
 
   }
 
-  postavi_ocjenu(a:any, s:any) {
+  private ocistiInput(s:any) {
+    s.value="";
+  }
 
+  postavi_ocjenu(a:any, s:any) {
     this.novaOcjena={
       id:0,
       ocjena:s,
@@ -93,13 +107,12 @@ export class ProdavniceComponent implements OnInit {
       prodavnicaId:a,
 
     }
-
-
     this.httpKlijent.post(`${MojConfig.adresa_servera}/Ocjena/Add`, this.novaOcjena, MojConfig.http_opcije()).subscribe(x => {
       this.fetchOcjene();
-
     });
-  alert("uspjesno");
+
+  alert("Uspješno dodana ocjena");
+
   }
 
 

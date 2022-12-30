@@ -51,7 +51,7 @@ h4{
   padding:2%;
 }
 
-.pristupni-podaci{
+.datum-podaci{
   background-color: #ffdddc;
   width: 32%;
   border: groove;
@@ -80,6 +80,10 @@ h5{
 .btn-odjava{
   padding:0.5%;
   border: groove;
-  background-color: #ffdddc;
+  background-color: rgba(255,128,99,0.68);
   border-radius: 20px;
+}
+
+.btn-odjava:hover{
+  background-color: rgba(255,128,99,0.45);
 }

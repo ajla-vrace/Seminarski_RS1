@@ -13,36 +13,42 @@
     <hr>
     <div class="ime">
       <h6>Ime:</h6>
-      <h5>Neko ime</h5>
+      <h5>{{admin_podaci[0]?.ime}}</h5>
     </div>
 
     <div class="prezime">
       <h6>Prezime:</h6>
-      <h5>Neko ime</h5>
+      <h5>{{admin_podaci[0]?.prezime}}</h5>
     </div>
 
     <div class="spol">
       <h6>Spol:</h6>
-      <h5>Neko ime</h5>
+      <h5>{{admin_podaci[0]?.spolOpis}}</h5>
     </div>
 
     <hr>
 
     <div class="email">
       <h6>Email:</h6>
-      <h5>Neko ime</h5>
+      <h5>{{admin_podaci[0]?.email}}</h5>
     </div>
 
     <div class="tel">
       <h6>Broj telefona:</h6>
-      <h5>Neko ime</h5>
+      <h5>{{admin_podaci[0]?.brojTelefona}}</h5>
     </div>
 
     <hr>
 
     <div class="datumreg">
       <h6>Datum registracije:</h6>
-      <h5>Neko ime</h5>
+      <h5>{{admin_podaci[0]?.datumRegistracije}}</h5>
+    </div>
+
+    <hr>
+
+    <div class="edit">
+      <button class="edit-podatke" (click)="edit()">Izmijeni podatke</button>
     </div>
 
     <hr>
@@ -53,21 +59,17 @@
 
     <div class="username">
       <h6>Korisničko ime:</h6>
-      <h5>Neko ime</h5>
+      <button class="edit-username" (click)="jelKliknuoPromijeniUsername=true">Promijeni</button>
     </div>
 
     <div class="promijeni-lozinku">
       <h6>Lozinka: </h6>
-      <button class="edit-lozinku" (click)="jelKliknuoPromijeniLoz=true"><h5>Promijeni lozinku</h5></button>
+      <button class="edit-lozinku" (click)="jelKliknuoPromijeniLoz=true">Promijeni</button>
     </div>
 
     <hr>
 
-    <div class="edit">
-      <button class="edit-podatke" (click)="edit()">Izmijeni podatke</button>
-    </div>
 
-    <hr>
 
   </div>
 
@@ -95,26 +97,157 @@
 
         <div class="mb-3" >
           <label class="form-label">Sadašnja lozinka:</label>
-          <input type="password"  >
+          <input type="password" #sadasnjaLoz [(ngModel)]="sadasnja_lozinka">
         </div>
 
 
         <div class="mb-3" >
           <label class="form-label">Nova lozinka:</label>
-          <input type="password" >
+          <input type="password" #novaLoz [(ngModel)]="nova_lozinka">
         </div>
 
 
         <div class="mb-3" >
-          <label class="form-label">Ponovite novu lozinku:</label>
-          <input type="password" >
+          <label class="form-label">Ponovite unos:</label>
+          <input type="password" #ponovoNovaLoz [(ngModel)]="ponovo_nova_lozinka">
         </div>
 
 
       </div>
       <div class="modal-footer">
-        <button  type="button" class="btn btn-primary" (click)="spasi_promjene()">Save changes</button>
+         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Morate unijeti ispravne podatke">
+        <button  type="button" class="btn btn-primary"
+                 [disabled]="!jelOmogucenSaveLozinka()"
+                 (click)="spasi_promjene_loz(sadasnjaLoz,novaLoz,ponovoNovaLoz)">Spasi promjene</button>
+        </span>
       </div>
     </div>
   </div>
 </div>
+
+
+
+<div *ngIf="jelKliknuoPromijeniUsername==true" class="modal fade show"  tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" > Promijeni korisničko ime </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="jelKliknuoPromijeniUsername=false;" ></button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="mb-3" >
+          <label class="form-label">Sadašnje korisničko ime:</label>
+          <input type="text"  disabled [value]="admin_podaci[0].username" >
+        </div>
+
+
+        <div class="mb-3" >
+          <label class="form-label">Novo korisničko ime:</label>
+          <input type="text" #novoKorIme  [(ngModel)]="novo_korIme">
+        </div>
+
+
+        <div class="mb-3" >
+          <label class="form-label">Ponovite unos:</label>
+          <input type="text" #ponovoNovoKorIme [(ngModel)]="ponovo_korIme">
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Morate unijeti ispravne podatke">
+        <button  type="button" class="btn btn-primary"
+                 [disabled]="!jelOmogucenSaveKorIme()"
+                 (click)="spasi_promjene_username(novoKorIme.value)">Spasi promjene</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div *ngIf="kliknuoEditPodatke==true" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel" > Izmjena podataka </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="kliknuoEditPodatke=false"></button>
+      </div>
+      <div class="modal-body">
+
+
+
+        <div class="mb-3" [class.has-error]="imeControll.invalid && imeControll.touched">
+          <label class="form-label">Ime:</label>
+          <input type="text" required minlength="3" #imeControll="ngModel" class="form-control" placeholder="ime" [(ngModel)]="admin_podaci[0].ime" >
+
+          <span class="help-block" *ngIf="imeControll.invalid && imeControll.touched">
+            Ovo polje je obavezno i mora imati najmanje 3 karaktera
+          </span>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="prezimeControll.invalid && prezimeControll.touched">
+          <label class="form-label">Prezime:</label>
+          <input type="text" required minlength="3" #prezimeControll="ngModel" class="form-control" placeholder="prezime" [(ngModel)]="admin_podaci[0].prezime" >
+
+          <span class="help-block" *ngIf="prezimeControll.invalid && prezimeControll.touched">
+            Ovo polje je obavezno i mora imati najmanje 3 karaktera
+          </span>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="spolControll.invalid && spolControll.touched">
+          <label class="form-label">Spol:</label>
+
+          <select required #spolControll="ngModel" class="form-control" [(ngModel)]="admin_podaci[0].spolId"  >
+            <option *ngFor="let s of spolovi " [value]="s?.id"> {{s.naziv}}</option>
+          </select>
+
+          <span class="help-block" *ngIf="spolControll.invalid && spolControll.touched">
+            Ovo polje je obavezno.
+          </span>
+        </div>
+
+
+        <hr>
+
+        <div class="mb-3" [class.has-error]="emailControll.invalid && emailControll.touched">
+          <label class="form-label">Email:</label>
+          <input type="text" required pattern="^[a-z]{1,15}\.?[a-z]*?[0-9]*?@(luna|edu\.fit|gmail)\.(com|ba)$"
+                 minlength="3" #emailControll="ngModel"
+                 class="form-control" placeholder="email" [(ngModel)]="admin_podaci[0].email" >
+
+          <span class="help-block" *ngIf="emailControll.invalid && emailControll.touched">
+            Ovo polje je obavezno.
+          </span>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="telControll.invalid && telControll.touched">
+          <label class="form-label">Broj telefona:</label>
+          <input type="text" required pattern="^[0-9]{3}(\/|\-|\s)[0-9]{3}(\-|\s)[0-9]{3}$"
+                 minlength="3" #telControll="ngModel"
+                 class="form-control" placeholder="broj telefona" [(ngModel)]="admin_podaci[0].brojTelefona">
+
+          <span class="help-block" *ngIf="telControll.invalid && telControll.touched">
+            Ovo polje je obavezno.
+          </span>
+        </div>
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="!jelOmogucenSave(imeControll,prezimeControll,spolControll,emailControll,telControll)" type="button"
+                class="btn btn-primary" (click)="spasi()" >Spasi promjene</button>
+      </div>
+    </div>
+  </div>
+</div>
+

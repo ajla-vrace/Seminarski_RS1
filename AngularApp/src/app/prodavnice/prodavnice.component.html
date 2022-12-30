@@ -1,33 +1,36 @@
-<h3 style="margin: 3%">Prodavnice</h3>
+<app-nav-kupac></app-nav-kupac>
+<h3 style="margin: 2%">Prodavnice</h3>
 <h5>Pogledajte sve naše poslovnice.</h5>
 
 KUPAC ID: {{kupac_id}}
 
 <div id="prodavnice">
   <div *ngFor="let p of getProdavnice()" class="mali_prod">
+    <h3>{{p.naziv}}</h3>
     <h3>{{p.ocjena}}</h3>
     <h5>{{p.adresa}}</h5>
     <h5>{{p.brojTelefona}}</h5>
 
   <br>
-    <div style="margin: 15%">
-      <label>Ocijenite prodavnicu</label>
+
+
+    <div style="margin: 12%" >
+      <label style="text-align: center;" >Ocijenite prodavnicu</label>
       <br>
+
       <label class="ocjena" (click)="postavi_ocjenu(p.id,1)">1</label>
       <label class="ocjena" (click)="postavi_ocjenu(p.id,2)">2</label>
-      <label class="ocjena" (click)="postavi_ocjenu(p.id,2)">3</label>
+      <label class="ocjena" (click)="postavi_ocjenu(p.id,3)">3</label>
       <label class="ocjena" (click)="postavi_ocjenu(p.id,4)">4</label>
       <label class="ocjena" (click)="postavi_ocjenu(p.id,5)">5</label>
-
-    </div>
-
-
-      <div style="background-color: red; width: 90%; margin:0 5%;">
-        <h6 style="text-align: left">Dodajte komentar</h6>
-        <form id="komm" >
-          <textarea #opis_input name="areaa"></textarea>
+</div>
+      <div style="background-color: red; width: 100%; margin:0 5%;">
+        <h6 style="text-align: center">Dodajte komentar</h6>
+        <form id="komm" style="width: 100%">
+          <textarea #opis_input   name="areaa" style="width: 100%" ng-minlenght="1" required ></textarea>
           <br>
-          <button (click)="postavi_komentar(opis_input,p.id)">Postavi komentar</button>
+          <button  id="postaviKomentar" (click)="postavi_komentar(opis_input,p.id)" >Postavi komentar</button>
+
         </form>
       </div>
   </div>

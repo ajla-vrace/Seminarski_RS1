@@ -12,14 +12,8 @@ div{
   margin: 1%;
   width: 20%;
 }
-button{
-  background-color: lightblue;
-  margin-right: 5px;
-}
-button:hover{
-  background-color: blue;
-  color:white;
-}
+
+
 h2,h3,h4,h5,h6{
   text-align: center;
 }
@@ -35,9 +29,27 @@ h2,h3,h4,h5,h6{
 }
 .ocjena{
   margin: 5%;
+  padding: 2%;
+}
+.ocjena1{
+  margin: 5%;
+  padding: 2%;
+  color:gray;
 }
 .ocjena:hover{
-  color:red;
+  color:white;
+  background-color: black;
+}
+#postaviKomentar{
+  background-color: dodgerblue;
+  color:white;
+border-radius: 10px;
+  width:65%;
+  margin: 0 17%;
+}
+#postaviKomentar:hover{
+  background-color: darkblue;
+  color:white;
 }
 
 

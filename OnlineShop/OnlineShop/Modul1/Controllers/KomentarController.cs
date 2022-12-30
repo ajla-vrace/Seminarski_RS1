@@ -25,8 +25,11 @@ namespace OnlineShop.Modul1.Controllers
             objekat = new Komentar();
             // objekat.Id = x.Id;
             _dbContext.Add(objekat);
+
             if (!x.Opis.IsNullOrEmpty())
                 objekat.Opis = x.Opis;
+            else
+                return BadRequest("Nije moguce prazan komentar");
             objekat.KupacId = x.KupacId;
             objekat.ProdavnicaId = x.ProdavnicaId;
             objekat.DatumKreiranja = DateTime.Now;

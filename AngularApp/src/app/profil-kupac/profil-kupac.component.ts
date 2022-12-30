@@ -107,6 +107,7 @@ kupac_podaci:any;
     this.httpKlijent.post(MojConfig.adresa_servera+ "/Komentar/GetById?id="+s.id,MojConfig.http_opcije()).subscribe(x=>{
       this.komentariPodaci1= x;
     });
+    alert("Odabrani komentar je obrisan!");
   }
 
   modifikuj(s: any) {
@@ -117,6 +118,7 @@ this.odabranikomentar=s;
     this.httpKlijent.post(MojConfig.adresa_servera+ "/Komentar/Update/" + this.odabranikomentar.id, this.odabranikomentar)
       .subscribe((povratnaVrijednost:any) =>{
       });
+
 this.odabranikomentar=null;
 }
 
@@ -135,5 +137,6 @@ this.odabranikomentar=null;
     this.httpKlijent.post(MojConfig.adresa_servera+ "/Ocjena/GetById/"+s.id,MojConfig.http_opcije()).subscribe(x=>{
       this.ocjeneProdavnica= x;
     });
+    alert("Odabrani ocjena je obrisana!");
   }
 }

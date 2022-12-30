@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Duende.IdentityServer.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
 using OnlineShop.Modul1.Models;
@@ -18,22 +19,38 @@ namespace OnlineShop.Modul1.Controllers
         [HttpPost]
         public ActionResult Add([FromBody] OcjenaProdavnicaVM x)
         {
-            Ocjena objekat;
-            objekat = new Ocjena();
-            // objekat.Id = x.Id;
-            _dbContext.Add(objekat);
-            objekat.OcjenaBrojcano = x.Ocjena;
-            objekat.KupacId = x.KupacId;
-            objekat.ProdavnicaId = x.ProdavnicaId;
-            objekat.DatumKreiranja = DateTime.Now;
-            
-           
+            Ocjena? objekat=default;
+            List<Ocjena> svi = _dbContext.Ocjena.ToList();
+            if (svi.Count > 0)
+            {
+                foreach (var item in svi)
+                {
+                    if ((item.KupacId) == (x.KupacId) && (item.ProdavnicaId) == (x.ProdavnicaId))
+                    {
+                        objekat = item;
+                    }
+                }
+            }
 
+            if (objekat == null)
+            {
+                objekat = new Ocjena();
+                _dbContext.Add(objekat);
+                objekat.OcjenaBrojcano = x.Ocjena;
+                objekat.KupacId = x.KupacId;
+                objekat.ProdavnicaId = x.ProdavnicaId;
+                objekat.DatumKreiranja = DateTime.Now;
+            }
+            else
+            {
+                objekat.OcjenaBrojcano = x.Ocjena;
+                    objekat.KupacId = x.KupacId;
+                   objekat.ProdavnicaId = x.ProdavnicaId;
+                  objekat.DatumKreiranja = DateTime.Now;
+            }
             _dbContext.SaveChanges();
             return Ok(objekat);
         }
-
-
 
         [HttpGet]
         public ActionResult GetAll()

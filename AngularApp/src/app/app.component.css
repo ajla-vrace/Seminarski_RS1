@@ -29,4 +29,6 @@ a.drustvenemreze{
   display: block;
 }
 
-
+.naziv-prod{
+  cursor: pointer;
+}
