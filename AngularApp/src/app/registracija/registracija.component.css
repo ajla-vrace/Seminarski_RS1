@@ -14,5 +14,13 @@ select{
   margin:  4% 25%;
   align-items: center;
   alignment: center;
+}
+.col-sm-3{
+  width: 100%;
+}
+.poruka-validacija{
+  color:red;
+  width:60%;
 
+  text-align: center;
 }

@@ -11,55 +11,83 @@ import {HttpClient} from "@angular/common/http";
 export class RegistracijaComponent implements OnInit {
    korisniciPodaci: any;
   noviKorisnik:any ;
-ime:any;
+/*ime:any;
 prezime:any;
 username:any;
 email:any;
-lozinka:any;
+lozinka:any;*/
 datumregistracije:any;
 iskupac:boolean=true;
    spolid: any;
   constructor(private httpKlijent: HttpClient, private router: Router) {
   }
 greska:any;
-  ngOnInit(): void {
-    this.fetchKorisnici();
-  }
-validacija(){
-
-}
-  btn_registracija(ime_input:any,prezime_input:any,
-                   username_input:any, lozinka_input:any,email_input:any) {
-
-    this.noviKorisnik={
-      id:0,
-      ime:ime_input.value,
-      prezime:prezime_input.value,
-      email:email_input.value,
-      username:username_input.value,
-      lozinka:lozinka_input.value,
-      iskupac:true,
-      spolid:3,
-    }
-
-    this.httpKlijent.post(`${MojConfig.adresa_servera}/Kupac/Add`, this.noviKorisnik, MojConfig.http_opcije()).subscribe(x => {
-      this.fetchKorisnici();
-
-    });
-
-  }
+   obavezna: any=false;
+   postojiUserName: any=false;
+  txtjos: any;
+  name: any;
+  myForm: any;
+  txtIme: any;
+  txtPrezime: any;
+  txtEmail: any;
+  txtUsername: any;
+  txtLozinkaR: any;
 
   fetchKorisnici() :void
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/Kupac/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera + "/Kupac/GetAll", MojConfig.http_opcije()).subscribe(x => {
       this.korisniciPodaci = x;
 
     });
 
   }
+  ngOnInit(): void {
+    this.fetchKorisnici();
+  }
+validacija(){
+    if(this.txtIme==undefined)
+    {
+      console.log("und");
+    }
+console.log(this.txtIme);
+  }
+
 
 
   onSubmit() {
+
+  }
+
+  btn_registracija() {
+
+    for (let korisnik of this.korisniciPodaci) {
+      console.log(korisnik.username);
+      if (korisnik.username == this.txtUsername) {
+        this.postojiUserName = true;
+        return;
+      }
+      else {
+        this.postojiUserName = false;
+      }
+    }
+
+
+
+    this.noviKorisnik = {
+      id: 0,
+      ime: this.txtIme,
+      prezime: this.txtPrezime,
+      email: this.txtEmail,
+      username: this.txtUsername,
+      lozinka: this.txtLozinkaR,
+      iskupac: true,
+      spolid: 3,
+    }
+    this.httpKlijent.post(`${MojConfig.adresa_servera}/Kupac/Add`, this.noviKorisnik, MojConfig.http_opcije()).subscribe(x => {
+      this.fetchKorisnici();
+
+    });
+    this.router.navigate(['prijava']);
 
   }
 }

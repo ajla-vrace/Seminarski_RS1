@@ -72,7 +72,7 @@ export class ProfilAdminComponent implements OnInit {
     this.kliknuoEditPodatke=true;
   }
 
-  spasi_promjene_loz(sadasnja: any, nova: any, ponovoNova: any) {
+  spasi_promjene_loz() {
 
     this.kliknuoEditPodatke=false;
 
@@ -80,7 +80,7 @@ export class ProfilAdminComponent implements OnInit {
   //  console.log(this.admin_podaci[0]?.lozinka);
 
 
-    this.httpKlijent.put(MojConfig.adresa_servera+"/api/Admin/lozinka?novaLozinka="+ nova.value+ "&id="+
+    this.httpKlijent.put(MojConfig.adresa_servera+"/api/Admin/lozinka?novaLozinka="+ this.nova_lozinka+ "&id="+
         this.admin_id,this.admin_podaci[0])
         .subscribe((x:any)=>{
           this.jelKliknuoPromijeniLoz=false;
@@ -89,14 +89,17 @@ export class ProfilAdminComponent implements OnInit {
           this.sadasnja_lozinka="";
           this.nova_lozinka="";
           this.ponovo_nova_lozinka="";
+
+          console.log(this.admin_podaci[0]);
         })
   }
 
-  spasi_promjene_username(novoKor: string) {
+  spasi_promjene_username() {
 
     this.kliknuoEditPodatke=false;
 
-    this.httpKlijent.put(MojConfig.adresa_servera+"/api/Admin/korIme?novoKorIme="+ novoKor+ "&id="+
+    this.httpKlijent.put(MojConfig.adresa_servera+"/api/Admin/korIme?novoKorIme="
+      +this.novo_korIme+ "&id="+
       this.admin_id, this.admin_podaci[0])
       .subscribe((x:any)=>{
 
@@ -106,7 +109,7 @@ export class ProfilAdminComponent implements OnInit {
         this.novo_korIme="";
         this.ponovo_korIme="";
 
-       // console.log(this.admin_podaci[0]);
+        console.log(this.admin_podaci[0]);
       })
 
   }
@@ -115,10 +118,11 @@ export class ProfilAdminComponent implements OnInit {
   ponovo_nova_lozinka:string="";
   sadasnja_lozinka:string="";
 
-  jelOmogucenSaveLozinka(){
+  jelOmogucenSaveLozinka(sadasnjaLoz: NgModel, novaLoz: NgModel, ponovoNovaLoz: NgModel){
 
     if(this.sadasnja_lozinka==this.admin_podaci[0].lozinka && this.nova_lozinka==this.ponovo_nova_lozinka
-    && this.sadasnja_lozinka!=="" && this.nova_lozinka!=="") {
+    && this.sadasnja_lozinka!=="" && this.nova_lozinka!=="" &&
+    sadasnjaLoz.valid && novaLoz.valid && ponovoNovaLoz.valid) {
       return true;
     }
     return false;
@@ -127,11 +131,10 @@ export class ProfilAdminComponent implements OnInit {
   novo_korIme:string="";
   ponovo_korIme:string="";
 
-  jelOmogucenSaveKorIme(){
+  jelOmogucenSaveKorIme(novoKorIme: NgModel, ponovoNovoKorIme: NgModel){
 
-    //provjeriti da li je uneseno ono koje nije zauzeto
     if(this.novo_korIme==this.ponovo_korIme && this.novo_korIme!==this.admin_podaci[0].username
-    && this.novo_korIme!==""){
+    && this.novo_korIme!=="" && novoKorIme.valid && ponovoNovoKorIme.valid){
       for (let x of this.korisnicka_imena){
         if(x===this.novo_korIme)
           return false;

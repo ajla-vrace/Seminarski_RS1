@@ -187,6 +187,18 @@ namespace OnlineShop.Modul1.Controllers
         public ActionResult ObrisiProizvod (int id)
         {
             Proizvod? p = context.Proizvod.Find(id);
+            Proizvod? p_copy = p;
+
+            List<SkladisteProizvod> sp_lista = context.SkladisteProizvod.Where(x => x.proizvodId == id).ToList();
+
+            if (sp_lista.Count() > 0)
+            {
+                foreach (var sp in sp_lista)
+                {
+                    context.Remove(sp);
+                    context.SaveChanges();
+                }
+            }
 
             if (id == 0)
                 return BadRequest("pogrešan ID.");
@@ -196,7 +208,8 @@ namespace OnlineShop.Modul1.Controllers
 
             context.Remove(p);
             context.SaveChanges();
-            return Ok(p);
+
+            return Ok(p_copy);
 
         }
 

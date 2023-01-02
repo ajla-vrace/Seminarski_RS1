@@ -1,48 +1,64 @@
-
-
-
-
 <div id="registracija">
   <h2 style="text-align: center;">Registracija</h2>
   <hr>
 
- <form >
-   <div>
-     <label>Ime</label>
-     <input type="text"   #ime_input required pattern="^[A-Z][a-z]{10}$" />
-   </div>
-   <div class="form_group">
-     <label>Prezime</label>
-     <input type="text"  #prezime_input required/>
-   </div>
-   <div class="form_group">
-     <label>Email</label>
-     <input type="text"  #email_input required/>
-   </div>
-   <div class="form_group">
-     <label>Username</label>
-     <input type="text"  #username_input required/>
-   </div>
-   <div class="form_group">
-     <label>Lozinka</label>
-     <input type="password"  #lozinka_input required/>
-   </div>
-   <div class="form_group">
-     <input type="radio" name="spol">muski
-     <input type="radio" name="spol">zenski
-   </div>
 
- </form>
+<div class="col-sm-3" [class.has-error]="ime.invalid && ime.touched">
+  <label>Ime</label>
+  <input id="idime" [(ngModel)]="txtIme" class="form-control"
+         #ime="ngModel" required pattern="^[A-Za-z]{2,}$" >
 
 
+  <span class="poruka-validacija" *ngIf="ime.invalid && ime.touched">
+         <p>Unesite ispravno ime</p>
+      </span>
 
+</div>
+  <div class="col-sm-3" [class.has-error]="prezime.invalid && prezime.touched">
+    <label>Prezime</label>
+    <input id="idprezime" [(ngModel)]="txtPrezime" class="form-control"
+           #prezime="ngModel" required pattern="^[a-zA-Z]{2,}$" >
+
+    <span class="poruka-validacija" *ngIf="prezime.invalid && prezime.touched">
+         <p>Unesite ispravno prezime</p>
+      </span>
+
+  </div>
+  <div class="col-sm-3" [class.has-error]="email.invalid && email.touched">
+    <label>Email</label>
+    <input id="idemail" [(ngModel)]="txtEmail" class="form-control"
+           #email="ngModel" required pattern="^[a-zA-Z0-9]{3,}@gmail.com$" >
+
+    <span class="poruka-validacija" *ngIf="email.invalid && email.touched">
+         <p>Unesite ispravno email</p>
+      </span>
+
+  </div>
+  <div class="col-sm-3" [class.has-error]="username.invalid && username.touched">
+    <label>Username</label>
+    <input id="idusername" [(ngModel)]="txtUsername" class="form-control"
+           #username="ngModel" required pattern="^[a-zA-Z]{3,}$" value="">
+
+    <span class="poruka-validacija" *ngIf="username.invalid && username.touched">
+         <p>Unesite ispravno username</p>
+      </span>
+<span *ngIf="postojiUserName==true" style="color: red;">Postoji ovaj username!</span>
+  </div>
+  <div class="col-sm-3" [class.has-error]="lozinka.invalid && lozinka.touched">
+    <label>Lozinka</label>
+    <input id="idlozinka" [(ngModel)]="txtLozinkaR" class="form-control"
+           #lozinka="ngModel" required pattern="^[a-zA-Z0-9]{3,}$" >
+
+    <span class="poruka-validacija" *ngIf="lozinka.invalid && lozinka.touched">
+         <p>Unesite ispravno lozinku</p>
+      </span>
+
+  </div>
   <div style="text-align: center;">
     <label style="display: inline">Već imate račun? </label>
     <a routerLink="/prijava" style="display: inline;color:deeppink">Prijava</a>
   </div>
 
-  <button type="button" class="btn btn-primary" (click)="btn_registracija(ime_input,prezime_input,username_input,lozinka_input,email_input)" style="display: block;width: 100%;background-color: hotpink">Registracija</button>
+  <button type="button" id="dugmeRegistracija"   [disabled]="!(ime.valid && prezime.valid && email.valid && username.valid && lozinka.valid)" class="btn btn-primary" (click)="btn_registracija()" style="display: block;width: 100%;background-color: hotpink">Registracija</button>
+
 </div>
-
-
-

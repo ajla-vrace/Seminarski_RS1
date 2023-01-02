@@ -95,21 +95,40 @@
       <div class="modal-body">
 
 
-        <div class="mb-3" >
+        <div class="mb-3" [class.has-error]="sadasnjaLoz.invalid && sadasnjaLoz.touched">
           <label class="form-label">Sadašnja lozinka:</label>
-          <input type="password" #sadasnjaLoz [(ngModel)]="sadasnja_lozinka">
+          <input type="password" #sadasnjaLoz="ngModel" [(ngModel)]="sadasnja_lozinka"
+                 required pattern="^[a-zA-Z\d\s+*!#$%&()=?-_{}@><^ˇ]{3,}$">
+
+
+          <span class="poruka-validacija" *ngIf="sadasnjaLoz.invalid && sadasnjaLoz.touched">
+             <p>Lozinka nije validna</p>
+          </span>
+
         </div>
 
 
-        <div class="mb-3" >
+        <div class="mb-3" [class.has-error]="novaLoz.invalid && novaLoz.touched">
           <label class="form-label">Nova lozinka:</label>
-          <input type="password" #novaLoz [(ngModel)]="nova_lozinka">
+          <input type="password" #novaLoz="ngModel" [(ngModel)]="nova_lozinka"
+                 required pattern="^[a-zA-Z\d\s+*!#$%&()=?-_{}@><^ˇ]{3,}$">
+
+          <span class="poruka-validacija" *ngIf="novaLoz.invalid && novaLoz.touched">
+             <p>Lozinka nije validna</p>
+          </span>
+
         </div>
 
 
-        <div class="mb-3" >
+        <div class="mb-3"  [class.has-error]="ponovoNovaLoz.invalid && ponovoNovaLoz.touched">
           <label class="form-label">Ponovite unos:</label>
-          <input type="password" #ponovoNovaLoz [(ngModel)]="ponovo_nova_lozinka">
+          <input type="password" #ponovoNovaLoz="ngModel" [(ngModel)]="ponovo_nova_lozinka"
+                 required pattern="^[a-zA-Z\d\s+*!#$%&()=?-_{}@><^ˇ]{3,}$">
+
+          <span class="poruka-validacija" *ngIf="ponovoNovaLoz.invalid && ponovoNovaLoz.touched">
+             <p>Lozinka nije validna</p>
+          </span>
+
         </div>
 
 
@@ -117,8 +136,8 @@
       <div class="modal-footer">
          <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Morate unijeti ispravne podatke">
         <button  type="button" class="btn btn-primary"
-                 [disabled]="!jelOmogucenSaveLozinka()"
-                 (click)="spasi_promjene_loz(sadasnjaLoz,novaLoz,ponovoNovaLoz)">Spasi promjene</button>
+                 [disabled]="!jelOmogucenSaveLozinka(sadasnjaLoz,novaLoz,ponovoNovaLoz)"
+                 (click)="spasi_promjene_loz()">Spasi promjene</button>
         </span>
       </div>
     </div>
@@ -137,21 +156,33 @@
       <div class="modal-body">
 
 
-        <div class="mb-3" >
+        <div class="mb-3">
           <label class="form-label">Sadašnje korisničko ime:</label>
           <input type="text"  disabled [value]="admin_podaci[0].username" >
         </div>
 
 
-        <div class="mb-3" >
+        <div class="mb-3" [class.has-error]="novoKorIme.invalid && novoKorIme.touched">
           <label class="form-label">Novo korisničko ime:</label>
-          <input type="text" #novoKorIme  [(ngModel)]="novo_korIme">
+          <input type="text" #novoKorIme="ngModel"  [(ngModel)]="novo_korIme"
+                 required pattern="^[a-zA-Z]{3}[a-zA-Z]{0,}$">
+
+          <span class="poruka-validacija" *ngIf="novoKorIme.invalid && novoKorIme.touched">
+             <p>Korisničko ime nije validno</p>
+          </span>
+
         </div>
 
 
-        <div class="mb-3" >
+        <div class="mb-3" [class.has-error]="ponovoNovoKorIme.invalid && ponovoNovoKorIme.touched" >
           <label class="form-label">Ponovite unos:</label>
-          <input type="text" #ponovoNovoKorIme [(ngModel)]="ponovo_korIme">
+          <input type="text" #ponovoNovoKorIme="ngModel" [(ngModel)]="ponovo_korIme"
+                 required pattern="^[a-zA-Z]{3}[a-zA-Z]{0,}$">
+
+          <span class="poruka-validacija" *ngIf="ponovoNovoKorIme.invalid && ponovoNovoKorIme.touched">
+             <p>Korisničko ime nije validno</p>
+          </span>
+
         </div>
 
 
@@ -159,8 +190,8 @@
       <div class="modal-footer">
         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Morate unijeti ispravne podatke">
         <button  type="button" class="btn btn-primary"
-                 [disabled]="!jelOmogucenSaveKorIme()"
-                 (click)="spasi_promjene_username(novoKorIme.value)">Spasi promjene</button>
+                 [disabled]="!jelOmogucenSaveKorIme(novoKorIme,ponovoNovoKorIme)"
+                 (click)="spasi_promjene_username()">Spasi promjene</button>
         </span>
       </div>
     </div>
@@ -183,20 +214,22 @@
 
         <div class="mb-3" [class.has-error]="imeControll.invalid && imeControll.touched">
           <label class="form-label">Ime:</label>
-          <input type="text" required minlength="3" #imeControll="ngModel" class="form-control" placeholder="ime" [(ngModel)]="admin_podaci[0].ime" >
+          <input type="text" required pattern="^[A-Z][a-zA-Z]*(\s|\-)?[a-zA-Z]*$"
+                 minlength="3" #imeControll="ngModel" class="form-control" placeholder="ime" [(ngModel)]="admin_podaci[0].ime" >
 
           <span class="help-block" *ngIf="imeControll.invalid && imeControll.touched">
-            Ovo polje je obavezno i mora imati najmanje 3 karaktera
+            Ovo polje je obavezno i mora imati najmanje 3 karaktera (ne uključujući brojeve)
           </span>
         </div>
 
 
         <div class="mb-3" [class.has-error]="prezimeControll.invalid && prezimeControll.touched">
           <label class="form-label">Prezime:</label>
-          <input type="text" required minlength="3" #prezimeControll="ngModel" class="form-control" placeholder="prezime" [(ngModel)]="admin_podaci[0].prezime" >
+          <input type="text" required pattern="^[A-Z][a-zA-Z]*(\s|\-)?[a-zA-Z]*$"
+                 minlength="3" #prezimeControll="ngModel" class="form-control" placeholder="prezime" [(ngModel)]="admin_podaci[0].prezime" >
 
           <span class="help-block" *ngIf="prezimeControll.invalid && prezimeControll.touched">
-            Ovo polje je obavezno i mora imati najmanje 3 karaktera
+             Ovo polje je obavezno i mora imati najmanje 3 karaktera (ne uključujući brojeve)
           </span>
         </div>
 
@@ -220,7 +253,7 @@
           <label class="form-label">Email:</label>
           <input type="text" required pattern="^[a-z]{1,15}\.?[a-z]*?[0-9]*?@(luna|edu\.fit|gmail)\.(com|ba)$"
                  minlength="3" #emailControll="ngModel"
-                 class="form-control" placeholder="email" [(ngModel)]="admin_podaci[0].email" >
+                 class="form-control" placeholder="ime@domena" [(ngModel)]="admin_podaci[0].email" >
 
           <span class="help-block" *ngIf="emailControll.invalid && emailControll.touched">
             Ovo polje je obavezno.
@@ -232,7 +265,7 @@
           <label class="form-label">Broj telefona:</label>
           <input type="text" required pattern="^[0-9]{3}(\/|\-|\s)[0-9]{3}(\-|\s)[0-9]{3}$"
                  minlength="3" #telControll="ngModel"
-                 class="form-control" placeholder="broj telefona" [(ngModel)]="admin_podaci[0].brojTelefona">
+                 class="form-control" placeholder="062/111-111 ili 062 111 111 ili 062-111-111..." [(ngModel)]="admin_podaci[0].brojTelefona">
 
           <span class="help-block" *ngIf="telControll.invalid && telControll.touched">
             Ovo polje je obavezno.

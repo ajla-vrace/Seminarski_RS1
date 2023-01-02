@@ -40,6 +40,57 @@ namespace OnlineShop.Modul1.Controllers
                 Godina=x.Godina
             }).ToList();
         }
-        
+        [HttpPost]
+        public ActionResult Snimi(SezonaVM x)
+        {
+            Sezona? s;
+
+            if (x.Id == 0)
+            {
+                s = new Sezona();
+                context.Add(s);
+            }
+            else
+            {
+                s = context.Sezona.Find(x.Id);
+                if (s == null)
+                    return BadRequest("pogresan id.");
+            }
+            s.Naziv = x.Naziv;
+            s.Doba = x.Doba;
+            s.Godina = x.Godina;
+
+            context.SaveChanges();
+
+            return Ok(s);
+        }
+
+        [HttpDelete]
+        public ActionResult ObrisiSezonu(int id)
+        {
+            Sezona? s = context.Sezona.Find(id);
+            Sezona? s_copy = s;
+
+            List<Kolekcija> kolekcije = context.Kolekcija.Where(x => x.sezonaId == id).ToList();
+
+            if (kolekcije.Count() > 0)
+            {
+                foreach (var k in kolekcije)
+                {
+                    context.Remove(k);
+                    context.SaveChanges();
+                }
+            }
+
+            if (s != null)
+            {
+                context.Remove(s);
+                context.SaveChanges();
+            }
+
+            return Ok(s_copy);
+        }
+
+
     }
 }
