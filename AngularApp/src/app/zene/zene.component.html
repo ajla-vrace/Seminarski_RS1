@@ -13,18 +13,21 @@ KUPAC ID: {{kupac_id}}
     </div>
   </div>
   <div id="zeneProizvodi">
-    <div *ngFor="let p of getZProizvodi()" class="proizvodJedan">
-      <div class="zaSliku">
-        <img src="assets/slike/dress.png" style="width: 100%">
-      <img src="assets/slike/heart_f.png" class="favorit" (click)="dodajUFavorite()" *ngIf="loginInfo().isLogiran==true">
-      </div>
-      <img src="assets/slike/heart_fill.png" *ngIf="srceZOboji==true;" class="favorit">
-      <div class="tekst">
-        <h3>{{p.naziv}}</h3>
-        <h5>{{p.cijena}}</h5>
-      </div>
+    <div *ngFor="let p of getZProizvodi()" class="proizvodJedan" >
+      <div  style="background-color: hotpink">
+        <div class="zaSliku" >
+          <img src="assets/slike/dress.png" style="width: 100%">
+          <img src="assets/slike/heart_f.png" class="favorit" (click)="dodajUFavorite(p.id)" *ngIf="loginInfo().isLogiran==true">
+        </div>
+        <img src="assets/slike/heart_fill.png"  class="favorit">
+        <div class="tekst" (click)="prikaziDetaljeProizvoda()">
+          <h3>{{p.naziv}}</h3>
+          <h5>{{p.cijena}}</h5>
+        </div>
 
-      <button class="dodajUKorpu" *ngIf="loginInfo().isLogiran==true">Dodaj u korpu</button>
+
+      </div>
+      <button class="dodajUKorpu" *ngIf="loginInfo().isLogiran==true" (click)="dodajUKorpu()">Dodaj u korpu</button>
       <br>
     </div>
   </div>

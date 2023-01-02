@@ -40,6 +40,9 @@ import { NavKupacComponent } from './nav-kupac/nav-kupac.component';
 import { NeregistrovanComponent } from './neregistrovan/neregistrovan.component';
 import { ProfilKupacComponent } from './profil-kupac/profil-kupac.component';
 import { NarudzbaDetaljiComponent } from './narudzba-detalji/narudzba-detalji.component';
+import { ProizvodDetaljiComponent } from './proizvod-detalji/proizvod-detalji.component';
+import { ZaposlenikDetaljiComponent } from './zaposlenik-detalji/zaposlenik-detalji.component';
+import { IzvjestajiComponent } from './izvjestaji/izvjestaji.component';
 
 
 
@@ -81,6 +84,9 @@ import { NarudzbaDetaljiComponent } from './narudzba-detalji/narudzba-detalji.co
    NeregistrovanComponent,
    ProfilKupacComponent,
    NarudzbaDetaljiComponent,
+   ProizvodDetaljiComponent,
+   ZaposlenikDetaljiComponent,
+   IzvjestajiComponent,
 
 
 
@@ -122,7 +128,9 @@ import { NarudzbaDetaljiComponent } from './narudzba-detalji/narudzba-detalji.co
       {path:'nav-kupac/:id', component: NavKupacComponent},
       {path:'neregistrovan', component: NeregistrovanComponent},
       {path:'profil-kupac/:id', component:ProfilKupacComponent},
-      {path:'narudzba-detalji/:id', component:NarudzbaDetaljiComponent}
+      {path:'narudzba-detalji/:id', component:NarudzbaDetaljiComponent},
+      {path:'proizvod-detalji', component:ProizvodDetaljiComponent},
+
   ]),
     FormsModule,
     HttpClientModule,

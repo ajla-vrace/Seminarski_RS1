@@ -17,6 +17,8 @@ export class ZeneComponent implements OnInit {
   kategorijeZenePodaci: any;
   podkategorijeZenePodaci: any;
   prikaziPodM: any=false;
+   noviFavorit: any ;
+   favoritiPodaci: any;
 
   constructor(private httpKlijent: HttpClient, private router: Router,
               private route: ActivatedRoute) {}
@@ -27,13 +29,18 @@ export class ZeneComponent implements OnInit {
       this.proizvodiZPodaci = x;
     });
   }
-
+  fetchFavoriti() :void
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Favorit/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+      this.favoritiPodaci = x;
+    });
+  }
   ngOnInit(): void {
 
     this.fetchProizvodi();
     this.fetchKategorijeZene();
     this.fetchPodKategorijeZene();
-
+this.fetchFavoriti();
   }
 
   getZProizvodi() {
@@ -44,8 +51,16 @@ export class ZeneComponent implements OnInit {
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
   }
-  dodajUFavorite() {
+  dodajUFavorite(p:any) {
+    this.noviFavorit = {
+      id: 0,
+      kupacId: 59,
+      proizvodId: p,
+    }
+    this.httpKlijent.post(`${MojConfig.adresa_servera}/Favorit/Add`, this.noviFavorit, MojConfig.http_opcije()).subscribe(x => {
+      this.fetchFavoriti();
 
+    });
   }
   getKategorijeZene() {
     if (this.kategorijeZenePodaci == null)
@@ -69,4 +84,15 @@ export class ZeneComponent implements OnInit {
       this.podkategorijeZenePodaci = x;
     });
   }
+
+  prikaziDetaljeProizvoda() {
+    this.router.navigate(['proizvod-detalji']);
+  }
+
+  dodajUKorpu() {
+
+  }
 }
+
+
+

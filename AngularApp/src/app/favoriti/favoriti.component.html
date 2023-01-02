@@ -1,6 +1,14 @@
 <app-nav-kupac></app-nav-kupac>
-<p>Favoriti</p>
-<h1>Niste dodali nijedan proizvod u favorite!</h1>
+<div class="tekst">
+  <h2>Favoriti</h2>
+  <h5>Pogledajte proizvode koje ste dodali u favorite</h5>
+</div>
+<h1 *ngIf="favoritiPodaci==0">Niste dodali nijedan proizvod u favorite!</h1>
 
 id:
 {{kupac_id}}
+<div *ngFor="let f of getFavoriti()" class="velikiFavoriti">
+  <div class="FavoritiDiv">
+    <li>{{f.proizvod}}</li>
+  </div>
+</div>
