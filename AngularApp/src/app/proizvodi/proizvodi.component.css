@@ -67,7 +67,7 @@
 .add-proizvod{
   width:100%;
   border:groove;
-  border-radius: 30px;
+  border-radius: 10px;
   padding:2%;
   background-color: #95e4ff;
   color:black;
@@ -77,6 +77,16 @@
   background-color: #95e4ff;
 }
 
+.btn-dodaj-sliku{
+  border:groove;
+  border-radius: 10px;
+  padding:1%;
+  background-color: #95e4ff;
+}
+
+.btn-dodaj-sliku:hover, .add-proizvod:hover{
+  opacity: 80%;
+}
 /*tabela*/
 
 table{
@@ -90,4 +100,6 @@ table img{
   cursor: pointer;
 }
 
-
+select{
+  cursor: pointer;
+}

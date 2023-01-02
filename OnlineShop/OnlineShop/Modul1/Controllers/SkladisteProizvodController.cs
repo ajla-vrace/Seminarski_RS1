@@ -30,7 +30,7 @@ namespace OnlineShop.Modul1.Controllers
             public int kolicina { get; set; }
 
             public DateTime datum_kreiranja { get; set; }
-            public DateTime datum_modifikacije { get; set; }
+            public DateTime? datum_modifikacije { get; set; }
         }
 
         [HttpGet]
@@ -49,6 +49,76 @@ namespace OnlineShop.Modul1.Controllers
             }).ToList().AsQueryable();
             return data;
         }
+
+        [HttpGet("kol_pr_opadajuci")]
+        public IQueryable<SkladisteProizvodVM> SortirajPoKolProizvodOpadajuci()
+        {
+            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
+            {
+                Id = x.Id,
+                proizvodId = x.proizvodId,
+                proizvodOpis = x.proizvod.Naziv,
+                skladisteId = x.skladisteId,
+                skladisteOpis = x.skladiste.Naziv,
+                kolicina = x.kolicina,
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije
+            }).ToList().AsQueryable().OrderByDescending(x=>x.kolicina).ThenByDescending(x => x.proizvodOpis);
+            return data;
+        }
+
+        [HttpGet("kol_pr_rastuci")]
+        public IQueryable<SkladisteProizvodVM> SortirajPoKolProizvodRastuci()
+        {
+            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
+            {
+                Id = x.Id,
+                proizvodId = x.proizvodId,
+                proizvodOpis = x.proizvod.Naziv,
+                skladisteId = x.skladisteId,
+                skladisteOpis = x.skladiste.Naziv,
+                kolicina = x.kolicina,
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije
+            }).ToList().AsQueryable().OrderBy(x => x.kolicina).ThenBy(x => x.proizvodOpis);
+            return data;
+        }
+
+        [HttpGet("kol_rastuci_pr_opadajuci")]
+        public IQueryable<SkladisteProizvodVM> SortirajPoKolRastuci_Pr_Opadajuci()
+        {
+            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
+            {
+                Id = x.Id,
+                proizvodId = x.proizvodId,
+                proizvodOpis = x.proizvod.Naziv,
+                skladisteId = x.skladisteId,
+                skladisteOpis = x.skladiste.Naziv,
+                kolicina = x.kolicina,
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije
+            }).ToList().AsQueryable().OrderBy(x => x.kolicina).ThenByDescending(x => x.proizvodOpis);
+            return data;
+        }
+
+
+        [HttpGet("kol_opadajuci_pr_rastuci")]
+        public IQueryable<SkladisteProizvodVM> SortirajPoKolOpadajuci_Pr_Rastuci()
+        {
+            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
+            {
+                Id = x.Id,
+                proizvodId = x.proizvodId,
+                proizvodOpis = x.proizvod.Naziv,
+                skladisteId = x.skladisteId,
+                skladisteOpis = x.skladiste.Naziv,
+                kolicina = x.kolicina,
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije
+            }).ToList().AsQueryable().OrderByDescending(x => x.kolicina).ThenBy(x=>x.proizvodOpis);
+            return data;
+        }
+
 
         [HttpPost]
         public ActionResult Snimi(SkladisteProizvodVM x)
@@ -93,6 +163,8 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(s_copy);
         }
+
+
 
     }
 }

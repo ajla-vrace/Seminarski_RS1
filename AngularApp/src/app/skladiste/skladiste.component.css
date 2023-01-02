@@ -1,0 +1,101 @@
+.pretraga-sortiranje{
+  display: flex;
+  gap:5%;
+  justify-content: center;
+  align-items: stretch;
+  margin:auto;
+  width:90%;
+  border: groove;
+  padding:1%;
+}
+
+.pretraga{
+  background-color: rgba(0,26,26,0.05);
+  display: grid;
+  align-items: center;
+  width:40%;
+}
+
+.sortiraj{
+  background-color: rgba(0,26,26,0.05);
+  width:40%;
+  display: grid;
+  align-items: center;
+}
+
+.kolicina-sort, .proizvod-sort{
+  width:40%;
+  margin:0 auto 0 auto;
+  border-radius: 10px;
+  text-align: center;
+  padding:1%;
+}
+
+label{
+  text-align: center;
+  padding:1%;
+}
+
+.input-kolicina, .input-proizvod{
+  width:40%;
+  margin:0 auto 0 auto;
+  border-radius: 10px;
+  text-align: center;
+  border:groove;
+}
+
+.dodaj-stavku{
+  width:90%;  /*77*/
+  margin:auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-dodaj{
+  border: groove;
+  border-radius: 10px;
+  background-color: #95e4ff;
+ /* background-color: rgba(0,26,26,0.10);*/
+  text-align: center;
+  cursor: pointer;
+  padding:0.5%;
+}
+
+.btn-edit, .btn-delete{
+  border: groove;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  padding:0.5%;
+  margin:1%;
+}
+
+.btn-edit{
+  background-color: rgba(103,237,106,0.45);
+}
+
+.btn-delete{
+  background-color: rgba(243,128,91,0.66);
+}
+
+.btn-delete:hover, .btn-edit:hover{
+  opacity: 80%;
+}
+
+.btn-dodaj:hover{
+  /*background-color: rgba(0,26,26,0.05);*/
+  /*  background-color: rgba(215,245,255,0.92);*/
+  opacity: 80%;
+}
+
+
+.pretraga-kolicina, .pretraga-proizvod{
+  width:50px;
+}
+
+.tabela{
+  width:90%;
+  margin: auto;
+  background-color: rgba(0,26,26,0.05);
+}
+

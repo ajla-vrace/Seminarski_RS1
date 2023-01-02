@@ -1,0 +1,85 @@
+.ukupno-narudzbi, .ukupno-korisnika{
+  width:30%;
+  max-width: 100%;
+  background-color: rgba(255,191,201,0.45);
+  /* border-radius: 30px;*/
+  border: groove;
+  padding:1%;
+  margin:1%;
+  text-align: center;
+}
+
+select{
+  background-color: rgba(255,191,201,0.45);
+  width: 20%;
+  padding:1%;
+  border:groove;
+  cursor: pointer;
+}
+
+option{
+  width:100%;
+  background-color: rgba(255,191,201,0.45);
+}
+
+select,.ukupno-korisnika,.ukupno-narudzbi{
+  border-radius: 10px;
+}
+
+.sredina{
+  margin:auto;
+  width:90%;
+}
+
+.btn-detalji{
+  background-color: rgba(255,191,201,0.45);
+  border-radius: 10px;
+  border: groove;
+}
+
+.pretraga{
+  width:100%;
+  display: flex;
+  align-items: center;
+  gap:5%;
+}
+
+.pretraga-naziv{
+  display: flex;
+  width:55%;
+  margin:2% auto 2% auto;
+}
+
+.pretrazi-po{
+  width:100%;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  border:groove;
+  padding:2%;
+}
+
+.img-search{
+  border:groove;
+  background-color: white;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  border-left: none;
+  padding:2%;
+  cursor: pointer;
+}
+
+.img-search:hover{
+  background-color: rgba(255,191,201,0.45);
+}
+
+.filteri{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width:90%;
+  margin:3% auto 3% auto;
+}
+
+.paginacija{
+  text-align: center;
+}

@@ -1,0 +1,44 @@
+#zeneProizvodi{
+
+  width:75%;
+display: flex;
+  padding: 2%;
+}
+.proizvodJedan{
+
+  display: inline;
+  width: 30%;
+border: 1px solid gray;
+  margin: 2%;
+ }
+#filteri{
+  width: 25%;
+padding: 1%;
+}
+li{
+  list-style: none;
+}
+#sve{
+  display: flex;
+}
+.zaSliku{
+  width: 100%;
+
+  border: 1px black solid;
+  position: relative;
+}
+.dodajUKorpu{
+  width: 100%;
+  background-color: black;
+  color:white;
+  height: 11%;
+}
+.tekst{
+text-align: center;
+}
+.favorit{
+  width: 50px;
+  position: absolute;
+top:3%;
+  right: 3%;
+}

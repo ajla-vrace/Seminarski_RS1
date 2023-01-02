@@ -141,6 +141,7 @@ export class ProizvodiComponent implements OnInit {
   EditDugme(p: any) {
     this.kliknuoEdit=true;
     this.odabrani_proizvod=p;
+
     this.naslov="Edit proizvoda (ID: "+p.id+")";
 
     this.getPodkategorijeByKatID();

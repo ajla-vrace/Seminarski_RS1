@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-narudzbe',
-  templateUrl: './narudzbe.component.html',
-  styleUrls: ['./narudzbe.component.css']
+  selector: 'app-narudzba-detalji',
+  templateUrl: './narudzba-detalji.component.html',
+  styleUrls: ['./narudzba-detalji.component.css']
 })
-export class NarudzbeComponent implements OnInit {
+export class NarudzbaDetaljiComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router:Router) { }
 
@@ -16,10 +16,5 @@ export class NarudzbeComponent implements OnInit {
     this.route.params.subscribe(s=>{
       this.zaposlenik_id=+s["id"];
     })
-  }
-
-
-  btnDetalji() {
-    this.router.navigate(['narudzba-detalji',this.zaposlenik_id]);
   }
 }

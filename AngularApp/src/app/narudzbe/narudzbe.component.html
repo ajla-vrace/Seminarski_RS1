@@ -1,5 +1,81 @@
 <app-navbar-zaposlenik></app-navbar-zaposlenik>
 
-<p>narudzbe works!</p>
 
-<input disabled [value]="zaposlenik_id">
+<div class="filteri">
+  <div class="pretraga">
+    <select>
+      <option>Sve</option>
+      <option>Aktivna</option>
+      <option>Neaktivna</option>
+    </select>
+
+    <div class="pretraga-naziv">
+      <input class="pretrazi-po" type="text" placeholder="pretrazi kupca, zaposlenika, prodavnicu..."
+             #pretraga>
+      <img class="img-search" src="assets/slike/search.svg">
+    </div>
+
+  </div>
+
+  <div class="ukupno-narudzbi">
+    <h5>Ukupno narudžbi: 235</h5>
+  </div>
+
+  <!--count kupacID distinct-->
+  <div class="ukupno-korisnika">
+    <h5>Ukupno korisnika: 132</h5>
+  </div>
+
+
+</div>
+
+
+<br>
+
+<div class="sredina">
+
+  <div class="tabela">
+    <table class="table">
+      <thead >
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Kupac</th>
+        <th scope="col">Datum kreiranja</th>
+        <th scope="col">Datum preuzimanja</th>
+        <th scope="col">Suma</th>
+        <th scope="col">Ukupno proizvoda</th>
+        <th scope="col">Status</th>
+        <th scope="col">Zaposlenik</th>
+        <th scope="col">Prodavnica</th>
+        <th scope="col"></th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr >  <!--ngFor let n of narudzbe-->
+        <th scope="row">1</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> </td>
+        <td><button (click)="btnDetalji()" class="btn-detalji">Vidi detalje</button></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <p class="paginacija">PAGINACIJA</p>
+
+  </div>
+
+  <br>
+
+</div>
+
+

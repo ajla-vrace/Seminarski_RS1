@@ -92,7 +92,7 @@
     <td>{{p.sezonaOpis}}</td>
     <td> <img src="assets/slike/pencil-square.svg" class="edit-btn" (click)="EditDugme(p)"></td>
     <td> <img src="assets/slike/x-square.svg" class="delete-btn" (click)="DeleteDugme(p)"></td>
-    <td> <td><button (click)="dodajSliku(p)">Dodaj sliku</button></td>
+    <td> <td><button class="btn-dodaj-sliku" (click)="dodajSliku(p)">Dodaj sliku</button></td>
 
   </tr>
 
@@ -268,7 +268,7 @@
 
       </div>
       <div class="modal-footer">
-        <button [disabled]="jelOmogucenSave(sifraControll, sifraInput, nazivControll,cijenaControll,opisControll,bojaControll, podkatControll,katControll,sezonaControll,kolekcijaControll)" type="button" class="btn btn-primary" (click)="spasi(odabrani_proizvod)" >Save changes</button>
+        <button [disabled]="jelOmogucenSave(sifraControll, sifraInput, nazivControll,cijenaControll,opisControll,bojaControll, podkatControll,katControll,sezonaControll,kolekcijaControll)" type="button" class="btn btn-primary" (click)="spasi(odabrani_proizvod)" >Spasi</button>
       </div>
     </div>
   </div>
@@ -313,7 +313,7 @@
 
       </div>
       <div class="modal-footer">
-        <button  type="button" class="btn btn-primary" (click)="snimi_sliku()">Save changes</button>
+        <button  type="button" class="btn btn-primary" (click)="snimi_sliku()">Spasi</button>
       </div>
     </div>
   </div>

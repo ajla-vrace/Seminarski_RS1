@@ -7,3 +7,8 @@ img{
   width: 30px;
 
 }
+#prikazMKat,#prikazZKat{
+  background-color: white;
+  position: absolute;
+  width: 50%;
+}

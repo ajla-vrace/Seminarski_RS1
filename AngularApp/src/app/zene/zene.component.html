@@ -1,1 +1,32 @@
-<p>Ženski odjel</p>
+<h4>Ženski odjel</h4>
+<h3 style="margin: 2%">Proizvodi</h3>
+
+KUPAC ID: {{kupac_id}}
+<div id="sve">
+  <div id="filteri">
+    <div *ngFor="let k of getKategorijeZene()">
+      <li style="background-color: #2ecc71">{{k.naziv}}</li>
+      <div *ngFor="let p of getPodKategorijeZene(k.id)">
+        <li>{{p.naziv}}</li>
+      </div>
+
+    </div>
+  </div>
+  <div id="zeneProizvodi">
+    <div *ngFor="let p of getZProizvodi()" class="proizvodJedan">
+      <div class="zaSliku">
+        <img src="assets/slike/dress.png" style="width: 100%">
+      <img src="assets/slike/heart_f.png" class="favorit" (click)="dodajUFavorite()" *ngIf="loginInfo().isLogiran==true">
+      </div>
+      <img src="assets/slike/heart_fill.png" *ngIf="srceZOboji==true;" class="favorit">
+      <div class="tekst">
+        <h3>{{p.naziv}}</h3>
+        <h5>{{p.cijena}}</h5>
+      </div>
+
+      <button class="dodajUKorpu" *ngIf="loginInfo().isLogiran==true">Dodaj u korpu</button>
+      <br>
+    </div>
+  </div>
+</div>
+

@@ -34,9 +34,19 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpGet]
-        public List<Skladiste> GetAll()
+        public IQueryable<SkladisteVM> GetAll()
         {
-            return context.Skladiste.ToList();
+            return context.Skladiste.Select(x => new SkladisteVM{
+               Id=x.Id,
+               Naziv=x.Naziv,
+               Adresa=x.Adresa, 
+               BrojTelefona=x.BrojTelefona,
+               Povrsina=x.Povrsina,
+               gradId=x.gradId,
+               gradOpis=x.grad.Naziv,
+               prodavnicaId=x.prodavnicaId,
+               prodavnicaOpis=x.prodavnica.Naziv
+            }).ToList().AsQueryable();
         }
 
 

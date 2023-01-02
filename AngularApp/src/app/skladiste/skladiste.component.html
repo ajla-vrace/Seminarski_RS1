@@ -1,7 +1,135 @@
 <app-navbar-zaposlenik></app-navbar-zaposlenik>
 
-<p>skladiste works!</p>
+
+<div class="dodaj-stavku">
+  <button class="btn-dodaj" (click)="btnDodaj()">Dodaj stavku</button>
+</div>
+
+<br>
+
+<div class="pretraga-sortiranje">
+
+  <div class="pretraga">
+
+    <label> Pretraga po količini: </label>
+    <input class="input-kolicina" [(ngModel)]="kolicinaF">
+
+    <br>
+    <br>
+
+    <label>Pretraga po nazivu proizvoda: </label>
+    <input class="input-proizvod" [(ngModel)]="nazivProizvoda"><br>
 
 
-<input disabled [value]="zaposlenik_id">
+  </div>
+
+
+
+  <div class="sortiraj">
+
+    <select class="kolicina-sort" [(ngModel)]="sortirajPoKolicina">
+      <option>Količina opadajući</option>
+      <option>Količina rastući</option>
+    </select>
+
+
+    <select class="proizvod-sort" [(ngModel)]="sortirajPoNaziv">
+      <option>Proizvod opadajući</option>
+      <option>Proizvod rastući</option>
+    </select>
+
+
+  </div>
+
+</div>
+
+
+<br><br>
+
+<div class="tabela">
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Kolicina</th>
+      <th scope="col">Proizvod</th>
+      <th scope="col">Skladiste</th>
+      <th scope="col">Datum kreiranja</th>
+      <th scope="col">Datum modifikacije</th>
+      <th scope="col">Dugmad</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let p of getFilter()">
+      <th scope="row">{{p.id}}</th>
+      <td>{{p.kolicina}}</td>
+      <td>{{p.proizvodOpis}}</td>
+      <td>{{p.skladisteOpis}}</td>
+      <td>{{p.datum_kreiranja}}</td>
+      <td>{{p.datum_modifikacije}}</td>
+      <td>
+        <button class="btn-edit" (click)="btnEdit(p)">Uredi</button>
+        <button class="btn-delete" (click)="btnDelete(p)">Obriši</button>
+      </td>
+
+    </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+
+
+
+
+<div *ngIf="odabrana_stavka!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel" > {{naslov}} </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="odabrana_stavka=null "></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="mb-3">
+          <label class="form-label">Količina</label>
+          <input class="form-control" placeholder="količina" type="number" [(ngModel)]="odabrana_stavka.kolicina">
+        </div>
+
+
+        <div class="mb-3">
+          <label class="form-label">Proizvod</label>
+
+          <select class="form-control" [(ngModel)]="odabrana_stavka.proizvodId" >
+
+            <option *ngFor="let k of p " [value]="k.id">{{k.naziv}}</option>
+
+          </select>
+        </div>
+
+
+        <div class="mb-3">
+          <label class="form-label">Skladiste</label>
+
+          <select class="form-control" [(ngModel)]="odabrana_stavka.skladisteId">
+
+            <option *ngFor="let p of s " [value]="p.id" >{{p.naziv}} </option>
+
+          </select>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="spasi()" >Spasi promjene</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 

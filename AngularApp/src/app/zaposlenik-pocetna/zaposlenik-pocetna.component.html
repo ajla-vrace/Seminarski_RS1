@@ -1,6 +1,102 @@
 <app-navbar-zaposlenik></app-navbar-zaposlenik>
 
-<p>zaposlenik-pocetna works!</p>
+<div class="sredina">
+  <div class="poruka-narudzbe">
+    <h3 class="h3-porukaNarudzbe"> Trenutno nemate aktivnih narudzbi!</h3>
+  </div>
+
+<hr>
+
+  <br>
+
+  <div class="poruka-posljednjeDodaniProizvodi">
+    <h5 class="h5-porukaPosljednjiProizvodi">Posljednje dodani proizvodi: </h5>
+  </div>
+
+  <br>
+
+  <!--ovde ide slajder-->
 
 
-<input disabled [value]="zaposlenik_id">
+  <div id="carouselExampleIndicators1" class="carousel slide" data-bs-ride="true">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="assets/slike_odjeca/dzemper2.jpg" class="img-fluid" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/slike_odjeca/suknja.jpg" class="img-fluid" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/slike_odjeca/dzemper.jpg" class="img-fluid" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/slike_odjeca/farmerke.jpg" class="img-fluid" alt="...">
+      </div>
+
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+
+
+  <br>
+  <br>
+
+
+  <div class="poruka-proizvodiNajmanjaKolicina">
+    <h5 class="h5-porukaNajmanjaKolicina">Proizvodi sa najmanjom količinom:</h5>
+  </div>
+
+  <br>
+
+  <!--ovde ide slajder-->
+
+
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="assets/slike_odjeca/dzemper2.jpg" class="img-fluid" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/slike_odjeca/suknja.jpg" class="img-fluid" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/slike_odjeca/dzemper.jpg" class="img-fluid" alt="...">
+      </div>
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+
+
+  <br>
+  <br>
+
+</div>
