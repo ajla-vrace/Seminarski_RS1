@@ -16,22 +16,25 @@ KUPAC ID: {{kupac_id}}
     </div>
   </div>
   <div id="muskarciProizvodi">
-    <div *ngFor="let pr of getMProizvodi()" class="proizvodJedan">
-      <div class="zaSliku">
-        <img src="assets/slike/dress.png" style="width: 100%">
-       </div>
-      <img src="assets/slike/heart_fill.png" *ngIf="srceMOboji==true;" class="favorit">
-      <div class="tekst">
-        <h3>{{pr.naziv}}</h3>
-        <h5>{{pr.cijena}} KM</h5>
-      </div>
+    <div *ngFor="let pr of getMProizvodi()" class="proizvodJedan" >
+      <div (click)="prikaziDetaljeProizvoda(pr.id)" style="cursor: pointer;">
+        <div class="zaSliku" >
+          <img src="assets/slike/suit.png" style="width: 100%">
+        </div>
 
-      <div class="dugmad2">
-        <button class="dodajUKorpu" *ngIf="loginInfo().isLogiran==true" (click)="dodajUKorpu()">Dodaj u korpu</button>
-        <button class="dodajUFavorite" (click)="dodajUFavorite(pr.id)" *ngIf="loginInfo().isLogiran==true">
-          <img src="assets/slike/heart_f.png" class="slikasrce"  style="width: 20px;">
-        </button>
-      </div>
+        <div class="tekst" >
+          <h3>{{pr.naziv}}</h3>
+          <h5>{{pr.cijena}} KM</h5>
+        </div>
+</div>
+        <!--
+          <div class="dugmad2" *ngIf="loginInfo().isLogiran==true">
+            <button class="dodajUKorpu"  (click)="dodajUKorpu(pr.id)">Dodaj u korpu</button>
+            <button class="dodajUFavorite" (click)="dodajUFavorite(pr.id)" >
+              <img src="assets/slike/heart_f.png" class="slikasrce"  style="width: 20px;">
+            </button>
+          </div>
+          -->
     </div>
   </div>
 </div>

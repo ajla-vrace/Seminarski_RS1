@@ -15,9 +15,11 @@ export class KosaricaComponent implements OnInit {
   kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
    korpaStavkePodaci1: any;
    novaKorpa: any;
-   imeKorpe: any;
+   imeKorpe: any="korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
 total:any;
    jedan: any;
+  odabranaStavka: any;
+
   constructor(private httpKlijent: HttpClient,private router: Router, private route:ActivatedRoute) {
   }
   ngOnInit(): void {
@@ -65,6 +67,18 @@ this.fetchKorpstavke();
   }
 
   vratiNaPocetnu() {
-    this.router.navigate(['pocetna']);
+    this.router.navigate(['zene']);
+  }
+
+  ModifikacijaKorpaStavke(ks: any) {
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Update/" + ks.id, ks)
+      .subscribe((povratnaVrijednost:any) =>{
+      });
+
+    this.odabranaStavka=null;
+  }
+
+  Modifikacija(ks: any) {
+    this.odabranaStavka=ks;
   }
 }

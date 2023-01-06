@@ -17,7 +17,7 @@
   </div>
   <div id="zeneProizvodi">
     <div *ngFor="let p of getZProizvodi()" class="proizvodJedan" >
-      <div (click)="prikaziDetaljeProizvoda(p.id)" >
+      <div (click)="prikaziDetaljeProizvoda(p.id)" style="cursor: pointer;">
         <div class="zaSliku" >
           <img src="assets/slike/suit.png" style="width: 100%">
           </div>
@@ -29,16 +29,13 @@
 
 
       </div>
-      <div class="dugmad">
+      <!--<div class="dugmad">
         <button class="dodajUKorpu" *ngIf="loginInfo().isLogiran==true" (click)="dodajUKorpu(p.id)">Dodaj u korpu</button>
         <button class="dodajUFavorite" (click)="dodajUFavorite(p.id)" *ngIf="loginInfo().isLogiran==true">
           <img src="assets/slike/heart_f.png" class="slikasrce" >
         </button>
-
-
       </div>
-
-
+      -->
     </div>
   </div>
 </div>

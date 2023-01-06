@@ -74,6 +74,7 @@ namespace OnlineShop.Modul1.Controllers
         {
             var data = _dbContext.Favorit
                 .OrderByDescending(s => s.Id)
+                .Where(k=>k.KupacId==id)
                 .Select(s => new
                 {
                     Id = s.Id,

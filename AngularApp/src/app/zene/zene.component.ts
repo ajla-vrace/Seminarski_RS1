@@ -11,7 +11,7 @@ import {MojConfig} from "../moj-config";
   styleUrls: ['./zene.component.css']
 })
 export class ZeneComponent implements OnInit {
-  kupac_id: any;
+  kupac_id: any=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
   proizvodiZPodaci: any;
   srceZOboji: any;
   kategorijeZenePodaci: any;

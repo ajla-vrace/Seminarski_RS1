@@ -2,10 +2,12 @@
 <div id="naslovKosarice">
   <h2>Košarica</h2>
   <h4 *ngIf="korpaStavkePodaci1!=0">Pogledajte proizvode koje ste dodali u košaricu.</h4>
-
-  <h1 *ngIf="korpaStavkePodaci1==0" style="margin-top: 5%">Nemate nijedan proizvod u košarici.</h1>
+<div *ngIf="korpaStavkePodaci1==0">
+  <h1  style="margin-top: 5%">Nemate nijedan proizvod u košarici.</h1>
   <label style="font-style: italic">Inspirirajte se i obogatite svoju garderobu.</label>
   <button (click)="vratiNaPocetnu()" id="getInspired"> Pogledaj proizvode</button>
+</div>
+
 </div>
 
 
@@ -21,7 +23,8 @@ kupac id:
       <h3>{{ks.proizvodIme}}</h3>
       <h5 >{{ks.cijena}}KM</h5>
       <h6> Kolicina: {{ks.kolicina}}</h6>
-
+      <h6>Velicina: {{ks.velicina}}</h6>
+      <button (click)="Modifikacija(ks)" id="dugmeModifikuj">Modifikuj</button>
       <label (click)="UkloniIzKorpe(ks)" id="ukloniStavkuIzKorpe">Ukloni iz korpe</label>
     </div>
   </div>
@@ -30,6 +33,44 @@ kupac id:
     <h4 style="text-align: center;">Sadrzaj košarice </h4>
     <h6>Imate ukupno proizvoda: {{this.korpaStavkePodaci1.length}}</h6>
 <h6>Suma: </h6>
+  </div>
+
+</div>
+
+
+
+<div *ngIf="odabranaStavka!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel">Modifikacija </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="odabranaStavka=null"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Kolicina</label>
+          <select class="form-control" [(ngModel)]="odabranaStavka.kolicina">
+            <option >1</option>
+            <option >2</option>
+            <option >3</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Velicina</label>
+          <select class="form-control" [(ngModel)]="odabranaStavka.velicina">
+            <option >XS</option>
+            <option >S</option>
+            <option >M</option>
+            <option >L</option>
+          </select>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="odabranaStavka=null">Close</button>
+        <button type="button" class="btn btn-primary"  (click)="ModifikacijaKorpaStavke(odabranaStavka)">Save changes</button>
+      </div>
+    </div>
   </div>
 
 </div>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MojConfig} from "../moj-config";
 import {HttpClient} from "@angular/common/http";
+import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
+import {LoginInformacije} from "../helpers/login-informacije";
 
 @Component({
   selector: 'app-profil-kupac',
@@ -10,7 +12,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class ProfilKupacComponent implements OnInit {
 komm:any=false;
-  kupac_id:any;
+  kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
 kupac_podaci:any;
    komentariPodaci1: any;
   odabranikomentar: any=null;
@@ -20,7 +22,9 @@ kupac_podaci:any;
    ocjeneProdavnicaMoje: any;
 
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient) { }
-
+  loginInfo():LoginInformacije {
+    return AutentifikacijaHelper.getLoginInfo();
+  }
   ngOnInit(): void {
 
     this.route.params.subscribe(s=>{

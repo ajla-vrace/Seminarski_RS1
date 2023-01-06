@@ -44,3 +44,9 @@ li{
   display: block;
   margin: 1% 40%;
 }
+#dugmeModifikuj{
+  display: block;
+  width: 65%;
+  margin: 1% 17%;
+  background-color: lightskyblue;
+}

@@ -24,7 +24,8 @@ namespace OnlineShop.Modul1.Controllers
             for (int i = 0; i < sveStavke.Count; i++)
             {
                 if (sveStavke[i].KorpaId==x.KorpaId &&
-                    sveStavke[i].ProizvodId == x.ProizvodId)
+                    sveStavke[i].ProizvodId == x.ProizvodId && 
+                    sveStavke[i].Velicina==x.Velicina)
                 {
                     return BadRequest("Ova stavka je vec dodana!");
                 }
@@ -34,13 +35,14 @@ namespace OnlineShop.Modul1.Controllers
             _dbContext.Add(objekat);
 
             // objekat.Cijena = x.Cijena;
-            if (x.Kolicina == 0)
+           /* if (x.Kolicina == 0)
             {
                 return BadRequest("Kolicina ne moze biti 0!");
-            }
-            objekat.Kolicina = x.Kolicina;
+            }*/
+            objekat.Kolicina = 1;
             objekat.ProizvodId = x.ProizvodId;
             objekat.KorpaId = x.KorpaId;
+            objekat.Velicina = x.Velicina;
            // objekat.Total = x.Cijena * x.Kolicina;
             _dbContext.SaveChanges();
             return Ok(objekat);
@@ -63,7 +65,7 @@ namespace OnlineShop.Modul1.Controllers
                     KorpaId=s.KorpaId,
                     ProizvodIme=s.Proizvod.Naziv,
                     Boja=s.Proizvod.boja.Naziv,
-
+                    Velicina=s.Velicina,
                 })
                 .AsQueryable();
 
@@ -86,7 +88,7 @@ namespace OnlineShop.Modul1.Controllers
                      KorpaId = s.KorpaId,
                      ProizvodIme = s.Proizvod.Naziv,
                      Boja = s.Proizvod.boja,
-
+                     Velicina= s.Velicina,
                  })
                  .AsQueryable();
 
@@ -111,7 +113,7 @@ namespace OnlineShop.Modul1.Controllers
                     ProizvodId = s.ProizvodId,
                     ProizvodIme = s.Proizvod.Naziv,
                     Boja = s.Proizvod.boja,
-
+                    Velicina=s.Velicina,
                 })
                 .AsQueryable();
 
@@ -129,6 +131,7 @@ namespace OnlineShop.Modul1.Controllers
                 return BadRequest("ne postoji takav id");
             }
             objekat.Kolicina = x.Kolicina;
+            objekat.Velicina = x.Velicina;
             _dbContext.SaveChanges();
             return Ok(objekat);
         }

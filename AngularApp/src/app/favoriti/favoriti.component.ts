@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MojConfig} from "../moj-config";
 import {HttpClient} from "@angular/common/http";
+import {LoginInformacije} from "../helpers/login-informacije";
+import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 
 @Component({
   selector: 'app-favoriti',
@@ -12,12 +14,14 @@ export class FavoritiComponent implements OnInit {
 
   kupac_id:any;
    favoritiPodaci: any;
-
+  loginInfo():LoginInformacije {
+    return AutentifikacijaHelper.getLoginInfo();
+  }
   constructor(private httpKlijent: HttpClient,private router: Router, private route:ActivatedRoute) {
   }
   fetchFavoriti() :void
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/Favorit/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Favorit/GetById/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
       this.favoritiPodaci = x;
     });
   }
@@ -46,6 +50,6 @@ export class FavoritiComponent implements OnInit {
     this.httpKlijent.post(MojConfig.adresa_servera+ "/Favorit/GetAll",MojConfig.http_opcije()).subscribe(x=>{
       this.favoritiPodaci = x;
     });
-    alert("Odabrani favorit je obrisan!");
+    //alert("Odabrani favorit je obrisan!");
   }
 }
