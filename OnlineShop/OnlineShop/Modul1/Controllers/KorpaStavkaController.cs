@@ -39,11 +39,18 @@ namespace OnlineShop.Modul1.Controllers
             {
                 return BadRequest("Kolicina ne moze biti 0!");
             }*/
-            objekat.Kolicina = 1;
+            objekat.Kolicina = x.Kolicina;
             objekat.ProizvodId = x.ProizvodId;
             objekat.KorpaId = x.KorpaId;
             objekat.Velicina = x.Velicina;
-           // objekat.Total = x.Cijena * x.Kolicina;
+            var proizvod = _dbContext.Proizvod.Find(x.ProizvodId);
+            float samoCijena;
+            if (proizvod != null)
+            {
+                samoCijena=proizvod.Cijena;
+                objekat.Total = samoCijena * x.Kolicina;
+            }
+            
             _dbContext.SaveChanges();
             return Ok(objekat);
         }
@@ -60,7 +67,8 @@ namespace OnlineShop.Modul1.Controllers
                     Id = s.Id,
                     Cijena = s.Proizvod.Cijena,
                     Kolicina = s.Kolicina,
-                    Total = s.Cijena*s.Kolicina,
+                    Total=s.Total,
+                   // Total = s.Proizvod.Cijena*s.Kolicina,
                     ProizvodId= s.ProizvodId,
                     KorpaId=s.KorpaId,
                     ProizvodIme=s.Proizvod.Naziv,
@@ -83,7 +91,7 @@ namespace OnlineShop.Modul1.Controllers
                      Id = s.Id,
                      Cijena = s.Proizvod.Cijena,
                      Kolicina = s.Kolicina,
-                     Total = s.Cijena * s.Kolicina,
+                     Total = s.Total,
                      ProizvodId = s.ProizvodId,
                      KorpaId = s.KorpaId,
                      ProizvodIme = s.Proizvod.Naziv,
@@ -109,7 +117,7 @@ namespace OnlineShop.Modul1.Controllers
                     Cijena = s.Proizvod.Cijena,
                     Kolicina = s.Kolicina,
                     KorpaId=s.KorpaId,
-                    Total = s.Cijena * s.Kolicina,
+                    Total = s.Total,
                     ProizvodId = s.ProizvodId,
                     ProizvodIme = s.Proizvod.Naziv,
                     Boja = s.Proizvod.boja,

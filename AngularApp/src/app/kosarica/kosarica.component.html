@@ -32,7 +32,8 @@ kupac id:
   <div id="Kupovina" *ngIf="this.korpaStavkePodaci1!=0">
     <h4 style="text-align: center;">Sadrzaj košarice </h4>
     <h6>Imate ukupno proizvoda: {{this.korpaStavkePodaci1.length}}</h6>
-<h6>Suma: </h6>
+
+    <h6>Suma: {{izracunaj()}}</h6>
   </div>
 
 </div>

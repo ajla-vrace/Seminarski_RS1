@@ -36,8 +36,8 @@ namespace OnlineShop.Modul1.Controllers
             objekat.datum_kreiranja = DateTime.Now;
             objekat.datum_modifikacije = DateTime.Now;
             objekat.Name = x.Naziv;
-            objekat.Total = 0;
-            objekat.UkupnoProizvoda = 0;
+            //objekat.Total = ;
+            //objekat.UkupnoProizvoda = 0;
            
             _dbContext.SaveChanges();
             return Ok(objekat);
@@ -48,8 +48,6 @@ namespace OnlineShop.Modul1.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
-
-
             var data = _dbContext.Korpa
                 .OrderByDescending(s => s.Id)
                 .Select(s => new
@@ -60,8 +58,7 @@ namespace OnlineShop.Modul1.Controllers
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.datum_kreiranja,
                     DatumModifikacije = s.datum_modifikacije,
-                   
-                    UkupnoProizvoda=s.UkupnoProizvoda,
+                    
                       
                 })
                 .AsQueryable();
@@ -97,6 +94,14 @@ namespace OnlineShop.Modul1.Controllers
         [HttpGet("{id}")]
         public ActionResult GetById(int id)
         {
+            float totalSvega=default;
+            List<KorpaStavka> stavkeTeKorpe = _dbContext.KorpaStavka
+                .Where(k => k.KorpaId == id).ToList();
+            for (int i = 0; i < stavkeTeKorpe.Count; i++)
+            {
+                totalSvega+=stavkeTeKorpe[i].Total;
+            }
+
             var data = _dbContext.Korpa
                 .OrderByDescending(s => s.Id)
                 .Where(s => s.Id == id)
@@ -108,8 +113,8 @@ namespace OnlineShop.Modul1.Controllers
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.datum_kreiranja,
                     DatumModifikacije = s.datum_modifikacije,
-                    Total = s.Total,
-                    UkupnoProizvoda = s.UkupnoProizvoda,
+                    Total = totalSvega,
+                    UkupnoProizvoda = stavkeTeKorpe.Count,
 
                 })
                 .AsQueryable();
@@ -117,6 +122,9 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(data.ToList());
         }
+
+
+        
 
         [HttpPost("{id}")]
         public ActionResult Update([FromBody] KorpaVM x)

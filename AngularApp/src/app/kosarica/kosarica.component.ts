@@ -16,10 +16,11 @@ export class KosaricaComponent implements OnInit {
    korpaStavkePodaci1: any;
    novaKorpa: any;
    imeKorpe: any="korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
-total:any;
+total:number=0;
    jedan: any;
   odabranaStavka: any;
-
+korpaId:any;
+   KorpaPodatak: any;
   constructor(private httpKlijent: HttpClient,private router: Router, private route:ActivatedRoute) {
   }
   ngOnInit(): void {
@@ -28,15 +29,33 @@ total:any;
       this.kupac_id=+s["id"];
     })
 this.fetchKorpstavke();
+   // this.fetchKorpa();
   }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
   }
   private fetchKorpstavke() {
     this.imeKorpe="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+
     this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetByName/"+this.imeKorpe, MojConfig.http_opcije()).subscribe(x=>{
       this.korpaStavkePodaci1 = x;
     });
+
+  }
+iteracija(){
+  for(let i=0;i=1;i++){
+    this.korpaId=this.korpaStavkePodaci1[i].korpaId;
+    console.log("ovo je id korpe iz for petlje: "+this.korpaId);
+  }
+}
+
+
+  private fetchKorpa() {
+
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetById/"+this.korpaId, MojConfig.http_opcije()).subscribe(x=>{
+      this.KorpaPodatak = x;
+    });
+    console.log(this.KorpaPodatak.id+" ovo je id korpe")
   }
   getKorpaStavke() {
     if (this.korpaStavkePodaci1 == null)
@@ -45,11 +64,12 @@ this.fetchKorpstavke();
   }
   izracunaj(){
 
-    for(let x of this.korpaStavkePodaci1){
+    for(let i=0;i<this.korpaStavkePodaci1.length;i++){
 
-      this.total=this.total+(x.cijena*x.kolicina);
+      this.total+=this.korpaStavkePodaci1[i].total;
+      console.log(this.total+" ovo je total a ovo je total stavke: "+this.korpaStavkePodaci1[i].total+"ukupno ih ima: "+this.korpaStavkePodaci1.length);
     }
-    console.log(this.total);
+
     return this.total;
 }
   UkloniIzKorpe(s:any) {
