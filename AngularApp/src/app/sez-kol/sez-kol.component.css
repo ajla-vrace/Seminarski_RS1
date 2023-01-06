@@ -1,0 +1,81 @@
+
+.sredina{
+  width:80%;
+  margin:auto;
+  display: flex;
+  justify-content: space-between;
+  padding:1%;
+}
+
+.sredina .dodaj-kolekciju input, .dodaj-sezonu input{
+  width:100%;
+}
+
+.dodaj-kolekciju .submit-kol{
+  width:100%;
+}
+
+.dodaj-sezonu .submit-sez{
+  width:100%;
+}
+
+.dropdown{
+  position: static;
+}
+.dropdown option{
+  width:100%;
+  color: black;
+}
+
+table{
+  width:100%;
+  background-color: blanchedalmond;
+}
+
+.tabela{
+  width:78%;
+  margin:auto;
+}
+
+.naslov-sezona, .naslov-kolekcija{
+  background-color: blanchedalmond;
+  text-align: center;
+  padding:2%;
+  border-radius: 10px;
+}
+
+.submit-sez, .submit-kol{
+  border:groove;
+  padding:1%;
+  background-color: rgba(243,128,91,0.66);
+}
+
+.submit-sez:hover, .submit-kol:hover{
+  opacity:80%;
+}
+
+h3{
+  color:rgba(0,0,0,0.58)
+}
+
+hr{
+  width:78%;
+  margin: 2% auto 2% auto;
+}
+
+.tabela2{
+  width:78%;
+  margin: 0 auto 3% auto;
+}
+
+.btn{
+  background-color: rgba(243,128,91,0.66);
+}
+
+.btn:hover{
+  opacity: 80%;
+}
+
+img{
+  cursor: pointer;
+}

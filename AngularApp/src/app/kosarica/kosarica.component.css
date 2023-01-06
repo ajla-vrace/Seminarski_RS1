@@ -1,0 +1,32 @@
+#KosaricacijelaDiv{
+
+  display: flex;
+}
+#kosaricaDiv{
+
+  width: 80%;
+  margin: 2% 0%;
+  padding: 1% ;
+  display: flex;
+}
+#Kupovina{
+  background-color: lightpink;
+  width: 20%;
+}
+#naslovKosarice{
+  text-align: center;
+  margin-top: 1%;
+}
+.StavkaKosarice{
+  border:1px solid gray;
+  width: 20%;
+
+  margin-right: 1%;
+  text-align: center;
+}
+.SlikaStavkeKosarice{
+
+}
+li{
+  list-style: none;
+}

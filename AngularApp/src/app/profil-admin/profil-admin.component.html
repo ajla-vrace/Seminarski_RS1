@@ -210,8 +210,6 @@
       </div>
       <div class="modal-body">
 
-
-
         <div class="mb-3" [class.has-error]="imeControll.invalid && imeControll.touched">
           <label class="form-label">Ime:</label>
           <input type="text" required pattern="^[A-Z][a-zA-Z]*(\s|\-)?[a-zA-Z]*$"
@@ -251,7 +249,7 @@
 
         <div class="mb-3" [class.has-error]="emailControll.invalid && emailControll.touched">
           <label class="form-label">Email:</label>
-          <input type="text" required pattern="^[a-z]{1,15}\.?[a-z]*?[0-9]*?@(luna|edu\.fit|gmail)\.(com|ba)$"
+          <input type="text" required pattern="^[a-z]{1,15}\.?[a-z]*?[0-9]*?@(edu\.fit|gmail)\.(com|ba)$"
                  minlength="3" #emailControll="ngModel"
                  class="form-control" placeholder="ime@domena" [(ngModel)]="admin_podaci[0].email" >
 
@@ -278,7 +276,7 @@
       </div>
       <div class="modal-footer">
         <button [disabled]="!jelOmogucenSave(imeControll,prezimeControll,spolControll,emailControll,telControll)" type="button"
-                class="btn btn-primary" (click)="spasi()" >Spasi promjene</button>
+                class="btn btn-primary" (click)="spasi()">Spasi promjene</button>
       </div>
     </div>
   </div>

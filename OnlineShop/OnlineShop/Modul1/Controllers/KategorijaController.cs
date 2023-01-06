@@ -80,6 +80,17 @@ namespace OnlineShop.Modul1.Controllers
         {
             Kategorija? k = context.Kategorija.Find(id);
 
+            List<Podkategorija> lista_pk = context.Podkategorija.Where(x => x.KategorijaId == id).ToList();
+
+            if (lista_pk.Count() > 0)
+            {
+                foreach (var item in lista_pk)
+                {
+                    context.Remove(item);
+                    context.SaveChanges();
+                }
+            }
+
             if (k == null)
                 return BadRequest("pogresan id");
 

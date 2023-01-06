@@ -1,0 +1,99 @@
+.sredina{
+  width:80%;
+  display: flex;
+  justify-content: space-between;
+  height:auto;
+  margin:2% auto 5% auto;
+}
+
+.slika-zaposl{
+  /* display: grid;
+  grid-template-rows: auto 50px;
+   gap:0;*/
+  position:relative;
+}
+
+.btn-dodajSliku{
+  position: absolute;
+  top: 20%;
+  left:0;
+  padding:1%;
+  width:100%;
+}
+
+img{
+  border:solid;
+}
+
+h3{
+  text-align: center;
+  margin:2% auto 2% auto;
+}
+
+h5 input{
+  width:100%;
+  text-align: end;
+}
+
+.edit-btn, .spasi-btn, .close-btn{
+  width:30%;
+  margin:1% auto 1% auto;
+  text-align: center;
+  border-color: lightgray;
+}
+
+.dugmad{
+  width:100%;
+  text-align: center;
+}
+
+.edit-btn{
+  background-color: beige;
+}
+
+.spasi-btn{
+  background-color: #28a745;
+  color:white;
+}
+
+.close-btn{
+  background-color: red;
+  color: white;
+}
+
+.podaci{
+  width:60%;
+  background-color: #ffebcd;
+  padding:3%;
+}
+
+h4{
+  text-align: center;
+  border-bottom: solid;
+  width:15%;
+  margin:auto;
+}
+
+.username, .pass{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.change-username, .change-pass{
+  text-align: center;
+  border-color: lightgrey;
+  background-color: beige;
+}
+
+.change-username:hover, .change-pass:hover{
+  opacity: 80%;
+}
+
+.poruka-validacija{
+  color:red;
+}
+
+.mb-3 input{
+  width: 100%;
+}

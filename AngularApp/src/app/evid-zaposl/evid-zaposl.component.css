@@ -1,0 +1,81 @@
+
+.pretraga-div{
+  display: flex;
+  width: 25%;
+}
+
+.pretraga-div .pretrazi-zaposl{
+  width:100%;
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
+  border:groove;
+  padding:2%;
+}
+
+.pretraga-div .img-search{
+  border:groove;
+  background-color: white;
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 30px;
+  border-left: none;
+  padding:2%;
+  cursor: pointer;
+}
+
+.pretraga-div .img-search:hover{
+  background-color: #ffebcd;
+}
+
+.dodajZaposl{
+  width:20%;
+ /* margin:2% auto 2% auto;*/
+}
+
+.btn-dodajZaposl{
+  width:100%;
+  border:groove;
+  border-radius: 30px;
+  padding:2%;
+  background-color: #ffebcd;
+  color:black;
+}
+
+.podaci{
+  width:90%;
+  margin:2% auto 2% auto;
+}
+
+.btn-detalji{
+  width:90%;
+  border:groove;
+  border-radius: 20px;
+  padding:2%;
+  /*background-color: #95e4ff;*/
+  background-color: #ffebcd;
+  color:black;
+}
+
+.btn-delete{
+  background-color: rgba(255,21,47,0.82);
+  width:100%;
+  border:groove;
+  border-radius: 20px;
+  padding:2%;
+}
+
+.pretraga-dodaj{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width:90%;
+  margin: auto;
+}
+
+.ukupno-zaposl{
+  border:groove;
+  padding:1%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width:20%;
+}

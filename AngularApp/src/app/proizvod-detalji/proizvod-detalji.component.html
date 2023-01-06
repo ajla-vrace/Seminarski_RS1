@@ -1,5 +1,33 @@
-<p>proizvod-detalji works!</p>
-{{proizvod_id}}
+<div class="veliki">
+  <div *ngFor="let d of getProizvodiDetalji()">
 
+    <div *ngIf="d.id==proizvod_id" class="detaljiZaJednog">
+      <div class="slikaDetalja" *ngFor="let sl of getProizvodislika(d.id)">
+        <img src="{{getSlika(sl)}}" style="width: 100%;">
+      </div>
+      <div class="detaljiTekst">
+        <h4 style="text-align: center;">Proizvod detalji</h4>
+        <h3> Naziv: {{d.naziv}}</h3>
+        <h4> Cijena: {{d.cijena}}</h4>
+        <h6> Odjel:  {{d.odjelOpis}}</h6>
+        <h6> Boja:  {{d.bojaOpis}}</h6>
+        <h6> Kategorija: {{d.kategorijaOpis}}</h6>
+        <h6> Podkategorija:  {{d.podkategorijaOpis}}</h6>
+        <h6> Sezona: {{d.sezonaOpis}}</h6>
+        <h6> Kolekcija: {{d.kolekcijaOpis}}</h6>
+        <h6> Velicina: {{d.velicina}}</h6>
+        <div class="dugmad1" *ngIf="loginInfo().isLogiran==true">
+          <button class="dodajUKorpu1"  (click)="dodajUKorpu()">Dodaj u korpu</button>
+          <button class="dodajUFavorite1" (click)="dodajUFavorite(d.id)" >
+            <img src="assets/slike/heart_f.png" class="slikasrce" style="width: 20px;" >
+          </button>
+        </div>
+        <p style="margin: 1%;">Ukoliko ne znate koja veličina Vam odgovara, pogledajte naš <a routerLink="/vodiczavelicine">Vodič za veličine</a>.</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
 
 

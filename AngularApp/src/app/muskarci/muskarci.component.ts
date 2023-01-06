@@ -17,6 +17,9 @@ export class MuskarciComponent implements OnInit {
    kategorijeMuskarciPodaci: any;
    podkategorijeMuskarciPodaci: any;
   prikaziPodM: any=false;
+   favoritiPodaci: any;
+   noviFavorit: any;
+  dodanoUFavorite: any;
 
   constructor(private httpKlijent: HttpClient, private router: Router,
               private route: ActivatedRoute) {}
@@ -27,13 +30,18 @@ export class MuskarciComponent implements OnInit {
       this.proizvodiMPodaci = x;
     });
   }
-
+  fetchFavoriti() :void
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Favorit/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+      this.favoritiPodaci = x;
+    });
+  }
   ngOnInit(): void {
 
     this.fetchProizvodi();
 this.fetchKategorije();
 this.fetchPodKategorije();
-
+this.fetchFavoriti();
   }
 
   getMProizvodi() {
@@ -44,8 +52,18 @@ this.fetchPodKategorije();
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
   }
-  dodajUFavorite() {
+  dodajUFavorite(p:any) {
+    this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+    this.noviFavorit = {
+      id: 0,
+      kupacId: this.kupac_id,
+      proizvodId: p,
+    }
+    this.httpKlijent.post(`${MojConfig.adresa_servera}/Favorit/Add`, this.noviFavorit, MojConfig.http_opcije()).subscribe(x => {
+      this.fetchFavoriti();
 
+    });
+    this.dodanoUFavorite=true;
   }
   getKategorije() {
     if (this.kategorijeMuskarciPodaci == null)
@@ -68,5 +86,9 @@ this.fetchPodKategorije();
     this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Podkategorija", MojConfig.http_opcije()).subscribe(x=>{
       this.podkategorijeMuskarciPodaci = x;
     });
+  }
+
+  dodajUKorpu() {
+
   }
 }

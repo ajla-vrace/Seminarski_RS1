@@ -125,5 +125,11 @@ namespace OnlineShop.Modul1.Controllers
             return contex.KorisnickiNalog.Select(x => x.Username).ToList();
         }
 
+        [HttpGet("emailovi")]
+        public List<string> GetEmailove()
+        {
+            return contex.KorisnickiNalog.Select(x => x.Email).ToList();
+        }
+
     }
 }

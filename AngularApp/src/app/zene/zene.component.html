@@ -1,7 +1,10 @@
-<h4>Ženski odjel</h4>
-<h3 style="margin: 2%">Proizvodi</h3>
+<app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
 
-KUPAC ID: {{kupac_id}}
+
+<h4 id="ZenskiOdjelNaslov">Ženski odjel</h4>
+<h3 style="margin: 1%">Proizvodi</h3>
+<div *ngIf="loginInfo().isLogiran==true"><label >KUPAC ID: {{loginInfo().autentifikacijaToken.korisnickiNalogId}}</label></div>
+
 <div id="sve">
   <div id="filteri">
     <div *ngFor="let k of getKategorijeZene()">
@@ -14,21 +17,28 @@ KUPAC ID: {{kupac_id}}
   </div>
   <div id="zeneProizvodi">
     <div *ngFor="let p of getZProizvodi()" class="proizvodJedan" >
-      <div  style="background-color: hotpink">
+      <div (click)="prikaziDetaljeProizvoda(p.id)" >
         <div class="zaSliku" >
-          <img src="assets/slike/dress.png" style="width: 100%">
-          <img src="assets/slike/heart_f.png" class="favorit" (click)="dodajUFavorite(p.id)" *ngIf="loginInfo().isLogiran==true">
-        </div>
-        <img src="assets/slike/heart_fill.png"  class="favorit">
-        <div class="tekst" (click)="prikaziDetaljeProizvoda()">
+          <img src="assets/slike/suit.png" style="width: 100%">
+          </div>
+
+        <div class="tekst" >
           <h3>{{p.naziv}}</h3>
-          <h5>{{p.cijena}}</h5>
+          <h5>{{p.cijena}} KM</h5>
         </div>
 
 
       </div>
-      <button class="dodajUKorpu" *ngIf="loginInfo().isLogiran==true" (click)="dodajUKorpu()">Dodaj u korpu</button>
-      <br>
+      <div class="dugmad">
+        <button class="dodajUKorpu" *ngIf="loginInfo().isLogiran==true" (click)="dodajUKorpu(p.id)">Dodaj u korpu</button>
+        <button class="dodajUFavorite" (click)="dodajUFavorite(p.id)" *ngIf="loginInfo().isLogiran==true">
+          <img src="assets/slike/heart_f.png" class="slikasrce" >
+        </button>
+
+
+      </div>
+
+
     </div>
   </div>
 </div>

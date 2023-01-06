@@ -1,3 +1,311 @@
 <app-navbar-admin></app-navbar-admin>
 
-<p>spec-pon works! {{admin_id}}</p>
+
+<div class="sredina">
+  <div class="add-spec-pon" [class.has-error]="naziv.invalid && naziv.touched && dateS.invalid && dateS.touched && dateE.invalid && dateE.touched">
+    <h4 class="naslov-spec-pon">Dodaj specijalnu ponudu</h4>
+    <hr>
+    <h5>Naziv specijalne ponude: <br> <input type="text" #naziv="ngModel" required pattern="^[A-Za-z\s]*$"
+                                             [(ngModel)]="obj_sp.naziv"></h5>
+    <h5>Datum početka: <br> <input type="date" #dateS="ngModel"
+                                   required [(ngModel)]="obj_sp.datum_pocetka"></h5>
+    <h5>Datum završetka:<br> <input type="date" #dateE="ngModel"
+                                    required [(ngModel)]="obj_sp.datum_zavrsetka"></h5>
+
+    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Morate unijeti ispravne podatke">
+    <button [disabled]="!(naziv.valid && dateS.valid && dateE.valid)" (click)="snimi_sp()" class="btn-add-sp">Dodaj</button>
+    </span>
+  </div>
+
+
+  <div class="dodaj-spec_pon-proizvod">
+    <h4>Dodajte proizvod i specijalnu ponudu</h4>
+    <hr>
+    <h5>Proizvod: </h5>
+
+    <select [(ngModel)]="obj_spp.proizvodId">
+      <option *ngFor="let p of proizvodi" [value]="p.id">{{p.naziv}}</option>
+    </select>
+
+    <h5>Specijalna ponuda: </h5>
+    <select [(ngModel)]="obj_spp.specijalnaPonudaId">
+      <option *ngFor="let sp of specijalne_ponude" [value]="sp.id">{{sp.naziv}}</option>
+    </select>
+
+    <h5>Popust:</h5>
+    <select [(ngModel)]="obj_spp.popustId">
+      <option *ngFor="let p of popusti" [value]="p.id">{{p.opis}}</option>
+    </select>
+
+    <br>
+    <button class="btn-add-spp" (click)="snimi_spp()">Dodaj</button>
+
+  </div>
+
+  <div class="popust" [class.has-error]="opis.touched && opis.invalid">
+    <h4>Dodajte popust</h4>
+    <hr>
+    <h5>Upišite iznos:</h5> <input placeholder="0.1..." required pattern="^0\.\d*$"
+                                   #opis="ngModel"
+                                   [(ngModel)]="obj_popust.opis">
+    <br>
+    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Morate unijeti ispravne podatke">
+    <button class="btn-add-popust" [disabled]="!opis.valid" (click)="snimi_popust()">Dodaj</button>
+    </span>
+  </div>
+
+</div>
+
+<br>
+
+<div class="tabela1">
+
+  <h5>Specijalne ponude i proizvodi</h5>
+  <hr class="tabela-hr">
+
+  <div class="pretraga">
+    <input class="input-pretraga2" placeholder="pretrazi po proizvodu, popustu, specijalnoj ponudi" #inputSPP>
+    <img src="assets/slike/search.svg" style="width:30px; height: 30px;" class="slika-search"
+         (click)="jelKliknuoSearch=true">
+  </div>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Naziv specijalne ponude</th>
+      <th scope="col">Naziv proizvoda</th>
+      <th scope="col">Popust</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let spp of getFilterPodatkeSPP(inputSPP.value)">
+      <th scope="row">{{spp.id}}</th>
+      <td>{{spp.specijalnaPonudaOpis}}</td>
+      <td>{{spp.proizvodOpis}}</td>
+      <td>{{spp.popustOpis}}</td>
+      <td><img src="assets/slike/pencil-square.svg" (click)="edit_spp(spp)"></td>
+      <td><img src="assets/slike/x-square.svg" (click)="delete_spp(spp)"></td>
+    </tr>
+
+    </tbody>
+
+  </table>
+
+
+
+</div>
+
+<div class="tabela2">
+
+<h5>Specijalne ponude</h5>
+  <hr class="tabela-hr">
+
+  <div class="filtriranje">
+
+  <div class="pretraga">
+    <input class="input-pretraga" placeholder="upisi naziv specijalne pounde" #inputSP>
+    <img src="assets/slike/search.svg" style="width:30px; height: 30px;" class="slika-search"
+         (click)="jelKliknuoSearch=true">
+  </div>
+
+    <div class="sortiranje">
+      <select class="sortiranje-select" [(ngModel)]="izabranoSortiranje">
+        <option>Mlađi datum</option>
+        <option>Stariji datum</option>
+      </select>
+    </div>
+
+  </div>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Naziv specijalne ponude</th>
+      <th scope="col">Datum početka</th>
+      <th scope="col">Datum završetka</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let sp of getFilterPodatkeSP(inputSP.value)">
+      <th scope="row">{{sp.id}}</th>
+      <td>{{sp.naziv}}</td>
+      <td>{{sp.datum_pocetka}}</td>
+      <td>{{sp.datum_zavrsetka}}</td>
+      <td><img src="assets/slike/pencil-square.svg" (click)="edit_sp(sp)"></td>
+      <td><img src="assets/slike/x-square.svg" (click)="delete_sp(sp)"></td>
+    </tr>
+
+    </tbody>
+  </table>
+
+</div>
+
+
+<div class="tabela3">
+
+  <h5>Popusti</h5>
+  <hr class="tabela-hr">
+<!--
+  <div class="pretraga">
+    <input class="input-pretraga2" placeholder="popust..." #inputPopust>
+    <img src="assets/slike/search.svg" style="width:30px; height: 30px;" class="slika-search"
+         (click)="jelKliknuoSearch=true">
+  </div>
+-->
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Opis</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let p of popusti">
+      <th scope="row">{{p.id}}</th>
+      <td>{{p.opis}}</td>
+      <td><img src="assets/slike/pencil-square.svg" (click)="edit_popust(p)"></td>
+      <td><img src="assets/slike/x-square.svg" (click)="delete_popust(p)"></td>
+    </tr>
+
+    </tbody>
+  </table>
+
+</div>
+
+
+
+<div *ngIf="kliknuoEditSPP==true" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel">Modifikuj zapis</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="kliknuoEditSPP=false"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Proizvod</label>
+          <select class="form-control" [(ngModel)]="obj_spp.proizvodId" >
+            <option *ngFor="let o of proizvodi" [value]="o.id" > {{o.naziv}} </option>
+          </select>
+        </div>
+
+      <div class="mb-3">
+        <label class="form-label">Specijalna ponuda</label>
+        <select class="form-control" [(ngModel)]="obj_spp.specijalnaPonudaId">
+          <option *ngFor="let o of specijalne_ponude" [value]="o.id" > {{o.naziv}} </option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Popust</label>
+        <select class="form-control" [(ngModel)]="obj_spp.popustId">
+          <option *ngFor="let o of popusti" [value]="o.id" > {{o.opis}} </option>
+        </select>
+      </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="snimi_spp()" >Snimi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div *ngIf="kliknuoEditSP==true" class="modal fade show" id="exampleModalLive1" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel1">Modifikuj zapis</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="kliknuoEditSP=false"></button>
+      </div>
+
+      <div class="modal-body">
+      <div class="mb-3" [class.has-error]="nazivSP.touched && nazivSP.invalid">
+        <label class="form-label">Naziv</label>
+        <input class="form-control" required pattern="^[A-Za-z\s]*$" #nazivSP="ngModel" [(ngModel)]="obj_sp.naziv" />
+
+        <span class="help-block" *ngIf="nazivSP.touched && nazivSP.invalid">
+          Ovo polje je obavezno i mora počinjati velikim slovom.
+        </span>
+
+      </div>
+
+      <div class="mb-3" [class.has-error]="dateStart.touched && dateStart.invalid">
+        <label class="form-label">Datum početka</label>
+        <input type="date" class="form-control" #dateStart="ngModel" [(ngModel)]="obj_sp.datum_pocetka" />
+
+        <span class="help-block" *ngIf="dateStart.touched && dateStart.invalid">
+          Ovo polje je obavezno.
+        </span>
+
+      </div>
+
+      <div class="mb-3" [class.has-error]="dateEnd.touched && dateEnd.invalid">
+        <label class="form-label">Datum završetka</label>
+        <input type="date" class="form-control" #dateEnd="ngModel" [(ngModel)]="obj_sp.datum_zavrsetka" />
+
+        <span class="help-block" *ngIf="dateEnd.touched && dateEnd.invalid">
+          Ovo polje je obavezno.
+        </span>
+
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary"
+              [disabled]="!jelDisabledSnimiSP(nazivSP,dateStart,dateEnd)"
+              (click)="snimi_sp()" >Snimi</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<div *ngIf="kliknuoEditPopust==true" class="modal fade show" id="exampleModalLive2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel2">Modifikuj zapis</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="kliknuoEditPopust=false"></button>
+      </div>
+
+      <div class="modal-body">
+      <div class="mb-3" [class.has-error]="opis.invalid && opis.touched">
+        <label class="form-label">Opis</label>
+        <input class="form-control" placeholder="0.1"
+               required pattern="^0\.\d*$"
+               #opis="ngModel" [(ngModel)]="obj_popust.opis" />
+
+        <span class="help-block" *ngIf="opis.touched && opis.invalid">
+          Ovo polje je obavezno i mora sadržavati decimalne vrijednosti koje počinju nulom.
+        </span>
+
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary"
+              [disabled]="!(opis.valid)"
+              (click)="snimi_popust()" >Snimi</button>
+    </div>
+  </div>
+</div>
+</div>
+
+

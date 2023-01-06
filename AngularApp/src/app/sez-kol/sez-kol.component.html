@@ -1,3 +1,212 @@
 <app-navbar-admin></app-navbar-admin>
 
-<p>sez-kol works! {{admin_id}}</p>
+
+<div class="sredina">
+
+  <div class="dodaj-sezonu">
+    <h3 class="naslov-sezona">Dodaj sezonu:</h3> <br>
+    <h5>Upiši naziv sezone: <input type="text" [(ngModel)]="obj_sezona.naziv"> </h5>
+    <h5>Upiši doba: <input type="text" [(ngModel)]="obj_sezona.doba"> </h5>
+    <h5>Upiši godinu: <input type="text" [(ngModel)]="obj_sezona.godina"></h5>
+    <button class="submit-sez" (click)="spasi_sezonu()">Spasi</button>
+  </div>
+
+
+  <div class="dodaj-kolekciju">
+    <h3 class="naslov-kolekcija">Dodaj kolekciju:</h3> <br>
+
+    <h5>Odaberi sezonu:</h5>
+    <div class="dropdown">
+      <select class="form-control" [(ngModel)]="obj_kolekcija.sezonaId" (click)="getSezone();">
+        <option *ngFor="let s of sezone" [value]="s.id">{{s.naziv}}</option>
+      </select>
+    </div>
+
+
+    <h5>Upiši naziv kolekcije: <input type="text" [(ngModel)]="obj_kolekcija.naziv"> </h5>
+    <h5>Upiši godinu: <input type="text" [(ngModel)]="obj_kolekcija.godina"> </h5>
+    <button class="submit-kol" (click)="spasi_kolekciju()">Spasi</button>
+  </div>
+
+</div>
+
+
+
+<div class="tabela">
+
+  <h6>Kolekcije</h6>
+  <br>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Naziv kolekcije</th>
+      <th>Naziv sezone</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let k of kolekcije">
+      <td>{{k.id}}</td>
+      <td>{{k.naziv}}</td>
+      <td>{{k.sezonaOpis}}</td>
+      <td><img src="assets/slike/pencil-square.svg" (click)="editKolekcija(k)"></td>
+      <td><img src="assets/slike/x-square.svg" (click)="deleteKolekcija(k)"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr>
+
+
+
+<div class="tabela2">
+
+  <h6>Sezone</h6>
+  <br>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Naziv sezone</th>
+      <th>Doba</th>
+      <th>Godina</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let s of sezone">
+      <td>{{s.id}}</td>
+      <td>{{s.naziv}}</td>
+      <td>{{s.doba}}</td>
+      <td>{{s.godina}}</td>
+      <td><img src="assets/slike/pencil-square.svg" (click)="editSezona(s)"></td>
+      <td><img src="assets/slike/x-square.svg" (click)="deleteSezona(s)"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+<div *ngIf="kliknuoEditSezona==true" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel" > Izmjena podataka </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="kliknuoEditSezona=false"></button>
+      </div>
+      <div class="modal-body">
+
+
+
+        <div class="mb-3" [class.has-error]="nazivControll.invalid && nazivControll.touched">
+          <label class="form-label">Naziv:</label>
+          <input type="text" required pattern="^[A-Z][a-zA-Z\d\s]*$"
+                 minlength="3" #nazivControll="ngModel" class="form-control" placeholder="naziv" [(ngModel)]="obj_sezona.naziv" >
+
+          <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">
+            Ovo polje je obavezno. Prvo slovo mora biti veliko. Najmanje 3 karaktera. Bez dijakritičkih znakova.
+          </span>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="dobaControll.invalid && dobaControll.touched">
+          <label class="form-label">Doba:</label>
+          <input type="text" required pattern="^[A-Z][a-zA-Z\s]*\-?[a-zA-Z\s]*$"
+                 minlength="3" #dobaControll="ngModel" class="form-control" placeholder="ljeto" [(ngModel)]="obj_sezona.doba">
+
+          <span class="help-block" *ngIf="dobaControll.invalid && dobaControll.touched">
+             Ovo polje je obavezno i mora imati najmanje 3 karaktera (ne uključujući brojeve). Prvo slovo mora biti veliko. Bez dijakritičkih znakova.
+          </span>
+        </div>
+
+        <div class="mb-3" [class.has-error]="godinaControll.invalid && godinaControll.touched">
+          <label class="form-label">Godina:</label>
+          <input type="text" required pattern="^\d*$"
+                 minlength="4" #godinaControll="ngModel"
+                 class="form-control" placeholder="2020" [(ngModel)]="obj_sezona.godina" >
+
+          <span class="help-block" *ngIf="godinaControll.invalid && godinaControll.touched">
+            Ovo polje je obavezno. Može sadržavati samo brojeve.
+          </span>
+        </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="!jelOmogucenSaveSezone(nazivControll,dobaControll,godinaControll)" type="button"
+                class="btn" (click)="spasi_sezonu()">Spasi promjene</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngIf="kliknuoEditKolekcija==true" class="modal fade show" id="exampleModalLive1" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel1" > Izmjena podataka </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="kliknuoEditKolekcija=false"></button>
+      </div>
+      <div class="modal-body">
+
+
+
+        <div class="mb-3" [class.has-error]="nazivControll.invalid && nazivControll.touched">
+          <label class="form-label">Naziv:</label>
+          <input type="text" required pattern="^[A-Z][a-zA-Z\d\s]*$"
+                 minlength="3" #nazivControll="ngModel" class="form-control" placeholder="naziv" [(ngModel)]="obj_kolekcija.naziv" >
+
+          <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">
+            Ovo polje je obavezno. Prvo slovo mora biti veliko. Najmanje 3 karaktera.
+          </span>
+        </div>
+
+
+
+        <div class="mb-3" [class.has-error]="godinaControll.invalid && godinaControll.touched">
+          <label class="form-label">Godina:</label>
+          <input type="text" required pattern="^\d*$"
+                 minlength="4" #godinaControll="ngModel"
+                 class="form-control" placeholder="2020" [(ngModel)]="obj_kolekcija.godina" >
+
+          <span class="help-block" *ngIf="godinaControll.invalid && godinaControll.touched">
+            Ovo polje je obavezno. Može sadržavati samo brojeve.
+          </span>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="sezonaIdControll.invalid && sezonaIdControll.touched">
+          <label class="form-label">Sezona:</label>
+          <select required #sezonaIdControll="ngModel" class="form-control" [(ngModel)]="obj_kolekcija.sezonaId">
+            <option *ngFor="let s of sezone" [value]="s.id">{{s.naziv}}</option>
+          </select>
+
+          <span class="help-block" *ngIf="sezonaIdControll.invalid && sezonaIdControll.touched">
+           Ovo polje je obavezno.
+          </span>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="!jelOmogucenSaveKolekcije(nazivControll,sezonaIdControll,godinaControll)" type="button"
+                class="btn" (click)="spasi_kolekciju()">Spasi promjene</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

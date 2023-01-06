@@ -27,9 +27,6 @@ namespace OnlineShop.Modul1.Controllers
             _dbContext.SaveChanges();
             return Ok(objekat);
         }
-
-
-
         [HttpGet]
         public ActionResult GetAll()
         {
@@ -39,15 +36,23 @@ namespace OnlineShop.Modul1.Controllers
                 {
                     Id = s.Id,
                     Naziv = s.Naziv,
-                   
-
                 })
                 .AsQueryable();
-
-
             return Ok(data.ToList());
         }
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            Grad grad = _dbContext.Grad.Find(id);
 
+            if (grad == null)
+                return BadRequest("pogresan ID");
+
+            _dbContext.Remove(grad);
+
+            _dbContext.SaveChanges();
+            return Ok(grad);
+        }
 
     }
 }

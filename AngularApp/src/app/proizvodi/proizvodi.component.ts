@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
 import {NgModel} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-proizvodi',
@@ -63,6 +64,11 @@ export class ProizvodiComponent implements OnInit {
   getProizvodRastuci(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/datumRastuci").subscribe((x:any)=>{
       this.proizvodi_rastuci=x;
+/*
+      this.proizvodi_rastuci.datum_kreiranja=formatDate(this.proizvodi_rastuci.datum_kreiranja,'dd/MM/yyyy',"en-US");
+      this.proizvodi_rastuci.datum_modifikacije=formatDate(this.proizvodi_rastuci.datum_modifikacije,'dd/MM/yyyy',"en-US");
+*/
+
       console.log(this.proizvodi_rastuci);
     })
   }
@@ -70,6 +76,11 @@ export class ProizvodiComponent implements OnInit {
   getProizvodOpadajući(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/datumOpadajuci").subscribe((x:any)=>{
       this.proizvod_opadajuci=x;
+/*
+      this.proizvod_opadajuci.datum_kreiranja=formatDate(this.proizvod_opadajuci.datum_kreiranja,'dd/MM/yyyy',"en-US");
+      this.proizvod_opadajuci.datum_modifikacije=formatDate(this.proizvod_opadajuci.datum_modifikacije,'dd/MM/yyyy',"en-US");
+*/
+
       console.log(this.proizvod_opadajuci);
     })
   }

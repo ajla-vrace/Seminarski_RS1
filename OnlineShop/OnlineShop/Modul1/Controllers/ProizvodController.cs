@@ -200,6 +200,17 @@ namespace OnlineShop.Modul1.Controllers
                 }
             }
 
+            List<ProizvodSlika> ps_lista = context.ProizvodSlika.Where(x => x.proizvodId == id).ToList();
+
+            if (ps_lista.Count() > 0)
+            {
+                foreach (var ps in ps_lista)
+                {
+                    context.Remove(ps);
+                    context.SaveChanges();
+                }
+            }
+
             if (id == 0)
                 return BadRequest("pogrešan ID.");
 

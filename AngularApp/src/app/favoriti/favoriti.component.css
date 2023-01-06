@@ -1,12 +1,39 @@
-.favoritiDiv{
-  background-color: lightcoral;
+.FavoritiDiv{
+  display: flex;
+  width: 20%;
+  margin: 1%;
+  position: relative;
 }
 .tekst{
   text-align: center;
+}
+#slikaFavorit{
+  background-color: white;
+  width: 100%;
+}
+.FavoritSlikaSamo{
+  width: 100px;
+}
+li{
+  list-style: none;
+}
+#tekstFavorit{
+  width: 100%;
+  background-color: #fcfae8;
 }
 .velikiFavoriti{
   width: 90%;
   margin:1% 5%;
   padding: 2%;
   background-color: lightblue;
+  display: flex;
+}
+#favbrisanje{
+  display: inline;
+  color: red;
+ margin-right: 1%;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  font-size: larger;
 }

@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
 import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-profil-zaposlenik',
@@ -31,7 +32,10 @@ export class ProfilZaposlenikComponent implements OnInit {
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Zaposlenik/id?id="+this.zaposlenik_id)
       .subscribe((x:any)=>{
         this.podaci_zaposlenika=x;
-        console.log(this.podaci_zaposlenika);
+        this.podaci_zaposlenika.datumRodjenja=formatDate(this.podaci_zaposlenika.datumRodjenja,'dd/MM/yyyy','en-US');
+        this.podaci_zaposlenika.datumRegistracije=formatDate(this.podaci_zaposlenika.datumRegistracije,'dd/MM/yyyy','en-US')
+        this.podaci_zaposlenika.datumZaposlenja=formatDate(this.podaci_zaposlenika.datumZaposlenja,'dd/MM/yyyy','en-US')
+        console.log("PODACI: ",this.podaci_zaposlenika);
       })
   }
 /*

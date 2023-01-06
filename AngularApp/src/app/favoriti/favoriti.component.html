@@ -3,12 +3,19 @@
   <h2>Favoriti</h2>
   <h5>Pogledajte proizvode koje ste dodali u favorite</h5>
 </div>
-<h1 *ngIf="favoritiPodaci==0">Niste dodali nijedan proizvod u favorite!</h1>
+<h1 *ngIf="favoritiPodaci==0" style="text-align: center;">Niste dodali nijedan proizvod u favorite!</h1>
 
-id:
-{{kupac_id}}
-<div *ngFor="let f of getFavoriti()" class="velikiFavoriti">
-  <div class="FavoritiDiv">
-    <li>{{f.proizvod}}</li>
+
+<div  class="velikiFavoriti" *ngIf="favoritiPodaci!=0">
+  <div class="FavoritiDiv" *ngFor="let f of getFavoriti()">
+    <div id="slikaFavorit" >
+      <img src="assets/slike/dress.png" class="FavoritSlikaSamo">
+    </div>
+    <div id="tekstFavorit">
+      <label>{{f.proizvod}}</label>  <label (click)="UkloniFavorit(f)" id="favbrisanje"> Poništi </label>
+      <li>{{f.cijena}}</li>
+    </div>
+
+
   </div>
 </div>

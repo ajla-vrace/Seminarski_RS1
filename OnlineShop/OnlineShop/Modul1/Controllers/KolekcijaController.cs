@@ -36,7 +36,7 @@ namespace OnlineShop.Modul1.Controllers
                 Godina = x.Godina,
                 sezonaId=x.sezonaId,
                 sezonaOpis=x.sezona.Naziv
-            }).ToList().AsQueryable();
+            }).ToList().AsQueryable().OrderByDescending(x=>x.Id);
         }
 
         [HttpGet("kolekcijaID")]
@@ -82,6 +82,18 @@ namespace OnlineShop.Modul1.Controllers
         {
             Kolekcija? s = context.Kolekcija.Find(id);
             Kolekcija? s_copy = s;
+
+            List<Proizvod> proizvodi = context.Proizvod.Where(x => x.kolekcijaId == id).ToList();
+
+            if (proizvodi.Count() > 0)
+            {
+                foreach (var p in proizvodi)
+                {
+
+                    context.Remove(p);
+                    context.SaveChanges();
+                }
+            }
 
             if (s != null)
             {

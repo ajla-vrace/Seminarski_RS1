@@ -1,3 +1,234 @@
 <app-navbar-admin></app-navbar-admin>
 
-<p>evid-zaposl works! {{admin_id}}</p>
+
+<div class="sredina">
+
+ <div class="pretraga-dodaj">
+  <div class="pretraga-div">
+    <input class="pretrazi-zaposl" type="text" placeholder="pretrazi zaposlenika..." #pretraga_zaposl>
+    <!--getFilterZaposlenike(pretragaZaposl.value)-->
+    <img class="img-search" src="assets/slike/search.svg" (click)="kliknuoPretrazi=true">
+  </div>
+
+  <div class="dodajZaposl">
+    <button class="btn-dodajZaposl" (click)="dodajZaposlenika()">Dodaj zaposlenika</button>
+  </div>
+
+   <div class="ukupno-zaposl">
+     <h5 [style]="{width:'90%', margin:'auto'}">Ukupno zaposlenika:</h5> <h4>{{zaposlenici?.length}}</h4>
+   </div>
+
+ </div>
+
+
+
+  <div class="podaci">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Ime</th>
+        <th scope="col">Prezime</th>
+        <th scope="col">Email</th>
+        <th scope="col">Broj telefona</th>
+        <th scope="col">Datum registracije</th>
+        <th scope="col">Spol</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let z of getFilterZaposlenike(pretraga_zaposl.value)">
+        <th scope="row">{{z.id}}</th>
+        <td>{{z.ime}}</td>
+        <td>{{z.prezime}}</td>
+        <td>{{z.email}}</td>
+        <td>{{z.brojTelefona}}</td>
+        <td>{{z.datumRegistracije}}</td>
+        <td>{{z.spolOpis}}</td>
+        <td><button class="btn-detalji" (click)="vidiDetaljeZaposlenika(z.id)">Vidi detalje</button></td>
+        <td><button class="btn-delete" (click)="obrisiZaposlenika(z)">Obriši</button> </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+<div *ngIf="zaposlenik_obj!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel">Dodaj zaposlenika</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="zaposlenik_obj=null"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3" [class.has-error]="ime.invalid && ime.touched">
+          <label class="form-label">Ime</label>
+          <input class="form-control" required pattern="^[A-Z][a-zA-Z]*(\s|\-)?[a-zA-Z]*$"
+                 #ime="ngModel" placeholder="Ime" [(ngModel)]="zaposlenik_obj.ime" >
+
+          <span class="help-block" *ngIf="ime.invalid && ime.touched">
+            Ovo polje je obavezno i mora imati najmanje 3 karaktera (ne uključujući brojeve). Prvo slovo veliko.
+          </span>
+
+        </div>
+
+        <div class="mb-3" [class.has-error]="prezime.invalid && prezime.touched">
+          <label class="form-label">Prezime</label>
+          <input class="form-control" placeholder="Prezime"
+                 required pattern="^[A-Z][a-zA-Z]*(\s|\-)?[a-zA-Z]*$"
+                 #prezime="ngModel"
+                 [(ngModel)]="zaposlenik_obj.prezime" />
+
+          <span class="help-block" *ngIf="prezime.invalid && prezime.touched">
+             Ovo polje je obavezno i mora imati najmanje 3 karaktera (ne uključujući brojeve). Prvo slovo veliko.
+          </span>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="jmbg.invalid && jmbg.touched">
+          <label class="form-label">JMBG</label>
+          <input class="form-control" placeholder="jmbg"
+                 required pattern="^\d{13}$"
+                 #jmbg="ngModel"
+                 [(ngModel)]="zaposlenik_obj.jmbg" />
+
+          <span class="help-block" *ngIf="jmbg.invalid && jmbg.touched">
+             Ovo polje je obavezno i mora imati 13 cifara.
+          </span>
+
+        </div>
+
+        <div class="mb-3" [class.has-error]="dtmRod.invalid && dtmRod.touched">
+          <label class="form-label">Datum rođenja</label>
+          <input type="date" class="form-control" placeholder="datum rođenja"
+                 required #dtmRod="ngModel" [(ngModel)]="zaposlenik_obj.datumRodjenja"/>
+
+          <span class="help-block" *ngIf="dtmRod.invalid && dtmRod.touched">
+             Ovo polje je obavezno.
+          </span>
+
+        </div>
+
+        <div class="mb-3" [class.has-error]="adresa.invalid && adresa.touched">
+          <label class="form-label">Adresa stanovanja</label>
+          <input class="form-control" placeholder="adresa stanovanja"
+                required pattern="^[A-Za-z\s\d]*$"
+                #adresa="ngModel" [(ngModel)]="zaposlenik_obj.adresaStanovanja" />
+
+          <span class="help-block" *ngIf="adresa.invalid && adresa.touched">
+             Ovo polje je obavezno. Mora započinjati velikim slovom.
+          </span>
+
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Spol</label>
+          <select class="form-control" [(ngModel)]="zaposlenik_obj.spolId">
+            <option *ngFor="let o of spolovi" [value]="o.id" > {{o.naziv}} </option>
+          </select>
+        </div>
+
+        <div class="mb-3" [class.has-error]="tel.invalid && tel.touched">
+          <label class="form-label">Broj telefona</label>
+          <input class="form-control" placeholder="062/333-333"
+                 #tel="ngModel"
+                 required pattern="^[0-9]{3}(\/|\-|\s)[0-9]{3}(\-|\s)[0-9]{3}$"
+                 [(ngModel)]="zaposlenik_obj.brojTelefona"/>
+
+          <span class="help-block" *ngIf="tel.invalid && tel.touched">
+             Niste unijeli ispravan format.
+          </span>
+
+        </div>
+
+        <div class="mb-3" [class.has-error]="email.invalid && email.touched && postojiMail(email.value)">
+          <label class="form-label">Email</label>
+          <input class="form-control" placeholder="adil@gmail.com"
+                 required pattern="^[a-z]{1,15}\.?[a-z]*?[0-9]*?@gmail.com$"
+                 #email="ngModel"
+                 [(ngModel)]="zaposlenik_obj.email" />
+
+          <span class="help-block" *ngIf="(email.invalid && email.touched) || postojiMail(email.value)">
+             Ovo polje je obavezno i ne moze imati vec potojece vrijednosti.
+          </span>
+
+        </div>
+
+        <div class="mb-3" [class.has-error]="dtmZaposl.invalid && dtmZaposl.touched">
+          <label class="form-label">Datum zaposlenja</label>
+          <input type="date" required class="form-control"
+                 placeholder="datum zaposlenja" #dtmZaposl="ngModel"
+                 [(ngModel)]="zaposlenik_obj.datumZaposlenja" />
+
+          <span class="help-block" *ngIf="dtmZaposl.invalid && dtmZaposl.touched">
+             Ovo polje je obavezno.
+          </span>
+
+        </div>
+
+        <!--
+        <div class="mb-3">
+          <label class="form-label">Datum otkaza</label>
+          <input type="date" class="form-control" placeholder="datum otkaza" [(ngModel)]="zaposlenik_obj.datumOtkaza" />
+        </div>
+        -->
+
+        <div class="mb-3">
+          <label class="form-label">Radi u</label>
+          <select class="form-control" [(ngModel)]="zaposlenik_obj.prodavnicaId">
+            <option *ngFor="let o of prodavnice" [value]="o.id" > {{o.naziv}} </option>
+          </select>
+        </div>
+
+        <hr>
+
+        <div class="mb-3" [class.has-error]="korIme.invalid && korIme.touched && postojiKorIme(korIme.value)">
+          <label class="form-label">Korisničko ime</label>
+          <input class="form-control" placeholder="korisničko ime"
+                 #korIme="ngModel" required pattern="^[a-zA-Z]{3}[a-zA-Z]{0,}$"
+                 [(ngModel)]="zaposlenik_obj.username"/>
+
+          <span class="help-block" *ngIf="(korIme.invalid && korIme.touched) || postojiKorIme(korIme.value)">
+             Ovo polje je obavezno i ne smije imati vrijednost koja već postoji. Minimalno 3 slova. Bez drugih znakova.
+          </span>
+
+        </div>
+
+        <div class="mb-3" [class.has-error]="loz.invalid && loz.touched">
+          <label class="form-label">Lozinka</label>
+          <input type="password" class="form-control" placeholder="lozinka"
+                 required pattern="^[a-zA-Z\d\s+*!#$%&()=?-_{}@><^ˇ]{3,}$"
+                 #loz="ngModel" [(ngModel)]="zaposlenik_obj.lozinka" />
+
+          <span class="help-block" *ngIf="(loz.invalid && loz.touched)">
+             Ovo polje je obavezno
+          </span>
+
+        </div>
+
+        <div class="mb-3" [class.has-error]="ponovo_loz!==zaposlenik_obj.lozinka && lozPonovo.touched && lozPonovo.invalid">
+          <label class="form-label">Ponovi lozinku</label>
+          <input type="password" class="form-control"
+                 required #lozPonovo="ngModel" [(ngModel)]="ponovo_loz"
+                 placeholder="lozinka" />
+
+          <span class="help-block" *ngIf="ponovo_loz!==zaposlenik_obj.lozinka">
+             Ovo polje je obavezno i mora imati istu vrijednost kao prethodno.
+          </span>
+
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"
+                [disabled]="!jelDozvoljenSave(ime,prezime,jmbg,dtmRod,adresa,email,dtmZaposl,korIme,loz,lozPonovo)"
+                (click)="snimiDugme()" >Snimi</button>
+      </div>
+    </div>
+  </div>
+</div>

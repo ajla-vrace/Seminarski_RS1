@@ -1,1 +1,237 @@
-<p>zaposlenik-detalji works!</p>
+<app-navbar-admin></app-navbar-admin>
+<br>
+<br>
+
+<h4>Podaci zaposlenika</h4>
+<!--
+<hr class="hr-naslov" [style]="{'width':'20%', 'margin':'auto', 'height':'10px', 'background':'black'}"> -->
+<br>
+<br>
+
+
+<div class="sredina">
+
+  <div class="podaci">
+
+    <hr>
+
+    <div class="data licni">
+      <h3>Lični podaci:</h3>
+
+      <hr>
+
+      <h5>ID: <input [value]="zaposlenik_id" disabled> </h5>
+
+      <h5> JMBG: <input #jmbg disabled [(ngModel)]="obj_zaposlenik.jmbg"> </h5>
+
+      <h5 > Ime: <input #ime disabled [(ngModel)]="obj_zaposlenik.ime" > </h5>
+
+      <h5 > Prezime: <input #prezime disabled [(ngModel)]="obj_zaposlenik.prezime"> </h5>
+
+      <h5> Spol: <input #spol disabled [(ngModel)]="obj_zaposlenik.spolOpis"> </h5>
+
+      <h5> Datum rođenja: <input #dtm_rodj disabled  [(ngModel)]="obj_zaposlenik.datumRodjenja"> </h5>
+
+      <h5> Datum zaposlenja: <input #dtm_zaposl disabled  [(ngModel)]="obj_zaposlenik.datumZaposlenja"> </h5>
+
+      <h5> Datum registracije: <input #dtm_reg disabled [(ngModel)]="obj_zaposlenik.datumRegistracije"> </h5>
+
+      <h5> Zaposlen u: <input disabled [(ngModel)]="obj_zaposlenik.prodavnicaOpis"> </h5>
+
+    </div>
+
+    <hr>
+
+    <div class="data kontakt" [class.has-error]="
+    tel.invalid && tel.touched
+    && adresa.invalid && adresa.touched
+    && email.invalid && email.touched">
+
+      <h3>Kontakt podaci:</h3>
+
+      <hr>
+
+      <h5> Broj telefona: <input [disabled]="jelDisabledInput"
+                                 required pattern="^[0-9]{3}(\/|\-|\s)[0-9]{3}(\-|\s)[0-9]{3}$"
+                                 #tel="ngModel"
+                                 [(ngModel)]="obj_zaposlenik.brojTelefona"> </h5>
+
+      <h5> Adresa stanovanja: <input [disabled]="jelDisabledInput"
+                                     required pattern="^[A-Za-z\s\d]*$"
+                                     #adresa="ngModel"
+                                     [(ngModel)]="obj_zaposlenik.adresaStanovanja"> </h5>
+
+      <h5> Email: <input [disabled]="jelDisabledInput"
+                         required pattern="^[a-z]{1,15}\.?[a-z]*?[0-9]*?@(edu\.fit|gmail)\.(com|ba)$"
+                         #email="ngModel"
+                         [(ngModel)]="obj_zaposlenik.email"> </h5>
+
+    </div>
+
+    <div class="dugmad">
+      <button class="edit-btn" (click)="UrediPodatke()" [disabled]="jelDisabledEdit">Edit</button>
+
+
+      <button class="spasi-btn" *ngIf="kliknuoEdit"
+              [disabled]="!(tel.valid && adresa.valid && email.valid)"
+              (click)="snimi()">Snimi</button>
+
+<!--
+      <button class="close-btn" *ngIf="kliknuoEdit" (click)="ponisti()">Poništi</button>
+-->
+    </div>
+
+
+
+    <div class="data pristupni">
+
+      <hr>
+
+      <h3>Pristupni podaci:</h3>
+
+      <hr>
+
+      <div class="username">
+      <h5> Korisničko ime: </h5> <button class="change-username" (click)="jelKliknuoPromijeniUsername=true">Promijeni</button>
+      </div>
+
+      <div class="pass">
+      <h5> Lozinka: </h5> <button class="change-pass" (click)="jelKliknuoPromijeniLoz=true">Promijeni</button>
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+
+  <div class="slika-zaposl">
+    <img class="img-zaposl" src="assets/slike/user-m2.jpg">
+    <button class="btn-dodajSliku">Dodaj sliku</button>
+  </div>
+
+
+
+</div>
+
+
+
+<div *ngIf="jelKliknuoPromijeniLoz==true" class="modal fade show"  tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" > Promijeni lozinku </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="jelKliknuoPromijeniLoz=false;" ></button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="mb-3" [class.has-error]="sadasnjaLoz.invalid && sadasnjaLoz.touched">
+          <label class="form-label">Sadašnja lozinka:</label>
+          <input type="password" #sadasnjaLoz="ngModel" [(ngModel)]="sadasnja_lozinka"
+                 required pattern="^[a-zA-Z\d\s+*!#$%&()=?-_{}@><^ˇ]{3,}$">
+
+
+          <span class="poruka-validacija" *ngIf="sadasnjaLoz.invalid && sadasnjaLoz.touched">
+             <p>Lozinka nije validna</p>
+          </span>
+
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="novaLoz.invalid && novaLoz.touched">
+          <label class="form-label">Nova lozinka:</label>
+          <input type="password" #novaLoz="ngModel" [(ngModel)]="nova_lozinka"
+                 required pattern="^[a-zA-Z\d\s+*!#$%&()=?-_{}@><^ˇ]{3,}$">
+
+          <span class="poruka-validacija" *ngIf="novaLoz.invalid && novaLoz.touched">
+             <p>Lozinka nije validna</p>
+          </span>
+
+        </div>
+
+
+        <div class="mb-3"  [class.has-error]="ponovoNovaLoz.invalid && ponovoNovaLoz.touched">
+          <label class="form-label">Ponovite unos:</label>
+          <input type="password" #ponovoNovaLoz="ngModel" [(ngModel)]="ponovo_nova_lozinka"
+                 required pattern="^[a-zA-Z\d\s+*!#$%&()=?-_{}@><^ˇ]{3,}$">
+
+          <span class="poruka-validacija" *ngIf="ponovoNovaLoz.invalid && ponovoNovaLoz.touched">
+             <p>Lozinka nije validna</p>
+          </span>
+
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Morate unijeti ispravne podatke">
+        <button  type="button" class="btn btn-primary"
+                 [disabled]="!jelOmogucenSaveLozinka(sadasnjaLoz,novaLoz,ponovoNovaLoz)"
+                 (click)="spasi_promjene_loz()">Spasi promjene</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngIf="jelKliknuoPromijeniUsername==true" class="modal fade show"  tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" > Promijeni korisničko ime </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="jelKliknuoPromijeniUsername=false;" ></button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="mb-3">
+          <label class="form-label">Sadašnje korisničko ime:</label>
+          <input type="text"  disabled [value]="obj_zaposlenik.username" >
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="novoKorIme.invalid && novoKorIme.touched">
+          <label class="form-label">Novo korisničko ime:</label>
+          <input type="text" #novoKorIme="ngModel"  [(ngModel)]="novo_korIme"
+                 required pattern="^[a-zA-Z]{3}[a-zA-Z]{0,}$">
+
+          <span class="poruka-validacija" *ngIf="novoKorIme.invalid && novoKorIme.touched">
+             <p>Korisničko ime nije validno</p>
+          </span>
+
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="ponovoNovoKorIme.invalid && ponovoNovoKorIme.touched" >
+          <label class="form-label">Ponovite unos:</label>
+          <input type="text" #ponovoNovoKorIme="ngModel" [(ngModel)]="ponovo_korIme"
+                 required pattern="^[a-zA-Z]{3}[a-zA-Z]{0,}$">
+
+          <span class="poruka-validacija" *ngIf="ponovoNovoKorIme.invalid && ponovoNovoKorIme.touched">
+             <p>Korisničko ime nije validno</p>
+          </span>
+
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Morate unijeti ispravne podatke">
+        <button  type="button" class="btn btn-primary"
+                 [disabled]="!jelOmogucenSaveKorIme(novoKorIme,ponovoNovoKorIme)"
+                 (click)="spasi_promjene_username()">Spasi promjene</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

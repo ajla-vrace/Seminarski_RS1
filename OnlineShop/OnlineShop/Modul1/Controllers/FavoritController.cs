@@ -82,6 +82,7 @@ namespace OnlineShop.Modul1.Controllers
                     Proizvod = s.Proizvod.Naziv,
                     KupacId = s.KupacId,
                     ProizvodId = s.ProizvodId,
+                    Cijena=s.Proizvod.Cijena,
 
                 })
                 .AsQueryable();

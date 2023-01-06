@@ -1,6 +1,31 @@
 <app-nav-kupac></app-nav-kupac>
-<p>Košarica</p>
-<h1>Nemate ništa u košarici.</h1>
+<div id="naslovKosarice">
+  <h2>Košarica</h2>
+  <h4>Pogledajte proizvode koje ste dodali u košaricu.</h4>
+</div>
+
+<h1 *ngIf="korpaStavkePodaci1==0">Nemate ništa u košarici.</h1>
 
 kupac id:
-{{kupac_id}}
+{{loginInfo().autentifikacijaToken.korisnickiNalogId}}
+<div id="KosaricacijelaDiv">
+  <div id="kosaricaDiv">
+    <div *ngFor="let ks of getKorpaStavke()" class="StavkaKosarice">
+      <div class="SlikaStavkeKosarice">
+        <img src="assets/slike/dress.png" style="width: 100%;">
+      </div>
+      <h3>{{ks.proizvodIme}}</h3>
+      <h5 >{{ks.cijena}}KM</h5>
+      <h6> Kolicina: {{ks.kolicina}}</h6>
+
+
+    </div>
+  </div>
+
+  <div id="Kupovina">
+    <h4 style="text-align: center;">Sadrzaj košarice </h4>
+    <h6>Imate ukupno proizvoda: {{this.korpaStavkePodaci1.length}}</h6>
+
+  </div>
+
+</div>

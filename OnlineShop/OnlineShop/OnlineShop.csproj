@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="slike_proizvoda\2.jpg" />
+    <None Remove="slike_proizvoda\3.jpg" />
+    <None Remove="slike_proizvoda\kaput1.jpg" />
+    <None Remove="slike_proizvoda\kaput1.png" />
+    <None Remove="slike_proizvoda\kaput2.jpg" />
+    <None Remove="slike_proizvoda\kaput2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="6.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.12" />

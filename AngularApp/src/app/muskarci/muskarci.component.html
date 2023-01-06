@@ -1,5 +1,8 @@
-<h4>Muški odjel</h4>
-<h3 style="margin: 2%">Proizvodi</h3>
+<app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
+
+
+<h4 id="MuskiOdjelNaslov">Muški odjel</h4>
+<h3 style="margin: 1%">Proizvodi</h3>
 
 KUPAC ID: {{kupac_id}}
 <div id="sve">
@@ -13,19 +16,22 @@ KUPAC ID: {{kupac_id}}
     </div>
   </div>
   <div id="muskarciProizvodi">
-    <div *ngFor="let p of getMProizvodi()" class="proizvodJedan">
+    <div *ngFor="let pr of getMProizvodi()" class="proizvodJedan">
       <div class="zaSliku">
         <img src="assets/slike/dress.png" style="width: 100%">
-        <img src="assets/slike/heart_f.png" class="favorit" (click)="dodajUFavorite()" *ngIf="loginInfo().isLogiran==true">
-      </div>
+       </div>
       <img src="assets/slike/heart_fill.png" *ngIf="srceMOboji==true;" class="favorit">
       <div class="tekst">
-        <h3>{{p.naziv}}</h3>
-        <h5>{{p.cijena}}</h5>
+        <h3>{{pr.naziv}}</h3>
+        <h5>{{pr.cijena}} KM</h5>
       </div>
 
-      <button class="dodajUKorpu" *ngIf="loginInfo().isLogiran==true">Dodaj u korpu</button>
-      <br>
+      <div class="dugmad2">
+        <button class="dodajUKorpu" *ngIf="loginInfo().isLogiran==true" (click)="dodajUKorpu()">Dodaj u korpu</button>
+        <button class="dodajUFavorite" (click)="dodajUFavorite(pr.id)" *ngIf="loginInfo().isLogiran==true">
+          <img src="assets/slike/heart_f.png" class="slikasrce"  style="width: 20px;">
+        </button>
+      </div>
     </div>
   </div>
 </div>

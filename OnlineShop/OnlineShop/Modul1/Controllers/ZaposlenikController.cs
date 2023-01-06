@@ -1,9 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.Data;
 using OnlineShop.Helper;
+using OnlineShop.Modul0_Autentifikacija.Models;
 using OnlineShop.Modul1.Models;
+using OnlineShop.Modul1.ViewModels;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection.Metadata.Ecma335;
 
 namespace OnlineShop.Modul1.Controllers
 {
@@ -19,6 +25,7 @@ namespace OnlineShop.Modul1.Controllers
 
         public class ZaposlenikVM
         {
+           
             public int Id { get; set; }
             public string Ime { get; set; }
             public string Prezime { get; set; }
@@ -32,10 +39,10 @@ namespace OnlineShop.Modul1.Controllers
             public int? SpolId { get; set; }
             public string spolOpis { get; set; }
 
-            public string DatumZaposlenja { get; set; }
-            public string? DatumOtkaza { get; set; }
+            public DateTime DatumZaposlenja { get; set; }
+            public DateTime? DatumOtkaza { get; set; }
             public string AdresaStanovanja { get; set; }
-            public string DatumRodjenja { get; set; }
+            public DateTime DatumRodjenja { get; set; }
             public string jmbg { get; set; }
         
             public string prodavnicaOpis { get; set; }
@@ -103,36 +110,96 @@ namespace OnlineShop.Modul1.Controllers
 
         }
 
+
+
+        //ako nekog zaposlenika ne mozemo da gettamo, provjerimo jel u bazi imamo dva ista zaposlenika.
+        //savjet je da se prije dodavanja novog zaposlenika vrsi validacija.
+
         [HttpGet("id")]
         public ZaposlenikVM GetById(int id)
         {
-            var z = context.Zaposlenik.Where(x => x.Id == id).Select(x => new ZaposlenikVM
-            {
-                Id = x.Id,
-                Ime = x.Ime,
-                Prezime = x.Prezime,
-                Username = x.Username,
-                Lozinka = x.Lozinka,
-                Email = x.Email,
-                BrojTelefona = x.BrojTelefona,
-                DatumRegistracije = x.DatumRegistracije.ToShortDateString(),
-                SpolId = x.SpolId,
-                spolOpis = x.Spol.Naziv,
-                DatumZaposlenja = x.DatumZaposlenja.ToShortDateString(),
-                DatumOtkaza = x.DatumOtkaza.ToString(),
-                AdresaStanovanja = x.AdresaStanovanja,
-                DatumRodjenja = x.DatumRodjenja.ToShortDateString(),
-                jmbg = x.JMBG,
-                ProdavnicaId = x.ProdavnicaId,
-                prodavnicaOpis = x.Prodavnica.Naziv
-            }).ToList()[0];
 
-            return z;
-         
+            if (context.Zaposlenik.Where(x => x.Id == id).ToList().Count() > 0)
+            {
+                var z = context.Zaposlenik.Where(x => x.Id == id).Select(x => new ZaposlenikVM
+                {
+                    Id = x.Id,
+                    Ime = x.Ime,
+                    Prezime = x.Prezime,
+                    Username = x.Username,
+                    Lozinka = x.Lozinka,
+                    Email = x.Email,
+                    BrojTelefona = x.BrojTelefona,
+                    DatumRegistracije = x.DatumRegistracije.ToShortDateString(),
+                    SpolId = x.SpolId,
+                    spolOpis = x.Spol.Naziv,
+                    DatumZaposlenja = x.DatumZaposlenja,
+                    DatumOtkaza = x.DatumOtkaza,
+                    AdresaStanovanja = x.AdresaStanovanja,
+                    DatumRodjenja = x.DatumRodjenja,
+                    jmbg = x.JMBG,
+                    ProdavnicaId = x.ProdavnicaId,
+                    prodavnicaOpis = x.Prodavnica.Naziv
+                }).ToList()[0];
+
+
+                return z;
+            }
+            else
+            {
+                return new ZaposlenikVM()
+                {
+                    Id = 0,
+                    Ime = "-",
+                    Prezime = "-",
+                    Username = "-",
+                    Lozinka = "-",
+                    Email = "-",
+                    BrojTelefona = "-",
+                    DatumRegistracije = DateTime.Now.ToString(),
+                    SpolId = 1,
+                    DatumZaposlenja = DateTime.Now,
+                    DatumOtkaza = DateTime.Now,
+                    AdresaStanovanja = "-",
+                    DatumRodjenja = DateTime.Now,
+                    jmbg = "-",
+                    ProdavnicaId = 1,
+                    spolOpis = "-",
+                    prodavnicaOpis = "-"
+                };
+            }
+
+            //var z = context.Zaposlenik.Where(x => x.Id == id).Select(x => new ZaposlenikVM
+            //{
+            //    Id = x.Id,
+            //    Ime = x.Ime,
+            //    Prezime = x.Prezime,
+            //    Username = x.Username,
+            //    Lozinka = x.Lozinka,
+            //    Email = x.Email,
+            //    BrojTelefona = x.BrojTelefona,
+            //    DatumRegistracije = x.DatumRegistracije.ToShortDateString(),
+            //    SpolId = x.SpolId,
+            //    spolOpis = x.Spol.Naziv,
+            //    DatumZaposlenja = x.DatumZaposlenja,
+            //    DatumOtkaza = x.DatumOtkaza,
+            //    AdresaStanovanja = x.AdresaStanovanja,
+            //    DatumRodjenja = x.DatumRodjenja,
+            //    jmbg = x.JMBG,
+            //    ProdavnicaId = x.ProdavnicaId,
+            //    prodavnicaOpis = x.Prodavnica.Naziv
+            //}).ToList()[0];
+
+            //return z;
+
+
+            //var zaposlenik = context.Zaposlenik.Find(id);
+            //return Ok(zaposlenik);
+
         }
 
         [HttpGet("sve")]
-        public List<ZaposlenikVM> GetAll()
+        public IQueryable<ZaposlenikVM> GetAll()
         {
             var z = context.Zaposlenik.Select(x => new ZaposlenikVM
             {
@@ -146,20 +213,87 @@ namespace OnlineShop.Modul1.Controllers
                 DatumRegistracije = x.DatumRegistracije.ToShortDateString(),
                 SpolId = x.SpolId,
                 spolOpis = x.Spol.Naziv,
-                DatumZaposlenja = x.DatumZaposlenja.ToShortDateString(),
-                DatumOtkaza = x.DatumOtkaza.ToString(),
+                DatumZaposlenja = x.DatumZaposlenja,
+                DatumOtkaza = x.DatumOtkaza,
                 AdresaStanovanja = x.AdresaStanovanja,
-                DatumRodjenja = x.DatumRodjenja.ToShortDateString(),
+                DatumRodjenja = x.DatumRodjenja,
                 jmbg = x.JMBG,
                 ProdavnicaId = x.ProdavnicaId,
                 prodavnicaOpis = x.Prodavnica.Naziv
-            }).ToList();
+            }).ToList().OrderByDescending(x=>x.Id).AsQueryable();
 
             return z;
 
         }
 
+        [HttpPost]   
+        public ActionResult Snimi(ZaposlenikVM x)
+        {
+            Zaposlenik? k;
+           
+            if (x.Id == 0)
+            {
+                k = new Zaposlenik();
+                k.DatumRegistracije = DateTime.Now;
 
+                List<Zaposlenik> list = context.Zaposlenik.ToList();
+                context.Add(k);
+
+                if (x.Ime == "" || x.Prezime == "" || x.Email == "" || x.Username == "" || x.Lozinka == ""
+                    || x.DatumZaposlenja==null || x.DatumRodjenja==null || x.jmbg=="" || x.AdresaStanovanja=="")
+                    return BadRequest("Niste upisali podatak u obavezno polje.");
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i].Username == x.Username)
+                    {
+                        return BadRequest("Vec postoji takav username");
+                    }
+                }
+
+               // context.Add(k);              
+            }
+            else
+            {
+                k = context.Zaposlenik.FirstOrDefault(k => k.Id == x.Id);
+                if (k == null)
+                    return BadRequest("pogresan id");
+            }
+
+            k.Ime = x.Ime;
+            k.Prezime = x.Prezime;
+            k.Username = x.Username;
+            k.Lozinka = x.Lozinka;
+            k.Email = x.Email;
+            k.BrojTelefona = x.BrojTelefona;
+            k.isKupac = false;
+            k.isZaposlenik = true;
+            k.SpolId= x.SpolId;
+
+            k.DatumZaposlenja = x.DatumZaposlenja;
+            k.DatumOtkaza = x.DatumOtkaza;
+            k.DatumRodjenja = x.DatumRodjenja;
+            k.AdresaStanovanja = x.AdresaStanovanja;
+            k.JMBG = x.jmbg;
+            k.ProdavnicaId = x.ProdavnicaId;
+            
+            context.SaveChanges();
+      
+            return Ok(k);
+        }
+
+        [HttpDelete]
+        public ActionResult DeleteZaposlenik(int id)
+        {
+            Zaposlenik? z = context.Zaposlenik.Find(id);
+
+            if(z!=null)
+            {
+                context.Remove(z);
+                context.SaveChanges();
+            }
+            return Ok();
+        }
 
     }
 }

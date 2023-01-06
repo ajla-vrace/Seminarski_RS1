@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
 using OnlineShop.Modul1.Models;
+using System.Linq;
 
 namespace OnlineShop.Modul1.Controllers
 {
@@ -30,7 +31,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpGet("sezone")]
-        public List<SezonaVM> GetAll()
+        public IQueryable<SezonaVM> GetAll()
         {
             return context.Sezona.Select(x => new SezonaVM
             {
@@ -38,7 +39,7 @@ namespace OnlineShop.Modul1.Controllers
                 Naziv=x.Naziv,
                 Doba=x.Doba,
                 Godina=x.Godina
-            }).ToList();
+            }).ToList().OrderByDescending(x=>x.Id).AsQueryable();
         }
         [HttpPost]
         public ActionResult Snimi(SezonaVM x)
@@ -72,12 +73,23 @@ namespace OnlineShop.Modul1.Controllers
             Sezona? s_copy = s;
 
             List<Kolekcija> kolekcije = context.Kolekcija.Where(x => x.sezonaId == id).ToList();
+            List<Proizvod> proizvodi = context.Proizvod.Where(x => x.sezonaId == id).ToList();
 
             if (kolekcije.Count() > 0)
             {
                 foreach (var k in kolekcije)
                 {
                     context.Remove(k);
+                    context.SaveChanges();
+                }
+            }
+
+            if(proizvodi.Count() > 0)
+            {
+                foreach (var p in proizvodi)
+                {
+
+                    context.Remove(p);
                     context.SaveChanges();
                 }
             }

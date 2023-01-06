@@ -129,7 +129,9 @@ import { IzvjestajiComponent } from './izvjestaji/izvjestaji.component';
       {path:'neregistrovan', component: NeregistrovanComponent},
       {path:'profil-kupac/:id', component:ProfilKupacComponent},
       {path:'narudzba-detalji/:id', component:NarudzbaDetaljiComponent},
-      {path:'proizvod-detalji', component:ProizvodDetaljiComponent},
+      {path:'proizvod-detalji/:id', component:ProizvodDetaljiComponent},
+      {path:'zaposlenik-detalji/:id', component:ZaposlenikDetaljiComponent},
+
 
   ]),
     FormsModule,
