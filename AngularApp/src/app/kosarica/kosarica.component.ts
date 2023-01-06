@@ -12,7 +12,7 @@ import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 })
 export class KosaricaComponent implements OnInit {
 
-  kupac_id:any;
+  kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
    korpaStavkePodaci1: any;
    novaKorpa: any;
    imeKorpe: any;
@@ -50,4 +50,21 @@ this.fetchKorpstavke();
     console.log(this.total);
     return this.total;
 }
+  UkloniIzKorpe(s:any) {
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Delete/" + s.id,null, MojConfig.http_opcije())
+      .subscribe((povratnaVrijednost:any) =>{
+        const index = this.korpaStavkePodaci1.indexOf(s);
+        if (index > -1) {
+          this.korpaStavkePodaci1.splice(index, 1);
+        }
+      });
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/GetByName","Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId,MojConfig.http_opcije()).subscribe(x=>{
+      this.korpaStavkePodaci1 = x;
+    });
+    //alert("Odabrani proizvod je uklonjen  iz korpe!");
+  }
+
+  vratiNaPocetnu() {
+    this.router.navigate(['pocetna']);
+  }
 }

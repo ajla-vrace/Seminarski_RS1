@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
 using OnlineShop.Modul1.Models;
 using OnlineShop.Modul1.ViewModels;
+using System.Collections.Generic;
 
 namespace OnlineShop.Modul1.Controllers
 {
@@ -47,7 +48,7 @@ namespace OnlineShop.Modul1.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
-           
+
 
             var data = _dbContext.Korpa
                 .OrderByDescending(s => s.Id)
@@ -55,11 +56,11 @@ namespace OnlineShop.Modul1.Controllers
                 {
                     Id = s.Id,
                     Naziv = s.Name,
-                    KupacId=s.KupacId,
+                    KupacId = s.KupacId,
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.datum_kreiranja,
                     DatumModifikacije = s.datum_modifikacije,
-                    Total=s.Total,
+                   
                     UkupnoProizvoda=s.UkupnoProizvoda,
                       
                 })

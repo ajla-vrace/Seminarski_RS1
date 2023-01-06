@@ -1,10 +1,14 @@
 <app-nav-kupac></app-nav-kupac>
 <div id="naslovKosarice">
   <h2>Košarica</h2>
-  <h4>Pogledajte proizvode koje ste dodali u košaricu.</h4>
+  <h4 *ngIf="korpaStavkePodaci1!=0">Pogledajte proizvode koje ste dodali u košaricu.</h4>
+
+  <h1 *ngIf="korpaStavkePodaci1==0" style="margin-top: 5%">Nemate nijedan proizvod u košarici.</h1>
+  <label style="font-style: italic">Inspirirajte se i obogatite svoju garderobu.</label>
+  <button (click)="vratiNaPocetnu()" id="getInspired"> Pogledaj proizvode</button>
 </div>
 
-<h1 *ngIf="korpaStavkePodaci1==0">Nemate ništa u košarici.</h1>
+
 
 kupac id:
 {{loginInfo().autentifikacijaToken.korisnickiNalogId}}
@@ -18,14 +22,14 @@ kupac id:
       <h5 >{{ks.cijena}}KM</h5>
       <h6> Kolicina: {{ks.kolicina}}</h6>
 
-
+      <label (click)="UkloniIzKorpe(ks)" id="ukloniStavkuIzKorpe">Ukloni iz korpe</label>
     </div>
   </div>
 
-  <div id="Kupovina">
+  <div id="Kupovina" *ngIf="this.korpaStavkePodaci1!=0">
     <h4 style="text-align: center;">Sadrzaj košarice </h4>
     <h6>Imate ukupno proizvoda: {{this.korpaStavkePodaci1.length}}</h6>
-
+<h6>Suma: </h6>
   </div>
 
 </div>

@@ -30,3 +30,17 @@
 li{
   list-style: none;
 }
+#ukloniStavkuIzKorpe{
+  color: red;
+  text-align: right;
+  cursor: pointer;
+}
+#getInspired
+{
+  background-color: black;
+  color: white;
+  width: 20%;
+  padding: 1%;
+  display: block;
+  margin: 1% 40%;
+}
