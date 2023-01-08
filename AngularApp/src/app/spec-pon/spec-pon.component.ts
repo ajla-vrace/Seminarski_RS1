@@ -28,7 +28,7 @@ export class SpecPonComponent implements OnInit {
 
   popust_id:number=2;  //difoltni
   proizvod_id:number=4; //difoltni
-  specijalna_ponuda_id:number=1; //difoltna
+  specijalna_ponuda_id:number=2; //difoltna
 
   kliknuoEditSP:boolean=false;
   kliknuoEditSPP:boolean=false;
@@ -49,7 +49,7 @@ export class SpecPonComponent implements OnInit {
       this.admin_id=+s["id"];
 
       this.getPopusti();
-     // this.getSpecijalnePonude();
+      this.getSpecijalnePonude();
       this.getSpecijalnePonudeProizvod();
       this.getProizvodPodaci();
       this.getSpecijalnePonudeOpadajuci();

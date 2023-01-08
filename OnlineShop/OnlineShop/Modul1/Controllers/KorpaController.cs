@@ -45,9 +45,17 @@ namespace OnlineShop.Modul1.Controllers
 
 
 
-        [HttpGet]
+       /* [HttpGet]
         public ActionResult GetAll()
         {
+            float totalSvega = default;
+            List<KorpaStavka> stavkeTeKorpe = _dbContext.KorpaStavka
+                .Where(k => k.KorpaId == id).ToList();
+            for (int i = 0; i < stavkeTeKorpe.Count; i++)
+            {
+                totalSvega += stavkeTeKorpe[i].Total;
+            }
+
             var data = _dbContext.Korpa
                 .OrderByDescending(s => s.Id)
                 .Select(s => new
@@ -58,7 +66,8 @@ namespace OnlineShop.Modul1.Controllers
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.datum_kreiranja,
                     DatumModifikacije = s.datum_modifikacije,
-                    
+                    Total=totalSvega,
+                    UkupnoProizvoda=stavkeTeKorpe.Count,
                       
                 })
                 .AsQueryable();
@@ -66,8 +75,8 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(data.ToList());
         }
-
-        [HttpGet]
+       */
+       /* [HttpGet]
         public ActionResult Get5()
         {
             var data = _dbContext.Korpa
@@ -90,7 +99,7 @@ namespace OnlineShop.Modul1.Controllers
             return Ok(data.Take(5).ToList());
         }
 
-
+        */
         [HttpGet("{id}")]
         public ActionResult GetById(int id)
         {
@@ -122,19 +131,93 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(data.ToList());
         }
+        [HttpGet("{kupac_id}")]
+        public ActionResult GetByIdKupac(int kupac_id)
+        {
+            float totalSvega = default;
+            int brojProizvoda = 0;
+            List <KorpaStavka> stavkeTeKorpe = _dbContext.KorpaStavka
+                .Where(k => k.Korpa.KupacId == kupac_id).ToList();
+            for (int i = 0; i < stavkeTeKorpe.Count; i++)
+            {
+                totalSvega += stavkeTeKorpe[i].Total;
+                brojProizvoda += stavkeTeKorpe[i].Kolicina;
+            }
+            
+            var data = _dbContext.Korpa
+                .OrderByDescending(s => s.Id)
+                .Where(s => s.KupacId == kupac_id)
+                .Select(s => new
+                {
+                    Id = s.Id,
+                    Naziv = s.Name,
+                    KupacId = s.KupacId,
+                    Kupac = s.Kupac.Username,
+                    DatumKreiranja = s.datum_kreiranja,
+                    DatumModifikacije = s.datum_modifikacije,
+                    Total = totalSvega,
+                    UkupnoProizvoda = brojProizvoda,
+
+                })
+                .AsQueryable();
 
 
-        
+            return Ok(data.ToList());
+        }
+
+        [HttpGet("{naziv}")]
+        public ActionResult GetByName(string naziv)
+        {
+            float totalSvega = default;
+            List<KorpaStavka> stavkeTeKorpe = _dbContext.KorpaStavka
+                .Where(k => k.Korpa.Name == naziv).ToList();
+            for (int i = 0; i < stavkeTeKorpe.Count; i++)
+            {
+                totalSvega += stavkeTeKorpe[i].Total;
+            }
+
+            var data = _dbContext.Korpa
+                .OrderByDescending(s => s.Id)
+                .Where(s => s.Name == naziv)
+                .Select(s => new
+                {
+                    Id = s.Id,
+                    Naziv = s.Name,
+                    KupacId = s.KupacId,
+                    Kupac = s.Kupac.Username,
+                    DatumKreiranja = s.datum_kreiranja,
+                    DatumModifikacije = s.datum_modifikacije,
+                    Total = totalSvega,
+                    UkupnoProizvoda = stavkeTeKorpe.Count,
+
+                })
+                .AsQueryable();
+
+
+            return Ok(data.ToList());
+        }
+
+
+
 
         [HttpPost("{id}")]
         public ActionResult Update([FromBody] KorpaVM x)
         {
+            float totalSvega = default;
+            List<KorpaStavka> stavkeTeKorpe = _dbContext.KorpaStavka
+                .Where(k => k.Korpa.Name == x.Naziv).ToList();
+            for (int i = 0; i < stavkeTeKorpe.Count; i++)
+            {
+                totalSvega += stavkeTeKorpe[i].Total;
+            }
+
             Korpa objekat = _dbContext.Korpa.Find(x.Id);
             if (objekat == null)
             {
                 return BadRequest("ne postoji takav id");
             }
-            
+            objekat.Total = totalSvega;
+            objekat.UkupnoProizvoda = stavkeTeKorpe.Count;
             objekat.datum_modifikacije = DateTime.Now;
             _dbContext.SaveChanges();
             return Ok(objekat);

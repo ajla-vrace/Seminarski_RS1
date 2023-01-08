@@ -1,8 +1,20 @@
 <app-navbar-zaposlenik></app-navbar-zaposlenik>
 
+<div class="dugmad">
+<div class="dodaj-prodavnicu">
+  <button class="btn-dodaj btn-prod" (click)="btnDodajProdavnicu()">Dodaj prodavnicu</button>
+</div>
+
+
+<div class="dodaj-skladiste">
+  <button class="btn-dodaj btn-skl" (click)="btnDodajSkladiste()">Dodaj skladište</button>
+</div>
+
 
 <div class="dodaj-stavku">
-  <button class="btn-dodaj" (click)="btnDodaj()">Dodaj stavku</button>
+  <button class="btn-dodaj btn-stavka" (click)="btnDodaj()">Dodaj stavku</button>
+</div>
+
 </div>
 
 <br>
@@ -46,6 +58,10 @@
 
 <br><br>
 
+<h5>Stanje na skladištu</h5>
+
+<br><br>
+
 <div class="tabela">
 
   <table class="table">
@@ -81,6 +97,88 @@
 
 </div>
 
+<br>
+<br>
+<h5>Skladišta</h5>
+<br>
+<br>
+
+<div class="tabela-skladista">
+
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Naziv</th>
+      <th scope="col">Adresa</th>
+      <th scope="col">Broj telefona</th>
+      <th scope="col">Površina</th>
+      <th scope="col">Grad</th>
+      <th scope="col">Prodavnica</th>
+      <th scope="col">Dugmad</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let p of s">
+      <th scope="row">{{p.id}}</th>
+      <td>{{p.naziv}}</td>
+      <td>{{p.adresa}}</td>
+      <td>{{p.brojTelefona}}</td>
+      <td>{{p.povrsina}}</td>
+      <td>{{p.gradOpis}}</td>
+      <td>{{p.prodavnicaOpis}}</td>
+      <td>
+        <button class="btn-edit" (click)="btnEditSkladiste(p)">Uredi</button>
+        <button class="btn-delete" (click)="btnDeleteSkladiste(p)">Obriši</button>
+      </td>
+
+    </tr>
+
+    </tbody>
+
+  </table>
+</div>
+
+
+<br>
+<br>
+<h5>Prodavnice</h5>
+<br>
+<br>
+
+<div class="tabela-prodavnica">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Naziv</th>
+      <th scope="col">Adresa</th>
+      <th scope="col">Broj telefona</th>
+      <th scope="col">Površina</th>
+      <th scope="col">Grad</th>
+      <th scope="col">Dugmad</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let p of prodavnice">
+      <th scope="row">{{p.id}}</th>
+      <td>{{p.naziv}}</td>
+      <td>{{p.adresa}}</td>
+      <td>{{p.brojTelefona}}</td>
+      <td>{{p.povrsina}}</td>
+      <td>{{p.gradOpis}}</td>
+      <td>
+        <button class="btn-edit" (click)="editProdavnicu(p)">Uredi</button>
+        <button class="btn-delete" (click)="deleteProdavnicu(p)">Obriši</button>
+      </td>
+
+    </tr>
+
+    </tbody>
+
+  </table>
+</div>
 
 
 
@@ -128,6 +226,177 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+<div *ngIf="obj_skladiste!=null" class="modal fade show" id="exampleModalLive1" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel1" > {{naslov}} </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="obj_skladiste=null "></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="mb-3" [class.has-error]="naziv.touched && naziv.invalid">
+          <label class="form-label">Naziv</label>
+          <input class="form-control" type="text"
+                 #naziv="ngModel" required pattern="[a-zA-Z\s\d]*"
+                 [(ngModel)]="obj_skladiste.naziv">
+
+          <span *ngIf="naziv.touched && naziv.invalid">Unos je obavezan</span>
+
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="adresa.touched && adresa.invalid">
+          <label class="form-label">Adresa</label>
+          <input class="form-control" type="text"
+                 #adresa="ngModel" required pattern="[a-zA-Z\s\d]*"
+                 [(ngModel)]="obj_skladiste.adresa">
+
+          <span *ngIf="adresa.touched && adresa.invalid">Unos je obavezan</span>
+
+        </div>
+
+        <div class="mb-3" [class.has-error]="tel.touched && tel.invalid">
+          <label class="form-label">Broj telefona</label>
+          <input class="form-control" type="text"
+                 #tel="ngModel" required pattern="^[0-9]{3}(\/|\-|\s)[0-9]{3}(\-|\s)[0-9]{3}$"
+                 placeholder="062/111-111 ili 062 111 111 ili 062-111-111..."
+                 [(ngModel)]="obj_skladiste.brojTelefona">
+
+          <span *ngIf="tel.touched && tel.invalid">Unos je obavezan</span>
+
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="povrsina.touched && povrsina.invalid">
+          <label class="form-label">Površina</label>
+          <input class="form-control" type="text"
+                 #povrsina="ngModel" required pattern="^\d*\.?\d*$"
+                 placeholder="200.00"
+                 [(ngModel)]="obj_skladiste.povrsina">
+
+          <span *ngIf="povrsina.touched && povrsina.invalid">Unos je obavezan</span>
+
+        </div>
+
+
+        <div class="mb-3">
+          <label class="form-label">Grad</label>
+
+          <select class="form-control" [(ngModel)]="obj_skladiste.gradId" >
+
+            <option *ngFor="let k of gradovi " [value]="k.id">{{k.naziv}}</option>
+
+          </select>
+        </div>
+
+
+        <div class="mb-3">
+          <label class="form-label">Prodavnica</label>
+
+          <select class="form-control" [(ngModel)]="obj_skladiste.prodavnicaId" >
+
+            <option *ngFor="let k of prodavnice " [value]="k.id">{{k.naziv}}</option>
+
+          </select>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"
+                [disabled]="!(naziv.valid && adresa.valid && tel.valid && povrsina.valid)"
+                (click)="spasi_skladiste()">Spasi promjene</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div *ngIf="obj_prodavnica!=null" class="modal fade show" id="exampleModalLive2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel2" > {{naslov}} </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="obj_prodavnica=null "></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="mb-3" [class.has-error]="naziv.touched && naziv.invalid">
+          <label class="form-label">Naziv</label>
+          <input class="form-control" type="text"
+                 #naziv="ngModel" required pattern="[a-zA-Z\s\d]*"
+                 [(ngModel)]="obj_prodavnica.naziv">
+
+          <span *ngIf="naziv.touched && naziv.invalid">Unos je obavezan</span>
+
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="adresa.touched && adresa.invalid">
+          <label class="form-label">Adresa</label>
+          <input class="form-control" type="text"
+                 #adresa="ngModel" required pattern="[a-zA-Z\s\d]*"
+                 [(ngModel)]="obj_prodavnica.adresa">
+
+          <span *ngIf="adresa.touched && adresa.invalid">Unos je obavezan</span>
+
+        </div>
+
+        <div class="mb-3" [class.has-error]="tel.touched && tel.invalid">
+          <label class="form-label">Broj telefona</label>
+          <input class="form-control" type="text"
+                 #tel="ngModel" required pattern="^[0-9]{3}(\/|\-|\s)[0-9]{3}(\-|\s)[0-9]{3}$"
+                 placeholder="062/111-111 ili 062 111 111 ili 062-111-111..."
+                 [(ngModel)]="obj_prodavnica.brojTelefona">
+
+          <span *ngIf="tel.touched && tel.invalid">Unos je obavezan</span>
+
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="povrsina.touched && povrsina.invalid">
+          <label class="form-label">Površina</label>
+          <input class="form-control" type="text"
+                 #povrsina="ngModel" required pattern="^\d*\.?\d*$"
+                 placeholder="200.00"
+                 [(ngModel)]="obj_prodavnica.povrsina">
+
+          <span *ngIf="povrsina.touched && povrsina.invalid">Unos je obavezan</span>
+
+        </div>
+
+
+        <div class="mb-3">
+          <label class="form-label">Grad</label>
+
+          <select class="form-control" [(ngModel)]="obj_prodavnica.gradId" >
+
+            <option *ngFor="let k of gradovi " [value]="k.id">{{k.naziv}}</option>
+
+          </select>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"
+                [disabled]="!(naziv.valid && adresa.valid && tel.valid && povrsina.valid)"
+                (click)="spasi_prodavnicu()">Spasi promjene</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 
 

@@ -76,7 +76,7 @@ export class ProizvodDetaljiComponent implements OnInit {
 */
 
   private fetchKorpe() {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByIdKupac/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
       this.korpePodaci = x;
     });
   }
@@ -89,7 +89,7 @@ export class ProizvodDetaljiComponent implements OnInit {
 
   private fetchKorpstavke() {
     if(this.korpaID!=undefined) {
-      this.httpKlijent.get(MojConfig.adresa_servera + "/Korpastavke/GetByAll/" + this.korpaID, MojConfig.http_opcije()).subscribe(x => {
+      this.httpKlijent.get(MojConfig.adresa_servera + "/KorpaStavke/GetByName/" +"Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x => {
         this.korpaStavkePodaci = x;
       });
     }

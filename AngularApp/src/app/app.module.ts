@@ -98,7 +98,7 @@ import { IzvjestajiComponent } from './izvjestaji/izvjestaji.component';
       {path: 'faq', component: FaqComponent},
       {path: 'help1', component: Help1Component},
       {path: 'favoriti/:id', component: FavoritiComponent},
-      {path: 'kosarica/:id', component: KosaricaComponent},
+      {path: 'kosarica', component: KosaricaComponent},
       {path: 'registracija', component: RegistracijaComponent},
       {path: 'zene', component: ZeneComponent},
       {path: 'muskarci', component: MuskarciComponent},
