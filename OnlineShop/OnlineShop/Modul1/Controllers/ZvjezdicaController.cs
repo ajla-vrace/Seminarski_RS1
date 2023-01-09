@@ -16,24 +16,40 @@ namespace OnlineShop.Modul1.Controllers
             this._dbContext = dbContext;
         }
         [HttpPost]
-        public ActionResult Add([FromBody] OcjenaProizvodVM x)
+        public ActionResult Add([FromBody] ZvjezdicaVM x)
         {
-            Zvjezdica objekat;
-            objekat = new Zvjezdica();
-            // objekat.Id = x.Id;
-            _dbContext.Add(objekat);
-            objekat.OcjenaBrojcano = x.Ocjena;
-            objekat.KupacId = x.KupacId;
-            objekat.ProizvodId = x.ProizvodId;
-            objekat.DatumKreiranja = DateTime.Now;
-           
-          
+            Zvjezdica? objekat = default;
+            List<Zvjezdica> svi = _dbContext.Zvjezdica.ToList();
+            if (svi.Count > 0)
+            {
+                foreach (var item in svi)
+                {
+                    if ((item.KupacId) == (x.KupacId) && (item.ProizvodId) == (x.ProizvodId))
+                    {
+                        objekat = item;
+                    }
+                }
+            }
 
+            if (objekat == null)
+            {
+                objekat = new Zvjezdica();
+                _dbContext.Add(objekat);
+                objekat.OcjenaBrojcano = x.OcjenaBrojcano;
+                objekat.KupacId = x.KupacId;
+                objekat.ProizvodId = x.ProizvodId;
+                objekat.DatumKreiranja = DateTime.Now;
+            }
+            else
+            {
+                objekat.OcjenaBrojcano = x.OcjenaBrojcano;
+                //objekat.KupacId = x.KupacId;
+                //objekat.ProizvodId = x.ProizvodId;
+                objekat.DatumKreiranja = DateTime.Now;
+            }
             _dbContext.SaveChanges();
             return Ok(objekat);
         }
-
-
 
         [HttpGet]
         public ActionResult GetAll()
@@ -47,6 +63,28 @@ namespace OnlineShop.Modul1.Controllers
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.DatumKreiranja,
                     Proizvod = s.Proizvod.Naziv,
+                    KupacId = s.KupacId,
+                    ProizvodId=s.ProizvodId
+                })
+                .AsQueryable();
+
+
+            return Ok(data.ToList());
+        }
+        [HttpGet("{id}")]
+        public ActionResult GetById(int id)
+        {
+            var data = _dbContext.Zvjezdica
+                .OrderByDescending(s => s.Id)
+                .Where(s => s.KupacId == id)
+                .Select(s => new
+                {
+                    Id = s.Id,
+                    Ocjena = s.OcjenaBrojcano,
+                    Kupac = s.Kupac.Username,
+                    DatumKreiranja = s.DatumKreiranja,
+                    Proizvod = s.Proizvod.Naziv,
+                    KupacId = s.KupacId,
 
                 })
                 .AsQueryable();
@@ -57,17 +95,16 @@ namespace OnlineShop.Modul1.Controllers
         [HttpPost("{id}")]
         public ActionResult Delete(int id)
         {
-            Zvjezdica zvjezdica = _dbContext.Zvjezdica.Find(id);
+            Zvjezdica ocjena = _dbContext.Zvjezdica.Find(id);
 
-            if (zvjezdica == null)
+            if (ocjena == null)
                 return BadRequest("pogresan ID");
 
-            _dbContext.Remove(zvjezdica);
+            _dbContext.Remove(ocjena);
 
             _dbContext.SaveChanges();
-            return Ok(zvjezdica);
+            return Ok(ocjena);
         }
-
 
     }
 }

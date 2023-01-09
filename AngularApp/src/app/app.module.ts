@@ -43,6 +43,7 @@ import { NarudzbaDetaljiComponent } from './narudzba-detalji/narudzba-detalji.co
 import { ProizvodDetaljiComponent } from './proizvod-detalji/proizvod-detalji.component';
 import { ZaposlenikDetaljiComponent } from './zaposlenik-detalji/zaposlenik-detalji.component';
 import { IzvjestajiComponent } from './izvjestaji/izvjestaji.component';
+import { OcjeneProizvodaComponent } from './ocjene-proizvoda/ocjene-proizvoda.component';
 
 
 
@@ -87,6 +88,7 @@ import { IzvjestajiComponent } from './izvjestaji/izvjestaji.component';
    ProizvodDetaljiComponent,
    ZaposlenikDetaljiComponent,
    IzvjestajiComponent,
+   OcjeneProizvodaComponent,
 
 
 
@@ -98,7 +100,7 @@ import { IzvjestajiComponent } from './izvjestaji/izvjestaji.component';
       {path: 'faq', component: FaqComponent},
       {path: 'help1', component: Help1Component},
       {path: 'favoriti/:id', component: FavoritiComponent},
-      {path: 'kosarica/:id', component: KosaricaComponent},
+      {path: 'kosarica', component: KosaricaComponent},
       {path: 'registracija', component: RegistracijaComponent},
       {path: 'zene', component: ZeneComponent},
       {path: 'muskarci', component: MuskarciComponent},
@@ -131,7 +133,7 @@ import { IzvjestajiComponent } from './izvjestaji/izvjestaji.component';
       {path:'narudzba-detalji/:id', component:NarudzbaDetaljiComponent},
       {path:'proizvod-detalji/:id', component:ProizvodDetaljiComponent},
       {path:'zaposlenik-detalji/:id', component:ZaposlenikDetaljiComponent},
-
+      {path:'ocjene-proizvoda/:id', component:OcjeneProizvodaComponent},
 
   ]),
     FormsModule,

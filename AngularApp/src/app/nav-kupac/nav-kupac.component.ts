@@ -54,7 +54,7 @@ export class NavKupacComponent implements OnInit {
 
   prikaziKosaricu() {
     this.potvrda = true;
-    this.router.navigate(['/kosarica',this.kupac_id]);
+    this.router.navigate(['/kosarica']);
   }
 
 

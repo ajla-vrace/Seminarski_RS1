@@ -40,6 +40,8 @@ export class SkladisteComponent implements OnInit {
       this.getSkladisteProizvod_k_p_rastuci();
       this.getSkladisteProizvod_k_opadajuci_p_rastuci();
       this.getSkladisteProizvod_k_rastuci_p_opadajuci();
+      this.getProdavnice();
+      this.getGradove();
     })
   }
 
@@ -191,4 +193,117 @@ export class SkladisteComponent implements OnInit {
     this.getSkladista();
 
   }
+
+
+  kliknuoEditSkladista:boolean=false;
+  obj_skladiste:any;
+  gradovi:any;
+  prodavnice:any;
+
+  getProdavnice(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Prodavnica/GetAllProdavnice/all")
+      .subscribe((x:any)=>{
+        this.prodavnice=x;
+        console.log("PRODAVNICE: ", this.prodavnice);
+      })
+  }
+
+  getGradove(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Grad/GetAll")
+      .subscribe((x:any)=>{
+        this.gradovi=x;
+        console.log("GRADOVI: ",this.gradovi);
+      })
+  }
+
+  btnEditSkladiste(p:any){
+    this.kliknuoEditSkladista=true;
+    this.obj_skladiste=p;
+    this.naslov="Modifikacija skladišta: "+p.id;
+  }
+
+  btnDeleteSkladiste(p:any){
+    this.kliknuoEditSkladista=false;
+
+    if(confirm("Brisanjem ovog zapisa brišete i sve stavke koje sadrže ovaj zapis. Da li ste sigurni da" +
+      " želite izvršiti brisanje?")){
+      this.httpKlijent.delete(MojConfig.adresa_servera+"/api/Skladiste?id="+p.id)
+        .subscribe((x:any)=>{
+          this.getSkladista();
+        })
+    }
+  }
+
+  btnDodajSkladiste(){
+    this.kliknuoEditSkladista=false;
+    this.naslov="Dodaj novo skladište";
+
+    this.obj_skladiste={
+      id:0,
+      naziv:"",
+      adresa:"",
+      brojTelefona:"",
+      povrsina:"",
+      gradId:1,
+      gradOpis:"",
+      prodavnicaId:1,
+      prodavnicaOpis:""
+    }
+  }
+
+  spasi_skladiste(){
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Skladiste",this.obj_skladiste)
+      .subscribe((x:any)=>{
+        this.getSkladista();
+        this.obj_skladiste=null;
+        alert("Uspješno ste sačuvali promjene.");
+      })
+  }
+
+  kliknuoEditProdavnicu:boolean=false;
+  obj_prodavnica:any;
+
+  btnDodajProdavnicu(){
+    this.kliknuoEditProdavnicu=false;
+    this.naslov="Dodaj novu prodavnicu.";
+
+    this.obj_prodavnica={
+      id:0,
+      naziv:"",
+      adresa:"",
+      brojTelefona:"",
+      gradId:1,
+      gradOpis:""
+    }
+  }
+
+  editProdavnicu(p:any){
+    this.kliknuoEditProdavnicu=true;
+    this.obj_prodavnica=p;
+    this.naslov="Modifikacija prodavnice: "+p.id;
+  }
+
+  deleteProdavnicu(p:any){
+    this.kliknuoEditProdavnicu=false;
+    if(confirm("Brisanjem prodavnice brišete sve zapise koji sadrže ovaj zapis. Jeste li" +
+      "sigurni da želite obrisati prodavnicu?")){
+        this.httpKlijent.delete(MojConfig.adresa_servera+"/Prodavnica/DeleteProdavnica/prodId?id="
+        +p.id).subscribe((x:any)=>{
+          this.getProdavnice();
+          this.getSkladista();
+          this.getSkladisteProizvod();
+        })
+    }
+  }
+
+  spasi_prodavnicu(){
+    this.httpKlijent.post(MojConfig.adresa_servera+"/Prodavnica/Snimi/Snimi",this.obj_prodavnica)
+      .subscribe((x:any)=>{
+        this.getProdavnice();
+        this.obj_prodavnica=null;
+        alert("Uspješno ste spasili promjene.");
+      })
+
+  }
+
 }

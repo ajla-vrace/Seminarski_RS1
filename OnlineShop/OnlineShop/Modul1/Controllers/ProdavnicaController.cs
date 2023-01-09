@@ -115,6 +115,70 @@ namespace OnlineShop.Modul1.Controllers
             public string gradOpis { get; set; }
         }
 
+        [HttpPost("Snimi")]
+        public ActionResult Snimi(ProdavnicaGetAllVM x)
+        {
+            Prodavnica? p;
+
+            if (x.id == 0)
+            {
+                p = new Prodavnica();
+                _dbContext.Add(p);
+            }
+            else
+            {
+                p = _dbContext.Prodavnica.Find(x.id);
+                if (p == null)
+                    return BadRequest("pogresan id"); 
+            }
+
+            p.Naziv = x.naziv;
+            p.Adresa = x.adresa;
+            p.BrojTelefona = x.brojTelefona;
+            p.Povrsina = x.povrsina;
+            p.gradId = x.gradId;
+
+            _dbContext.SaveChanges();
+
+            return Ok(p);
+        }
+
+        [HttpDelete("prodId")]
+        public ActionResult DeleteProdavnica(int id)
+        {
+            Prodavnica? p = _dbContext.Prodavnica.Find(id);
+
+            List<Skladiste> lista_skladista = _dbContext.Skladiste.Where(x => x.prodavnicaId == id).ToList();
+
+            if(lista_skladista.Count > 0){
+                foreach (var item in lista_skladista)
+                {
+                    List<SkladisteProizvod> lista_sp = _dbContext.SkladisteProizvod.Where(x => x.skladisteId == item.Id).ToList();
+
+                    foreach (var sp in lista_sp)
+                    {
+                        _dbContext.Remove(sp);
+                        _dbContext.SaveChanges();
+                    }
+
+                    _dbContext.Remove(item);
+                    _dbContext.SaveChanges();
+                }
+            }
+
+            if (id == 0)
+                return BadRequest("pogresan id=0");
+
+            if(p==null)
+                return BadRequest("pogresan id");
+
+            _dbContext.Remove(p);
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
+
+
         [HttpGet("all")]
         public List<ProdavnicaGetAllVM> GetAllProdavnice()
         {
@@ -128,6 +192,35 @@ namespace OnlineShop.Modul1.Controllers
                 gradId = x.gradId,
                 gradOpis = x.grad.Naziv
             }).AsQueryable().ToList();
+        }
+
+
+        public class ProdavnicaGetVM
+        {
+            public int Id { get; set; }
+            public string Adresa { get; set; }
+            public float ProsjecnaOcjena { get; set; }      
+        }
+
+        [HttpGet("prosjecnaOcjena")]
+        public ActionResult GetProsjecnuOcjenu(int prodavnica_id)
+        {
+            List<Ocjena>? lista_ocjena = _dbContext.Ocjena.Where(x => x.ProdavnicaId == prodavnica_id).ToList();
+
+            float prosjek = 0;
+            int suma = 0;
+
+            if (lista_ocjena.Count() > 0)
+            {
+                foreach (var item in lista_ocjena)
+                {
+                    suma += item.OcjenaBrojcano;
+                }
+
+                prosjek = suma / lista_ocjena.Count();
+            }
+
+            return Ok(prosjek);
         }
     }
 }

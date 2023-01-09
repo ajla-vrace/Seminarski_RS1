@@ -20,12 +20,15 @@ kupac_podaci:any;
    ocjeneProdavnica: any;
    ocjene: any=false;
    ocjeneProdavnicaMoje: any;
-
+  ocjeneProizvoda: any;
+   ocjeneProizvodaMoje: any;
+  ocjeneProizvodaBool:any=false;
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient) { }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
   }
   ngOnInit(): void {
+    this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
 
     this.route.params.subscribe(s=>{
       this.kupac_id=+s["id"];
@@ -35,6 +38,8 @@ kupac_podaci:any;
     this.fetchKomentariMoji();
     this.fetchOcjeneProdavnice();
     this.fetchOcjeneProdavniceMoje();
+    this.fetchOcjeneProizvoda();
+    this.fetchOcjeneProizvodaMoje();
   }
 
 
@@ -65,6 +70,13 @@ kupac_podaci:any;
       this.ocjeneProdavnica = x;
     });
   }
+  fetchOcjeneProizvoda() :void
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Zvjezdica/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+      this.ocjeneProizvoda = x;
+    });
+
+  }
 
 
 
@@ -76,6 +88,13 @@ kupac_podaci:any;
       this.ocjeneProdavnicaMoje = x;
     });
   }
+  fetchOcjeneProizvodaMoje() :void
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Zvjezdica/GetById/"+this.kupac_id, MojConfig.http_opcije()).subscribe(x=>{
+      this.ocjeneProizvodaMoje = x;
+    });
+  }
+
 
   prikaziMojeKomentare() {
     if (this.komentariPodaci1 == null)
@@ -91,6 +110,12 @@ kupac_podaci:any;
     if (this.ocjeneProdavnica == null)
       return [];
     return this.ocjeneProdavnica.filter((a:any)=>a.kupacId==this.kupac_id);
+  }
+
+  prikaziMojeOcjeneProizvoda() {
+    if (this.ocjeneProizvoda == null)
+      return [];
+    return this.ocjeneProizvoda.filter((a:any)=>a.kupacId==this.kupac_id);
   }
 
   prikazOcjene() {
@@ -140,6 +165,29 @@ this.odabranikomentar=null;
 
     this.httpKlijent.post(MojConfig.adresa_servera+ "/Ocjena/GetById/"+s.id,MojConfig.http_opcije()).subscribe(x=>{
       this.ocjeneProdavnica= x;
+    });
+    alert("Odabrani ocjena je obrisana!");
+  }
+
+  prikazOcjeneProizvoda() {
+    this.ocjeneProizvodaBool=true;
+  }
+
+
+
+  brisiOcjenuProizvoda(o: any) {
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/Zvjezdica/Delete/" + o.id,null, MojConfig.http_opcije())
+      .subscribe((povratnaVrijednost:any) =>{
+        const index = this.ocjeneProizvoda.indexOf(o);
+        if (index > -1) {
+          this.ocjeneProizvoda.splice(index, 1);
+        }
+
+      });
+
+this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Zvjezdica/GetById/"+this.kupac_id,MojConfig.http_opcije()).subscribe(x=>{
+      this.ocjeneProizvoda= x;
     });
     alert("Odabrani ocjena je obrisana!");
   }

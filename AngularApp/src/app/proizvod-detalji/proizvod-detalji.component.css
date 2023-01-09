@@ -1,3 +1,4 @@
+
 .veliki{
   width:90%;
   margin: 1% 5%;
@@ -32,11 +33,39 @@ width: 40%;
 width: 50%;
   padding: 2%;
   background-color: #f5eac4;
+  height: fit-content;
    }
 #velicineBiraj{
   padding: 1%;
 }
 .velicina{
   padding: 2%;
-  background-color: #95e4ff;
+  border: 1px solid grey;
+  cursor: pointer;
+  margin: 1%;
 }
+#ocjeneProizvoda{
+  cursor: pointer;
+  width: 35%;
+  margin-left: 65%;
+}
+#zvjezdice{
+  background-color: palevioletred;
+}.JednaZvjezdica{
+  background-color: purple;
+  width: 30px;
+  margin: 1%;
+ }
+.container{
+  height: 10%;
+}
+.checked{
+  color: #28a745;
+}
+.fa-star {
+  width: 10px;
+  height: 10px;
+
+}
+
+

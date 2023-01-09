@@ -1,17 +1,22 @@
 #KosaricacijelaDiv{
-
+margin: 1% 15%;
   display: flex;
+
 }
 #kosaricaDiv{
 
-  width: 80%;
+  width: 65%;
   margin: 2% 0%;
   padding: 1% ;
-  display: flex;
+  display: table-column;
 }
 #Kupovina{
-  background-color: lightpink;
-  width: 20%;
+  background-color: white;
+  border: 1px solid grey;
+  width: 35%;
+  padding: 1%;
+  height: fit-content;
+  margin: 5% 2%;
 }
 #naslovKosarice{
   text-align: center;
@@ -19,9 +24,10 @@
 }
 .StavkaKosarice{
   border:1px solid gray;
-  width: 20%;
+  width: 80%;
+display: flex;
 
-  margin-right: 1%;
+  margin: 5%;
   text-align: center;
 }
 .SlikaStavkeKosarice{
@@ -34,6 +40,7 @@ li{
   color: red;
   text-align: right;
   cursor: pointer;
+  margin: 1%;
 }
 #getInspired
 {
@@ -47,6 +54,21 @@ li{
 #dugmeModifikuj{
   display: block;
   width: 65%;
-  margin: 1% 17%;
+  margin: 3% 17%;
   background-color: lightskyblue;
+}
+#kreirajNarudzbu{
+  background-color: black;
+  color:white;
+  width: 100%;
+  margin: 10% 0%;
+  padding: 5%;
+}
+#tekstStavkeKorpe{
+border-left: 1px solid grey;
+  width: 100%;
+}
+#upravljanjeStavkama{
+
+  margin-top: 20%;
 }

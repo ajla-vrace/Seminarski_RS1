@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
 using OnlineShop.Modul1.Models;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography;
 using static OnlineShop.Modul1.Controllers.SkladisteController;
 
 namespace OnlineShop.Modul1.Controllers
@@ -33,9 +34,12 @@ namespace OnlineShop.Modul1.Controllers
             public DateTime? datum_modifikacije { get; set; }
         }
 
+       
         [HttpGet]
         public IQueryable<SkladisteProizvodVM> GetAll()
         {
+            var sortiranje = "id opadajuci";
+
             var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
             {
                 Id = x.Id,

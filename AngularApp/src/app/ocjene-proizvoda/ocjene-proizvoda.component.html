@@ -1,0 +1,45 @@
+<app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
+<h3>Ocjene proizvoda</h3>
+
+
+
+
+
+
+<div id="goreDiv">
+  <div >
+    <h3 style="text-align: center">Ocijeni proizvod</h3>
+  </div>
+
+  <div class="rate">
+    <input type="radio" id="star5" name="rate" value="5" (click)="ocjeniProizvod(proizvod_id,5)"/>
+    <label for="star5" title="text">5 stars</label>
+    <input type="radio" id="star4" name="rate" value="4" (click)="ocjeniProizvod(proizvod_id,4)"/>
+    <label for="star4" title="text">4 stars</label>
+    <input type="radio" id="star3" name="rate" value="3" (click)="ocjeniProizvod(proizvod_id,3)"/>
+    <label for="star3" title="text">3 stars</label>
+    <input type="radio" id="star2" name="rate" value="2" (click)="ocjeniProizvod(proizvod_id,2)"/>
+    <label for="star2" title="text">2 stars</label>
+    <input type="radio" id="star1" name="rate" value="1" (click)="ocjeniProizvod(proizvod_id,1)"/>
+    <label for="star1" title="text">1 star</label>
+  </div>
+
+</div>
+
+
+<div id="velikiZaOcjene" >
+
+  <div *ngFor="let o of getOcjeneProizvoda()" id="jednaOcjenaProizvoda">
+    <h6>  Korisnik: {{o.kupac}}</h6>
+    <h6>  Proizvod: {{o.proizvod}}</h6>
+      <h6 style="display: inline">Ocjena: {{o.ocjena}} </h6>
+    <span class="bi bi-star" ></span>
+    <span class="bi bi-star"></span>
+    <span class="bi bi-star"></span>
+    <span class="bi bi-star"></span>
+    <span class="bi bi-star"></span>
+
+
+  </div>
+
+</div>

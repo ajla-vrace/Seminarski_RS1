@@ -1,0 +1,158 @@
+
+.sredina{
+  width:85%;
+  margin: 0 auto 0 auto;
+}
+
+.statistika{
+  margin-top:5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h5{
+  margin:10px;
+}
+
+.reg-kor, .pretpl-kor, .br-narudzbi, .br-posjeta{
+  padding:2%;
+  border-radius:30px;
+  background-color: blanchedalmond;
+}
+
+.katalog{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.opis-katalog{
+  display: flex;
+  align-items: center;
+  width:40%;
+  gap:1%;
+}
+
+.slika-preuzmi{
+  width:20px;
+  height:20px;
+  cursor: pointer;
+}
+
+.katalog h5{
+  background-color: blanchedalmond;
+  border-radius: 10px;
+  padding:1%;
+}
+
+.katalog .opis-katalog h5{
+  background-color: white;
+  color: rgba(88,142,255,0.82)
+}
+
+.katalog .opis-katalog .naslov-katalog{
+  color:black;
+  opacity: 60%;
+}
+
+.prodavnice{
+  display: block;
+}
+
+.slider-prodavnice{
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.slider-prodavnice h5{
+  opacity: 60%;
+}
+
+h4{
+  text-align: center;
+}
+
+.prodavnice h4, .karuzel h4{
+  margin-top:5%;
+}
+
+.prodavnice hr, .karuzel hr{
+  width:30%;
+  margin:0 auto 3% auto;
+}
+
+.prodavnica h6{
+  font-size: larger;
+  margin-top:5%;
+  background-color: blanchedalmond;
+  padding:1%;
+  border-radius: 10px;
+}
+
+.prodavnica h5{
+  margin-bottom: 5%;
+}
+
+.prodavnica-slika{
+  width:150px;
+  height:150px;
+}
+
+.prodavnice{
+  margin-bottom:5%;
+}
+
+
+
+div#carouselExampleIndicators {
+  width:100%;
+  margin: 0 auto 0 auto;
+  text-align: center;
+  border:groove;
+}
+
+.carousel slide{
+  width:50%;
+  margin-left: 4%;
+}
+
+div.carousel-item.active{
+  background-color: white;
+}
+
+span.carousel-control-next-icon, span.carousel-control-prev-icon{
+  background-color: black;
+  border-radius:30px;
+}
+
+.carousel-indicators button{
+  width:3em;
+  padding:1px;
+  margin:3px;
+}
+.carousel-indicators{
+  width:100%;
+  margin:auto 0 auto 0;
+}
+
+.slider{
+  border:groove;
+  width:100%;
+  padding:4%;
+}
+
+img{
+  max-width: 100%;
+  height:500px;
+}
+
+.carousel-item{
+  width:100%;
+  height: 100%;
+}
+
+span .carousel-control-prev-icon{
+  background-color: blanchedalmond;
+}

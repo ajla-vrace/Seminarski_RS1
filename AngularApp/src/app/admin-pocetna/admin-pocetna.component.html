@@ -1,3 +1,94 @@
 <app-navbar-admin></app-navbar-admin>
 
-<p>admin-pocetna works! {{admin_id}}</p>
+
+<div class="sredina">
+  <div class="statistika">
+    <h5 class="reg-kor">Broj registriranih korisnika: {{brojReg}}</h5>
+    <h5 class="pretpl-kor">Broj pretplaćenih korisnika: {{brojPretpl}}</h5>
+    <h5 class="br-narudzbi">Broj narudzbi danas: {{brNar}}</h5>
+    <!--napravimo get metodu koja nam vraca narudzbe na danasnji datum (datum treba bit u formatu dd/MM/yyyy); -->
+    <h5 class="br-posjeta">Broj posjeta stranice: {{brPosjeta}}</h5>
+  </div>
+
+  <hr>
+
+
+  <div class="katalog">
+    <div class="opis-katalog">
+      <h5 class="naslov-katalog"> Najnoviji katalog: </h5>
+      <h5 class="file-katalog">Katalog.pdf</h5>
+      <img src="assets/slike/download2.png" class="slika-preuzmi">
+    </div>
+    <h5 class="broj-preuzimanja">Broj preuzimanja kataloga: {{brPreuzimanja}}</h5>
+  </div>
+
+
+  <div class="karuzel">
+
+  <h4>3 najprodavanija proizvoda</h4>
+
+  <hr>
+
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="assets/slike_odjeca/dzemper2.jpg" class="img-fluid" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/slike_odjeca/suknja.jpg" class="img-fluid" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/slike_odjeca/dzemper.jpg" class="img-fluid" alt="...">
+      </div>
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  </div>
+
+
+
+
+  <div class="prodavnice">
+
+    <h4 class="ocjene-prodavnica">3 najbolje ocijenjene prodavnice:</h4>
+
+    <hr>
+
+    <div class="slider-prodavnice">
+      <div class="prodavnica">
+        <h5>Adresa prodavnice: Adresa 25463</h5>
+        <img src="assets/slike/store.png" class="prodavnica-slika">
+        <h6>Prosjecna ocjena: 4.9</h6>
+      </div>
+
+      <div class="prodavnica">
+        <h5>Adresa prodavnice: Adresa 25463</h5>
+        <img src="assets/slike/store.png" class="prodavnica-slika">
+        <h6>Prosjecna ocjena: 4.9</h6>
+      </div>
+
+      <div class="prodavnica">
+        <h5>Adresa prodavnice: Adresa 25463</h5>
+        <img src="assets/slike/store.png" class="prodavnica-slika">
+        <h6>Prosjecna ocjena: 4.9</h6>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>

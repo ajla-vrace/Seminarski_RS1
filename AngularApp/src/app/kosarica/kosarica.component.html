@@ -16,24 +16,34 @@ kupac id:
 {{loginInfo().autentifikacijaToken.korisnickiNalogId}}
 <div id="KosaricacijelaDiv">
   <div id="kosaricaDiv">
-    <div *ngFor="let ks of getKorpaStavke()" class="StavkaKosarice">
+    <div *ngFor="let kst of getKorpaStavke()" class="StavkaKosarice">
       <div class="SlikaStavkeKosarice">
         <img src="assets/slike/dress.png" style="width: 100%;">
       </div>
-      <h3>{{ks.proizvodIme}}</h3>
-      <h5 >{{ks.cijena}}KM</h5>
-      <h6> Kolicina: {{ks.kolicina}}</h6>
-      <h6>Velicina: {{ks.velicina}}</h6>
-      <button (click)="Modifikacija(ks)" id="dugmeModifikuj">Modifikuj</button>
-      <label (click)="UkloniIzKorpe(ks)" id="ukloniStavkuIzKorpe">Ukloni iz korpe</label>
+      <div id="tekstStavkeKorpe">
+        <h3>{{kst.proizvodIme}}</h3>
+        <h5 >{{kst.cijena}}KM</h5>
+        <h6> Kolicina: {{kst.kolicina}}</h6>
+        <h6>Velicina: {{kst.velicina}}</h6>
+        <div id="upravljanjeStavkama">
+          <button (click)="Modifikacija(kst)" id="dugmeModifikuj" >Modifikuj</button>
+          <label (click)="UkloniIzKorpe(kst)" id="ukloniStavkuIzKorpe">Ukloni iz korpe</label>
+        </div>
+
+      </div>
+
     </div>
   </div>
 
   <div id="Kupovina" *ngIf="this.korpaStavkePodaci1!=0">
-    <h4 style="text-align: center;">Sadrzaj košarice </h4>
-    <h6>Imate ukupno proizvoda: {{this.korpaStavkePodaci1.length}}</h6>
+    <h3 style="text-align: center;margin-bottom: 10%" >Ukratko o košarici </h3>
+    <h5 style="margin-bottom: 5%">Imate ukupno proizvoda: {{this.KorpaPodatak[0].ukupnoProizvoda}}</h5>
 
-    <h6>Suma: {{izracunaj()}}</h6>
+    <div>
+      <h5 style="display: inline;margin-bottom: 5%">Suma: {{this.KorpaPodatak[0].total}} KM</h5>
+    </div>
+<button id="kreirajNarudzbu" (click)="KreirajNarudzbu()">Kreiraj narudžbu</button>
+    <label style="text-align: center;color:grey">Moguće vratiti u roku od 30 dana.</label>
   </div>
 
 </div>
@@ -50,7 +60,7 @@ kupac id:
       <div class="modal-body">
         <div class="mb-3">
           <label class="form-label">Kolicina</label>
-          <select class="form-control" [(ngModel)]="odabranaStavka.kolicina">
+          <select class="form-control" [(ngModel)]="odabranaStavka.kolicina" ngOnChanges>
             <option >1</option>
             <option >2</option>
             <option >3</option>

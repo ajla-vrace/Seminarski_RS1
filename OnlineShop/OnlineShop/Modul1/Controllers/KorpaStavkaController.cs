@@ -130,6 +130,32 @@ namespace OnlineShop.Modul1.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult GetByKupacId(int kupac_id)
+        {
+            var data = _dbContext.KorpaStavka
+                .OrderByDescending(s => s.Id)
+                .Where(s => s.Korpa.KupacId == kupac_id)
+                .Select(s => new
+                {
+                    Id = s.Id,
+                    Cijena = s.Proizvod.Cijena,
+                    Kolicina = s.Kolicina,
+                    KorpaId = s.KorpaId,
+                    Total = s.Total,
+                    ProizvodId = s.ProizvodId,
+                    ProizvodIme = s.Proizvod.Naziv,
+                    Boja = s.Proizvod.boja,
+                    Velicina = s.Velicina,
+                })
+                .AsQueryable();
+
+
+            return Ok(data.ToList());
+        }
+
+
+
         [HttpPost("{id}")]
         public ActionResult Update([FromBody] KorpaStavkaVM x)
         {
@@ -138,8 +164,17 @@ namespace OnlineShop.Modul1.Controllers
             {
                 return BadRequest("ne postoji takav id");
             }
+            var proizvod = _dbContext.Proizvod.Find(objekat.ProizvodId);
+            float samoCijena;
+            if (proizvod != null)
+            {
+                samoCijena = proizvod.Cijena;
+                objekat.Total = samoCijena * x.Kolicina;
+            }
             objekat.Kolicina = x.Kolicina;
-            objekat.Velicina = x.Velicina;
+            if(x.Velicina!="string")
+                objekat.Velicina = x.Velicina;
+
             _dbContext.SaveChanges();
             return Ok(objekat);
         }

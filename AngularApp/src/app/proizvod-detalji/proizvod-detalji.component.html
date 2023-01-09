@@ -13,14 +13,13 @@
       <div class="detaljiTekst">
         <h4 style="text-align: center;">Proizvod detalji</h4>
         <h3> Naziv: {{d.naziv}}</h3>
-        <h4> Cijena: {{d.cijena}}</h4>
+        <h4> Cijena: {{d.cijena}} KM</h4>
         <h6> Odjel:  {{d.odjelOpis}}</h6>
         <h6> Boja:  {{d.bojaOpis}}</h6>
         <h6> Kategorija: {{d.kategorijaOpis}}</h6>
         <h6> Podkategorija:  {{d.podkategorijaOpis}}</h6>
         <h6> Sezona: {{d.sezonaOpis}}</h6>
         <h6> Kolekcija: {{d.kolekcijaOpis}}</h6>
-        <h6> Velicina: {{d.velicina}}</h6>
         <div id="velicineBiraj">
           <h6>Veličine:</h6>
           <label (click)="this.odabranavelicina='XS'" class="velicina">XS</label>
@@ -35,11 +34,31 @@
           </button>
         </div>
         <p style="margin: 1%;">Ukoliko ne znate koja veličina Vam odgovara, pogledajte naš <a routerLink="/vodiczavelicine">Vodič za veličine</a>.</p>
+       <div id="ocjeneProizvoda" (click)="prikaziOcjeneProizvoda()">
+
+           <span class="bi bi-star"></span>
+           <span class="bi bi-star"></span>
+           <span class="bi bi-star"></span>
+           <span class="bi bi-star"></span>
+           <span class="bi bi-star"></span>
+
+         <label style="margin-left: 1%"> Ocjene</label>
+       </div>
       </div>
+
+
     </div>
 
   </div>
 
 </div>
+<div>
+  <span class="bi bi-star"></span>
+  <span class="bi bi-star"></span>
+  <span class="bi bi-star"></span>
+  <span class="bi bi-star"></span>
+  <span class="bi bi-star"></span>
+</div>
+
 
 

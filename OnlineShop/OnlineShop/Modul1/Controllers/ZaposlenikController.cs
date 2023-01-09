@@ -295,5 +295,10 @@ namespace OnlineShop.Modul1.Controllers
             return Ok();
         }
 
+        [HttpGet("ukupno")]
+        public int UkupnoZaposlenika()
+        {
+            return context.Zaposlenik.ToList().Count();
+        }
     }
 }

@@ -26,6 +26,8 @@ export class ProizvodDetaljiComponent implements OnInit {
    noviFavorit: any;
    dodanoUFavorite: any=false;
   odabranavelicina: any;
+   zvjezdicePodaci: any;
+   novaZvjezdica: any;
   constructor(private httpKlijent: HttpClient,private router: Router, private route:ActivatedRoute) {
   }
   loginInfo():LoginInformacije {
@@ -46,6 +48,12 @@ export class ProizvodDetaljiComponent implements OnInit {
   {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Favorit/GetById/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
       this.favoritiPodaci = x;
+    });
+  }
+  fetchZvjezdice() :void
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Ocjena/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+      this.zvjezdicePodaci = x;
     });
   }
   ngOnInit(): void {
@@ -76,7 +84,7 @@ export class ProizvodDetaljiComponent implements OnInit {
 */
 
   private fetchKorpe() {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByIdKupac/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
       this.korpePodaci = x;
     });
   }
@@ -89,7 +97,7 @@ export class ProizvodDetaljiComponent implements OnInit {
 
   private fetchKorpstavke() {
     if(this.korpaID!=undefined) {
-      this.httpKlijent.get(MojConfig.adresa_servera + "/Korpastavke/GetByAll/" + this.korpaID, MojConfig.http_opcije()).subscribe(x => {
+      this.httpKlijent.get(MojConfig.adresa_servera + "/KorpaStavke/GetByName/" +"Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x => {
         this.korpaStavkePodaci = x;
       });
     }
@@ -178,4 +186,7 @@ export class ProizvodDetaljiComponent implements OnInit {
   }
 
 
+  prikaziOcjeneProizvoda() {
+    this.router.navigate(['ocjene-proizvoda',this.proizvod_id]);
+  }
 }
