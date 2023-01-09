@@ -13,7 +13,7 @@
 
 
 kupac id:
-{{loginInfo().autentifikacijaToken.korisnickiNalogId}}
+{{kupac_id}}
 <div id="KosaricacijelaDiv">
   <div id="kosaricaDiv">
     <div *ngFor="let kst of getKorpaStavke()" class="StavkaKosarice">
@@ -37,10 +37,10 @@ kupac id:
 
   <div id="Kupovina" *ngIf="this.korpaStavkePodaci1!=0">
     <h3 style="text-align: center;margin-bottom: 10%" >Ukratko o košarici </h3>
-    <h5 style="margin-bottom: 5%">Imate ukupno proizvoda: {{this.KorpaPodatak[0].ukupnoProizvoda}}</h5>
+    <h5 style="margin-bottom: 5%" *ngIf="KorpaPodatak!=undefined">Imate ukupno proizvoda: {{this.KorpaPodatak[0].ukupnoProizvoda}}</h5>
 
     <div>
-      <h5 style="display: inline;margin-bottom: 5%">Suma: {{this.KorpaPodatak[0].total}} KM</h5>
+      <h5 style="display: inline;margin-bottom: 5%" *ngIf="KorpaPodatak!=undefined">Suma: {{this.KorpaPodatak[0].total}} KM</h5>
     </div>
 <button id="kreirajNarudzbu" (click)="KreirajNarudzbu()">Kreiraj narudžbu</button>
     <label style="text-align: center;color:grey">Moguće vratiti u roku od 30 dana.</label>

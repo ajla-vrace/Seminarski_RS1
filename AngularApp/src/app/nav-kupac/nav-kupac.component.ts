@@ -17,9 +17,9 @@ export class NavKupacComponent implements OnInit {
   }
   ngOnInit(): void {
 
-    this.route.params.subscribe(s=>{
+   /* this.route.params.subscribe(s=>{
       this.kupac_id=+s["id"];
-    })
+    })*/
 
   }
   reloadPage() {
@@ -49,7 +49,7 @@ export class NavKupacComponent implements OnInit {
 
   prikaziFavorite() {
     this.potvrda = true;
-    this.router.navigate(['/favoriti',this.kupac_id]);
+    this.router.navigate(['/favoriti']);
   }
 
   prikaziKosaricu() {
@@ -61,6 +61,6 @@ export class NavKupacComponent implements OnInit {
   prikaziProfil() {
     this.potvrda = true;
 
-    this.router.navigate(['/profil-kupac',this.kupac_id]);
+    this.router.navigate(['/profil-kupac']);
   }
 }

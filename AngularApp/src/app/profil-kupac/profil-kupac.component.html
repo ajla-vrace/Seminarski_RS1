@@ -2,6 +2,29 @@
 
 KUPAC ID: {{kupac_id}}
 
+
+<button (click)="prikazDiva()">Klikni ovdje</button>
+<div *ngIf="prikaziDiv==true" id="probaDiva" >
+
+  <div id="poruka">
+    <img src="assets/slike/warning.png" style="width: 65px;">
+    <h4>Da li ste sigurnni da zelite obrisati?</h4>
+    <h6>Ova akcija se ne može poništiti.</h6>
+    <button (click)="skloniDiv()" class="dugmeDelete" style="background-color: #b8bbbf;color :white;">Ne</button>
+    <button (click)="skloniDiv()" class="dugmeDelete" style="background-color: red;color:white;">Da</button>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
 <h4 style="margin: 1%">Moj profil</h4>
 
 <div id="kupacPodaci">

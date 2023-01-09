@@ -10,7 +10,6 @@ namespace OnlineShop.Modul1.Models
         public DateTime datum_modifikacije { get; set; }
         public int UkupnoProizvoda { get; set; }
         public float Total { get; set; }
-
         [ForeignKey("KupacId")]
         public Kupac Kupac { get; set; }
         public int? KupacId { get; set; }

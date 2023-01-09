@@ -28,9 +28,9 @@ korpaId:any;
   }
   ngOnInit(): void {
 
-    this.route.params.subscribe(s=>{
+    /*this.route.params.subscribe(s=>{
       this.kupac_id=+s["id"];
-    })
+    })*/
     this.fetchKorpstavke();
     this.fetchKorpa();
     this.getKorpe();
@@ -54,7 +54,7 @@ korpaId:any;
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByIdKupac/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
       this.KorpaPodatak = x;
     });
-    this.ukupno=this.KorpaPodatak[0].total;
+   // this.ukupno=this.KorpaPodatak[0].total;
     }
 
 getKorpe(){

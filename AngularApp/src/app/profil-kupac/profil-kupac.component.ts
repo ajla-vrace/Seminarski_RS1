@@ -23,6 +23,7 @@ kupac_podaci:any;
   ocjeneProizvoda: any;
    ocjeneProizvodaMoje: any;
   ocjeneProizvodaBool:any=false;
+   prikaziDiv: any=false;
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient) { }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
@@ -30,9 +31,9 @@ kupac_podaci:any;
   ngOnInit(): void {
     this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
 
-    this.route.params.subscribe(s=>{
+   /* this.route.params.subscribe(s=>{
       this.kupac_id=+s["id"];
-    })
+    })*/
     this.getKupca();
     this.fetchKomentari();
     this.fetchKomentariMoji();
@@ -133,9 +134,9 @@ kupac_podaci:any;
       });
 
 
-    this.httpKlijent.post(MojConfig.adresa_servera+ "/Komentar/GetById?id="+s.id,MojConfig.http_opcije()).subscribe(x=>{
+   /* this.httpKlijent.post(MojConfig.adresa_servera+ "/Komentar/GetById?id="+s.id,MojConfig.http_opcije()).subscribe(x=>{
       this.komentariPodaci1= x;
-    });
+    });*/
     alert("Odabrani komentar je obrisan!");
   }
 
@@ -163,9 +164,10 @@ this.odabranikomentar=null;
       });
 
 
-    this.httpKlijent.post(MojConfig.adresa_servera+ "/Ocjena/GetById/"+s.id,MojConfig.http_opcije()).subscribe(x=>{
+   /* this.httpKlijent.post(MojConfig.adresa_servera+ "/Ocjena/GetById/"+s.id,MojConfig.http_opcije()).subscribe(x=>{
       this.ocjeneProdavnica= x;
     });
+    */
     alert("Odabrani ocjena je obrisana!");
   }
 
@@ -176,8 +178,8 @@ this.odabranikomentar=null;
 
 
   brisiOcjenuProizvoda(o: any) {
-    this.httpKlijent.post(MojConfig.adresa_servera+ "/Zvjezdica/Delete/" + o.id,null, MojConfig.http_opcije())
-      .subscribe((povratnaVrijednost:any) =>{
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/Zvjezdica/Delete/"+ o.id,null, MojConfig.http_opcije())
+      .subscribe((povratnaVrijednost2:any) =>{
         const index = this.ocjeneProizvoda.indexOf(o);
         if (index > -1) {
           this.ocjeneProizvoda.splice(index, 1);
@@ -185,10 +187,18 @@ this.odabranikomentar=null;
 
       });
 
-this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/Zvjezdica/GetById/"+this.kupac_id,MojConfig.http_opcije()).subscribe(x=>{
-      this.ocjeneProizvoda= x;
-    });
+   /* this.httpKlijent.post(MojConfig.adresa_servera+ "/Zvjezdica/GetById/"+this.kupac_id,MojConfig.http_opcije()).subscribe(x=>{
+      this.ocjeneProizvodaMoje= x;
+    });*/
+   // this.fetchOcjeneProizvodaMoje();
     alert("Odabrani ocjena je obrisana!");
+  }
+
+  prikazDiva() {
+    this.prikaziDiv=true;
+  }
+
+  skloniDiv() {
+    this.prikaziDiv=false;
   }
 }

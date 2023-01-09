@@ -52,4 +52,8 @@ export class FavoritiComponent implements OnInit {
     });
     //alert("Odabrani favorit je obrisan!");
   }
+
+  vratiNaPocetnu() {
+    this.router.navigate(['zene']);
+  }
 }

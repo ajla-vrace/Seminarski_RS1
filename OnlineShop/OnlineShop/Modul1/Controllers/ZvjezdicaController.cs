@@ -85,7 +85,7 @@ namespace OnlineShop.Modul1.Controllers
                     DatumKreiranja = s.DatumKreiranja,
                     Proizvod = s.Proizvod.Naziv,
                     KupacId = s.KupacId,
-
+                    ProizvodId=s.ProizvodId
                 })
                 .AsQueryable();
 

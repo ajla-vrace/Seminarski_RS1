@@ -15,7 +15,7 @@
   display: flex;
   width: 95%;
   height: 10%;
-  margin: 5% 2%;
+  margin: 2% 2%;
 }
 .dodajUFavorite1{
   width: 15%;
@@ -24,8 +24,9 @@
   width: 85%;
   background-color: black;
   color:white;
-
+padding: 3%;
 }
+
 .slikaDetalja{
 width: 40%;
  }

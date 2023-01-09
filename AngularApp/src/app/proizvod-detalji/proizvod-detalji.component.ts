@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {LoginInformacije} from "../helpers/login-informacije";
 import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 
+
 @Component({
   selector: 'app-proizvod-detalji',
   templateUrl: './proizvod-detalji.component.html',
@@ -57,13 +58,16 @@ export class ProizvodDetaljiComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.route.params.subscribe(s=>{
+
+   this.route.params.subscribe(s=>{
       this.proizvod_id=+s["id"];
     })
+
     this.fetchProizvodiDetalji();
     this.fetchFavoriti();
     this.fetchKorpe();
     this.fetchKorpstavke();
+    this.getKorpaStavke();
   }
 
 
@@ -82,6 +86,9 @@ export class ProizvodDetaljiComponent implements OnInit {
     return "data:image/png;base64,"+slika.fileContents;
   }
 */
+   dodanoUKorpu: any;
+  nadjen: any=false;
+
 
   private fetchKorpe() {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByIdKupac/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
@@ -162,9 +169,11 @@ export class ProizvodDetaljiComponent implements OnInit {
     this.httpKlijent.post(`${MojConfig.adresa_servera}/KorpaStavka/Add`, this.korpaStavka, MojConfig.http_opcije()).subscribe(x => {
       this.fetchKorpstavke();
       this.korpastavkaId=this.korpaStavka.id;
+      this.dodanoUKorpu=true;
     });
+
    // alert("uspjesno dodana stavka");
-    console.log("ododana stavka je "+"ovo je id stavke"+this.korpastavkaId+" ovo je id korpe"+this.korpaStavka.korpaId)
+
   }
   dodajUFavorite(p:any) {
     this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
