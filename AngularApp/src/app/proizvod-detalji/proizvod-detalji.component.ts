@@ -29,6 +29,11 @@ export class ProizvodDetaljiComponent implements OnInit {
   odabranavelicina: any;
    zvjezdicePodaci: any;
    novaZvjezdica: any;
+   prikaziDiv:any=false;
+   SveKorpePodaci: any;
+   korpaPodatak: any;
+   korpaStavkePodaciSve: any;
+   prikaziDivKorpa: any=false;
   constructor(private httpKlijent: HttpClient,private router: Router, private route:ActivatedRoute) {
   }
   loginInfo():LoginInformacije {
@@ -57,6 +62,21 @@ export class ProizvodDetaljiComponent implements OnInit {
       this.zvjezdicePodaci = x;
     });
   }
+
+  fetchKorpe() :void
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+      this.korpePodaci = x;
+    });
+  }
+  fetchStavkeKorpe() :void
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+      this.korpaStavkePodaci = x;
+    });
+  }
+
+
   ngOnInit(): void {
 
    this.route.params.subscribe(s=>{
@@ -65,9 +85,9 @@ export class ProizvodDetaljiComponent implements OnInit {
 
     this.fetchProizvodiDetalji();
     this.fetchFavoriti();
-    this.fetchKorpe();
-    this.fetchKorpstavke();
-    this.getKorpaStavke();
+  this.fetchKorpe();
+  this.fetchStavkeKorpe();
+
   }
 
 
@@ -88,94 +108,83 @@ export class ProizvodDetaljiComponent implements OnInit {
 */
    dodanoUKorpu: any;
   nadjen: any=false;
+   nasaoKorpu: any=false;
+  vecDodanUKorpu: any=false;
 
 
-  private fetchKorpe() {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByIdKupac/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
-      this.korpePodaci = x;
-    });
-  }
-  getKorpe(id:number) {
+
+  getKorpe(){
     if (this.korpePodaci == null)
       return [];
     return this.korpePodaci;
   }
 
 
-  private fetchKorpstavke() {
-    if(this.korpaID!=undefined) {
-      this.httpKlijent.get(MojConfig.adresa_servera + "/KorpaStavke/GetByName/" +"Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x => {
-        this.korpaStavkePodaci = x;
-      });
-    }
-  }
+
   getKorpaStavke() {
     if (this.korpaStavkePodaci == null)
       return [];
-    return this.korpaStavkePodaci;
+    return this.korpaStavkePodaci.filter((a:any)=>a.korpaId==this.korpaID);
   }
 
   postaviVelicinu(s: any) {
     this.odabranavelicina=s;
   }
 
-  dodajUKorpu(p:number) {
-    for(let k of this.korpePodaci) {
-      if (k.naziv.startsWith("Korpa" + this.loginInfo().autentifikacijaToken.korisnickiNalogId)) {
-        this.korpaID = k.id;
-        // alert("nasao korpu i id korpe je " + this.korpaID);
 
-        console.log("nasao korpu a njen id je " + this.korpaID);
-        console.log("ima ovoliko korpa do sada: " + this.korpePodaci.length);
-        console.log("ovo je naziv nadjene korpe" + k.naziv);
-        break;
-      }
-      else {
-        this.novaKorpa = {
-          id: 0,
-          naziv: "Korpa" + this.loginInfo().autentifikacijaToken.korisnickiNalogId,
-          kupacId: this.loginInfo().autentifikacijaToken.korisnickiNalogId,
-          total: 0,
-          ukupnoProizvoda: 0
-        }
-        this.httpKlijent.post(`${MojConfig.adresa_servera}/Korpa/Add`, this.novaKorpa, MojConfig.http_opcije()).subscribe(x => {
-          this.fetchKorpe();
+  traziKorpu() {
 
-        });
-        this.korpaID = this.novaKorpa.id;
-        console.log("korpa id nove je : " + this.korpaID);
-        alert("napravljena korpa");
-      }
-    }
-    /*  for(let x of this.korpaStavkePodaci){
-        if(x.proizvodId==p){
-          console.log("ova stavka je vec dodana"+this.korpaID+" i ovo je id proizvoda "+p);
-          return;
-        }
-      }*/
-    console.log("odabrana veliicna je : "+this.odabranavelicina);
-    if(this.odabranavelicina==undefined){
+  }
+  dodajUKorpu(p:number,velicina:any) {
+    //this.fetchKorpeSve();
+   /* if(this.odabranavelicina==undefined){
+      console.log("odabrana velicina: "+this.odabranavelicina);
       alert("Trebate odabrati velicinu!");
       return;
     }
-    console.log("odabrana veliicna je : "+this.odabranavelicina);
-    this.korpaStavka={
-      id:0,
-      proizvodId:p,
-      korpaId:this.korpaID,
-      kolicina:1,
-      velicina:this.odabranavelicina,
+*/
+    for (let k of this.korpePodaci) {
+     // console.log(k.id, "id korpe", k.naziv, "naziv korpe");
+      if (k.naziv.startsWith("Korpa" + this.loginInfo().autentifikacijaToken.korisnickiNalogId)) {
+        this.korpaID = k.id;
+        console.log("id korpe je: "+this.korpaID);
+        this.nasaoKorpu = true;
+       // alert("nasao korpu i id korpe je " + this.korpaID);
+        break;
+      }
     }
-    this.httpKlijent.post(`${MojConfig.adresa_servera}/KorpaStavka/Add`, this.korpaStavka, MojConfig.http_opcije()).subscribe(x => {
-      this.fetchKorpstavke();
-      this.korpastavkaId=this.korpaStavka.id;
-      this.dodanoUKorpu=true;
-    });
+for (let ks of this.korpaStavkePodaci){
+  if(ks.proizvodId==p && this.korpaID==ks.korpaId && ks.velicina==velicina){
+    this.vecDodanUKorpu=true;
+    return;
+  }
+}
 
+this.prikaziDivKorpa=true;
+
+
+   if(this.korpaID!=undefined){
+     this.korpaStavka={
+       id:0,
+       proizvodId:p,
+       korpaId:this.korpaID,
+       kolicina:1,
+       velicina:this.odabranavelicina,
+     }
+     this.httpKlijent.post(`${MojConfig.adresa_servera}/KorpaStavka/Add`, this.korpaStavka, MojConfig.http_opcije()).subscribe(x => {
+       this.fetchStavkeKorpe();
+       this.korpastavkaId=this.korpaStavka.id;
+       this.ngOnInit();
+     });
+console.log("korpa stavka je : "+this.korpaStavka.id+" "+"za korpu "+this.korpaStavka.korpaId);
+   }
+
+     this.dodanoUKorpu=true;
    // alert("uspjesno dodana stavka");
 
   }
   dodajUFavorite(p:any) {
+
     this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
     for(let i=0;i<this.favoritiPodaci.length;i++){
       if(this.favoritiPodaci[i].kupacId==this.kupac_id && this.favoritiPodaci[i].proizvodId==p){
@@ -183,6 +192,7 @@ export class ProizvodDetaljiComponent implements OnInit {
         return;
       }
     }
+    this.prikaziDiv=true;
     this.noviFavorit = {
       id: 0,
       kupacId: this.kupac_id,
@@ -191,11 +201,35 @@ export class ProizvodDetaljiComponent implements OnInit {
     this.httpKlijent.post(`${MojConfig.adresa_servera}/Favorit/Add`, this.noviFavorit, MojConfig.http_opcije()).subscribe(x => {
       this.fetchFavoriti();
       this.dodanoUFavorite=true;
+      this.prikaziDiv=true;
+      this.prikaziDiv();
     });
   }
 
 
   prikaziOcjeneProizvoda() {
     this.router.navigate(['ocjene-proizvoda',this.proizvod_id]);
+  }
+
+  skloniDiv() {
+    this.prikaziDiv=false;
+    this.vecDodanFavorit=false;
+    this.prikaziDivKorpa=false;
+    this.vecDodanUKorpu=false;
+  }
+
+  prikazDiva() {
+    this.prikaziDiv=true;
+  }
+  prikazDivakorpa() {
+    this.prikaziDivKorpa=true;
+  }
+
+  vidiFavorite() {
+    this.router.navigate(['favoriti']);
+  }
+
+  vidiKorpu() {
+    this.router.navigate(['kosarica']);
   }
 }

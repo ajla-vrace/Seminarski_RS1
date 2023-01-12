@@ -5,6 +5,8 @@
 <h3 style="margin: 1%">Proizvodi</h3>
 <div *ngIf="loginInfo().isLogiran==true"><label >KUPAC ID: {{loginInfo().autentifikacijaToken.korisnickiNalogId}}</label></div>
 
+
+
 <div id="sve">
   <div id="filteri">
     <div *ngFor="let k of getKategorijeZene()">
@@ -29,14 +31,11 @@
 
 
       </div>
-      <!--<div class="dugmad">
-        <button class="dodajUKorpu" *ngIf="loginInfo().isLogiran==true" (click)="dodajUKorpu(p.id)">Dodaj u korpu</button>
-        <button class="dodajUFavorite" (click)="dodajUFavorite(p.id)" *ngIf="loginInfo().isLogiran==true">
-          <img src="assets/slike/heart_f.png" class="slikasrce" >
-        </button>
-      </div>
-      -->
+
     </div>
   </div>
 </div>
+
+
+
 

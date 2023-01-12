@@ -48,6 +48,93 @@ namespace OnlineShop.Modul1.Controllers
 
         }
 
+        public class ProizvodSnimi2VM
+        {
+            public int Id { get; set; }
+            public int Sifra { get; set; }
+            public string Naziv { get; set; }
+            public float Cijena { get; set; }
+            public string Opis { get; set; }
+            public DateTime datum_kreiranja { get; set; }
+            public DateTime? datum_modifikacije { get; set; }
+            public bool Aktivan { get; set; }
+
+            public int bojaId { get; set; }
+            public string bojaOpis { get; set; }
+
+            public int? odjelId { get; set; }
+            public string odjelOpis { get; set; }
+
+            public int? kategorijaId { get; set; }
+            public string kategorijaOpis { get; set; }
+
+            public int? podkategorijaId { get; set; }
+            public string podkategorijaOpis { get; set; }
+
+            public int? kolekcijaId { get; set; }
+            public string kolekcijaOpis { get; set; }
+
+            public int? sezonaId { get; set; }
+            public string sezonaOpis { get; set; }
+
+            public int skladisteId { get; set; }
+            public int kolicina { get; set; }
+        }
+
+
+
+        [HttpPost("drugiNacin")]
+        public ActionResult Snimi2(ProizvodSnimi2VM x)
+        {
+            Proizvod? p;
+
+            if (x.Id == 0)
+            {
+                p = new Proizvod();
+
+                p.datum_kreiranja = DateTime.Now;
+                p.Sifra = x.Sifra;
+
+                context.Add(p);
+            }
+            else
+            {
+                p = context.Proizvod.Find(x.Id);
+                if (p == null)
+                    return BadRequest("pogrešan ID");
+                p.datum_modifikacije = DateTime.Now;
+            }
+
+            p.Naziv = x.Naziv;
+            p.Cijena = x.Cijena;
+            p.Opis = x.Opis;
+            p.Aktivan = x.Aktivan;
+            p.bojaId = x.bojaId;
+            p.odjelId = x.odjelId;
+            p.kategorijaId = x.kategorijaId;
+            p.podkategorijaId = x.podkategorijaId;
+            p.sezonaId = x.sezonaId;
+            p.kolekcijaId = x.kolekcijaId;
+
+            context.SaveChanges();
+
+            if (x.Id == 0)
+            {
+                SkladisteProizvod? sp = new SkladisteProizvod
+                {
+                    proizvodId = p.Id,
+                    skladisteId = x.skladisteId,
+                    kolicina = x.kolicina,
+                    datum_kreiranja = DateTime.Now
+                };
+                context.Add(sp);
+                context.SaveChanges();
+            }
+
+            return Ok();
+
+        }
+
 
         [HttpPost]
         public ActionResult Snimi (ProizvodVM x)

@@ -55,7 +55,7 @@ li{
   display: block;
   width: 65%;
   margin: 3% 17%;
-  background-color: lightskyblue;
+ /* background-color: lightskyblue;*/
 }
 #kreirajNarudzbu{
   background-color: black;
@@ -63,6 +63,9 @@ li{
   width: 100%;
   margin: 10% 0%;
   padding: 5%;
+}
+#kreirajNarudzbu:hover{
+ background-color: rgba(0,0,0,0.75);
 }
 #tekstStavkeKorpe{
 border-left: 1px solid grey;

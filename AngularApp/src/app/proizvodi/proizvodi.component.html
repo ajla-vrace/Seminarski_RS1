@@ -266,6 +266,35 @@
 
 
 
+        <!--
+        <hr>
+
+        <div *ngIf="kliknuoEdit==false" class="mb-3" [class.has-error]="skladisteControll.invalid && skladisteControll.touched">
+          <label class="form-label">Skladiste</label>
+
+          <select required #skladisteControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.skladisteId">
+
+            <option *ngFor="let s of skladista " [value]="s?.id" >{{s.naziv}} </option>
+
+          </select>
+
+          <span class="help-block" *ngIf="skladisteControll.invalid && skladisteControll.touched">
+              Ovo polje je obavezno.
+          </span>
+        </div>
+
+
+        <div *ngIf="kliknuoEdit==false" class="mb-3" [class.has-error]="kolicinaControll.invalid && kolicinaControll.touched">
+          <label class="form-label">Kolicina</label>
+          <input required #kolicinaControll="ngModel" pattern="^[0-9]*$" #cijena class="form-control" placeholder="Cijena" [(ngModel)]="odabrani_proizvod.kolicina"/>
+
+          <span class="help-block" *ngIf="(kolicinaControll.invalid && kolicinaControll.touched) || jelUnesenaNula(cijena.value)">
+              Ovo polje je obavezno.
+          </span>
+        </div>
+
+-->
+
       </div>
       <div class="modal-footer">
         <button [disabled]="jelOmogucenSave(sifraControll, sifraInput, nazivControll,cijenaControll,opisControll,bojaControll, podkatControll,katControll,sezonaControll,kolekcijaControll)" type="button" class="btn btn-primary" (click)="spasi(odabrani_proizvod)" >Spasi</button>

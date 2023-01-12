@@ -44,6 +44,8 @@ import { ProizvodDetaljiComponent } from './proizvod-detalji/proizvod-detalji.co
 import { ZaposlenikDetaljiComponent } from './zaposlenik-detalji/zaposlenik-detalji.component';
 import { IzvjestajiComponent } from './izvjestaji/izvjestaji.component';
 import { OcjeneProizvodaComponent } from './ocjene-proizvoda/ocjene-proizvoda.component';
+import { SpecijalnePonudeComponent } from './specijalne-ponude/specijalne-ponude.component';
+import { PretragaComponent } from './pretraga/pretraga.component';
 
 
 
@@ -89,6 +91,8 @@ import { OcjeneProizvodaComponent } from './ocjene-proizvoda/ocjene-proizvoda.co
    ZaposlenikDetaljiComponent,
    IzvjestajiComponent,
    OcjeneProizvodaComponent,
+   SpecijalnePonudeComponent,
+   PretragaComponent,
 
 
 

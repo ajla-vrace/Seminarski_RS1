@@ -120,18 +120,18 @@ namespace OnlineShop.Modul2_TestniPodaci
                  sezona = sezona[1],
              });
 
-            popust.Add(new Popust { Opis = "0.5" });
-            popust.Add(new Popust { Opis = "0.4" });
-            popust.Add(new Popust { Opis = "0.3" });
-            popust.Add(new Popust { Opis = "0.2" });
-            popust.Add(new Popust { Opis = "0.1" });
+            popust.Add(new Popust { Opis = 0.5f });
+            popust.Add(new Popust { Opis = 0.4f });
+            popust.Add(new Popust { Opis = 0.3f });
+            popust.Add(new Popust { Opis = 0.2f });
+            popust.Add(new Popust { Opis = 0.1f });
 
             specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Drama dan", datum_pocetka = DateTime.Now, datum_zavrsetka = DateTime.Now });
             specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Crni petak", datum_pocetka = DateTime.Now, datum_zavrsetka = DateTime.Now });
             specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Luna slavi rođendan", datum_pocetka = DateTime.Now, datum_zavrsetka = DateTime.Now });
 
             specijalnaPonudaProizvod.Add(new SpecijalnaPonudaProizvod { popust = popust[0], proizvod = proizvod[0], specijalnaPonuda = specijalnaPonuda[0] });
-            specijalnaPonudaProizvod.Add(new SpecijalnaPonudaProizvod { popust = popust[2], proizvod = proizvod[1], specijalnaPonuda = specijalnaPonuda[2] });
+            specijalnaPonudaProizvod.Add(new SpecijalnaPonudaProizvod { popust = popust[2], proizvod = proizvod[1], specijalnaPonuda = specijalnaPonuda[0] });
 
             Random rnd = new Random();
 

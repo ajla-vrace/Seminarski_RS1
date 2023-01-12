@@ -39,22 +39,22 @@ export class NavKupacComponent implements OnInit {
 
   prikaziZene() {
     this.potvrda = true;
-    this.router.navigate(['/zene']);
+    this.router.navigate(['zene']);
   }
 
   prikaziMuskarce() {
     this.potvrda = true;
-    this.router.navigate(['/muskarci']);
+    this.router.navigate(['muskarci']);
   }
 
   prikaziFavorite() {
     this.potvrda = true;
-    this.router.navigate(['/favoriti']);
+    this.router.navigate(['favoriti']);
   }
 
   prikaziKosaricu() {
     this.potvrda = true;
-    this.router.navigate(['/kosarica']);
+    this.router.navigate(['kosarica']);
   }
 
 

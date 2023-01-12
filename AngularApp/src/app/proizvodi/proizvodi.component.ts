@@ -48,10 +48,32 @@ export class ProizvodiComponent implements OnInit {
     this.getSifre();
     this.getOdjeli();
 
+    this.getSkladista();
+
     this.route.params.subscribe(s=>{
       this.zaposlenik_id=+s["id"];
     })
 
+  }
+
+  ///   /api/SkladisteProizvod/kol_pr_opadajuci
+
+  skladistaProizvod:any;
+
+  getSkladistaProizvod(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/kol_pr_opadajuci").subscribe((x:any)=>{
+      this.skladistaProizvod=x;
+      console.log(this.skladistaProizvod);
+    })
+  }
+
+  skladista:any;
+
+  getSkladista(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Skladiste").subscribe((x:any)=>{
+      this.skladista=x;
+      console.log(this.skladista);
+    })
   }
 
   getProizvodPodaci(){
@@ -167,7 +189,7 @@ export class ProizvodiComponent implements OnInit {
     if(confirm("Jeste li sigurni da želite obrisati ovaj zapis?"))
       this.httpKlijent.delete(MojConfig.adresa_servera + "/api/Proizvod?id=" + p.id)
         .subscribe((x: any) => {
-          this.getProizvodPodaci();
+          this.getProizvodOpadajući();
           alert("Zapis uspješno obrisan");
         })
 
@@ -241,7 +263,9 @@ export class ProizvodiComponent implements OnInit {
       podkategorijaOpis:"",
       kategorijaOpis:"",
       sezonaOpis:"",
-      kolekcijaOpis:""
+      kolekcijaOpis:"",
+     // skladisteId:1,
+     // kolicina:1
     }
 
     //mozda su viska getKategorije i getSezone, u objektu mozemo
@@ -287,11 +311,15 @@ export class ProizvodiComponent implements OnInit {
     }
   }
 
+//  /api/Proizvod/drugiNacin
+
   spasi(o: any) {
     this.httpKlijent.post(MojConfig.adresa_servera+"/api/Proizvod",o).subscribe(
       (x:any)=>{
-        this.getProizvodPodaci();
+        this.getProizvodOpadajući();
+     //   this.getSkladistaProizvod();
         this.odabrani_proizvod=null;
+        this.kliknuoEdit=false;
       }
     )
   }

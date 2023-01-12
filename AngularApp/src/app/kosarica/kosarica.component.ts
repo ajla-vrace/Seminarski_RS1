@@ -12,111 +12,173 @@ import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 })
 export class KosaricaComponent implements OnInit {
 
-  kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
-   korpaStavkePodaci1: any;
-   novaKorpa: any;
-   imeKorpe: any="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
-total:any;
-   jedan: any;
+  kupac_id:any;
+  korpaStavkePodaci1: any;
+  novaKorpa: any;
+  imeKorpe: any="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+  total:any;
+  jedan: any;
   odabranaStavka: any;
-korpaId:any;
-   KorpaPodatak: any;
-   pogledajUkupno: any=false;
+  korpaId:any;
+  pogledajUkupno: any=false;
   ukupno: any;
-
+   korpaStavkePodaci: any;
+   KorpePodaci: any;
+   KorpePodaciIme: any;
+   sveUkupno: number=0;
+   modifikovano: any=false;
+brisano:any=false;
   constructor(private httpKlijent: HttpClient,private router: Router, private route:ActivatedRoute) {
+  }
+  private fetchKorpaStavke() {
+    //this.imeKorpe="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetByName/"+"Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
+      this.korpaStavkePodaci = x;
+    });
+
+  }
+
+  private fetchKorpe() {
+this.imeKorpe="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+      this.KorpePodaci = x;
+    });
+    // this.ukupno=this.KorpaPodatak[0].total;
+  }
+
+  private fetchKorpaIme() {
+    this.imeKorpe="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByName/"+this.imeKorpe, MojConfig.http_opcije()).subscribe(x=>{
+      this.KorpePodaciIme = x;
+    });
+    // this.ukupno=this.KorpaPodatak[0].total;
+  }
+  getKorpaIme(){
+    this.imeKorpe="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+    if (this.KorpePodaciIme == null)
+      return [];
+    return this.KorpePodaciIme.filter((a:any)=>a.naziv.startsWith(this.imeKorpe));
   }
   ngOnInit(): void {
 
     /*this.route.params.subscribe(s=>{
       this.kupac_id=+s["id"];
     })*/
-    this.fetchKorpstavke();
-    this.fetchKorpa();
-    this.getKorpe();
+    this.fetchKorpe();
+    this.fetchKorpaStavke();
 
+this.fetchKorpaIme();
 
   }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
   }
-  private fetchKorpstavke() {
+
+  getKorpe(){
     this.imeKorpe="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
-
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetByName/"+this.imeKorpe, MojConfig.http_opcije()).subscribe(x=>{
-      this.korpaStavkePodaci1 = x;
-    });
-
-  }
-
-  private fetchKorpa() {
-
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByIdKupac/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
-      this.KorpaPodatak = x;
-    });
-   // this.ukupno=this.KorpaPodatak[0].total;
-    }
-
-getKorpe(){
-  if (this.KorpaPodatak == null)
-    return [];
-  return this.KorpaPodatak;
-}
-  getKorpaStavke() {
-    if (this.korpaStavkePodaci1 == null)
+    if (this.KorpePodaci == null)
       return [];
-    return this.korpaStavkePodaci1;
+    return this.KorpePodaci.filter((a:any)=>a.naziv.startsWith(this.imeKorpe));
+  }
+  getKorpaStavke() {
+    this.imeKorpe="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+    if (this.korpaStavkePodaci == null)
+      return [];
+    return this.korpaStavkePodaci.filter((a:any)=>a.korpaIme==this.imeKorpe);
   }
   izracunaj(){
-/*this.fetchKorpstavke();
-    for(let i=0;i<(this.korpaStavkePodaci1.length);i++){
-console.log(this.korpaStavkePodaci1[i].id+"ovo je id stavke");
-      this.total+=this.korpaStavkePodaci1[i].total;
-      console.log(this.korpaStavkePodaci1[i].total+"total jedne stavke");
-      console.log(this.total+" ovo je total a ovo je total stavke: "+this.korpaStavkePodaci1[i].total+"ukupno ih ima: "+this.korpaStavkePodaci1.length);
-    }
+    /*this.fetchKorpstavke();
+        for(let i=0;i<(this.korpaStavkePodaci1.length);i++){
+    console.log(this.korpaStavkePodaci1[i].id+"ovo je id stavke");
+          this.total+=this.korpaStavkePodaci1[i].total;
+          console.log(this.korpaStavkePodaci1[i].total+"total jedne stavke");
+          console.log(this.total+" ovo je total a ovo je total stavke: "+this.korpaStavkePodaci1[i].total+"ukupno ih ima: "+this.korpaStavkePodaci1.length);
+        }
 
-    return this.total;
+        return this.total;
 
- */
-}
+     */
+  }
   UkloniIzKorpe(s:any) {
     this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Delete/" + s.id,null, MojConfig.http_opcije())
       .subscribe((povratnaVrijednost:any) =>{
-        const index = this.korpaStavkePodaci1.indexOf(s);
+        const index = this.korpaStavkePodaci.indexOf(s);
         if (index > -1) {
-          this.korpaStavkePodaci1.splice(index, 1);
+          this.korpaStavkePodaci.splice(index, 1);
         }
+        this.ngOnInit();
       });
-
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetByKupacId/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
+this.brisano=true;
+    /*this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetByKupacId/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
       this.korpaStavkePodaci1 = x;
     });
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByIdKupac/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
       this.KorpaPodatak = x;
-    });
-    this.fetchKorpa();
+    });*/
+    //this.fetchKorpe();
+   // this.getKorpe();
+   // this.getKorpaStavke();
+   // this.fetchKorpaIme();
+    //console.log(this.KorpePodaci);
+   //this.fetchKorpaStavke();
     //alert("Odabrani proizvod je uklonjen  iz korpe!");
   }
+racun(){
+  console.log("pocetak");
+  this.sveUkupno=0;
+    for(let k of this.getKorpaStavke()){
 
+      this.sveUkupno+=k.total;
+      console.log(this.sveUkupno+" +"+k.total);
+      console.log("poslije n: iteracije : "+this.sveUkupno);
+      console.log(k.total+" ukupno stavka");
+    }
+
+    console.log(this.sveUkupno+" ukupno sve");
+    return this.sveUkupno;
+}
   vratiNaPocetnu() {
     this.router.navigate(['zene']);
   }
 
-  ModifikacijaKorpaStavke(ks: any) {
+  kolicinaVelicinaModifikacija(ks: any){
+
+  }
+
+
+  ModifikacijaKorpaStavke(ks:any) {
     this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Update/" + ks.id, ks)
       .subscribe((povratnaVrijednost:any) =>{
+        this.ngOnInit();
       });
+
     this.odabranaStavka=null;
-  this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByIdKupac/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
+    this.modifikovano=true;
+
+
+
+    /*this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByIdKupac/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
       this.KorpaPodatak = x;
     });
-   /* this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetByName/"+this.imeKorpe, MojConfig.http_opcije()).subscribe(x=>{
-      this.korpaStavkePodaci1 = x;
-    });
-*/
-   //this.fetchKorpstavke();
-   this.fetchKorpa();
+    */
+
+    /* this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetByName/"+this.imeKorpe, MojConfig.http_opcije()).subscribe(x=>{
+       this.korpaStavkePodaci1 = x;
+     });
+ */
+    //this.fetchKorpstavke();
+
+    /*this.fetchKorpe();
+    this.getKorpe();*/
+    //this.getKorpaStavke();
+    //this.fetchKorpaIme();
+
+    /*console.log("ovo je korpa stavke: "+this.korpaStavkePodaci);
+    console.log(this.KorpePodaci);
+    console.log(this.KorpePodaci[0]);*/
+   // this.racun();
+    //this.fetchKorpaStavke();
 
   }
 
@@ -125,7 +187,7 @@ console.log(this.korpaStavkePodaci1[i].id+"ovo je id stavke");
   }
 
   ukupnoStavki() {
-   return  this.korpaStavkePodaci1.length;
+    return  this.korpaStavkePodaci1.length;
   }
 
   pogledajCijenu() {

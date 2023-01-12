@@ -17,6 +17,7 @@ namespace OnlineShop.Modul1.Models
         public int? popustId { get; set; }
         public Popust popust { get; set; }
 
+        public float? CijenaSaPopustom { get { return proizvod.Cijena - (proizvod.Cijena * popust.Opis); } }
 
     }
 }

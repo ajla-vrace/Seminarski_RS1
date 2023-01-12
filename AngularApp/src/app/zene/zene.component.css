@@ -1,13 +1,15 @@
 #zeneProizvodi{
 
   width:75%;
-display: flex;
-  padding: 2%;
+
+  padding:0% 2%;
+  display: grid;
+  grid-template-columns: auto auto auto;
 }
 .proizvodJedan{
 
   display: inline;
-  width: 30%;
+  width: 80%;
 border: 1px solid gray;
   margin: 2%;
  }
@@ -65,4 +67,25 @@ text-align: center;
   position: absolute;
 top:3%;
   right: 3%;
+}
+#zeneProizvodi{
+
+
+}
+#mojDiv{
+  height: fit-content;
+  background-color: lightskyblue;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+.slikaSpecijalne{
+  background-color: #28a745;
+}
+.opisSpecijalne{
+  background-color: lightpink;
+}
+.jednaSpecijalna{
+background-color: gold;
+  display: flex;
+  width: 80%;
 }

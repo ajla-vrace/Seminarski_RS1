@@ -69,6 +69,7 @@ namespace OnlineShop.Modul1.Controllers
                     Kolicina = s.Kolicina,
                     Total=s.Total,
                    // Total = s.Proizvod.Cijena*s.Kolicina,
+                   KorpaIme=s.Korpa.Name,
                     ProizvodId= s.ProizvodId,
                     KorpaId=s.KorpaId,
                     ProizvodIme=s.Proizvod.Naziv,
@@ -118,6 +119,7 @@ namespace OnlineShop.Modul1.Controllers
                     Kolicina = s.Kolicina,
                     KorpaId=s.KorpaId,
                     Total = s.Total,
+                    KorpaIme = s.Korpa.Name,
                     ProizvodId = s.ProizvodId,
                     ProizvodIme = s.Proizvod.Naziv,
                     Boja = s.Proizvod.boja,
@@ -130,12 +132,12 @@ namespace OnlineShop.Modul1.Controllers
         }
 
 
-        [HttpGet]
-        public ActionResult GetByKupacId(int kupac_id)
+        [HttpGet("{id}")]
+        public ActionResult GetByKupacId(int id)
         {
             var data = _dbContext.KorpaStavka
                 .OrderByDescending(s => s.Id)
-                .Where(s => s.Korpa.KupacId == kupac_id)
+                .Where(s => s.Korpa.KupacId == id)
                 .Select(s => new
                 {
                     Id = s.Id,
@@ -143,6 +145,7 @@ namespace OnlineShop.Modul1.Controllers
                     Kolicina = s.Kolicina,
                     KorpaId = s.KorpaId,
                     Total = s.Total,
+                    KorpaIme = s.Korpa.Name,
                     ProizvodId = s.ProizvodId,
                     ProizvodIme = s.Proizvod.Naziv,
                     Boja = s.Proizvod.boja,

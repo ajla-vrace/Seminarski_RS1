@@ -27,7 +27,7 @@
   <div class="col-sm-3" [class.has-error]="email.invalid && email.touched">
     <label>Email</label>
     <input id="idemail" [(ngModel)]="txtEmail" class="form-control"
-           #email="ngModel" required pattern="^[a-zA-Z0-9]{3,}@gmail.com$" >
+           #email="ngModel" required pattern="^[a-z]{1,}[a-z0-9]{1,}[._]{0,1}[a-z0-9]{1,}@gmail.com$" >
 
     <span class="poruka-validacija" *ngIf="email.invalid && email.touched">
          <p>Unesite ispravno email</p>
@@ -46,7 +46,7 @@
   </div>
   <div class="col-sm-3" [class.has-error]="lozinka.invalid && lozinka.touched">
     <label>Lozinka</label>
-    <input id="idlozinka" [(ngModel)]="txtLozinkaR" class="form-control"
+    <input id="idlozinka" [(ngModel)]="txtLozinkaR" class="form-control" type="password"
            #lozinka="ngModel" required pattern="^[a-zA-Z0-9]{3,}$" >
 
     <span class="poruka-validacija" *ngIf="lozinka.invalid && lozinka.touched">

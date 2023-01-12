@@ -31,4 +31,8 @@ a.drustvenemreze{
 
 .naziv-prod{
   cursor: pointer;
+  display: inline;
+  padding-left: 2%;
+  padding-top: 2%;
+  font-family: 'Lucida Calligraphy';
 }

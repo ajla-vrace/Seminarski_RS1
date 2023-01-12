@@ -1,4 +1,7 @@
-<app-nav-kupac></app-nav-kupac>
+<app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
+
+
+
 <div class="veliki">
   <div *ngFor="let d of getProizvodiDetalji()">
 
@@ -28,7 +31,8 @@
           <label (click)="this.odabranavelicina='L'" class="velicina">L</label>
         </div>
         <div class="dugmad1" *ngIf="loginInfo().isLogiran==true">
-          <button class="dodajUKorpu1"  (click)="dodajUKorpu(d.id)" >Dodaj u korpu</button>
+          <button class="dodajUKorpu1" *ngIf="odabranavelicina!=undefined" (click)="dodajUKorpu(d.id,odabranavelicina)" >Dodaj u korpu</button>
+          <button class="dodajUKorpu1" *ngIf="odabranavelicina==undefined" disabled style="background-color: rgb(61,61,61)">Dodaj u korpu</button>
           <button class="dodajUFavorite1" (click)="dodajUFavorite(d.id)" >
             <img src="assets/slike/heart_f.png" class="slikasrce" style="width: 20px;" >
           </button>
@@ -52,13 +56,58 @@
   </div>
 
 </div>
-<div>
-  <span class="bi bi-star"></span>
-  <span class="bi bi-star"></span>
-  <span class="bi bi-star"></span>
-  <span class="bi bi-star"></span>
-  <span class="bi bi-star"></span>
+
+
+
+<div *ngIf="prikaziDiv==true" id="probaDiva" >
+
+  <div id="poruka">
+    <img src="assets/slike/heart_tick.png" style="width: 65px;">
+    <h4 style="margin: 3% 0%">Proizvod je dodan u Favorite.</h4>
+    <button id="dugme1" (click)="skloniDiv()" class="dugmeDelete" >
+      <label style="font-size: larger;" class="labelDugme">Nazad</label></button>
+    <button  id="dugme2" (click)="vidiFavorite()" class="dugmeDelete" >
+      <label class="bi bi-heart" class="labelDugme"></label><label style="font-size: larger;margin-left: 10px" class="labelDugme"> Vidi Favorite</label></button>
+
+  </div>
 </div>
 
+<div *ngIf="vecDodanFavorit==true" id="probaDiva1" >
 
+  <div id="poruka1">
+    <img src="assets/slike/heart_tick.png" style="width: 65px;">
+    <h4 style="margin: 3% 0%">Proizvod je vec  dodan u Favorite.</h4>
+    <button id="dugme11" (click)="skloniDiv()" class="dugmeDelete" >
+      <label style="font-size: larger;" class="labelDugme">Nazad</label></button>
+    <button  id="dugme21" (click)="vidiFavorite()" class="dugmeDelete" >
+      <label class="bi bi-heart" id="labelDugme"></label><label style="font-size: larger;margin-left: 10px" class="labelDugme"> Vidi Favorite</label></button>
+
+  </div>
+</div>
+
+<div *ngIf="prikaziDivKorpa==true" id="probaDiva2" >
+
+  <div id="poruka2">
+    <img src="assets/slike/addToCart.png" style="width: 65px;">
+    <h4 style="margin: 3% 0%">Proizvod je dodan u Košaricu.</h4>
+    <button id="dugme22" (click)="skloniDiv()" class="dugmeDelete" >
+      <label style="font-size: larger;" class="labelDugme">Nazad</label></button>
+    <button  id="dugme23" (click)="vidiKorpu()" class="dugmeDelete" >
+      <label class="bi bi-cart3" class="labelDugme"></label><label style="font-size: larger;margin-left: 10px" class="labelDugme"> Pogledaj Košaricu</label></button>
+
+  </div>
+</div>
+
+<div *ngIf="vecDodanUKorpu==true" id="probaDiva3" >
+
+  <div id="poruka3">
+    <img src="assets/slike/addToCart.png" style="width: 65px;">
+    <h4 style="margin: 3% 0%">Proizvod je vec  dodan u Košaricu.</h4>
+    <button id="dugme112" (click)="skloniDiv()" class="dugmeDelete" >
+      <label style="font-size: larger;" class="labelDugme">Nazad</label></button>
+    <button  id="dugme211" (click)="vidiKorpu()" class="dugmeDelete" >
+      <label class="bi bi-cart3" id="labelDugme1"></label><label style="font-size: larger;margin-left: 10px" class="labelDugme"> Pogledaj Košaricu</label></button>
+
+  </div>
+</div>
 

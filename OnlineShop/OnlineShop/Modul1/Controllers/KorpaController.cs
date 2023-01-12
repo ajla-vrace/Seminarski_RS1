@@ -45,15 +45,16 @@ namespace OnlineShop.Modul1.Controllers
 
 
 
-       /* [HttpGet]
+       [HttpGet]
         public ActionResult GetAll()
         {
             float totalSvega = default;
-            List<KorpaStavka> stavkeTeKorpe = _dbContext.KorpaStavka
-                .Where(k => k.KorpaId == id).ToList();
+            int brojProizvoda = 0;
+            List<KorpaStavka> stavkeTeKorpe = _dbContext.KorpaStavka.ToList();
             for (int i = 0; i < stavkeTeKorpe.Count; i++)
             {
                 totalSvega += stavkeTeKorpe[i].Total;
+                brojProizvoda += stavkeTeKorpe[i].Kolicina;
             }
 
             var data = _dbContext.Korpa
@@ -67,7 +68,7 @@ namespace OnlineShop.Modul1.Controllers
                     DatumKreiranja = s.datum_kreiranja,
                     DatumModifikacije = s.datum_modifikacije,
                     Total=totalSvega,
-                    UkupnoProizvoda=stavkeTeKorpe.Count,
+                    UkupnoProizvoda=brojProizvoda,
                       
                 })
                 .AsQueryable();
@@ -75,7 +76,7 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(data.ToList());
         }
-       */
+       
        /* [HttpGet]
         public ActionResult Get5()
         {
@@ -169,11 +170,13 @@ namespace OnlineShop.Modul1.Controllers
         public ActionResult GetByName(string naziv)
         {
             float totalSvega = default;
+            int brojProizvoda = 0;
             List<KorpaStavka> stavkeTeKorpe = _dbContext.KorpaStavka
                 .Where(k => k.Korpa.Name == naziv).ToList();
             for (int i = 0; i < stavkeTeKorpe.Count; i++)
             {
                 totalSvega += stavkeTeKorpe[i].Total;
+                brojProizvoda += stavkeTeKorpe[i].Kolicina;
             }
 
             var data = _dbContext.Korpa

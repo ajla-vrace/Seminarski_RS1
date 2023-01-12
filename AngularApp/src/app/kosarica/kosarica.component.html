@@ -1,8 +1,9 @@
-<app-nav-kupac></app-nav-kupac>
+<app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
+<h1 *ngIf="loginInfo().isLogiran==false">Košarica</h1>
 <div id="naslovKosarice">
   <h2>Košarica</h2>
-  <h4 *ngIf="korpaStavkePodaci1!=0">Pogledajte proizvode koje ste dodali u košaricu.</h4>
-<div *ngIf="korpaStavkePodaci1==0">
+  <h4 *ngIf="korpaStavkePodaci!=0">Pogledajte proizvode koje ste dodali u košaricu.</h4>
+<div *ngIf="korpaStavkePodaci==0">
   <h1  style="margin-top: 5%">Nemate nijedan proizvod u košarici.</h1>
   <label style="font-style: italic">Inspirirajte se i obogatite svoju garderobu.</label>
   <button (click)="vratiNaPocetnu()" id="getInspired"> Pogledaj proizvode</button>
@@ -27,7 +28,9 @@ kupac id:
         <h6>Velicina: {{kst.velicina}}</h6>
         <div id="upravljanjeStavkama">
           <button (click)="Modifikacija(kst)" id="dugmeModifikuj" >Modifikuj</button>
-          <label (click)="UkloniIzKorpe(kst)" id="ukloniStavkuIzKorpe">Ukloni iz korpe</label>
+
+         <!-- <label (click)="UkloniIzKorpe(kst)" id="ukloniStavkuIzKorpe">Ukloni iz korpe</label>-->
+          <img src="assets/slike/trash.png" style="width: 20px" id="ukloniStavkuIzKorpe"  (click)="UkloniIzKorpe(kst)">
         </div>
 
       </div>
@@ -35,21 +38,42 @@ kupac id:
     </div>
   </div>
 
-  <div id="Kupovina" *ngIf="this.korpaStavkePodaci1!=0">
+  <div id="Kupovina" *ngIf="korpaStavkePodaci!=0">
     <h3 style="text-align: center;margin-bottom: 10%" >Ukratko o košarici </h3>
-    <h5 style="margin-bottom: 5%" *ngIf="KorpaPodatak!=undefined">Imate ukupno proizvoda: {{this.KorpaPodatak[0].ukupnoProizvoda}}</h5>
-
     <div>
-      <h5 style="display: inline;margin-bottom: 5%" *ngIf="KorpaPodatak!=undefined">Suma: {{this.KorpaPodatak[0].total}} KM</h5>
+
+      <h5 style="margin-bottom: 5%" *ngIf="KorpePodaci!=undefined">Imate ukupno proizvoda: {{this.KorpePodaciIme[0].ukupnoProizvoda}}</h5>
+     <!-- <h5 style="margin-bottom: 5%" *ngIf="KorpePodaciIme!=undefined">Imate ukupno proizvoda: {{racun()}}</h5>-->
+
+      <div>
+        <h5 style="display: inline;margin-bottom: 5%" *ngIf="KorpePodaci!=undefined">Suma: {{this.KorpePodaciIme[0].total}} KM</h5>
+      </div>
+
     </div>
+
 <button id="kreirajNarudzbu" (click)="KreirajNarudzbu()">Kreiraj narudžbu</button>
     <label style="text-align: center;color:grey">Moguće vratiti u roku od 30 dana.</label>
   </div>
 
 </div>
 
+<!--<div style="background-color: mediumvioletred">
+  <li>korpastavke podaci{{korpaStavkePodaci.length}}</li>
+  <li>korpapodaci ime{{KorpePodaciIme.length}}</li>
+  <li> korpa podatak{{KorpaPodatak.length}}</li>
+</div>
+-->
 
-
+<!--<div style="background-color: hotpink">
+  <li>Length k: {{KorpePodaci.length}}</li>
+  <li>{{KorpePodaci[0].id}}</li>
+  <li>Length ks: {{korpaStavkePodaci.length}}</li>
+  <li>{{korpaStavkePodaci[0].id}}</li>
+  <li>ovo gledaj{{korpaStavkePodaci}}</li>
+  <li>Length kime: {{KorpePodaciIme.length}}</li>
+  <li>{{KorpePodaciIme[0].id}}</li>
+</div>
+-->
 <div *ngIf="odabranaStavka!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog">
     <div class="modal-content">

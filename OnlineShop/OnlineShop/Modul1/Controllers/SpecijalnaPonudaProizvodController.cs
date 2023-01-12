@@ -30,15 +30,30 @@ namespace OnlineShop.Modul1.Controllers
             public int? specijalnaPonudaId { get; set; }
             public string specijalnaPonudaOpis { get; set; }        
             public int? proizvodId { get; set; }
+            public Proizvod? Proizvod { get; set; }
             public string proizvodOpis { get; set; }
             public int? popustId { get; set; }
             public string popustOpis { get; set; }
         }
 
+        public class SpecijalnePonudeProizvodGetVM
+        {
+            public int Id { get; set; }
+            public int? specijalnaPonudaId { get; set; }
+            public string specijalnaPonudaOpis { get; set; }
+            public int? proizvodId { get; set; }
+            public string proizvodOpis { get; set; }
+            public int? popustId { get; set; }
+            public string popustOpis { get; set; }
+            public Proizvod? proizvod { get; set; }
+            public Popust? popust { get; set; }
+            public float? cijenaSaPopustom { get { return proizvod?.Cijena - (proizvod?.Cijena * popust?.Opis); } set { } }
+        }
+
         public class PopustVM
         {
             public int Id { get; set; }
-            public string Opis { get; set; }
+            public float Opis { get; set; }
         }
 
         [HttpGet("Specijalne_ponude")]
@@ -84,17 +99,25 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpGet("Specijalne_ponude_proizvod")]
-        public IQueryable<SpecijalnePonudeProizvodVM> GetSpecijalnePonudeProizvod()
+        public IQueryable<SpecijalnePonudeProizvodGetVM> GetSpecijalnePonudeProizvod()
         {
-            var data = context.SpecijalnaPonudaProizvod.Select(x => new SpecijalnePonudeProizvodVM
+            var data = context.SpecijalnaPonudaProizvod.Select(x => new SpecijalnePonudeProizvodGetVM
             {
                 Id = x.Id,
                 specijalnaPonudaId=x.specijalnaPonudaId,
                 specijalnaPonudaOpis=x.specijalnaPonuda.Naziv,
                 proizvodId=x.proizvodId,
+                //proizvod=x.proizvod,
                 proizvodOpis=x.proizvod.Naziv,
                 popustId=x.popustId,
-                popustOpis=x.popust.Opis
+
+                //popustOpis=x.popust.Opis
+
+                popustOpis=x.popust.Opis.ToString(),
+                proizvod=x.proizvod,
+                popust=x.popust,
+                cijenaSaPopustom=x.CijenaSaPopustom
+
             }).ToList().AsQueryable().OrderByDescending(x => x.Id);
             return data;      
         }
@@ -176,7 +199,7 @@ namespace OnlineShop.Modul1.Controllers
                 p = new Popust();
                 context.Add(p);
 
-                if (x.Opis == "")
+                if (x.Opis == null)
                     return BadRequest("Niste unijeli obavezno polje.");
             }
             else

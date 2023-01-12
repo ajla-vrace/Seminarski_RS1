@@ -1,8 +1,9 @@
 #muskarciProizvodi{
 
   width:75%;
-  display: flex;
-  padding: 2%;
+  padding:0% 2%;
+  display: grid;
+  grid-template-columns: auto auto auto;
 }
 #MuskiOdjelNaslov{
   margin: 1%;
@@ -10,7 +11,7 @@
 .proizvodJedan{
 
   display: inline;
-  width: 30%;
+  width: 80%;
   border: 1px solid gray;
   margin: 2%;
 }
@@ -27,7 +28,6 @@
 }
 .zaSliku{
   width: 100%;
-
   border: 1px black solid;
   position: relative;
 }

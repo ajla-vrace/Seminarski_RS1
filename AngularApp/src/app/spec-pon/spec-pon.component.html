@@ -13,7 +13,7 @@
                                     required [(ngModel)]="obj_sp.datum_zavrsetka"></h5>
 
     <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Morate unijeti ispravne podatke">
-    <button [disabled]="!(naziv.valid && dateS.valid && dateE.valid)" (click)="snimi_sp()" class="btn-add-sp">Dodaj</button>
+    <button [disabled]="!(naziv.valid && dateS.valid && dateE.valid && dateS.value<dateE.value)" (click)="snimi_sp()" class="btn-add-sp">Dodaj</button>
     </span>
   </div>
 

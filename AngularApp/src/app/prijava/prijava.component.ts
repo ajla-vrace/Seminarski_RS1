@@ -20,7 +20,9 @@ export class PrijavaComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  loginInfo():LoginInformacije {
+    return AutentifikacijaHelper.getLoginInfo();
+  }
 
   btnLogin() {
     let saljemo = {

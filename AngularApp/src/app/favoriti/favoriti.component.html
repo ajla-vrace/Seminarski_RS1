@@ -1,4 +1,4 @@
-<app-nav-kupac></app-nav-kupac>
+<app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
 <div class="tekst">
   <h2>Favoriti</h2>
   <h5>Pogledajte proizvode koje ste dodali u favorite</h5>

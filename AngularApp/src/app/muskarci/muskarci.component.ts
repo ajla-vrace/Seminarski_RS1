@@ -16,7 +16,6 @@ export class MuskarciComponent implements OnInit {
   srceMOboji: any;
    kategorijeMuskarciPodaci: any;
    podkategorijeMuskarciPodaci: any;
-  prikaziPodM: any=false;
    favoritiPodaci: any;
    noviFavorit: any;
   dodanoUFavorite: any;
@@ -27,6 +26,10 @@ export class MuskarciComponent implements OnInit {
    novaKorpaM: any;
    korpaStavkaId: any;
    proizvod_id: any;
+   nadjenaKorpa: any=false;
+   korpePodaci: any;
+   novaKorpa: any;
+   korpaStavkePodaci: any;
 
   constructor(private httpKlijent: HttpClient, private router: Router,
               private route: ActivatedRoute) {}
@@ -63,6 +66,7 @@ this.fetchKorpstavke();
   }
   prikaziDetaljeProizvoda(proizvod:any) {
     this.proizvod_id=proizvod;
+    this.napraviIliNadjiKorpu();
     this.router.navigate(['proizvod-detalji',this.proizvod_id]);
   }
   dodajUFavorite(p:any) {
@@ -104,27 +108,27 @@ this.fetchKorpstavke();
 
   private fetchKorpe() {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetAll", MojConfig.http_opcije()).subscribe(x=>{
-      this.korpePodaciM = x;
+      this.korpePodaci = x;
     });
   }
   getKorpe(id:number) {
-    if (this.korpePodaciM == null)
+    if (this.korpePodaci == null)
       return [];
-    return this.korpePodaciM;
+    return this.korpePodaci;
   }
 
 
   private fetchKorpstavke() {
     if(this.korpaID!=undefined) {
-      this.httpKlijent.get(MojConfig.adresa_servera + "/Korpastavke/GetByAll/" + this.korpaID, MojConfig.http_opcije()).subscribe(x => {
-        this.korpaStavkePodaciM = x;
+      this.httpKlijent.get(MojConfig.adresa_servera + "/KorpaStavke/GetByName/" +"Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId , MojConfig.http_opcije()).subscribe(x => {
+        this.korpaStavkePodaci = x;
       });
     }
   }
   getKorpaStavke() {
-    if (this.korpaStavkePodaciM == null)
+    if (this.korpaStavkePodaci == null)
       return [];
-    return this.korpaStavkePodaciM;
+    return this.korpaStavkePodaci;
   }
 
 
@@ -175,4 +179,38 @@ this.fetchKorpstavke();
    // alert("uspjesno dodana stavka");
     console.log("ododana stavka je "+"ovo je id stavke"+this.korpaStavkaId+" ovo je id korpe"+this.korpaStavkaM.korpaId)
   }
+
+  private napraviIliNadjiKorpu() {
+      for(let k of this.korpePodaci) {
+        if (k.naziv.startsWith("Korpa" + this.loginInfo().autentifikacijaToken.korisnickiNalogId)) {
+          this.korpaID = k.id;
+          this.nadjenaKorpa=true;
+          /*alert("nasao korpu i id korpe je " + this.korpaID);
+
+          console.log("nasao korpu a njen id je " + this.korpaID);
+          console.log("ima ovoliko korpa do sada: " + this.korpePodaci.length);
+          console.log("ovo je naziv nadjene korpe" + k.naziv);
+          console.log("nadjenjakorpa bool:"+this.nadjenaKorpa);
+
+           */
+          break;
+        }
+      }
+      if(this.nadjenaKorpa==false){
+        this.novaKorpa = {
+          id: 0,
+          naziv: "Korpa" + this.loginInfo().autentifikacijaToken.korisnickiNalogId,
+          kupacId: this.loginInfo().autentifikacijaToken.korisnickiNalogId,
+          total: 0,
+          ukupnoProizvoda: 0
+        }
+        this.httpKlijent.post(`${MojConfig.adresa_servera}/Korpa/Add`, this.novaKorpa, MojConfig.http_opcije()).subscribe(x => {
+          this.fetchKorpe();
+
+        });
+        this.korpaID = this.novaKorpa.id;
+       // console.log("korpa id nove je : " + this.korpaID);
+       // alert("napravljena korpa");
+      }
+    }
 }

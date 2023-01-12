@@ -3,6 +3,6 @@
     public class Popust
     {
         public int Id { get; set; }
-        public string Opis { get; set; }
+        public float Opis { get; set; }
     }
 }
