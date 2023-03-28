@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
 using OnlineShop.Modul1.Models;
+using OnlineShop.Modul1.ViewModels;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlineShop.Modul1.Controllers
@@ -17,36 +18,7 @@ namespace OnlineShop.Modul1.Controllers
             this.context = context;
         }
 
-        public class ProizvodVM
-        {
-            public int Id { get; set; }
-            public int Sifra { get; set; }
-            public string Naziv { get; set; }
-            public float Cijena { get; set; }
-            public string Opis { get; set; }
-            public DateTime datum_kreiranja { get; set; }
-            public DateTime? datum_modifikacije { get; set; }
-            public bool Aktivan { get; set; }
-
-            public int bojaId { get; set; }
-            public string bojaOpis { get; set; }
-
-            public int? odjelId { get; set; }
-            public string odjelOpis { get; set; }
-
-            public int? kategorijaId { get; set; }
-            public string kategorijaOpis { get; set; }
-
-            public int? podkategorijaId { get; set; }
-            public string podkategorijaOpis { get; set; }
-          
-            public int? kolekcijaId { get; set; }
-            public string kolekcijaOpis { get; set; }
-            
-            public int? sezonaId { get; set; }
-            public string sezonaOpis { get; set; }
-
-        }
+       
 
         public class ProizvodSnimi2VM
         {
@@ -323,5 +295,110 @@ namespace OnlineShop.Modul1.Controllers
             return context.Odjel.ToList();
         }
 
+        //proizvodi sa najmanjom kolicinom
+        public class ProizvodiMinKolicina
+        {
+            public int ProizvodId { get; set; }
+            public ProizvodVM? proizvod { get; set; }
+            public int Kolicina { get; set; }
+
+        }
+
+        //treba se uzeti proizvodID od ovog, i onda sa metodom GetSlikeByProizvodId dobijamo listu slika,
+        //onda idemo for petljom i saljemo jedan item metodi get_slika_FS(item); - angular 
+
+        [HttpGet("proizvodiMinKolicina")]
+        public IEnumerable<ProizvodiMinKolicina> GetProizvodeMinKolicina()
+        {
+            var proizvodi = context.SkladisteProizvod.Select(x => x.proizvodId).Distinct();
+            var proizvodi_kolicine = new List<ProizvodiMinKolicina>();
+            foreach (int p in proizvodi)
+            {
+                var _proizvod = context.Proizvod.Where(x => x.Id == p).Select(x=>new ProizvodVM
+                {
+                    Id = x.Id,
+                    Sifra = x.Sifra,
+                    Naziv = x.Naziv,
+                    Cijena = x.Cijena,
+                    Opis = x.Opis,
+                    datum_kreiranja = x.datum_kreiranja,
+                    datum_modifikacije = x.datum_modifikacije,
+                    Aktivan = x.Aktivan,
+                    bojaId = x.bojaId,
+                    bojaOpis = x.boja.Naziv,
+                    odjelId = x.odjelId,
+                    odjelOpis = x.odjel.Naziv,
+                    kategorijaId = x.kategorijaId,
+                    kategorijaOpis = x.kategorija.Naziv,
+                    podkategorijaId = x.podkategorijaId,
+                    podkategorijaOpis = x.podkategorija.Naziv,
+                    kolekcijaId = x.kolekcijaId,
+                    kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
+                    sezonaId = x.sezonaId,
+                    sezonaOpis = x.sezona.Naziv,
+                }).ToList()[0];
+                var _kolicina = context.SkladisteProizvod.Where(x => x.proizvodId == p).Sum(x => x.kolicina);
+
+              
+                proizvodi_kolicine.Add(new ProizvodiMinKolicina 
+                { 
+                    ProizvodId = p, 
+                    proizvod=_proizvod, 
+                    Kolicina = _kolicina,                
+                });
+            }
+
+            return proizvodi_kolicine.OrderBy(x => x.Kolicina).Take(5);
+        }
+
+        public class ProizvodDatum
+        {
+            public int ProizvodId { get; set; }
+            public ProizvodVM proizvod { get; set; }
+            public DateTime? datum_kreiranja { get; set; }
+        }
+
+        [HttpGet("posljednjeDodaniProizvodi")]
+        public List<ProizvodDatum> GetPosljednjeDodaneProizvode()
+        {
+            //DateTime.Compare(x.datum_kreiranja,posljednji_datum)==0
+            var posljednji_datum = context.Proizvod.OrderByDescending(x => x.datum_kreiranja).Select(x => x.datum_kreiranja).ToList()[0];
+
+            var lista = context.Proizvod.Where(x => x.datum_kreiranja.Year == posljednji_datum.Year && x.datum_kreiranja.Month == posljednji_datum.Month && x.datum_kreiranja.Day == posljednji_datum.Day).Select(x=>x.Id).ToList();
+
+            var proizvodi_datumi = new List<ProizvodDatum>();
+
+            foreach (var p in lista)
+            { 
+                var proizvodVM=context.Proizvod.Where(x=>x.Id==p).Select(x=>new ProizvodVM
+                {
+                    Id = x.Id,
+                    Sifra = x.Sifra,
+                    Naziv = x.Naziv,
+                    Cijena = x.Cijena,
+                    Opis = x.Opis,
+                    datum_kreiranja = x.datum_kreiranja,
+                    datum_modifikacije = x.datum_modifikacije,
+                    Aktivan = x.Aktivan,
+                    bojaId = x.bojaId,
+                    bojaOpis = x.boja.Naziv,
+                    odjelId = x.odjelId,
+                    odjelOpis = x.odjel.Naziv,
+                    kategorijaId = x.kategorijaId,
+                    kategorijaOpis = x.kategorija.Naziv,
+                    podkategorijaId = x.podkategorijaId,
+                    podkategorijaOpis = x.podkategorija.Naziv,
+                    kolekcijaId = x.kolekcijaId,
+                    kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
+                    sezonaId = x.sezonaId,
+                    sezonaOpis = x.sezona.Naziv
+                }).ToList()[0];
+           
+                proizvodi_datumi.Add(new ProizvodDatum { 
+                    ProizvodId = p, proizvod = proizvodVM, datum_kreiranja = proizvodVM.datum_kreiranja});
+            }
+
+            return proizvodi_datumi;
+        }
     }
 }

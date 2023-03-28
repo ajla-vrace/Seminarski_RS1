@@ -1,10 +1,5 @@
 <app-navbar-admin></app-navbar-admin>
 
-<div class="odjava">
-  <button class="btn-odjava" (click)="odjaviSe()">Odjavi se</button>
-</div>
-
-
 <div class="glavni">
 
   <div class="moji-podaci">
@@ -13,36 +8,36 @@
     <hr>
     <div class="ime">
       <h6>Ime:</h6>
-      <h5>{{admin_podaci[0]?.ime}}</h5>
+      <h5>{{_ime}}</h5>
     </div>
 
     <div class="prezime">
       <h6>Prezime:</h6>
-      <h5>{{admin_podaci[0]?.prezime}}</h5>
+      <h5>{{_prezime}}</h5>
     </div>
 
     <div class="spol">
       <h6>Spol:</h6>
-      <h5>{{admin_podaci[0]?.spolOpis}}</h5>
+      <h5>{{_spol}}</h5>
     </div>
 
     <hr>
 
     <div class="email">
       <h6>Email:</h6>
-      <h5>{{admin_podaci[0]?.email}}</h5>
+      <h5>{{_email}}</h5>
     </div>
 
     <div class="tel">
       <h6>Broj telefona:</h6>
-      <h5>{{admin_podaci[0]?.brojTelefona}}</h5>
+      <h5>{{_brojtel}}</h5>
     </div>
 
     <hr>
 
     <div class="datumreg">
       <h6>Datum registracije:</h6>
-      <h5>{{admin_podaci[0]?.datumRegistracije}}</h5>
+      <h5>{{_datumReg}}</h5>
     </div>
 
     <hr>
@@ -56,12 +51,12 @@
     <h4>Pristupni podaci</h4>
 
     <hr>
-
+<!--
     <div class="username">
       <h6>Korisničko ime:</h6>
       <button class="edit-username" (click)="jelKliknuoPromijeniUsername=true">Promijeni</button>
     </div>
-
+-->
     <div class="promijeni-lozinku">
       <h6>Lozinka: </h6>
       <button class="edit-lozinku" (click)="jelKliknuoPromijeniLoz=true">Promijeni</button>
@@ -69,19 +64,23 @@
 
     <hr>
 
-
-
   </div>
+
 
 </div>
 
 
+<div class="odjava">
+  <button class="btn-odjava" (click)="odjaviSe()">Odjavi se</button>
+</div>
+<br>
 
+<!--
 <div class="moja-slika">
   <img src="assets/slike/user-m2.jpg">
   <button class="promijeni-sliku">Promijeni sliku</button>
 </div>
-
+-->
 
 
 

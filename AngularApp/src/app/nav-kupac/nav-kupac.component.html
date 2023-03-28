@@ -1,12 +1,15 @@
 
+
 <nav>
   <div id="kat" style="display: inline">
-    <li (click)="prikaziZene()">Žene<img src="assets/slike/dress.png" title="Zenski odjel" style="width: 40px;"></li>
+    <li (click)="prikaziZene()">Žene<img src="assets/slike/dress.png" title="Zenski odjel" style="width: 40px;" ></li>
     <li (click)="prikaziMuskarce()">Muškarci <img src="assets/slike/suit.png" title="Muski odjel" style="width: 40px; " ></li>
   </div>
   <div id="desno" style="display: inline">
     <li style="padding-right: 30%;padding-left: 30%"></li>
-    <li ><input  type="text" value="Search" style="padding-left: 1%"></li>
+    <li ><input  type="text" placeholder="Search" style="padding-left: 1%">
+   <button id="pretragaLupa">
+     <img src="assets/slike/lupa1.png" style="width:18px;"></button>  </li>
 
 
 
@@ -18,3 +21,49 @@
 
 </nav>
 <hr style="margin-bottom: 0%">
+
+
+
+<!--
+
+<nav>
+  <div id="kat" style="display: inline">
+    <li (click)="prikaziZene()">Žene<img src="assets/slike/dress.png" title="Zenski odjel"
+                                         style="width: 40px;" (mouseover)="prikaziKategorije();prikaziKat=true;"></li>
+    <li (click)="prikaziMuskarce()">Muškarci <img src="assets/slike/suit.png" title="Muski odjel" style="width: 40px; " ></li>
+  </div>
+  <div id="desno" style="display: inline">
+    <li style="padding-right: 30%;padding-left: 30%"></li>
+    <li ><input  type="text" placeholder="Search" style="padding-left: 1%"></li>
+
+
+
+    <li (click)="prikaziProfil()"><img src="assets/slike/profile.png" ></li>
+    <li (click)="prikaziFavorite()"><img src="assets/slike/heart_f.png"a title="Favoriti" ></li>
+    <li (click)="prikaziKosaricu()"><img src="assets/slike/cartt.png" title="Košarica"></li>
+  </div>
+
+
+</nav>
+<hr style="margin-bottom: 0%">
+<div id="kat_podkat" *ngIf="prikaziKat==true;" (mouseleave)="prikaziKat=false;">
+<div id="samoKat" >
+  <option *ngFor="let x of kategorijePodaci" [value]="x.id"    class="kat" (mouseover)="prikaziPodkat(x);boldirano=true;">
+    {{x.naziv}}</option>
+
+
+</div>
+
+<div id="samoPodkat">
+  <option *ngFor="let x of podkategorijePodaci" [value]="x.id" class="podkat" >{{x.naziv}}</option>
+</div>
+
+</div>
+
+-->
+
+
+
+
+
+

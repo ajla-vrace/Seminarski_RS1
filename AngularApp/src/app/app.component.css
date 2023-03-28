@@ -1,3 +1,4 @@
+
 img.gore{
   width:30px;
   padding: 3%;
@@ -35,4 +36,7 @@ a.drustvenemreze{
   padding-left: 2%;
   padding-top: 2%;
   font-family: 'Lucida Calligraphy';
+}
+.gore{
+  cursor: pointer;
 }

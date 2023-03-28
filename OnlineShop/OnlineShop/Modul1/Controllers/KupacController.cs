@@ -44,7 +44,7 @@ namespace OnlineShop.Modul1.Controllers
             objekat.DatumPrveNarudzbe = x.DatumPrveNarudzbe;
             objekat.AdresaIsporuke = x.AdresaIsporuke;
             objekat.isPretplacen = x.isPretplacen;
-            objekat.DatumRegistracije=x.DatumRegistracije;
+            objekat.DatumRegistracije=DateTime.Now;
             _dbContext.SaveChanges();
             return Ok(objekat);
         }

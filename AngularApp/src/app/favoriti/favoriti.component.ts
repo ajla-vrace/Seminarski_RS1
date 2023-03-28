@@ -40,16 +40,21 @@ export class FavoritiComponent implements OnInit {
   }
 
   UkloniFavorit(s:any) {
-    this.httpKlijent.post(MojConfig.adresa_servera+ "/Favorit/Delete/" + s.id,null, MojConfig.http_opcije())
+    /*this.httpKlijent.post(MojConfig.adresa_servera+ "/Favorit/Delete/" + s.id,null, MojConfig.http_opcije())
       .subscribe((povratnaVrijednost:any) =>{
         const index = this.favoritiPodaci.indexOf(s);
         if (index > -1) {
           this.favoritiPodaci.splice(index, 1);
         }
+      });*/
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/Favorit/Delete/" + s.id,null, MojConfig.http_opcije())
+      .subscribe((povratnaVrijednost:any) =>{
+       this.fetchFavoriti();
+
       });
-    this.httpKlijent.post(MojConfig.adresa_servera+ "/Favorit/GetAll",MojConfig.http_opcije()).subscribe(x=>{
+   /* this.httpKlijent.post(MojConfig.adresa_servera+ "/Favorit/GetById/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId,MojConfig.http_opcije()).subscribe(x=>{
       this.favoritiPodaci = x;
-    });
+    });*/
     //alert("Odabrani favorit je obrisan!");
   }
 

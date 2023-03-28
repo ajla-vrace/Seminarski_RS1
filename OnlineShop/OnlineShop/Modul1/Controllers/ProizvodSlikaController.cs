@@ -27,7 +27,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
 
-        [HttpGet("id_fs")]
+        [HttpGet("id_fs")]  //ovo Id je slikaProizvodId
         public FileContentResult GetSlikaFS(int id)
         {
             byte[] bajtovi_slike = Fajlovi.Ucitaj("slike_proizvoda/" + id + ".jpg")
@@ -101,6 +101,8 @@ namespace OnlineShop.Modul1.Controllers
                     prikaz.Add(slika_prikaz);
                 }
 
+                //else, baytovi_slike=Fajlovi.Ucitaj("sliku Empty photo"); ... prikaz.add(slika_prikaz);
+                //ali onda ce se u proizvodima pojavljivati ove slike...
             }
 
             return prikaz;

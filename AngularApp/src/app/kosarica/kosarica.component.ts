@@ -66,9 +66,10 @@ this.imeKorpe="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
       this.kupac_id=+s["id"];
     })*/
     this.fetchKorpe();
+    this.fetchKorpaIme();
     this.fetchKorpaStavke();
 
-this.fetchKorpaIme();
+
 
   }
   loginInfo():LoginInformacije {

@@ -33,9 +33,15 @@
         <div class="dugmad1" *ngIf="loginInfo().isLogiran==true">
           <button class="dodajUKorpu1" *ngIf="odabranavelicina!=undefined" (click)="dodajUKorpu(d.id,odabranavelicina)" >Dodaj u korpu</button>
           <button class="dodajUKorpu1" *ngIf="odabranavelicina==undefined" disabled style="background-color: rgb(61,61,61)">Dodaj u korpu</button>
-          <button class="dodajUFavorite1" (click)="dodajUFavorite(d.id)" >
+          <button class="dodajUFavorite1" (click)="dodajUFavorite(d.id)" *ngIf="isFavorit==false;">
             <img src="assets/slike/heart_f.png" class="slikasrce" style="width: 20px;" >
+
           </button>
+          <button class="dodajUFavorite1" (click)="dodajUFavorite(d.id)" *ngIf="isFavorit==true;" style="background-color: #ee6464;">
+            <img src="assets/slike/heart_f.png" class="slikasrce" style="width: 20px;" >
+
+          </button>
+
         </div>
         <p style="margin: 1%;">Ukoliko ne znate koja veličina Vam odgovara, pogledajte naš <a routerLink="/vodiczavelicine">Vodič za veličine</a>.</p>
        <div id="ocjeneProizvoda" (click)="prikaziOcjeneProizvoda()">
@@ -111,3 +117,10 @@
   </div>
 </div>
 
+<div>
+  <div *ngFor="let x of favoritiPodaci">
+    <li>{{x.id}}</li>
+    <li>{{x.proizvodId}}</li>
+    <li>{{x.kupacId}}</li>
+  </div>
+</div>

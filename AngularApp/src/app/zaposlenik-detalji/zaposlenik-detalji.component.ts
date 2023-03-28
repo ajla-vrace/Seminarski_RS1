@@ -30,12 +30,20 @@ export class ZaposlenikDetaljiComponent implements OnInit {
     })
   }
 
+  datum_rodj:any;
+  datum_zaposl:any;
+  datum_reg:any;
+  _jmbg:any;
   getZaposlenika(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Zaposlenik/id?id="
     +this.zaposlenik_id).subscribe((x:any)=>{
       this.obj_zaposlenik=x;
       console.log(this.obj_zaposlenik);
 
+    /*  this._jmbg=this.obj_zaposlenik?.jmbg;
+      this.datum_rodj=this.obj_zaposlenik?.datumRodjenja;
+      this.datum_zaposl=this.obj_zaposlenik?.datumZaposlenja;
+      this.datum_reg=this.obj_zaposlenik?.datumRegistracije;*/
       /*
       this.copy_obj_zaposlenik=this.obj_zaposlenik;
       console.log(this.copy_obj_zaposlenik);

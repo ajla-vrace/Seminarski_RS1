@@ -11,6 +11,7 @@ namespace OnlineShop.Modul1.ViewModels
         public string? BrojTelefona { get; set; }        
         public int? GradId { get; set; }
        
+        public string? gradOpis { get; set; }
        
     }
 }

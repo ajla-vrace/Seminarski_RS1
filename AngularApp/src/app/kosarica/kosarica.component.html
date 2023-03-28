@@ -40,7 +40,7 @@ kupac id:
 
   <div id="Kupovina" *ngIf="korpaStavkePodaci!=0">
     <h3 style="text-align: center;margin-bottom: 10%" >Ukratko o košarici </h3>
-    <div>
+    <div *ngIf="KorpePodaciIme!=undefined">
 
       <h5 style="margin-bottom: 5%" *ngIf="KorpePodaci!=undefined">Imate ukupno proizvoda: {{this.KorpePodaciIme[0].ukupnoProizvoda}}</h5>
      <!-- <h5 style="margin-bottom: 5%" *ngIf="KorpePodaciIme!=undefined">Imate ukupno proizvoda: {{racun()}}</h5>-->

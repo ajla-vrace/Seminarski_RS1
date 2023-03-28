@@ -7,3 +7,69 @@ img{
   width: 30px;
 
 }
+#pretragaLupa{
+  width: 2%;
+  height: 2%;
+  background-color: #e1e0e0;
+border:2px solid gray;
+}
+#lupaSlika{
+  width: 120%;
+  height: 10%;
+}
+
+
+
+
+
+
+
+/*.kat:hover{
+  background-color: blueviolet;
+}*/
+.kat{
+ /* background-color: lightseagreen;*/
+}
+option.kat{
+  padding: 2%;
+  width: 100%;
+  font-size: large;
+ /* color: #3f3e3e;*/
+}
+#samoKat{
+  width: 50%;
+  height: fit-content;
+  /*background-color: red;*/
+}
+#samoPodkat{
+  width: 50%;
+  height: fit-content;
+  /*background-color: lightgreen;*/
+}
+option.kat:hover{
+  font-size: larger;
+  color: black;
+  font-weight: bold;
+}
+option.podkat{
+  padding: 1%;
+  width: 100%;
+  cursor: pointer;
+}
+option.podkat:hover{
+color: #8d8c8c;
+}
+.podkat{
+ /* background-color: #ffdddc;*/
+}
+/*.podkat:hover{
+  background-color: orangered;
+}*/
+#kat_podkat{
+  position: absolute;
+  width: 30%;
+  display: flex;
+  height: fit-content;
+  padding: 1%;
+  background-color: #d5e6f1;
+}

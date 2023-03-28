@@ -34,6 +34,11 @@ export class ProizvodDetaljiComponent implements OnInit {
    korpaPodatak: any;
    korpaStavkePodaciSve: any;
    prikaziDivKorpa: any=false;
+   dodanFav:any=false;
+
+
+
+
   constructor(private httpKlijent: HttpClient,private router: Router, private route:ActivatedRoute) {
   }
   loginInfo():LoginInformacije {
@@ -50,7 +55,7 @@ export class ProizvodDetaljiComponent implements OnInit {
       this.proizvodiPodaciSlika = x;
     });
   }
-  fetchFavoriti() :void
+  fetchFavoriti()
   {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Favorit/GetById/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
       this.favoritiPodaci = x;
@@ -82,15 +87,22 @@ export class ProizvodDetaljiComponent implements OnInit {
    this.route.params.subscribe(s=>{
       this.proizvod_id=+s["id"];
     })
-
+    //this.fetchFavoriti();
+    this.fetchKorpe();
     this.fetchProizvodiDetalji();
-    this.fetchFavoriti();
-  this.fetchKorpe();
+this.fetchFavoriti();
+
   this.fetchStavkeKorpe();
 
+/*this.jeLiFavorit(this.proizvod_id);*/
   }
 
-
+  ngAfterViewInit(){
+    setTimeout( ()=>{
+      this.jeLiFavorit(this.proizvod_id);
+      this.fetchKorpe();
+    }, 300)
+  }
   getProizvodiDetalji() {
     if (this.proizvodiPodaciDetalji == null)
       return [];
@@ -110,6 +122,7 @@ export class ProizvodDetaljiComponent implements OnInit {
   nadjen: any=false;
    nasaoKorpu: any=false;
   vecDodanUKorpu: any=false;
+  isFavorit: any=false;
 
 
 
@@ -136,6 +149,8 @@ export class ProizvodDetaljiComponent implements OnInit {
 
   }
   dodajUKorpu(p:number,velicina:any) {
+
+this.fetchKorpe();
     //this.fetchKorpeSve();
    /* if(this.odabranavelicina==undefined){
       console.log("odabrana velicina: "+this.odabranavelicina);
@@ -143,26 +158,38 @@ export class ProizvodDetaljiComponent implements OnInit {
       return;
     }
 */
+    for(let i=0;i<this.korpePodaci.length-1;i++){
+      console.log("for petlja s i:"+i);
+      console.log("id:" +this.korpePodaci[i].id);
+      console.log("naziv:" +this.korpePodaci[i].naziv);
+      console.log("id kupac:" +this.korpePodaci[i].kupacId);
+    }
     for (let k of this.korpePodaci) {
-     // console.log(k.id, "id korpe", k.naziv, "naziv korpe");
+     /* console.log(k.id, "id korpe", k.naziv, "naziv korpe");*/
+      console.log(" u for petlja je: ");
+
       if (k.naziv.startsWith("Korpa" + this.loginInfo().autentifikacijaToken.korisnickiNalogId)) {
+        console.log("id korpe je :(k.id)"+k.id)
         this.korpaID = k.id;
-        console.log("id korpe je: "+this.korpaID);
+       console.log("id korpe je: "+this.korpaID);
         this.nasaoKorpu = true;
-       // alert("nasao korpu i id korpe je " + this.korpaID);
+        console.log("nasao korpu: "+this.korpaID);
+       /* alert("nasao korpu i id korpe je " + this.korpaID);*/
         break;
       }
     }
 for (let ks of this.korpaStavkePodaci){
+  console.log("for petlja za stavke: ");
   if(ks.proizvodId==p && this.korpaID==ks.korpaId && ks.velicina==velicina){
     this.vecDodanUKorpu=true;
+    console.log("nasao stavku: vec dodana u korpu");
     return;
   }
 }
 
 this.prikaziDivKorpa=true;
 
-
+console.log("KORPA id je:(prije dodavanja stavke)"+this.korpaID);
    if(this.korpaID!=undefined){
      this.korpaStavka={
        id:0,
@@ -173,9 +200,11 @@ this.prikaziDivKorpa=true;
      }
      this.httpKlijent.post(`${MojConfig.adresa_servera}/KorpaStavka/Add`, this.korpaStavka, MojConfig.http_opcije()).subscribe(x => {
        this.fetchStavkeKorpe();
-       this.korpastavkaId=this.korpaStavka.id;
-       this.ngOnInit();
+
+       console.log("korpa stavka dodano:" +this.korpastavkaId);
+       /*this.ngOnInit();*/
      });
+     this.korpastavkaId=this.korpaStavka.id;
 console.log("korpa stavka je : "+this.korpaStavka.id+" "+"za korpu "+this.korpaStavka.korpaId);
    }
 
@@ -186,6 +215,7 @@ console.log("korpa stavka je : "+this.korpaStavka.id+" "+"za korpu "+this.korpaS
   dodajUFavorite(p:any) {
 
     this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+
     for(let i=0;i<this.favoritiPodaci.length;i++){
       if(this.favoritiPodaci[i].kupacId==this.kupac_id && this.favoritiPodaci[i].proizvodId==p){
         this.vecDodanFavorit=true;
@@ -202,8 +232,9 @@ console.log("korpa stavka je : "+this.korpaStavka.id+" "+"za korpu "+this.korpaS
       this.fetchFavoriti();
       this.dodanoUFavorite=true;
       this.prikaziDiv=true;
-      this.prikaziDiv();
+     /* this.prikaziDiv();*/
     });
+    this.ngAfterViewInit();
   }
 
 
@@ -231,5 +262,22 @@ console.log("korpa stavka je : "+this.korpaStavka.id+" "+"za korpu "+this.korpaS
 
   vidiKorpu() {
     this.router.navigate(['kosarica']);
+  }
+   jeLiFavorit(proizvodId: any){
+
+
+    if(this.favoritiPodaci!=undefined){
+      for(let i=0;i<this.favoritiPodaci.length;i++){
+        if(this.favoritiPodaci[i].proizvodId==proizvodId &&
+          this.favoritiPodaci[i].kupacId==this.loginInfo().autentifikacijaToken.korisnickiNalogId){
+          this.isFavorit=true;
+          console.log("fp:"+ this.favoritiPodaci[i].proizvodId+ " fp kupacid: "+ this.favoritiPodaci[i].kupacId);
+          return;
+        }
+      }
+    }
+console.log("ptovjera favorita");
+
+
   }
 }

@@ -3,6 +3,7 @@
 KUPAC ID: {{kupac_id}}
 
 
+<!--
 <button (click)="prikazDiva()">Klikni ovdje</button>
 <div *ngIf="prikaziDiv==true" id="probaDiva" >
 
@@ -16,7 +17,7 @@ KUPAC ID: {{kupac_id}}
   </div>
 </div>
 
-
+-->
 
 
 
@@ -28,13 +29,18 @@ KUPAC ID: {{kupac_id}}
 <h4 style="margin: 1%">Moj profil</h4>
 
 <div id="kupacPodaci">
-  <h6>Ime: {{kupac_podaci.ime}}</h6>
-  <h6>Prezime: {{kupac_podaci.prezime}}</h6>
-  <h6>Email: {{kupac_podaci.email}}</h6>
-  <h6>Username: {{kupac_podaci.username}}</h6>
+  <h6>Ime:</h6>
+  <input value=" {{kupac_podaci.ime}}" disabled>
+  <h6>Prezime: </h6>
+  <input value=" {{kupac_podaci.prezime}}" disabled>
+  <h6>Email: </h6>
+  <input value=" {{kupac_podaci.email}}" disabled>
+  <h6>Username: </h6>
+  <input value=" {{kupac_podaci.username}}" disabled>
   <h6>Broj telefona: {{kupac_podaci.brojTelefona}}</h6>
+  <input value=" {{kupac_podaci.brojTelefona}}" disabled>
   <h6>Datum registracije: {{kupac_podaci.datum_kreiranja}}</h6>
-
+  <input value=" {{kupac_podaci.datumRegistracije | date:'dd-MM-yyyy (hh:mm:ss)'}}" disabled>
 
   <h6>Pretplata:  {{kupac_podaci.isPretplacen}}</h6>
   <h6>Adresa: {{kupac_podaci.adresaIsporuke}}</h6>

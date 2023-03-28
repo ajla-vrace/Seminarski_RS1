@@ -29,11 +29,24 @@ export class ProfilAdminComponent implements OnInit {
     })
   }
 
+  _ime:any="";
+  _prezime:any="";
+  _spol:any="";
+  _email:any="";
+  _brojtel:any="";
+  _datumReg:any="";
+
   getAdminPodaci(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Admin?id="+this.admin_id)
       .subscribe((x:any)=>{
         this.admin_podaci=x;
         console.log(this.admin_podaci);
+        this._ime=this.admin_podaci[0].ime;
+        this._prezime=this.admin_podaci[0].prezime;
+        this._spol=this.admin_podaci[0].spolOpis;
+        this._email=this.admin_podaci[0].email;
+        this._brojtel=this.admin_podaci[0].brojTelefona;
+        this._datumReg=this.admin_podaci[0].datumRegistracije;
       })
   }
 

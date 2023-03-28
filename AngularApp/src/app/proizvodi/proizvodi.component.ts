@@ -41,7 +41,7 @@ export class ProizvodiComponent implements OnInit {
   ngOnInit(): void {
   //  this.getProizvodPodaci();
     this.getProizvodRastuci();
-    this.getProizvodOpadajući();
+    this.getProizvodOpadajuci();
     this.getKategorije();
     this.getSezone();
     this.getBoje();
@@ -95,7 +95,7 @@ export class ProizvodiComponent implements OnInit {
     })
   }
 
-  getProizvodOpadajući(){
+  getProizvodOpadajuci(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/datumOpadajuci").subscribe((x:any)=>{
       this.proizvod_opadajuci=x;
 /*
@@ -189,7 +189,7 @@ export class ProizvodiComponent implements OnInit {
     if(confirm("Jeste li sigurni da želite obrisati ovaj zapis?"))
       this.httpKlijent.delete(MojConfig.adresa_servera + "/api/Proizvod?id=" + p.id)
         .subscribe((x: any) => {
-          this.getProizvodOpadajući();
+          this.getProizvodOpadajuci();
           alert("Zapis uspješno obrisan");
         })
 
@@ -316,7 +316,7 @@ export class ProizvodiComponent implements OnInit {
   spasi(o: any) {
     this.httpKlijent.post(MojConfig.adresa_servera+"/api/Proizvod",o).subscribe(
       (x:any)=>{
-        this.getProizvodOpadajući();
+        this.getProizvodOpadajuci();
      //   this.getSkladistaProizvod();
         this.odabrani_proizvod=null;
         this.kliknuoEdit=false;
@@ -402,7 +402,7 @@ export class ProizvodiComponent implements OnInit {
 
 
   get_slika_FS(p: any) {
-    return "data:image/png;base64,"+p.fileContents;
+    return "data:image/jpg;base64,"+p.fileContents;
   }
 
 }
