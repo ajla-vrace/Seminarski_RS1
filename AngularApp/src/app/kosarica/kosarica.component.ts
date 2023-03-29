@@ -196,6 +196,6 @@ racun(){
   }
 
   KreirajNarudzbu() {
-
+this.router.navigate(['kreiranje-narudzbe']);
   }
 }

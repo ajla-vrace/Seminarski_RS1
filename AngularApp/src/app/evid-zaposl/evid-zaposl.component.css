@@ -55,12 +55,24 @@
   color:black;
 }
 
-.btn-delete{
+.btn-delete, .btn-edit{
   background-color: rgba(255,21,47,0.82);
   width:100%;
   border:groove;
   border-radius: 20px;
   padding:2%;
+}
+
+.btn-edit{
+  background-color: #2ecc71;
+}
+
+.btn-delete, .btn-edit, .btn-detalji{
+  align-items: center;
+}
+
+.btn-delete:hover, .btn-edit:hover, .btn-detalji:hover{
+  opacity: 40%;
 }
 
 .pretraga-dodaj{

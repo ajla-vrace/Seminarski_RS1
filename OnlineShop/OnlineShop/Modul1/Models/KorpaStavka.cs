@@ -15,5 +15,6 @@ namespace OnlineShop.Modul1.Models
         [ForeignKey("KorpaId")]
         public Korpa Korpa { get; set; }
         public int? KorpaId { get; set; }
+        public bool Aktivan { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
 using OnlineShop.Helper;
-using OnlineShop.Migrations;
+
 using OnlineShop.Modul1.Models;
 
 namespace OnlineShop.Modul2_TestniPodaci

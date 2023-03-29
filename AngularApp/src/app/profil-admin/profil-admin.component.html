@@ -211,7 +211,7 @@
 
         <div class="mb-3" [class.has-error]="imeControll.invalid && imeControll.touched">
           <label class="form-label">Ime:</label>
-          <input type="text" required pattern="^[A-Z][a-zA-Z]*(\s|\-)?[a-zA-Z]*$"
+          <input type="text" required pattern="^[A-Z][a-zA-Z]*(\s|\\-)?[a-zA-Z]*$"
                  minlength="3" #imeControll="ngModel" class="form-control" placeholder="ime" [(ngModel)]="admin_podaci[0].ime" >
 
           <span class="help-block" *ngIf="imeControll.invalid && imeControll.touched">
@@ -222,7 +222,7 @@
 
         <div class="mb-3" [class.has-error]="prezimeControll.invalid && prezimeControll.touched">
           <label class="form-label">Prezime:</label>
-          <input type="text" required pattern="^[A-Z][a-zA-Z]*(\s|\-)?[a-zA-Z]*$"
+          <input type="text" required pattern="^[A-Z][a-zA-Z]*(\s|\\-)?[a-zA-Z]*$"
                  minlength="3" #prezimeControll="ngModel" class="form-control" placeholder="prezime" [(ngModel)]="admin_podaci[0].prezime" >
 
           <span class="help-block" *ngIf="prezimeControll.invalid && prezimeControll.touched">
@@ -260,7 +260,7 @@
 
         <div class="mb-3" [class.has-error]="telControll.invalid && telControll.touched">
           <label class="form-label">Broj telefona:</label>
-          <input type="text" required pattern="^[0-9]{3}(\/|\-|\s)[0-9]{3}(\-|\s)[0-9]{3}$"
+          <input type="text" required pattern="^[0-9]{3}(\/|-|\s)[0-9]{3}(-|\s)[0-9]{3}$"
                  minlength="3" #telControll="ngModel"
                  class="form-control" placeholder="062/111-111 ili 062 111 111 ili 062-111-111..." [(ngModel)]="admin_podaci[0].brojTelefona">
 

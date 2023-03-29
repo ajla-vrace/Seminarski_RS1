@@ -48,12 +48,18 @@ namespace OnlineShop.Modul1.Controllers
             public string prodavnicaOpis { get; set; }
             public int? ProdavnicaId { get; set; }
 
+            public string? slika_zaposlenika_nova_base64 { get; set; }  //za post-anje
+
+            public byte[]? slika_zaposlenika_postojeca_DB { get; set; }  //za get-anje
+            public byte[]? slika_zaposlenika_postojeca_FS { get; set; }  //za get-anje
+
         }
 
         public class SlikaZaposlenika
         {
             public int idZaposl { get; set; }
-            public string slika_nova { get; set; }
+            public string? slika_nova { get; set; }
+            public byte[]? slika_zaposlenika_postojeca_DB { get; set; }  //za get-anje
         }
 
         [HttpGet("id_fs")]  //id korisnika trebamo poslati da bismo dobili njegovu sliku
@@ -64,6 +70,16 @@ namespace OnlineShop.Modul1.Controllers
 
             return File(bajtovi_slike, "image/jpg");
         }
+
+        [HttpGet("id_db")]
+        public ActionResult GetSlikaDB(int id)
+        {
+            byte[] bajtovi_slike = context.Zaposlenik.Find(id)?.slikaZaposlenikaBajtovi
+                                   ?? Fajlovi.Ucitaj("wwwroot/profile_images/empty.png");
+
+            return File(bajtovi_slike, "image/png");
+        }
+
 
         [HttpPost("promijeni_sliku")]
         public ActionResult PromijeniSlikuZaposlenika(SlikaZaposlenika x)
@@ -80,11 +96,21 @@ namespace OnlineShop.Modul1.Controllers
 
                 if (x.slika_nova != null)
                 {
+                    //slika se snima u db
                     byte[] slika_bajtovi = x.slika_nova.ParsirajBase64();
+                    z.slikaZaposlenikaBajtovi = slika_bajtovi;
+
+                    //slika se snima u file sistem
+                    //byte[] slika_bajtovi = x.slika_nova.ParsirajBase64();
                     Fajlovi.Snimi(slika_bajtovi, "slike_korisnika/" + z.Id + ".jpg");
+
+                    x.slika_zaposlenika_postojeca_DB = slika_bajtovi;
+                    
                 }
 
                 context.SaveChanges();
+
+               
             }
 
             return Ok();
@@ -93,19 +119,30 @@ namespace OnlineShop.Modul1.Controllers
         [HttpGet("slikaKorisnika")]
         public List<FileContentResult> Slika(int id)
         {
-            var z = context.Zaposlenik.Where(x => x.Id == id).ToList();
+            var z = context.Zaposlenik.Where(x => x.Id == id).ToList()[0];
+
+            //if (z == null)
+            //    return BadRequest("ne postoji ovaj zaposlenik");
+
             List<FileContentResult> prikaz = new List<FileContentResult>();
-            foreach (var z_id in z)
+           /* foreach (var z_id in z)
             {
                 byte[] bajtovi_slike = Fajlovi.Ucitaj("slike_korisnika/" + z_id + ".jpg");
+              
                 if (bajtovi_slike != null)
                 {
                     var slika_prikaz = File(bajtovi_slike, "image/jpg");
                     prikaz.Add(slika_prikaz);
                 }
 
-            }
+            }*/
 
+            byte[] bajtovi = z.slikaZaposlenikaBajtovi;
+            if (bajtovi != null)
+            {
+                var slika_prikaz = File(bajtovi, "image/jpg");
+                prikaz.Add(slika_prikaz);
+            }
             return prikaz;
 
         }
@@ -139,7 +176,9 @@ namespace OnlineShop.Modul1.Controllers
                     DatumRodjenja = x.DatumRodjenja,
                     jmbg = x.JMBG,
                     ProdavnicaId = x.ProdavnicaId,
-                    prodavnicaOpis = x.Prodavnica.Naziv
+                    prodavnicaOpis = x.Prodavnica.Naziv,
+                    slika_zaposlenika_postojeca_DB=x.slikaZaposlenikaBajtovi,
+                    slika_zaposlenika_postojeca_FS=x.slikaZaposlenikaBajtovi
                 }).ToList()[0];
 
 
@@ -219,7 +258,9 @@ namespace OnlineShop.Modul1.Controllers
                 DatumRodjenja = x.DatumRodjenja,
                 jmbg = x.JMBG,
                 ProdavnicaId = x.ProdavnicaId,
-                prodavnicaOpis = x.Prodavnica.Naziv
+                prodavnicaOpis = x.Prodavnica.Naziv,
+                slika_zaposlenika_postojeca_DB=x.slikaZaposlenikaBajtovi,
+                slika_zaposlenika_postojeca_FS=x.slikaZaposlenikaBajtovi
             }).ToList().OrderByDescending(x=>x.Id).AsQueryable();
 
             return z;

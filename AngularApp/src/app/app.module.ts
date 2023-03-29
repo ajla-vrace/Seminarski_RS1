@@ -46,6 +46,7 @@ import { IzvjestajiComponent } from './izvjestaji/izvjestaji.component';
 import { OcjeneProizvodaComponent } from './ocjene-proizvoda/ocjene-proizvoda.component';
 import { SpecijalnePonudeComponent } from './specijalne-ponude/specijalne-ponude.component';
 import { PretragaComponent } from './pretraga/pretraga.component';
+import { KreiranjeNarudzbeComponent } from './kreiranje-narudzbe/kreiranje-narudzbe.component';
 
 
 
@@ -93,6 +94,7 @@ import { PretragaComponent } from './pretraga/pretraga.component';
    OcjeneProizvodaComponent,
    SpecijalnePonudeComponent,
    PretragaComponent,
+   KreiranjeNarudzbeComponent,
 
 
 
@@ -138,6 +140,7 @@ import { PretragaComponent } from './pretraga/pretraga.component';
       {path:'proizvod-detalji/:id', component:ProizvodDetaljiComponent},
       {path:'zaposlenik-detalji/:id', component:ZaposlenikDetaljiComponent},
       {path:'ocjene-proizvoda/:id', component:OcjeneProizvodaComponent},
+      {path:'kreiranje-narudzbe', component:KreiranjeNarudzbeComponent},
 
   ]),
     FormsModule,

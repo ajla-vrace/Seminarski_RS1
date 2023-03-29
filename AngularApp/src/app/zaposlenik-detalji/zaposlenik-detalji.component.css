@@ -21,6 +21,17 @@
   width:100%;
 }
 
+.btn-ukloniSliku{
+  position: absolute;
+  top:23%;
+  left:0;
+  padding:1%;
+  width:100%;
+  background-color: white;
+  color:red;
+  border:none;
+}
+
 img{
   border:solid;
 }

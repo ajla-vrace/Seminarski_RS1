@@ -13,24 +13,36 @@
   background-color: #95e4ff;*/
 }
 
-img{
+.img-profilna{
   border: groove;
 }
 
-.slika{
-  display: grid;
-  grid-template-columns: auto;
-  width:16%;
+.divslika{
+  width:20%;
   margin:auto;
+}
+.slika{
+  /*display: grid;
+  grid-template-columns: auto;
+  width:20%;
+  margin:auto;*/
+
 }
 
 .dodaj-sliku{
-  border:groove;
-  background-color: #ffdddc;
+  color:blue;
+  border:none;
+  background-color: white;
 }
 
-.dodaj-sliku:hover{
-  background-color: rgba(255,219,218,0.57);
+.ukloni-sliku{
+  color:red;
+  border:none;
+  background-color: white;
+}
+
+.dodaj-sliku:hover, .ukloni-sliku:hover{
+  opacity: 40%;
 }
 
 h4{

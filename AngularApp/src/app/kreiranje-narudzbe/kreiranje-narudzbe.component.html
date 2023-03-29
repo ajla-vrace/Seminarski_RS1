@@ -1,0 +1,28 @@
+<div id="velikiDiv">
+ <div id="naslovNarudzbe"><h2>Kreiranje narudžbe</h2></div>
+  <div class="zaStavke">
+    <div class="stavkeNarudzbe">
+      <button class="krug">1</button>
+      <h6>Pregled narudžbe</h6>
+    </div>
+    <div class="linija"></div>
+    <div class="stavkeNarudzbe">
+      <button class="krug">1</button>
+      <h6>Pregled narudžbe</h6>
+    </div>
+    <div class="linija"></div>
+    <div class="stavkeNarudzbe">
+      <button class="krug">1</button>
+      <h6>Pregled narudžbe</h6>
+    </div>
+  </div>
+
+<div>{{kupac_id}}</div>
+  <div>
+    <div *ngFor="let x of korpaStavkePodaci">
+      <li>id: {{x.id}}</li>
+      <li>proizvodId: {{x.proizvodId}}</li>
+<li>total: {{x.total}}</li>
+    </div>
+  </div>
+</div>

@@ -98,7 +98,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
 
-        /*[HttpGet("Specijalne_ponude_proizvod")]
+        [HttpGet("Specijalne_ponude_proizvod")]
         public IQueryable<SpecijalnePonudeProizvodGetVM> GetSpecijalnePonudeProizvod()
         {
             var data = context.SpecijalnaPonudaProizvod.Select(x => new SpecijalnePonudeProizvodGetVM
@@ -121,7 +121,7 @@ namespace OnlineShop.Modul1.Controllers
             }).ToList().AsQueryable().OrderByDescending(x => x.Id);
             return data;      
         }
-        */
+        
 
         [HttpGet("Popust")]
         public IQueryable<PopustVM> GetPopuste()

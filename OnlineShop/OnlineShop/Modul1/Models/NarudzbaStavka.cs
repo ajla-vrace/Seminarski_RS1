@@ -11,5 +11,8 @@ namespace OnlineShop.Modul1.Models
         [ForeignKey("ProizvodId")]
         public Proizvod Proizvod { get; set; }
         public int? ProizvodId { get; set; }
+        [ForeignKey("NarudzbaId")]
+        public Narudzba Narudzba { get; set; }
+        public int? NarudzbaId { get; set; }
     }
 }

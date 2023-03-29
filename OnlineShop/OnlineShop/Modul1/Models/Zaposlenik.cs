@@ -14,6 +14,7 @@ namespace OnlineShop.Modul1.Models
         [ForeignKey("ProdavnicaId")]
         public Prodavnica Prodavnica { get; set; }
         public int? ProdavnicaId { get; set; }
+        public byte[]? slikaZaposlenikaBajtovi { get; set; }
 
     }
 }

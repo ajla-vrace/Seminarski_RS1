@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.Data;
 
@@ -11,9 +12,11 @@ using OnlineShop.Data;
 namespace OnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230329171340_pocetna")]
+    partial class pocetna
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -295,9 +298,6 @@ namespace OnlineShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Aktivan")
-                        .HasColumnType("bit");
-
                     b.Property<float>("Cijena")
                         .HasColumnType("real");
 
@@ -383,10 +383,6 @@ namespace OnlineShop.Migrations
                     b.Property<int>("Kolicina")
                         .HasColumnType("int");
 
-                    b.Property<int?>("NarudzbaId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
                     b.Property<int?>("ProizvodId")
                         .IsRequired()
                         .HasColumnType("int");
@@ -395,8 +391,6 @@ namespace OnlineShop.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("NarudzbaId");
 
                     b.HasIndex("ProizvodId");
 
@@ -979,19 +973,11 @@ namespace OnlineShop.Migrations
 
             modelBuilder.Entity("OnlineShop.Modul1.Models.NarudzbaStavka", b =>
                 {
-                    b.HasOne("OnlineShop.Modul1.Models.Narudzba", "Narudzba")
-                        .WithMany()
-                        .HasForeignKey("NarudzbaId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("OnlineShop.Modul1.Models.Proizvod", "Proizvod")
                         .WithMany()
                         .HasForeignKey("ProizvodId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Narudzba");
 
                     b.Navigation("Proizvod");
                 });

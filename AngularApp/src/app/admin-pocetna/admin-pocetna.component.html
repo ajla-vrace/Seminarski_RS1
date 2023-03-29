@@ -38,13 +38,13 @@
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
     <div class="carousel-inner">
-      <div class="carousel-item active">
+      <div class="carousel-item active" (click)="getSlikeByProizvodId(proizvod1Id)">
         <img src="assets/slike_odjeca/dzemper2.jpg" class="img-fluid" alt="...">
       </div>
-      <div class="carousel-item">
+      <div class="carousel-item" (click)="getSlikeByProizvodId(proizvod2Id)">
         <img src="assets/slike_odjeca/suknja.jpg" class="img-fluid" alt="...">
       </div>
-      <div class="carousel-item">
+      <div class="carousel-item" (click)="getSlikeByProizvodId(proizvod3Id)">
         <img src="assets/slike_odjeca/dzemper.jpg" class="img-fluid" alt="...">
       </div>
 

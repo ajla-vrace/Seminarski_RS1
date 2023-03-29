@@ -80,6 +80,9 @@ hr{
 
 
 .registracija{
-  width:10%;
+  width:50%;
   margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
