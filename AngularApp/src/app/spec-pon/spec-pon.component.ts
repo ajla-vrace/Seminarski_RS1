@@ -26,9 +26,9 @@ export class SpecPonComponent implements OnInit {
 
   proizvodi:any;
 
-  popust_id:number=2;  //difoltni
-  proizvod_id:number=4; //difoltni
-  specijalna_ponuda_id:number=2; //difoltna
+  popust_id:any;  //difoltni
+  proizvod_id:any; //difoltni
+  specijalna_ponuda_id:any; //difoltna
 
   kliknuoEditSP:boolean=false;
   kliknuoEditSPP:boolean=false;
@@ -49,13 +49,20 @@ export class SpecPonComponent implements OnInit {
       this.admin_id=+s["id"];
 
       this.getPopusti();
+      this.getProizvodPodaci();
       this.getSpecijalnePonude();
       this.getSpecijalnePonudeProizvod();
-      this.getProizvodPodaci();
       this.getSpecijalnePonudeOpadajuci();
       this.getSpecijalnePonudeRastuci();
+      this.kreirajObjekte();
     })
 
+
+
+  }
+
+
+  kreirajObjekte(){
     this.obj_sp={
       id:0,
       naziv:"",
@@ -68,25 +75,27 @@ export class SpecPonComponent implements OnInit {
       opis:""
     };
 
+
     this.obj_spp={
       id:0,
-      specijalnaPonudaId:this.specijalna_ponuda_id,
-      proizvodId:this.proizvod_id,
-      popustId:this.popust_id,
+      specijalnaPonudaId:6,
+      proizvodId:4,
+      popustId:10,
       specijalnaPonudaOpis:"",
       proizvodOpis:"",
-      popustOpis:""
+      popustOpis:"",
+
     };
 
+    console.log("ob_spp: ",this.obj_spp)
   }
-
 
   getProizvodPodaci(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod").subscribe((x:any)=>{
       this.proizvodi=x;
       this.proizvod_id=this.proizvodi[0].id;
       this.duzinaProizvod=this.proizvodi.length;
-      console.log(this.proizvodi);
+      console.log("proizvod id: ",this.proizvod_id);
     })
   }
 
@@ -96,6 +105,7 @@ export class SpecPonComponent implements OnInit {
       this.specijalne_ponude=x;
       this.specijalna_ponuda_id=this.specijalne_ponude[0].id;
       this.duzinaSP=this.specijalne_ponude.length;
+      console.log("specijalna ponuda id: ",this.specijalna_ponuda_id);
     })
   }
 
@@ -118,6 +128,7 @@ export class SpecPonComponent implements OnInit {
       .subscribe((x:any)=>{
         this.specijalne_ponude_proizvodi=x;
         this.duzinaSPP=this.specijalne_ponude_proizvodi.length;
+        console.log(this.specijalne_ponude_proizvodi);
       })
   }
 
@@ -127,7 +138,7 @@ export class SpecPonComponent implements OnInit {
         this.popusti=x;
         this.popust_id=this.popusti[0].id;
         this.duzinaPopust=this.popusti.length;
-        console.log(this.popusti[this.duzinaPopust-1].id);
+        console.log("popust id: ",this.popust_id);
       })
   }
 
@@ -149,7 +160,8 @@ export class SpecPonComponent implements OnInit {
           popustId:this.popust_id,
           specijalnaPonudaOpis:"",
           proizvodOpis:"",
-          popustOpis:""
+          popustOpis:"",
+
         };
 
         this.kliknuoEditSPP=false;
@@ -224,7 +236,8 @@ export class SpecPonComponent implements OnInit {
       this.httpKlijent.delete(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/del_sp?id="
       +sp.id)
         .subscribe((x:any)=>{
-          this.getSpecijalnePonude();
+          this.getSpecijalnePonudeOpadajuci();
+          console.log(this.getSpecijalnePonudeOpadajuci())
         })
     }
   }

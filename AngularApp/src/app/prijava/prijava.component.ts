@@ -44,18 +44,18 @@ export class PrijavaComponent implements OnInit {
 
           if(x.autentifikacijaToken.korisnickiNalog.isAdmin==true){
             AutentifikacijaHelper.setLoginInfo(x)
-            //this.router.navigate(['/admin-pocetna',x.autentifikacijaToken.korisnickiNalog.id]);
-            this.router.navigate(['navbar-admin',x.autentifikacijaToken.korisnickiNalog.id])
+            this.router.navigate(['/admin-pocetna',x.autentifikacijaToken.korisnickiNalog.id]);
+           // this.router.navigate(['navbar-admin',x.autentifikacijaToken.korisnickiNalog.id])
           }
           else if(x.autentifikacijaToken.korisnickiNalog.isKupac==true){
             AutentifikacijaHelper.setLoginInfo(x)
-            this.router.navigate(['nav-kupac',x.autentifikacijaToken.korisnickiNalog.id]);
-            //this.router.navigate(['kupac-pocetna',x.autentifikacijaToken.korisnickiNalog.id]);
+            //this.router.navigate(['nav-kupac',x.autentifikacijaToken.korisnickiNalog.id]);
+            this.router.navigate(['kupac-pocetna',x.autentifikacijaToken.korisnickiNalog.id]);
           }
           else if(x.autentifikacijaToken.korisnickiNalog.isZaposlenik==true){
             AutentifikacijaHelper.setLoginInfo(x)
-           // this.router.navigate(["/zaposlenik-pocetna"]);
-            this.router.navigate(['navbar-zaposlenik',x.autentifikacijaToken.korisnickiNalog.id])
+            this.router.navigate(["/zaposlenik-pocetna",x.autentifikacijaToken.korisnickiNalog.id]);
+            //this.router.navigate(['navbar-zaposlenik',x.autentifikacijaToken.korisnickiNalog.id])
           }
           else{
             AutentifikacijaHelper.setLoginInfo(x)

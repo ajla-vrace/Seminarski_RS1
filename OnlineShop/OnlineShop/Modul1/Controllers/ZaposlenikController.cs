@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using OnlineShop.Data;
 using OnlineShop.Helper;
 using OnlineShop.Modul0_Autentifikacija.Models;
@@ -39,10 +40,10 @@ namespace OnlineShop.Modul1.Controllers
             public int? SpolId { get; set; }
             public string spolOpis { get; set; }
 
-            public DateTime DatumZaposlenja { get; set; }
+            public string DatumZaposlenja { get; set; }
             public DateTime? DatumOtkaza { get; set; }
             public string AdresaStanovanja { get; set; }
-            public DateTime DatumRodjenja { get; set; }
+            public string? DatumRodjenja { get; set; }
             public string jmbg { get; set; }
         
             public string prodavnicaOpis { get; set; }
@@ -54,6 +55,40 @@ namespace OnlineShop.Modul1.Controllers
             public byte[]? slika_zaposlenika_postojeca_FS { get; set; }  //za get-anje
 
         }
+
+
+        public class ZaposlenikVMSnimi
+        {
+
+            public int Id { get; set; }
+            public string Ime { get; set; }
+            public string Prezime { get; set; }
+            public string Username { get; set; }
+
+            public string Lozinka { get; set; }
+            public string Email { get; set; }
+            public string? BrojTelefona { get; set; }
+            public string DatumRegistracije { get; set; }
+
+            public int? SpolId { get; set; }
+            public string spolOpis { get; set; }
+
+            public DateTime DatumZaposlenja { get; set; }
+            public DateTime? DatumOtkaza { get; set; }
+            public string AdresaStanovanja { get; set; }
+            public DateTime DatumRodjenja { get; set; }
+            public string jmbg { get; set; }
+
+            public string prodavnicaOpis { get; set; }
+            public int? ProdavnicaId { get; set; }
+
+            public string? slika_zaposlenika_nova_base64 { get; set; }  //za post-anje
+
+            public byte[]? slika_zaposlenika_postojeca_DB { get; set; }  //za get-anje
+            public byte[]? slika_zaposlenika_postojeca_FS { get; set; }  //za get-anje
+
+        }
+
 
         public class SlikaZaposlenika
         {
@@ -167,13 +202,13 @@ namespace OnlineShop.Modul1.Controllers
                     Lozinka = x.Lozinka,
                     Email = x.Email,
                     BrojTelefona = x.BrojTelefona,
-                    DatumRegistracije = x.DatumRegistracije.ToShortDateString(),
+                    DatumRegistracije = x.DatumRegistracije.ToString("yyyy-MM-dd"),
                     SpolId = x.SpolId,
                     spolOpis = x.Spol.Naziv,
-                    DatumZaposlenja = x.DatumZaposlenja,
+                    DatumZaposlenja = x.DatumZaposlenja.ToString("yyyy-MM-dd"),
                     DatumOtkaza = x.DatumOtkaza,
                     AdresaStanovanja = x.AdresaStanovanja,
-                    DatumRodjenja = x.DatumRodjenja,
+                    DatumRodjenja = x.DatumRodjenja.ToString("yyyy-MM-dd"),
                     jmbg = x.JMBG,
                     ProdavnicaId = x.ProdavnicaId,
                     prodavnicaOpis = x.Prodavnica.Naziv,
@@ -195,12 +230,12 @@ namespace OnlineShop.Modul1.Controllers
                     Lozinka = "-",
                     Email = "-",
                     BrojTelefona = "-",
-                    DatumRegistracije = DateTime.Now.ToString(),
+                    DatumRegistracije = DateTime.Now.ToString("yyyy-MM-dd"),
                     SpolId = 1,
-                    DatumZaposlenja = DateTime.Now,
+                    DatumZaposlenja = DateTime.Now.ToString("yyyy-MM-dd"),
                     DatumOtkaza = DateTime.Now,
                     AdresaStanovanja = "-",
-                    DatumRodjenja = DateTime.Now,
+                    DatumRodjenja = DateTime.Now.ToString("yyyy-MM-dd"),
                     jmbg = "-",
                     ProdavnicaId = 1,
                     spolOpis = "-",
@@ -249,13 +284,13 @@ namespace OnlineShop.Modul1.Controllers
                 Lozinka = x.Lozinka,
                 Email = x.Email,
                 BrojTelefona = x.BrojTelefona,
-                DatumRegistracije = x.DatumRegistracije.ToShortDateString(),
+                DatumRegistracije = x.DatumRegistracije.ToString("yyyy-MM-dd"),
                 SpolId = x.SpolId,
                 spolOpis = x.Spol.Naziv,
-                DatumZaposlenja = x.DatumZaposlenja,
+                DatumZaposlenja = x.DatumZaposlenja.ToString("yyyy-MM-dd"),
                 DatumOtkaza = x.DatumOtkaza,
                 AdresaStanovanja = x.AdresaStanovanja,
-                DatumRodjenja = x.DatumRodjenja,
+                DatumRodjenja = x.DatumRodjenja.ToString("yyyy-MM-dd"),
                 jmbg = x.JMBG,
                 ProdavnicaId = x.ProdavnicaId,
                 prodavnicaOpis = x.Prodavnica.Naziv,
@@ -268,7 +303,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpPost]   
-        public ActionResult Snimi(ZaposlenikVM x)
+        public ActionResult Snimi(ZaposlenikVMSnimi x)
         {
             Zaposlenik? k;
            

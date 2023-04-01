@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-skladiste',
@@ -10,7 +11,9 @@ import {MojConfig} from "../moj-config";
 })
 export class SkladisteComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private httpKlijent:HttpClient) { }
+  constructor(private route: ActivatedRoute, private httpKlijent:HttpClient, private datePipe:DatePipe) { }
+
+
 
   zaposlenik_id:any;
   kolicinaF: number=0;
@@ -50,6 +53,7 @@ export class SkladisteComponent implements OnInit {
       .subscribe((x:any)=>{
         this.k_p_opadajuci=x;
         console.log(this.k_p_opadajuci);
+       // this.k_p_opadajuci.datum_modifikacije=this.datePipe.transform(this.k_p_opadajuci.datum_modifikacije,"yyyy-MM-dd");
       })
   }
 

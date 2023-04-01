@@ -49,9 +49,10 @@
         <td>{{z.datumRegistracije}}</td>
         <td>{{z.spolOpis}}</td>
         <td><img src="{{get_slika_base64_FS(z)}}" style="display:block;max-width: 100%; height: 70px"></td>
-        <td><button class="btn-detalji" (click)="vidiDetaljeZaposlenika(z.id)">Vidi detalje</button></td>
+    <!--    <td><button class="btn-promijeniLozinku" (click)="promijeniLozinku(z)">Promijeni lozinku</button></td>  -->
         <td><button class="btn-edit" (click)="urediZaposlenika(z)">Uredi</button> </td>
         <td><button class="btn-delete" (click)="obrisiZaposlenika(z)">Obriši</button> </td>
+        <td><button class="btn-detalji" (click)="vidiDetaljeZaposlenika(z.id)">Detalji</button></td>
       </tr>
 
       </tbody>
@@ -97,7 +98,7 @@
           <label class="form-label">JMBG</label>
           <input class="form-control" placeholder="jmbg"
                  required pattern="^\d{13}$"
-                 #jmbg="ngModel" [disabled]="jel_edit"
+                 #jmbg="ngModel"
                  [(ngModel)]="zaposlenik_obj.jmbg" />
 
           <span class="help-block" *ngIf="(jmbg.invalid && jmbg.touched) || (postojiJMBG(jmbg.value) && jel_edit==false)">
@@ -108,7 +109,7 @@
 
         <div class="mb-3" [class.has-error]="dtmRod.invalid && dtmRod.touched">
           <label class="form-label">Datum rođenja</label>
-          <input type="date" class="form-control" placeholder="datum rođenja"
+          <input type="date" class="form-control"
                  required #dtmRod="ngModel" [(ngModel)]="zaposlenik_obj.datumRodjenja"/>
 
           <span class="help-block" *ngIf="dtmRod.invalid && dtmRod.touched">
@@ -116,6 +117,7 @@
           </span>
 
         </div>
+
 
         <div class="mb-3" [class.has-error]="adresa.invalid && adresa.touched">
           <label class="form-label">Adresa stanovanja</label>
@@ -136,15 +138,16 @@
           </select>
         </div>
 
-        <div class="mb-3" [class.has-error]="tel.invalid && tel.touched">
+        <div class="mb-3" [class.has-error]="(tel.invalid && tel.touched) || postojiTel(tel.value)">
           <label class="form-label">Broj telefona</label>
-          <input class="form-control" placeholder="062/333-333"
-                 #tel="ngModel" [disabled]="jel_edit"
-                 required pattern="^[0-9]{3}(\/|-|\s)[0-9]{3}(-|\s)[0-9]{3}$"
+          <input class="form-control" placeholder="062333333"
+                 #tel="ngModel" required pattern="^[0-9]{9}$"
                  [(ngModel)]="zaposlenik_obj.brojTelefona"/>
 
-          <span class="help-block" *ngIf="tel.invalid && tel.touched">
-             Niste unijeli ispravan format.
+          <!--    required pattern="^[0-9]{3}(\/|-|\s)[0-9]{3}(-|\s)[0-9]{3}$"-->
+
+          <span class="help-block" *ngIf="(tel.invalid && tel.touched) || postojiTel(tel.value)">
+             Unesite unikatnu vrijednost u ispravnom formatu (062xxxxxx).
           </span>
 
         </div>
@@ -153,7 +156,7 @@
           <label class="form-label">Email</label>
           <input class="form-control" placeholder="adil@gmail.com"
                  required pattern="^[a-z]{1,15}\.?[a-z]*?[0-9]*?@gmail.com$"
-                 #email="ngModel" [disabled]="jel_edit"
+                 #email="ngModel"
                  [(ngModel)]="zaposlenik_obj.email" />
 
           <span class="help-block" *ngIf="(email.invalid && email.touched) || (postojiMail(email.value) && jel_edit==false)">
@@ -192,7 +195,7 @@
 
         <div class="mb-3" [class.has-error]="(korIme.invalid && korIme.touched) && (postojiKorIme(korIme.value) && jel_edit==false)">
           <label class="form-label">Korisničko ime</label>
-          <input class="form-control" placeholder="korisničko ime"
+          <input class="form-control" placeholder="korisničko ime" [value]="jel_edit? zaposlenik_obj.username : ''"
                  #korIme="ngModel" required pattern="^[a-zA-Z]{3}[a-zA-Z]{0,}$"
                  [(ngModel)]="zaposlenik_obj.username" [disabled]="jel_edit"/>
 
@@ -205,8 +208,8 @@
         <div class="mb-3" [class.has-error]="loz.invalid && loz.touched">
           <label class="form-label">Lozinka</label>
           <input type="password" class="form-control" placeholder="lozinka"
-                 required pattern="^[a-zA-Z\d\s+*!#$%&()=?-_{}@><^ˇ]{3,}$"
-                 #loz="ngModel" [(ngModel)]="zaposlenik_obj.lozinka" />
+                 required pattern="^[a-zA-Z\d\s+*!#$%&()=?-_{}@><^ˇ]{3,}$" [disabled]="jel_edit"
+                 #loz="ngModel" [(ngModel)]="zaposlenik_obj.lozinka"/>
 
           <span class="help-block" *ngIf="(loz.invalid && loz.touched)">
              Ovo polje je obavezno
@@ -214,13 +217,13 @@
 
         </div>
 
-        <div class="mb-3" [class.has-error]="ponovo_loz!==zaposlenik_obj.lozinka && lozPonovo.touched && lozPonovo.invalid">
+        <div class="mb-3" [class.has-error]="ponovo_loz!==zaposlenik_obj.lozinka && lozPonovo.touched && lozPonovo.invalid && jel_edit==false">
           <label class="form-label">Ponovi lozinku</label>
-          <input type="password" class="form-control"
+          <input type="password" class="form-control" [disabled]="jel_edit"
                  required #lozPonovo="ngModel" [(ngModel)]="ponovo_loz"
                  placeholder="lozinka" />
 
-          <span class="help-block" *ngIf="ponovo_loz!==zaposlenik_obj.lozinka">
+          <span class="help-block" *ngIf="ponovo_loz!==zaposlenik_obj.lozinka && jel_edit==false">
              Ovo polje je obavezno i mora imati istu vrijednost kao prethodno.
           </span>
 
@@ -230,9 +233,91 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary"
-                [disabled]="!jelDozvoljenSave(ime,prezime,jmbg,dtmRod,adresa,email,dtmZaposl,korIme,loz,lozPonovo)"
+                [disabled]="!jelDozvoljenSave(ime,prezime,jmbg,dtmRod,adresa,email,tel,dtmZaposl,korIme,loz,lozPonovo)"
                 (click)="snimiDugme()" >Snimi</button>
       </div>
     </div>
   </div>
 </div>
+
+
+<!--
+
+<div *ngIf="jel_edit==true" class="modal fade show" id="exampleModalLive1" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel1">{{naslov}}</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="zaposlenik_obj=null; jel_edit=false; getZaposlenike();"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3" [class.has-error]="ime.invalid && ime.touched">
+          <label class="form-label">Ime</label>
+          <input class="form-control" required pattern="^[A-Z][a-zA-Z]*(\s|-)?[a-zA-Z]*$"
+                 #ime="ngModel" placeholder="Ime" [(ngModel)]="zaposlenik_obj.ime" >
+
+          <span class="help-block" *ngIf="ime.invalid && ime.touched">
+            Ovo polje je obavezno i mora imati najmanje 3 karaktera (ne uključujući brojeve). Prvo slovo veliko.
+          </span>
+
+        </div>
+
+        <div class="mb-3" [class.has-error]="prezime.invalid && prezime.touched">
+          <label class="form-label">Prezime</label>
+          <input class="form-control" placeholder="Prezime"
+                 required pattern="^[A-Z][a-zA-Z]*(\s|-)?[a-zA-Z]*$"
+                 #prezime="ngModel"
+                 [(ngModel)]="zaposlenik_obj.prezime" />
+
+          <span class="help-block" *ngIf="prezime.invalid && prezime.touched">
+             Ovo polje je obavezno i mora imati najmanje 3 karaktera (ne uključujući brojeve). Prvo slovo veliko.
+          </span>
+        </div>
+
+        <hr>
+
+
+        <div class="mb-3" [class.has-error]="adresa.invalid && adresa.touched">
+          <label class="form-label">Adresa stanovanja</label>
+          <input class="form-control" placeholder="adresa stanovanja"
+                 required pattern="^[A-Za-z\s\d]*$"
+                 #adresa="ngModel" [(ngModel)]="zaposlenik_obj.adresaStanovanja" />
+
+          <span class="help-block" *ngIf="adresa.invalid && adresa.touched">
+             Ovo polje je obavezno. Mora započinjati velikim slovom.
+          </span>
+
+        </div>
+
+
+        <div class="mb-3">
+          <label class="form-label">Spol</label>
+          <select class="form-control" [(ngModel)]="zaposlenik_obj.spolId">
+            <option *ngFor="let o of spolovi" [value]="o.id" > {{o.naziv}} </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Radi u</label>
+          <select class="form-control" [(ngModel)]="zaposlenik_obj.prodavnicaId">
+            <option *ngFor="let o of prodavnice" [value]="o.id" > {{o.naziv}} </option>
+          </select>
+        </div>
+
+        <hr>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"
+                [disabled]="!jelDozvoljenSaveEdit(ime,prezime,adresa)"
+                (click)="snimiDugme()" >Snimi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+-->

@@ -1,11 +1,16 @@
 nav{
   background-color: white;
+  padding: 0%;
 }
 
 #navbarNavDropdown{
   text-align: end;
   display: flex;
   justify-content: end;
+  background-color: white;
+}
+
+.container-fluid{
   background-color: white;
 }
 

@@ -30,7 +30,7 @@ namespace OnlineShop.Modul1.Controllers
             public int? specijalnaPonudaId { get; set; }
             public string specijalnaPonudaOpis { get; set; }        
             public int? proizvodId { get; set; }
-            public Proizvod? Proizvod { get; set; }
+          //  public Proizvod? Proizvod { get; set; }
             public string proizvodOpis { get; set; }
             public int? popustId { get; set; }
             public string popustOpis { get; set; }

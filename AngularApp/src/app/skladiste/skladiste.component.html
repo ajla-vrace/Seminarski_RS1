@@ -130,7 +130,7 @@
       <td>{{p.prodavnicaOpis}}</td>
       <td>
         <button class="btn-edit" (click)="btnEditSkladiste(p)">Uredi</button>
-        <button class="btn-delete" (click)="btnDeleteSkladiste(p)">Obriši</button>
+      <!--  <button class="btn-delete" (click)="btnDeleteSkladiste(p)">Obriši</button> -->
       </td>
 
     </tr>
@@ -170,7 +170,8 @@
       <td>{{p.gradOpis}}</td>
       <td>
         <button class="btn-edit" (click)="editProdavnicu(p)">Uredi</button>
-        <button class="btn-delete" (click)="deleteProdavnicu(p)">Obriši</button>
+   <!--     <button class="btn-delete" (click)="deleteProdavnicu(p)">Obriši</button> -->
+   <!--necemo brisati prodavnicu jer ako je obrisemo, onda moramo obrisati i zaposlenika koji radi u njoj-->
       </td>
 
     </tr>

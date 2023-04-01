@@ -48,7 +48,7 @@ import { SpecijalnePonudeComponent } from './specijalne-ponude/specijalne-ponude
 import { PretragaComponent } from './pretraga/pretraga.component';
 import { KreiranjeNarudzbeComponent } from './kreiranje-narudzbe/kreiranje-narudzbe.component';
 
-
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -101,6 +101,13 @@ import { KreiranjeNarudzbeComponent } from './kreiranje-narudzbe/kreiranje-narud
   ],
   imports: [
     BrowserModule,
+
+
+
+
+
+
+
     RouterModule.forRoot([
       {path: 'pocetna', component: PocetnaComponent},
       {path: 'faq', component: FaqComponent},
@@ -146,9 +153,12 @@ import { KreiranjeNarudzbeComponent } from './kreiranje-narudzbe/kreiranje-narud
     FormsModule,
     HttpClientModule,
     NgxPaginationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
   ],
-  providers: [],
+  providers: [
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 nav{
   background-color: white;
+  padding: 0%;
 }
 /*
 #navbarNavDropdown{
@@ -20,11 +21,14 @@ nav{
   background-color: white;
 }
 
+.container-fluid{
+  background-color: white;
+}
+
 .navbar-nav{
   margin-left:20%;
   padding:1%;
 }
-
 
 a{
   color:black;

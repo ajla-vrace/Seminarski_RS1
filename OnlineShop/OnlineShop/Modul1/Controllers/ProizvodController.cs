@@ -348,7 +348,10 @@ namespace OnlineShop.Modul1.Controllers
                 });
             }
 
-            return proizvodi_kolicine.OrderBy(x => x.Kolicina).Take(5);
+            var minKol=proizvodi_kolicine.OrderBy(x => x.Kolicina).Select(x=>x.Kolicina).ToList()[0];
+
+            //proizvodi sa najmanjom kolicinom (istom)
+            return proizvodi_kolicine.Where(x=>x.Kolicina==minKol).OrderBy(x => x.Kolicina);
         }
 
         public class ProizvodDatum

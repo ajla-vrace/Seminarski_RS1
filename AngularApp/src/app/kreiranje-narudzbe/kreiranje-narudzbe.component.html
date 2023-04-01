@@ -1,28 +1,97 @@
 <div id="velikiDiv">
  <div id="naslovNarudzbe"><h2>Kreiranje narudžbe</h2></div>
   <div class="zaStavke">
-    <div class="stavkeNarudzbe">
-      <button class="krug">1</button>
+    <div class="stavkeNarudzbe1" *ngIf="pregledNarudzbe==false;">
+      <button class="krug1" disabled>1</button>
       <h6>Pregled narudžbe</h6>
     </div>
-    <div class="linija"></div>
-    <div class="stavkeNarudzbe">
-      <button class="krug">1</button>
+    <div class="stavkeNarudzbe" *ngIf="pregledNarudzbe==true;">
+      <button class="krug" disabled>1</button>
       <h6>Pregled narudžbe</h6>
     </div>
-    <div class="linija"></div>
-    <div class="stavkeNarudzbe">
-      <button class="krug">1</button>
-      <h6>Pregled narudžbe</h6>
+
+    <div class="stavkeNarudzbe1" *ngIf="odabirProdavnice==false && pregledNarudzbe==false;">
+      <button class="krug1" disabled>2</button>
+      <h6>Odabir prodavnice</h6>
     </div>
+    <div class="stavkeNarudzbe" *ngIf="odabirProdavnice==true && pregledNarudzbe==false;">
+      <button class="krug" disabled>2</button>
+      <h6>Odabir prodavnice</h6>
+    </div>
+    <div class="stavkeNarudzbe" *ngIf="odabirProdavnice==false && pregledNarudzbe==true;">
+      <button class="krug" disabled>2</button>
+      <h6>Odabir prodavnice</h6>
+    </div>
+
+    <div class="stavkeNarudzbe">
+      <button class="krug" disabled>3</button>
+      <h6>Zaključivanje narudžbe</h6>
+    </div>
+
   </div>
 
-<div>{{kupac_id}}</div>
-  <div>
+<div>kupac id:{{kupac_id}}</div>
+  <div *ngIf="pregledNarudzbe==true; ">
+    <h1>Stavke narudzbe(prikazuju se stavke korpe)</h1>
     <div *ngFor="let x of korpaStavkePodaci">
       <li>id: {{x.id}}</li>
       <li>proizvodId: {{x.proizvodId}}</li>
+      <li>cijena: {{x.cijena}}</li>
+      <li>kolicina: {{x.kolicina}}</li>
 <li>total: {{x.total}}</li>
     </div>
+    <hr>
+    <button class="dugmeDalje1" (click)="pregledNarudzbe=false; odabirProdavnice=true;">Dalje</button>
   </div>
+
+  <div *ngIf="odabirProdavnice==true;" >
+    <h5>Odaberi prodavnicu u kojoj želite preuzeti narudžbu:</h5>
+    <div style="width: 20%;">
+      <select class="form-control" >
+        <option *ngFor="let x of prodavnicePodaci" [value]="x.id">
+        {{x.naziv}}
+      </option>
+      </select>
+      <!--<mat-form-field appearance="fill">
+        <mat-label>Odaberi prodavnicu: </mat-label>
+        <mat-select>
+          <mat-option *ngFor="let x of prodavnicePodaci" value="x.id">
+            {{x.naziv}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>-->
+    </div>
+<hr>
+<div class="dugmadZaKretanje">
+  <button class="dugmeNazad" (click)="pregledNarudzbe=true;odabirProdavnice=false;">Nazad</button>
+  <button class="dugmeDalje" (click)="odabirProdavnice=false; zakljucivanjeNarudzbe=true;">Dalje</button>
 </div>
+
+  </div>
+
+
+  <div *ngIf="zakljucivanjeNarudzbe==true;">
+    <h1>Zakljucivanje narudzbe</h1>
+    <div *ngFor="let x of korpaStavkePodaci">
+      <li>id: {{x.id}}</li>
+      <li>proizvodId: {{x.proizvodId}}</li>
+      <li>cijena: {{x.cijena}}</li>
+      <li>kolicina: {{x.kolicina}}</li>
+      <li>total: {{x.total}}</li>
+    </div>
+    <div id="prod">
+      <h5>Odabrana prodavnica je: </h5>
+      <h5>Ukupno proizvoda: </h5>
+      <h5>Ukupna cijena: </h5>
+    </div>
+    <hr>
+    <div class="dugmadZaKretanje">
+      <button class="dugmeNazad" (click)="odabirProdavnice=true;zakljucivanjeNarudzbe=false;">Nazad</button>
+      <button class="dugmeDalje" (click)="SveOkoNarudzbe()" >Dalje</button>
+    </div>
+
+  </div>
+
+</div>
+
+

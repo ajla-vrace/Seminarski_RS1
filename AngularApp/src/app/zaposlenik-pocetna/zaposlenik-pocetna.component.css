@@ -20,7 +20,7 @@ h3, h5{
 
 div#carouselExampleIndicators,#carouselExampleIndicators1 {
   /*background-color: #28a745;*/
-  width:70%;
+  width:90%;
   margin: 0 auto 0 auto;
   text-align: center;
   border:groove;
@@ -54,7 +54,7 @@ span.carousel-control-next-icon, span.carousel-control-prev-icon{
 
 .poruka-narudzbe{
   background-color: rgba(237,163,205,0.45);
-  width:70%;
+  width:90%;
   padding: 2%;
   border-radius: 20px;
   margin:3% auto 3% auto;
@@ -63,7 +63,7 @@ span.carousel-control-next-icon, span.carousel-control-prev-icon{
 
 .poruka-posljednjeDodaniProizvodi{
   background-color: lightgrey;
-  width:70%;
+  width:90%;
   padding: 0.5%;
   border-radius: 10px;
   margin:0 auto 0 auto;
@@ -72,7 +72,7 @@ span.carousel-control-next-icon, span.carousel-control-prev-icon{
 
 .poruka-proizvodiNajmanjaKolicina{
   background-color: lightgrey;
-  width:70%;
+  width:90%;
   padding: 0.5%;
   border-radius: 10px;
   margin:0 auto 0 auto;
@@ -80,6 +80,6 @@ span.carousel-control-next-icon, span.carousel-control-prev-icon{
 }
 
 hr{
-  width:70%;
+  width:90%;
   margin: 0 auto 1% auto;
 }

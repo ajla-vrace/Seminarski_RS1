@@ -212,9 +212,24 @@ namespace OnlineShop.Modul1.Controllers
             _dbContext.SaveChanges();
             return Ok(korpaStavka);
         }
-        
+
+        [HttpPost("{idKorpe}")]
+        public ActionResult DeleteSveIzKorpe(int idKorpe)
+        {
+            Korpa korpa = _dbContext.Korpa.Find(idKorpe);
+            if (korpa != null)
+            {
+                List<KorpaStavka> korpaStavka = _dbContext.KorpaStavka.
+                Where(s => s.KorpaId == idKorpe).ToList();
+                for (int i = 0; i < korpaStavka.Count; i++)
+                {
+                    _dbContext.Remove(korpaStavka[i]);
+                }
+            }
+            _dbContext.SaveChanges();
+            return Ok(korpa);
+        }
 
 
-    
-}
+    }
 }

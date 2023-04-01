@@ -11,5 +11,6 @@ namespace OnlineShop.Modul1.ViewModels
         public float Total { get; set; }
         //public Proizvod Proizvod { get; set; }
         public int? ProizvodId { get; set; }
+        public int? NarudzbaId { get; set; }
     }
 }

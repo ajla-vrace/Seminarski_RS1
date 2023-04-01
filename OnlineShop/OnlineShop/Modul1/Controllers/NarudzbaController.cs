@@ -16,7 +16,7 @@ namespace OnlineShop.Modul1.Controllers
             this._dbContext = dbContext;
         }
         [HttpPost]
-        public ActionResult Add([FromBody] Narudzba x)
+        public ActionResult Add([FromBody] NarudzbaVM x)
         {
             Narudzba? objekat;
             
@@ -34,12 +34,12 @@ namespace OnlineShop.Modul1.Controllers
                 objekat.Status = x.Status;
             }
             objekat.KupacId = x.KupacId;
-            objekat.ZaposlenikId=x.ZaposlenikId;
             objekat.DatumKreiranja = DateTime.Now;
-            objekat.DatumPreuzimanja = x.DatumPreuzimanja;
-            objekat.Ukupno = x.Ukupno;
-            objekat.UkupnoProizvoda = x.UkupnoProizvoda;
-            
+            objekat.ProdavnicaId = x.ProdavnicaId;
+            /*objekat.DatumPreuzimanja = (DateTime)x.DatumPreuzimanja;*/
+            objekat.Ukupno = (float)x.Ukupno;
+            objekat.UkupnoProizvoda = (int)x.UkupnoProizvoda;
+            objekat.Evidentirao = x.Evidentirao;
             _dbContext.SaveChanges();
             return Ok(objekat);
         }
@@ -63,14 +63,14 @@ namespace OnlineShop.Modul1.Controllers
                 .Select(s => new
                 {
                     Id = s.Id,
-                    ZaposlenikId=s.ZaposlenikId,
-                    ZeposlenikIme=s.Zaposlenik.Ime,
                     KupacId = s.KupacId,
                     Kupac = s.Kupac.Username,
+                    Prodavnica=s.Prodavnica.Naziv,
                     DatumKreiranja = s.DatumKreiranja,
                     DatumPreuzimanja = s.DatumPreuzimanja,
                     Total = totalSvega,
                     UkupnoProizvoda = brojProizvoda,
+                    Evidentirao=s.Evidentirao,
 
                 })
                 .AsQueryable();

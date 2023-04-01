@@ -84,11 +84,29 @@ namespace OnlineShop.Modul1.Controllers
             Kolekcija? s_copy = s;
 
             List<Proizvod> proizvodi = context.Proizvod.Where(x => x.kolekcijaId == id).ToList();
+           
 
             if (proizvodi.Count() > 0)
             {
                 foreach (var p in proizvodi)
                 {
+
+                    var skladisteProizvodi = context.SkladisteProizvod.Where(x => x.proizvodId == p.Id).ToList();
+
+                    foreach (var sp in skladisteProizvodi)
+                    {
+                        context.Remove(sp);
+                        context.SaveChanges();
+                    }
+
+                    var specijalnaPonudaProizvodi = context.SpecijalnaPonudaProizvod.Where(x => x.proizvodId == p.Id).ToList();
+
+                    foreach (var spp in specijalnaPonudaProizvodi)
+                    {
+                        context.Remove(spp);
+                        context.SaveChanges();
+                    }
+
 
                     context.Remove(p);
                     context.SaveChanges();

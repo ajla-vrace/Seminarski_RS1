@@ -19,10 +19,18 @@ namespace OnlineShop.Modul1.Controllers
         public ActionResult Add([FromBody] NarudzbaStavkaVM x)
         {
             NarudzbaStavka objekat;
+            if (x.Id == 0)
+            {
+                objekat = new NarudzbaStavka();
+                _dbContext.Add(objekat);
+            }
+            else
+            {
+                objekat = _dbContext.NarudzbaStavka.Find(x.Id);
+            }
+
+
             
-            objekat = new NarudzbaStavka();
-            // objekat.Id = x.Id;
-            _dbContext.Add(objekat);
             Proizvod p = _dbContext.Proizvod.Find(x.ProizvodId);
             
             objekat.Kolicina = x.Kolicina;
@@ -34,6 +42,7 @@ namespace OnlineShop.Modul1.Controllers
             }
             
             objekat.Total = x.Total;
+            objekat.NarudzbaId = x.NarudzbaId;
             var proizvod = _dbContext.Proizvod.Find(x.ProizvodId);
             float samoCijena;
             if (proizvod != null)
@@ -58,6 +67,7 @@ namespace OnlineShop.Modul1.Controllers
                     Total = s.Total,
                     // Total = s.Proizvod.Cijena*s.Kolicina,
                     ProizvodId = s.ProizvodId,
+                    NarudzbaId=s.NarudzbaId,
                     ProizvodIme = s.Proizvod.Naziv,
                 })
                 .AsQueryable();

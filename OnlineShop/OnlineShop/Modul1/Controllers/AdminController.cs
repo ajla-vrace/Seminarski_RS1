@@ -106,7 +106,7 @@ namespace OnlineShop.Modul1.Controllers
                 lozinka = a.Lozinka,
                 spolId = a.SpolId,
                 spolOpis = a.Spol.Naziv,
-                datumRegistracije = a.DatumRegistracije.ToShortDateString()
+                datumRegistracije = a.DatumRegistracije.ToString("dd/MM/yyyy")
             }).ToList().AsQueryable();
 
             return data;

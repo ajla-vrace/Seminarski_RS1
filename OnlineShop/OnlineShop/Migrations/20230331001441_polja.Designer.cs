@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.Data;
 
@@ -11,9 +12,11 @@ using OnlineShop.Data;
 namespace OnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230331001441_polja")]
+    partial class polja
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -342,14 +345,7 @@ namespace OnlineShop.Migrations
                     b.Property<DateTime?>("DatumPreuzimanja")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Evidentirao")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("KupacId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProdavnicaId")
                         .IsRequired()
                         .HasColumnType("int");
 
@@ -363,11 +359,15 @@ namespace OnlineShop.Migrations
                     b.Property<int?>("UkupnoProizvoda")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ZaposlenikId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("KupacId");
 
-                    b.HasIndex("ProdavnicaId");
+                    b.HasIndex("ZaposlenikId");
 
                     b.ToTable("Narudzba");
                 });
@@ -969,15 +969,15 @@ namespace OnlineShop.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("OnlineShop.Modul1.Models.Prodavnica", "Prodavnica")
+                    b.HasOne("OnlineShop.Modul1.Models.Zaposlenik", "Zaposlenik")
                         .WithMany()
-                        .HasForeignKey("ProdavnicaId")
+                        .HasForeignKey("ZaposlenikId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Kupac");
 
-                    b.Navigation("Prodavnica");
+                    b.Navigation("Zaposlenik");
                 });
 
             modelBuilder.Entity("OnlineShop.Modul1.Models.NarudzbaStavka", b =>
