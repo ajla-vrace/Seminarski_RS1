@@ -1,4 +1,5 @@
-<div id="velikiDiv">
+<app-nav-kupac></app-nav-kupac>
+<div id="velikiDiv" *ngIf="kreiranaNarudzba==false;">
  <div id="naslovNarudzbe"><h2>Kreiranje narudžbe</h2></div>
   <div class="zaStavke">
     <div class="stavkeNarudzbe1" *ngIf="pregledNarudzbe==false;">
@@ -47,6 +48,7 @@
   <div *ngIf="odabirProdavnice==true;" >
     <h5>Odaberi prodavnicu u kojoj želite preuzeti narudžbu:</h5>
     <div style="width: 20%;">
+      <br>
       <select class="form-control" >
         <option *ngFor="let x of prodavnicePodaci" [value]="x.id">
         {{x.naziv}}
@@ -94,4 +96,8 @@
 
 </div>
 
-
+<div *ngIf="kreiranaNarudzba==true;" id="uspjesnoKreiranaNarudzba">
+  <img src="assets/slike/plavaTacnica.png" id="slikaPlavaTacnica">
+  <h1>Narudžba je uspješno kreirana!</h1>
+  <h6 style="cursor: pointer;">Provjeri status</h6>
+</div>

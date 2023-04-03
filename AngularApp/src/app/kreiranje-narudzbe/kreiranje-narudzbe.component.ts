@@ -36,6 +36,7 @@ kupac_id:any;
   }
   datum:any=this.datePipe.transform(new Date(),"dd-MM-yyyy");
    narudzbaID: any;
+  kreiranaNarudzba: any=false;
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
   }
@@ -155,9 +156,13 @@ funkcija(){
        this.brisiSveIzKorpe(this.korpePodaci[0].id);
      }, 500);
 
-
+this.kreiranaNarudzba=true;
 
 /*this.brisiSveIzKorpe(2);*/
 
+  }
+
+  otvoriPocetnu() {
+    this.router.navigate(['/kupac-pocetna/',this.loginInfo().autentifikacijaToken.korisnickiNalogId]);
   }
 }

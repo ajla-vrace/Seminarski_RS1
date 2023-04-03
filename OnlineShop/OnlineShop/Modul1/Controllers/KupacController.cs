@@ -39,6 +39,7 @@ namespace OnlineShop.Modul1.Controllers
             objekat.Username = x.Username;
             objekat.Lozinka = x.Lozinka;
             objekat.isKupac = x.isKupac;
+            objekat.BrojTelefona = x.BrojTelefona;
             //objekat.SpolId = x.SpolId;
             objekat.DatumPretplate = x.DatumPretplate;
             objekat.DatumPrveNarudzbe = x.DatumPrveNarudzbe;
@@ -66,6 +67,7 @@ namespace OnlineShop.Modul1.Controllers
                    lozinka=s.Lozinka,
                    datumPretplate=s.DatumPretplate,
                    datumPrveNarudzbe = s.DatumPrveNarudzbe,
+                   brojTelefona=s.BrojTelefona,
                    //spol=s.Spol,
                    spolId=s.SpolId,
                    adresaIsporuke=s.AdresaIsporuke,
@@ -95,6 +97,7 @@ namespace OnlineShop.Modul1.Controllers
                     lozinka = s.Lozinka,
                     datumPretplate = s.DatumPretplate,
                     datumPrveNarudzbe = s.DatumPrveNarudzbe,
+                    brojTelefona=s.BrojTelefona,
                     //spol=s.Spol,
                     spolId = s.SpolId,
                     adresaIsporuke = s.AdresaIsporuke,
@@ -108,7 +111,17 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(data.ToList());
         }
+        [HttpPut]
+        public ActionResult EditTelefon(KupacVM x)
+        {
+            Kupac objekat = _dbContext.Kupac.Find(x.Id);
+            if (objekat != null)
+            {
+                objekat.BrojTelefona = x.BrojTelefona;
+            }
+            return Ok(objekat);
 
+        }
         [HttpGet]
         public ActionResult GetById(int id)
         {

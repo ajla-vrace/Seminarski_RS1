@@ -24,6 +24,7 @@ kupac_podaci:any;
    ocjeneProizvodaMoje: any;
   ocjeneProizvodaBool:any=false;
    prikaziDiv: any=false;
+  kupac: any;
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient) { }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
@@ -200,5 +201,14 @@ this.odabranikomentar=null;
 
   skloniDiv() {
     this.prikaziDiv=false;
+  }
+
+  editBrojTelefona(kupac :any) {
+for(let x of this.kupac_podaci){
+  if(x.id==this.loginInfo().autentifikacijaToken.korisnickiNalogId){
+    this.kupac=x;
+  }
+}
+
   }
 }

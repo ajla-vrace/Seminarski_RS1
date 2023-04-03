@@ -81,3 +81,14 @@ width: 33%;
   padding-bottom: 1%;
   display: flex;
 }
+#uspjesnoKreiranaNarudzba{
+  width: 80%;
+  margin: 2% 10%;
+
+  padding: 12%;
+  text-align: center;
+}
+#slikaPlavaTacnica{
+  width: 10%;
+
+}

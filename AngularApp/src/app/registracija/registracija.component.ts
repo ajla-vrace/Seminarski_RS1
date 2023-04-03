@@ -82,6 +82,7 @@ console.log(this.txtIme);
       lozinka: this.txtLozinkaR,
       iskupac: true,
       spolid: 3,
+      brojTelefona:"",
     }
     this.httpKlijent.post(`${MojConfig.adresa_servera}/Kupac/Add`, this.noviKorisnik, MojConfig.http_opcije()).subscribe(x => {
       this.fetchKorisnici();

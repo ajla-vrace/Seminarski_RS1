@@ -39,8 +39,8 @@ KUPAC ID: {{kupac_id}}
   <input value=" {{kupac_podaci.username}}" disabled>
   <h6>Broj telefona: {{kupac_podaci.brojTelefona}}</h6>
 
-  <input value=" {{kupac_podaci.brojTelefona}}" disabled style="display: inline">
-  <img src="assets/slike/add1.png" id="AddNumber">
+  <input value=" {{kupac_podaci.brojTelefona}}" disabled style="display: inline" [(ngModel)]="kupac.brojTelefona">
+  <img src="assets/slike/add1.png" id="AddNumber" >
   <h6>Datum registracije: {{kupac_podaci.datum_kreiranja}}</h6>
   <input value=" {{kupac_podaci.datumRegistracije | date:'dd-MM-yyyy (hh:mm:ss)'}}" disabled>
 
@@ -180,3 +180,30 @@ KUPAC ID: {{kupac_id}}
 
   </div>
 
+<div *ngIf="kupac!=null" class="modal fade show" id="exampleModalLive2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel2">Modifikacija </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="kupac=null"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Broj telefona</label>
+
+        <div class="mb-3">
+          <label class="form-label">Velicina</label>
+          <input class="form-control" type="text" [(ngModel)]="kupac.brojTelefona">
+
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="kupac=null">Close</button>
+        <button type="button" class="btn btn-primary"  (click)="editBrojTelefona(kupac)">Save changes</button>
+      </div>
+    </div>
+  </div>
+
+</div>
