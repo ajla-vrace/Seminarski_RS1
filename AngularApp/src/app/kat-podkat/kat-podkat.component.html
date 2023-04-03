@@ -4,24 +4,26 @@
   <div class="add">
 
     <div class="add-kat">
-      <input class="input-kat" type="text" placeholder="upišite naziv kategorije"
+    <!--  <input class="input-kat" type="text" placeholder="upišite naziv kategorije"
            [(ngModel)]="nova_kategorija.naziv"  #nazivKat >
       <div class="btn-kat">
         <button class="submit-kat" (click)="dodajKategoriju()">Spasi</button>
       </div>
       <h6>Dodaj kategoriju</h6>
+      -->
+
+      <button class="submit-kat" (click)="dodajKategoriju()">Dodaj kategoriju</button>
     </div>
 
     <div class="add-podkat">
 
-      <div class="mb-3">
+  <!--    <div class="mb-3">
         <label class="form-label">Izaberite kategoriju</label>
         <select class="form-control" #katId [(ngModel)]="nova_podkategorija.kategorijaID">
           <option *ngFor="let k of podaci_kategorije" [value]="k.id">{{k.naziv}}</option>
         </select>
 
       </div>
-
 
       <input class="input-podkat" type="text" placeholder="upišite naziv podkategorije"
              #nazivPodkat [(ngModel)]="nova_podkategorija.naziv">
@@ -33,15 +35,18 @@
       </div>
 
       <h6>Dodaj podkategoriju</h6>
+-->
 
+      <button class="submit-podkat" (click)="dodajPodkategoriju()">Dodaj podkategoriju</button>
     </div>
   </div>
 
+  <br><br>
+
   <div class="pretraga">
 
-
     <div class="input-pretraga-div">
-      <input type="text" class="input-pretraga" #pretraga placeholder="pretražite podkategoriju"
+      <input type="text" class="input-pretraga" #pretraga placeholder="pretražite podkategoriju ili kategoriju"
              [ngStyle]="{'text-align':'center'}">
       <img class="img-search" src="assets/slike/search.svg" (click)="kliknuoPretrazi=true">
     </div>
@@ -68,6 +73,7 @@
         <th scope="row">{{p.id}}</th>
         <td>{{p.naziv}}</td>
         <td>{{p.kategorijaOpis}}</td>
+        <td> <img src="assets/slike/pencil-square.svg" (click)="urediPodkat(p)"></td>
         <td> <img src="assets/slike/x-square.svg" (click)="obrisiPodkat(p)"> </td>
       </tr>
 
@@ -80,4 +86,131 @@
 
   </div>
 
+
+<br><br><br>
+
+
+  <div class="pretraga">
+
+
+    <div class="input-pretraga-div">
+      <input type="text" class="input-pretraga" #pretraga2 placeholder="pretražite kategoriju"
+             [ngStyle]="{'text-align':'center'}">
+      <img class="img-search" src="assets/slike/search.svg" (click)="kliknuoPretrazi=true">
+    </div>
+
+
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Naziv kategorije</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let p of getFilterKategorije(pretraga2.value)">
+        <th scope="row">{{p.id}}</th>
+        <td>{{p.naziv}}</td>
+        <td> <img src="assets/slike/pencil-square.svg" (click)="uredi_kat(p)"></td>
+        <td> <img src="assets/slike/x-square.svg" (click)="obrisiKat(p)"> </td>
+      </tr>
+
+      </tbody>
+
+
+    </table>
+
+
+
+  </div>
+
+
 </div>
+
+
+
+<div *ngIf="this.nova_podkategorija!=null" class="modal fade show" id="exampleModalLive1" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel1" > {{naslov}}</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="this.nova_podkategorija=null; getPodkategorije();"></button>
+      </div>
+      <div class="modal-body">
+
+
+
+        <div class="mb-3" [class.has-error]="nazivControll.invalid && nazivControll.touched">
+          <label class="form-label">Naziv podkategorije:</label>
+          <input type="text" required pattern="^[A-Z][a-zA-Z\d\s]*$" [(ngModel)]="nova_podkategorija.naziv"
+                 minlength="3" #nazivControll="ngModel" class="form-control" placeholder="naziv" >
+
+          <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">
+            Ovo polje je obavezno. Prvo slovo mora biti veliko. Najmanje 3 karaktera.
+          </span>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="katIdControll.invalid && katIdControll.touched">
+          <label class="form-label">Kategorija:</label>
+          <select required #katIdControll="ngModel" class="form-control" [(ngModel)]="nova_podkategorija.kategorijaID">
+            <option *ngFor="let s of podaci_kategorije" [value]="s.id">{{s.naziv}}</option>
+          </select>
+
+          <span class="help-block" *ngIf="katIdControll.invalid && katIdControll.touched">
+           Ovo polje je obavezno.
+          </span>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="!(nazivControll.valid && katIdControll.valid)" type="button"
+                class="btn" (click)="spasi_podkat()">Spasi promjene</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div *ngIf="this.nova_kategorija!=null" class="modal fade show" id="exampleModalLive2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel2" > Izmjena podataka </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="nova_kategorija=null; getKategorije();"></button>
+      </div>
+      <div class="modal-body">
+
+
+
+        <div class="mb-3" [class.has-error]="nazivControll.invalid && nazivControll.touched">
+          <label class="form-label">Naziv kategorije:</label>
+          <input type="text" required pattern="^[A-Z][a-zA-Z\d\s]*$" [(ngModel)]="nova_kategorija.naziv"
+                 minlength="3" #nazivControll="ngModel" class="form-control" placeholder="naziv" >
+
+          <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">
+            Ovo polje je obavezno. Prvo slovo mora biti veliko. Najmanje 3 karaktera.
+          </span>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="!(nazivControll.valid)" type="button"
+                class="btn" (click)="spasi_kat()">Spasi promjene</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

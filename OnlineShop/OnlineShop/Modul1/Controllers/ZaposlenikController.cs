@@ -107,7 +107,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpGet("id_db")]
-        public ActionResult GetSlikaDB(int id)
+        public ActionResult GetSlikaDB(int id) //promijeniti putanju
         {
             byte[] bajtovi_slike = context.Zaposlenik.Find(id)?.slikaZaposlenikaBajtovi
                                    ?? Fajlovi.Ucitaj("wwwroot/profile_images/empty.png");

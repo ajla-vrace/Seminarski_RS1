@@ -13,6 +13,8 @@ namespace OnlineShop.Modul1.Models
         public DateTime? datum_modifikacije { get; set; }
         public bool Aktivan { get; set; }
 
+        public byte[]? slika_postojeca { get; set; }
+
         [ForeignKey("bojaId")]
         public int bojaId { get; set; }
         public Boja boja { get; set; }
@@ -37,6 +39,7 @@ namespace OnlineShop.Modul1.Models
         public int? sezonaId { get; set; }
         public Sezona sezona { get; set; }
 
+        
 
     }
 }

@@ -81,6 +81,12 @@ export class ProizvodiComponent implements OnInit {
       this.proizvodi=x;
       console.log(this.proizvodi);
     })
+
+ /*   for (let d of this.proizvodi){
+      let formattedDate=formatDate(this.proizvodi[d.id]?.datum_kreiranja,"dd/MM/yyyy",'en-US');
+      this.proizvodi[d.id].datum_kreiranja=formattedDate;
+    }
+*/
   }
 
   getProizvodRastuci(){
@@ -117,9 +123,10 @@ export class ProizvodiComponent implements OnInit {
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Kategorija/GetPodkategorije?katID="+
       this.odabrani_proizvod.kategorijaId).subscribe((x:any)=>{
       this.podkategorije=x;
-      if(this.kliknuoEdit==false){
+      //if(this.kliknuoEdit==false) //ako je dodavanje proizvoda, ovo ce bit difoltni podkategorijaID
+      {
         if(this.podkategorije.length>0)
-           this.odabrani_proizvod.podkategorijaId=this.podkategorije[0].id;
+           this.odabrani_proizvod.podkategorijaId=this.podkategorije[0]?.id;
         else
           this.podkategorije=[];
       }
@@ -139,7 +146,8 @@ export class ProizvodiComponent implements OnInit {
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/getKolekcije?id="+
     this.odabrani_proizvod.sezonaId).subscribe((x:any)=>{
       this.kolekcije=x;
-      if(this.kliknuoEdit==false){
+    //  if(this.kliknuoEdit==false)
+      {
         if(this.kolekcije.length>0)
            this.odabrani_proizvod.kolekcijaId=this.kolekcije[0].id;
         else
@@ -294,16 +302,18 @@ export class ProizvodiComponent implements OnInit {
                   podkatControll: NgModel, katControll: NgModel,
                   sezonaControll:NgModel, kolekcijaControll:NgModel) {
     if(this.kliknuoEdit==true){
-      if(nazivControll.valid && cijenaControll.valid && opisControll.valid && katControll.valid
-        && bojaControll.valid && podkatControll.valid && sezonaControll.valid && kolekcijaControll.valid
+      if(nazivControll.valid && cijenaControll.valid && opisControll.valid && this.boje?.length>0
+        && this.podkategorije?.length>0 && this.kolekcije?.length>0 && this.kategorije?.length>0 && this.sezone?.length>0
       ){
+      //  console.log(this.podkategorije?.length);
         return false;
       }
       else return true;
     }
     else{
-      if(sifraControll.valid && this.dozvoljenaSifra(sifraInput.value) && nazivControll.valid && cijenaControll.valid && opisControll.valid && katControll.valid
-        && bojaControll.valid && podkatControll.valid && sezonaControll.valid && kolekcijaControll.valid
+      if(sifraControll.valid && this.dozvoljenaSifra(sifraInput.value) && nazivControll.valid && cijenaControll.valid && opisControll.valid
+        && this.boje?.length>0
+        && this.podkategorije?.length>0 && this.kolekcije?.length>0 && this.kategorije?.length>0 && this.sezone?.length>0
       ){
         return false;
       }
@@ -396,7 +406,8 @@ export class ProizvodiComponent implements OnInit {
     this.httpKlijent.post(MojConfig.adresa_servera+"/api/ProizvodSlika", this.slika_proizvod_objekat)
       .subscribe(x=>{
         this.slika_proizvod_objekat=null;
-        this.getProizvodPodaci();
+        this.getProizvodOpadajuci();
+        this.get_slika_novi_request_FS(this.slika_proizvod_objekat.proizvodId);
       });
   }
 
@@ -404,5 +415,21 @@ export class ProizvodiComponent implements OnInit {
   get_slika_FS(p: any) {
     return "data:image/jpg;base64,"+p.fileContents;
   }
+
+  get_slika_novi_request_FS(p_id:any) {
+    return `${MojConfig.adresa_servera}/api/Proizvod/slika_id_fs?id=`+p_id;
+  }
+  get_slika_base64_DB(p:any) {
+    return "data:image/jpg;base64,"+ p.slika_postojeca;
+  }
+
+  get_slika_base64_FS(p:any) {
+    if(p!=null && p.slika_postojeca!=null)
+      return "data:image/jpg;base64,"+ p?.slika_postojeca;
+    return this.noimage;
+  ///   return "data:image/jpg;base64,"+p.slika_postojeca;
+  }
+
+  noimage:any="data:@file/jpeg;base64,/9j/4AAQSkZJRgABAQAAZABkAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/wgALCADIAN8BAREA/8QAGwABAAMBAQEBAAAAAAAAAAAAAAUGBwMBBAL/2gAIAQEAAAAA24AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAi/i8Ak/vAABXbEOf57eQFgAABXbE59M+idX8gLAAACu2Ks5bsEpxjZuAsAAAK7zyHn9mw55Wtd7WAAAFOy3ke+Ouv2QAAEPXgFpkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//EADoQAAEDAQMGCwgCAwEAAAAAAAECAwQFAAYREiEwMUDREBMWF1FUVmGRkrIHFCI1NkFzdCCBFTJScf/aAAgBAQABPwDazth2w7YdsO2HbDth2w6Ks1lNHRHxivSFyHOLQhrDEnDH725SzOzlT8qd9uUs3s5U/KnfblLN7OVPyp325SzezlT8qd9uUs3s5U/KnfblLN7OVPyp325SzezlT8qd9uUszs5U/Knfaj1RFYpyJjbS2kqUpOQvWCDhoTory/MqB+8PSf4vPNR2i684httOtSzgBaNMjTG+MjPtvIGbFtQI4DqNrl/TqPzO+s6E6K8vzKgfvD0nhS+yp9bCXUF1ABUgHOAdWI4PaeZXFQcnK90+LKw1Zf2x/q3s4965Qr4rK934o8d0d3948B1G1y/p1H5nfWdCdFeX5lQP3h6TwXsvY1QY5YYKXJ6x8KdYQOk7rRK3Ph1b/JNyFGSVYrUo45fSD3Wu9eGLeCCHmiEPJzOtE50ndZ5hqS0Wn20ONq1pWMQbNswaVFWptpmKwgZSylISB3m1EvVTq7Jfjx1FLjZOSlebjE/9Cx1G1y/p1H5nfWdCdFeX5lQP3h6Ta9l7GaFHLDBS5PWPhT9kDpO60iQ9KkLffcU46s4qUo5yeCmVOVSZyJcRwocSdX2UOg91qJeeDWKYqXxiWVNJxfQo/wCnf/5a917nK48YsVSkQEHMNRcPSe7utHkPRJCH2HFNuoOKVJOcG11b1tV6NxLxS3ObT8SPssdI3WuX9OI/M76zoTovaBMdp8Wmy2cONaklScRmxyTaRIelyFvvuKcdWcVKUcST/ALUkKCVEBQwIB1jhjyHYj6H2HFNuoOKVJOBBtcRZXdSOtWdSnHCfMdCdFeG77F4YrTD7zjQbXlgoAz5sPvbmxp/X5Pgm3NjT+vyfBNubGn9fk+Cbc2NP6/J8E25saf1+T4JtzY0/r8nwTbmxp/X5Pgm3NjT+vyfBNqLSm6LTG4LTinEIJIUrXnOOhO2HbDth2w7YdsO2HbDtht//9k=";
 
 }

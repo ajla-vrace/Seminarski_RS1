@@ -38,7 +38,9 @@ KUPAC ID: {{kupac_id}}
   <h6>Username: </h6>
   <input value=" {{kupac_podaci.username}}" disabled>
   <h6>Broj telefona: {{kupac_podaci.brojTelefona}}</h6>
-  <input value=" {{kupac_podaci.brojTelefona}}" disabled>
+
+  <input value=" {{kupac_podaci.brojTelefona}}" disabled style="display: inline">
+  <img src="assets/slike/add1.png" id="AddNumber">
   <h6>Datum registracije: {{kupac_podaci.datum_kreiranja}}</h6>
   <input value=" {{kupac_podaci.datumRegistracije | date:'dd-MM-yyyy (hh:mm:ss)'}}" disabled>
 

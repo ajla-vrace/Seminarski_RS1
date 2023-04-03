@@ -75,8 +75,15 @@ namespace OnlineShop.Modul1.Controllers
 
             if (x.slika_nova != null)
             {
+                //slika se snima u db      
                 byte[] slika_bajtovi = x.slika_nova.ParsirajBase64();
+                var proizvod = context.Proizvod.Where(p => p.Id == x.proizvodId).ToList()[0];
+                proizvod.slika_postojeca = slika_bajtovi; //dodaje se slika u proizvod
+                ps.slika_postojeca = slika_bajtovi; //dodaje se slika u proizvodSlika
+
+                //slika se snima na file sistem
                 Fajlovi.Snimi(slika_bajtovi, "slike_proizvoda/" + ps.Id + ".jpg");
+                Fajlovi.Snimi(slika_bajtovi, "proizvodi/" + ps.proizvodId + ".jpg");
             }
 
             context.SaveChanges();
@@ -89,9 +96,23 @@ namespace OnlineShop.Modul1.Controllers
         public List<FileContentResult> GetSlikeByProizvodId(int id = 0)
         {
             var data = context.ProizvodSlika.Where(x => x.proizvodId == id).Select(s => s.Id);
+          //  var data2 = context.ProizvodSlika.Where(x => x.proizvodId == id).ToList();
 
             List<FileContentResult> prikaz = new List<FileContentResult>();
 
+            //ako zelimo da vidimo slike pohranjene u bazi
+        /*    foreach (var p in data2)
+            {
+                byte[] bajtovi_slike = p.slika_postojeca;
+                if (bajtovi_slike != null)
+                {
+                    var slika_prikaz = File(bajtovi_slike, "image/jpg");
+                    prikaz.Add(slika_prikaz);
+                }
+            }
+        */
+
+            //ako zelimo da vidimo slike pohranjene u file sistemu
             foreach (var s_id in data)
             {
                 byte[] bajtovi_slike = Fajlovi.Ucitaj("slike_proizvoda/" + s_id + ".jpg");
@@ -103,6 +124,7 @@ namespace OnlineShop.Modul1.Controllers
 
                 //else, baytovi_slike=Fajlovi.Ucitaj("sliku Empty photo"); ... prikaz.add(slika_prikaz);
                 //ali onda ce se u proizvodima pojavljivati ove slike...
+
             }
 
             return prikaz;

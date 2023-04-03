@@ -66,7 +66,8 @@ namespace OnlineShop.Modul2_TestniPodaci
             var skladista = new List<Skladiste>();
             var skladisteProizvod = new List<SkladisteProizvod>();
             var admin = new List<KorisnickiNalog>();
-           
+
+            var proizvodSlika = new List<ProizvodSlika>();
 
 
             boja.Add(new Boja { Naziv = "plava" });
@@ -116,7 +117,8 @@ namespace OnlineShop.Modul2_TestniPodaci
                     kategorija = kategorija[0],                  
                     podkategorija = podkategorija[0],                   
                     kolekcija = kolekcija[0],                  
-                    sezona = sezona[0],                   
+                    sezona = sezona[0],  
+                    slika_postojeca=Ekstenzije.ParsirajBase64(Slike.slika1)
                 });
 
             proizvod.Add(
@@ -135,7 +137,20 @@ namespace OnlineShop.Modul2_TestniPodaci
                  podkategorija = podkategorija[2],
                  kolekcija = kolekcija[2],
                  sezona = sezona[1],
+                 slika_postojeca=Ekstenzije.ParsirajBase64(Slike.slika2)
              });
+
+            proizvodSlika.Add(new ProizvodSlika
+            {
+                proizvod = proizvod[0],
+                slika_postojeca = Ekstenzije.ParsirajBase64(Slike.slika1)
+            });
+
+            proizvodSlika.Add(new ProizvodSlika
+            {
+                proizvod = proizvod[1],
+                slika_postojeca = Ekstenzije.ParsirajBase64(Slike.slika2)
+            });
 
             popust.Add(new Popust { Opis = 0.5f });
             popust.Add(new Popust { Opis = 0.4f });
@@ -204,20 +219,20 @@ namespace OnlineShop.Modul2_TestniPodaci
 
 
 
-            admin.Add(new KorisnickiNalog()
-            {
-                Ime = "Adil",
-                Prezime = "Joldic",
-                Email = "adil@gmail.com",
-                Username = "adil",
-                Lozinka = "test",
-                BrojTelefona = "062444333",
-                DatumRegistracije = DateTime.Now,
-                Spol = spol[1],
-                isAdmin = true,
-                isKupac = false,
-                isZaposlenik = false
-            });
+            //admin.Add(new KorisnickiNalog()
+            //{
+            //    Ime = "Adil",
+            //    Prezime = "Joldic",
+            //    Email = "adil@gmail.com",
+            //    Username = "adil",
+            //    Lozinka = "test",
+            //    BrojTelefona = "062444333",
+            //    DatumRegistracije = DateTime.Now,
+            //    Spol = spol[1],
+            //    isAdmin = true,
+            //    isKupac = false,
+            //    isZaposlenik = false
+            //});
 
             admin.Add(new KorisnickiNalog()
             {
@@ -346,6 +361,8 @@ namespace OnlineShop.Modul2_TestniPodaci
             _dbContext.AddRange(korisnici);
             _dbContext.AddRange(zaposlenici);
             _dbContext.AddRange(admin);
+
+            _dbContext.AddRange(proizvodSlika);
 
             _dbContext.SaveChanges();
 

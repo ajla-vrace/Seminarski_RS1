@@ -22,24 +22,9 @@ export class SezKolComponent implements OnInit {
       this.getSezone();
       this.getKolekcije();
     })
-
-
-    this.obj_sezona={
-      id:0,
-      naziv:"",
-      doba:"",
-      godina:""
-    };
-
-    this.obj_kolekcija={
-      id:0,
-      sezonaId:this.sezona_id,
-      sezonaOpis:"",
-      naziv:"",
-      godina:""
-    };
-
   }
+
+  naslov:any="";
 
   obj_sezona:any;
   obj_kolekcija:any;
@@ -48,7 +33,7 @@ export class SezKolComponent implements OnInit {
   kolekcije:any;
 
 
-  sezona_id:number=1;
+  sezona_id:any;
 
   kliknuoEditSezona:boolean=false;
   kliknuoEditKolekcija:boolean=false;
@@ -56,14 +41,15 @@ export class SezKolComponent implements OnInit {
   getKolekcije(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Kolekcija/kolekcija").subscribe((x:any)=>{
       this.kolekcije=x;
-      this.sezona_id=this.kolekcije[0].sezonaId;
-      console.log(this.kolekcije);
+     // this.sezona_id=this.kolekcije[0].sezonaId;
+      console.log(this.kolekcije,"sezonaID:",this.sezona_id);
     })
   }
 
   getSezone(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/sezone").subscribe((x:any)=>{
       this.sezone=x;
+      this.sezona_id=this.sezone[0]?.id;
       console.log(this.sezone);
     })
   }
@@ -79,14 +65,11 @@ export class SezKolComponent implements OnInit {
         alert("Uspješno ste izmijenili sezonu.");
 
       this.kliknuoEditSezona=false;
-      this.getKolekcije();
       this.getSezone();
-      this.obj_sezona={
-        id:0,
-        naziv:"",
-        doba:"",
-        godina:""
-      };
+
+      this.getKolekcije();
+
+      this.obj_sezona=null;
     })
   }
 
@@ -102,13 +85,8 @@ export class SezKolComponent implements OnInit {
 
       this.kliknuoEditKolekcija=false;
       this.getKolekcije();
-      this.obj_kolekcija={
-        id:0,
-        sezonaId:1,
-        sezonaOpis:"",
-        naziv:"",
-        godina:""
-      };
+
+      this.obj_kolekcija=null;
     })
 
   }
@@ -122,6 +100,7 @@ export class SezKolComponent implements OnInit {
   editSezona(s: any) {
     this.kliknuoEditSezona=true;
     this.obj_sezona=s;
+    this.naslov="Izmjeni sezonu";
   }
 
   deleteSezona(s: any) {
@@ -141,6 +120,7 @@ export class SezKolComponent implements OnInit {
   editKolekcija(k: any) {
     this.kliknuoEditKolekcija=true;
     this.obj_kolekcija=k;
+    this.naslov="Izmjeni kolekciju";
   }
 
   deleteKolekcija(k: any) {
@@ -161,5 +141,26 @@ export class SezKolComponent implements OnInit {
     if(nazivControll.valid && sezonaIdControll.valid && godinaControll.valid)
       return true;
     return false;
+  }
+
+  dodajSezonu() {
+    this.naslov="Dodaj sezonu";
+    this.obj_sezona={
+      id:0,
+      naziv:"",
+      doba:"",
+      godina:""
+    };
+  }
+
+  dodajKolekciju(){
+    this.naslov="Dodaj kolekciju";
+    this.obj_kolekcija={
+      id:0,
+      sezonaId:this.sezona_id,
+      sezonaOpis:"",
+      naziv:"",
+      godina:""
+    };
   }
 }

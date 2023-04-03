@@ -1,22 +1,19 @@
-
 .sredina{
-  width:80%;
+  width:90%;
   margin:auto;
   display: flex;
   justify-content: space-between;
-  padding:1%;
+  padding:0%;
+  gap:3%;
 }
 
 .sredina .dodaj-kolekciju input, .dodaj-sezonu input{
   width:100%;
 }
 
-.dodaj-kolekciju .submit-kol{
-  width:100%;
-}
-
-.dodaj-sezonu .submit-sez{
-  width:100%;
+.dodaj-kolekciju, .dodaj-sezonu {
+  margin:auto;
+  width:50%;
 }
 
 .dropdown{
@@ -29,12 +26,16 @@
 
 table{
   width:100%;
-  background-color: blanchedalmond;
+ /* background-color: blanchedalmond;*/
 }
 
-.tabela{
-  width:78%;
+.tabela, .tabela2{
+  width:90%;
   margin:auto;
+  padding: 1%;
+  border:groove;
+  border-radius: 30px;
+  background-color: blanchedalmond;
 }
 
 .naslov-sezona, .naslov-kolekcija{
@@ -44,13 +45,16 @@ table{
   border-radius: 10px;
 }
 
-.submit-sez, .submit-kol{
+.submit-sez, .submit-kol, .btn-dodajsezonu, .btn-dodajkolekciju{
+  width:100%;
   border:groove;
   padding:1%;
   background-color: rgba(243,128,91,0.66);
+  margin:auto;
+  border-radius: 30px;
 }
 
-.submit-sez:hover, .submit-kol:hover{
+.submit-sez:hover, .submit-kol:hover, .btn-dodajkolekciju:hover, .btn-dodajsezonu:hover{
   opacity:80%;
 }
 
@@ -59,12 +63,11 @@ h3{
 }
 
 hr{
-  width:78%;
+  width:90%;
   margin: 2% auto 2% auto;
 }
 
 .tabela2{
-  width:78%;
   margin: 0 auto 3% auto;
 }
 
@@ -78,4 +81,8 @@ hr{
 
 img{
   cursor: pointer;
+}
+
+.help-block{
+  color:red;
 }

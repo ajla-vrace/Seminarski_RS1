@@ -32,6 +32,12 @@ export class SkladisteComponent implements OnInit {
   k_rastuci_p_opadajuci:any;
   k_opadajuci_p_rastuci:any;
 
+
+  proizvodID:any;
+  skladisteID:any;
+  prodavnicaID:any;
+  gradID:any;
+
   ngOnInit(): void {
     this.route.params.subscribe(s=>{
       this.zaposlenik_id=+s["id"];
@@ -86,6 +92,7 @@ export class SkladisteComponent implements OnInit {
       .subscribe((x:any)=>{
         this.p=x;
         if(this.kliknuoEdit==false && this.odabrana_stavka!=null){
+          this.proizvodID=this.p[0]?.id;
           this.odabrana_stavka.proizvodId=this.p[0].id; //defaultna vrijednost
           console.log(this.odabrana_stavka.proizvodId);
           console.log(this.p[0].id);
@@ -98,6 +105,7 @@ export class SkladisteComponent implements OnInit {
       .subscribe((x:any)=>{
         this.s=x;
         if(this.kliknuoEdit==false && this.odabrana_stavka!=null){
+          this.skladisteID=this.s[0].id;
           this.odabrana_stavka.skladisteId=this.s[0].id; //defaultna vrijednost
         }
 
@@ -208,6 +216,7 @@ export class SkladisteComponent implements OnInit {
     this.httpKlijent.get(MojConfig.adresa_servera+"/Prodavnica/GetAllProdavnice/all")
       .subscribe((x:any)=>{
         this.prodavnice=x;
+        this.prodavnicaID=this.prodavnice[0]?.id;
         console.log("PRODAVNICE: ", this.prodavnice);
       })
   }
@@ -216,6 +225,7 @@ export class SkladisteComponent implements OnInit {
     this.httpKlijent.get(MojConfig.adresa_servera+"/Grad/GetAll")
       .subscribe((x:any)=>{
         this.gradovi=x;
+        this.gradID=this.gradovi[0]?.id;
         console.log("GRADOVI: ",this.gradovi);
       })
   }
@@ -248,9 +258,9 @@ export class SkladisteComponent implements OnInit {
       adresa:"",
       brojTelefona:"",
       povrsina:"",
-      gradId:1,
+      gradId:this.gradID,
       gradOpis:"",
-      prodavnicaId:1,
+      prodavnicaId:this.prodavnicaID,
       prodavnicaOpis:""
     }
   }
@@ -276,7 +286,7 @@ export class SkladisteComponent implements OnInit {
       naziv:"",
       adresa:"",
       brojTelefona:"",
-      gradId:1,
+      gradId:this.gradID,
       gradOpis:""
     }
   }

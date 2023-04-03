@@ -100,6 +100,20 @@ namespace OnlineShop.Modul1.Controllers
             if (pk == null)
                 return BadRequest("pogresan id");
 
+
+            var list_p = context.Proizvod.Where(x => x.podkategorijaId == pk.Id).ToList();
+
+
+            if (list_p.Count() > 0)
+            {
+                foreach (var p in list_p)
+                {
+                    context.Remove(p);
+                    context.SaveChanges();
+                }
+            }
+
+
             context.Remove(pk);
             context.SaveChanges();
 

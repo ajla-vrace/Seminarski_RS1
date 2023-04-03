@@ -4,16 +4,19 @@
 <div class="sredina">
 
   <div class="dodaj-sezonu">
-    <h3 class="naslov-sezona">Dodaj sezonu:</h3> <br>
-    <h5>Upiši naziv sezone: <input type="text" [(ngModel)]="obj_sezona.naziv"> </h5>
-    <h5>Upiši doba: <input type="text" [(ngModel)]="obj_sezona.doba"> </h5>
-    <h5>Upiši godinu: <input type="text" [(ngModel)]="obj_sezona.godina"></h5>
-    <button class="submit-sez" (click)="spasi_sezonu()">Spasi</button>
+    <!--     <h3 class="naslov-sezona">Dodaj sezonu:</h3> <br>
+     <h5>Upiši naziv sezone: <input type="text" [(ngModel)]="obj_sezona.naziv"> </h5>
+       <h5>Upiši doba: <input type="text" [(ngModel)]="obj_sezona.doba"> </h5>
+       <h5>Upiši godinu: <input type="text" [(ngModel)]="obj_sezona.godina"></h5>
+
+       <button class="submit-sez" (click)="spasi_sezonu()">Spasi</button>
+       -->
+    <button class="btn-dodajsezonu" (click)="dodajSezonu()">Dodaj sezonu</button>
   </div>
 
 
   <div class="dodaj-kolekciju">
-    <h3 class="naslov-kolekcija">Dodaj kolekciju:</h3> <br>
+<!--    <h3 class="naslov-kolekcija">Dodaj kolekciju:</h3> <br>
 
     <h5>Odaberi sezonu:</h5>
     <div class="dropdown">
@@ -26,11 +29,15 @@
     <h5>Upiši naziv kolekcije: <input type="text" [(ngModel)]="obj_kolekcija.naziv"> </h5>
     <h5>Upiši godinu: <input type="text" [(ngModel)]="obj_kolekcija.godina"> </h5>
     <button class="submit-kol" (click)="spasi_kolekciju()">Spasi</button>
+
+    -->
+
+    <button class="btn-dodajkolekciju" (click)="dodajKolekciju()">Dodaj kolekciju</button>
   </div>
 
 </div>
 
-
+<br>
 
 <div class="tabela">
 
@@ -59,9 +66,7 @@
   </table>
 </div>
 
-<hr>
-
-
+<br>
 
 <div class="tabela2">
 
@@ -94,12 +99,12 @@
 
 
 
-<div *ngIf="kliknuoEditSezona==true" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+<div *ngIf="obj_sezona!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel" > Izmjena podataka </h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="kliknuoEditSezona=false; getSezone();"></button>
+        <h5 class="modal-title" id="exampleModalLiveLabel" > {{naslov}} </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="obj_sezona=null; getSezone();"></button>
       </div>
       <div class="modal-body">
 
@@ -107,7 +112,7 @@
 
         <div class="mb-3" [class.has-error]="nazivControll.invalid && nazivControll.touched">
           <label class="form-label">Naziv:</label>
-          <input type="text" required pattern="^[A-Z][a-zA-Z\d\s]*$"
+          <input type="text" required pattern="^[a-zA-Z\d\s\\/]{3,}$"
                  minlength="3" #nazivControll="ngModel" class="form-control" placeholder="naziv" [(ngModel)]="obj_sezona.naziv" >
 
           <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">
@@ -118,7 +123,7 @@
 
         <div class="mb-3" [class.has-error]="dobaControll.invalid && dobaControll.touched">
           <label class="form-label">Doba:</label>
-          <input type="text" required pattern="^[A-Z][a-zA-Z\s]*\-?[a-zA-Z\s]*$"
+          <input type="text" required pattern="^[A-Z][a-zA-Z\s]*-?[a-zA-Z\s]*$"
                  minlength="3" #dobaControll="ngModel" class="form-control" placeholder="ljeto" [(ngModel)]="obj_sezona.doba">
 
           <span class="help-block" *ngIf="dobaControll.invalid && dobaControll.touched">
@@ -150,12 +155,12 @@
 
 
 
-<div *ngIf="kliknuoEditKolekcija==true" class="modal fade show" id="exampleModalLive1" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+<div *ngIf="obj_kolekcija!=null" class="modal fade show" id="exampleModalLive1" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel1" > Izmjena podataka </h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="kliknuoEditKolekcija=false; getKolekcije();"></button>
+        <h5 class="modal-title" id="exampleModalLiveLabel1" > {{naslov}} </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="obj_kolekcija=null; getKolekcije();"></button>
       </div>
       <div class="modal-body">
 
@@ -163,7 +168,7 @@
 
         <div class="mb-3" [class.has-error]="nazivControll.invalid && nazivControll.touched">
           <label class="form-label">Naziv:</label>
-          <input type="text" required pattern="^[A-Z][a-zA-Z\d\s]*$"
+          <input type="text" required pattern="^[a-zA-Z\d\s\\/]{3,}$"
                  minlength="3" #nazivControll="ngModel" class="form-control" placeholder="naziv" [(ngModel)]="obj_kolekcija.naziv" >
 
           <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">

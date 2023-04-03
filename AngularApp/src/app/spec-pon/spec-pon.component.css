@@ -58,7 +58,7 @@ h4{
 
 .tabela1, .tabela2, .tabela3{
   width:90%;
-  margin: 5% auto 5% auto;
+  margin: 2% auto 5% auto;
   background-color: blanchedalmond;
   padding:2%;
   border-radius: 20px;
@@ -78,10 +78,11 @@ span{
 
 .btn-add-sp, .btn-add-spp, .btn-add-popust{
   width:100%;
-  margin:2% auto 2% auto;
+/*  margin:2% auto 2% auto;*/
   padding:1%;
   border: groove;
-  background-color: blanchedalmond;
+  background-color: #ffdcc2;
+  border-radius: 30px;
 }
 
 .btn-add-sp:hover, .btn-add-spp:hover, .btn-add-popust:hover{
@@ -99,8 +100,9 @@ h5{
 }
 
 .add-spec-pon, .dodaj-spec_pon-proizvod, .popust{
-  border:groove;
-  padding:3%;
+/*  border:groove;
+  padding:3%;*/
+  width: 100%;
   border-radius: 20px;
 }
 
@@ -113,3 +115,6 @@ img{
   align-items: center;
 }
 
+.help-block{
+  color:red;
+}

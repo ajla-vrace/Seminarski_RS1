@@ -24,7 +24,7 @@ export class AdminPocetnaComponent implements OnInit {
     this.route.params.subscribe(s=>{
       this.admin_id=+s["id"];
     })
-    this.getBestsellers();
+    //this.getBestsellers();
   }
 
   bestsellers:any;

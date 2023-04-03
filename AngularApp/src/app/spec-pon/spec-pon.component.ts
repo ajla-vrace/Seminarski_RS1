@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
 import {NgModel} from "@angular/forms";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-spec-pon',
@@ -11,7 +12,9 @@ import {NgModel} from "@angular/forms";
 })
 export class SpecPonComponent implements OnInit {
 
-  constructor(private route:ActivatedRoute, private router:Router, private httpKlijent:HttpClient) { }
+  constructor(private route:ActivatedRoute, private router:Router, private httpKlijent:HttpClient, private datePipe:DatePipe) { }
+
+  trenutniDatum:any=this.datePipe.transform(new Date(),"yyyy-MM-dd");
 
   admin_id:any;
   jelKliknuoSearch: boolean=false;
@@ -54,40 +57,16 @@ export class SpecPonComponent implements OnInit {
       this.getSpecijalnePonudeProizvod();
       this.getSpecijalnePonudeOpadajuci();
       this.getSpecijalnePonudeRastuci();
-      this.kreirajObjekte();
+      //this.kreirajObjekte();
     })
 
 
-
-  }
-
-
-  kreirajObjekte(){
-    this.obj_sp={
-      id:0,
-      naziv:"",
-      datum_pocetka:"",
-      datum_zavrsetka:""
-    };
-
-    this.obj_popust={
-      id:0,
-      opis:""
-    };
-
-
-    this.obj_spp={
-      id:0,
-      specijalnaPonudaId:6,
-      proizvodId:4,
-      popustId:10,
-      specijalnaPonudaOpis:"",
-      proizvodOpis:"",
-      popustOpis:"",
-
-    };
-
-    console.log("ob_spp: ",this.obj_spp)
+    /*
+        this.obj_popust={
+          id:0,
+          opis:""
+        };
+    */
   }
 
   getProizvodPodaci(){
@@ -149,20 +128,11 @@ export class SpecPonComponent implements OnInit {
       {
         console.log(this.obj_spp);
 
-        alert("Uspješno spašeno.");
-
         this.getSpecijalnePonudeProizvod();
 
-        this.obj_spp={
-          id:0,
-          specijalnaPonudaId:this.specijalna_ponuda_id,
-          proizvodId:this.proizvod_id,
-          popustId:this.popust_id,
-          specijalnaPonudaOpis:"",
-          proizvodOpis:"",
-          popustOpis:"",
+        alert("Uspješno spašeno.");
 
-        };
+        this.obj_spp=null;
 
         this.kliknuoEditSPP=false;
 
@@ -177,16 +147,11 @@ export class SpecPonComponent implements OnInit {
       {
         console.log(this.obj_sp);
 
+        this.getSpecijalnePonudeOpadajuci();
+
         alert("Uspješno spašeno.");
 
-        this.getSpecijalnePonude();
-
-        this.obj_sp={
-          id:0,
-          naziv:"",
-          datum_pocetka:"",
-          datum_zavrsetka:""
-        };
+        this.obj_sp=null;
 
         this.kliknuoEditSP=false;
       })
@@ -215,11 +180,13 @@ export class SpecPonComponent implements OnInit {
   edit_spp(spp:any){
     this.kliknuoEditSPP=true;
     this.obj_spp=spp;
+    this.naslov="Izmjeni stavku";
   }
 
   edit_sp(sp: any){
     this.kliknuoEditSP=true;
     this.obj_sp=sp;
+    this.naslov="Izmjeni specijalnu ponudu";
   }
 
   edit_popust(p: any){
@@ -237,7 +204,7 @@ export class SpecPonComponent implements OnInit {
       +sp.id)
         .subscribe((x:any)=>{
           this.getSpecijalnePonudeOpadajuci();
-          console.log(this.getSpecijalnePonudeOpadajuci())
+        //  console.log(this.getSpecijalnePonudeOpadajuci())
         })
     }
   }
@@ -314,4 +281,30 @@ export class SpecPonComponent implements OnInit {
     }
   }
 
+  naslov:any="";
+
+  dodajSP() {
+    this.naslov="Dodaj specijalnu ponudu";
+    this.obj_sp={
+      id:0,
+      naziv:"",
+      datum_pocetka:this.trenutniDatum,
+      datum_zavrsetka:this.trenutniDatum
+    };
+  }
+
+  dodajSPP() {
+    this.naslov="Dodaj specijalnu ponudu za određeni proizvod";
+    this.obj_spp={
+      id:0,
+      specijalnaPonudaId:this.specijalna_ponuda_id,
+      proizvodId:this.proizvod_id,
+      popustId:this.popust_id,
+      specijalnaPonudaOpis:"",
+      proizvodOpis:"",
+      popustOpis:"",
+    };
+
+    console.log("ob_spp: ",this.obj_spp)
+  }
 }

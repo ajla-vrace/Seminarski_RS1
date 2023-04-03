@@ -69,11 +69,15 @@
   border:groove;
   border-radius: 10px;
   padding:2%;
-  background-color: #95e4ff;
+  background-color: rgba(89,176,255,0.7);
   color:black;
 }
 
 .form-control{
+ /* background-color: #95e4ff;*/
+}
+
+.slct{
   background-color: #95e4ff;
 }
 

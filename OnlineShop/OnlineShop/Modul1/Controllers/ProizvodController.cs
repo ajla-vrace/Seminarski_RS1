@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
+using OnlineShop.Helper;
 using OnlineShop.Modul1.Models;
 using OnlineShop.Modul1.ViewModels;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -172,7 +173,7 @@ namespace OnlineShop.Modul1.Controllers
                 kolekcijaOpis=x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                 sezonaId=x.sezonaId,
                 sezonaOpis=x.sezona.Naziv,          
-
+                slika_postojeca=x.slika_postojeca
             });
 
             return data.OrderByDescending(x=>x.Id).ToList();
@@ -203,7 +204,7 @@ namespace OnlineShop.Modul1.Controllers
                 kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                 sezonaId = x.sezonaId,
                 sezonaOpis = x.sezona.Naziv,
-
+                slika_postojeca = x.slika_postojeca
             });
 
             return data.OrderBy(x=>x.datum_kreiranja).ToList();
@@ -235,7 +236,7 @@ namespace OnlineShop.Modul1.Controllers
                 kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                 sezonaId = x.sezonaId,
                 sezonaOpis = x.sezona.Naziv,
-
+                slika_postojeca = x.slika_postojeca
             });
 
             return data.OrderByDescending(x => x.datum_kreiranja).ToList();
@@ -247,6 +248,25 @@ namespace OnlineShop.Modul1.Controllers
         {
             Proizvod? p = context.Proizvod.Find(id);
             Proizvod? p_copy = p;
+
+
+            if (id == 0)
+                return BadRequest("pogrešan ID.");
+
+            if (p == null)
+                return BadRequest("nema proizvoda u bazi.");
+
+
+            List<SpecijalnaPonudaProizvod> spp_lista = context.SpecijalnaPonudaProizvod.Where(x => x.proizvodId == id).ToList();
+
+            if (spp_lista.Count() > 0)
+            {
+                foreach (var sp in spp_lista)
+                {
+                    context.Remove(sp);
+                    context.SaveChanges();
+                }
+            }
 
             List<SkladisteProizvod> sp_lista = context.SkladisteProizvod.Where(x => x.proizvodId == id).ToList();
 
@@ -269,12 +289,6 @@ namespace OnlineShop.Modul1.Controllers
                     context.SaveChanges();
                 }
             }
-
-            if (id == 0)
-                return BadRequest("pogrešan ID.");
-
-            if (p == null)
-                return BadRequest("nema proizvoda u bazi.");
 
             context.Remove(p);
             context.SaveChanges();
@@ -336,6 +350,7 @@ namespace OnlineShop.Modul1.Controllers
                     kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                     sezonaId = x.sezonaId,
                     sezonaOpis = x.sezona.Naziv,
+                    slika_postojeca = x.slika_postojeca
                 }).ToList()[0];
                 var _kolicina = context.SkladisteProizvod.Where(x => x.proizvodId == p).Sum(x => x.kolicina);
 
@@ -394,7 +409,8 @@ namespace OnlineShop.Modul1.Controllers
                     kolekcijaId = x.kolekcijaId,
                     kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                     sezonaId = x.sezonaId,
-                    sezonaOpis = x.sezona.Naziv
+                    sezonaOpis = x.sezona.Naziv,
+                    slika_postojeca = x.slika_postojeca
                 }).ToList()[0];
            
                 proizvodi_datumi.Add(new ProizvodDatum { 
@@ -403,5 +419,25 @@ namespace OnlineShop.Modul1.Controllers
 
             return proizvodi_datumi;
         }
+
+
+        [HttpGet("slika_id_db")]
+        public ActionResult GetSlikaDB(int id)
+        {
+            byte[] bajtovi_slike = context.Proizvod.Find(id)?.slika_postojeca
+                                   ?? Fajlovi.Ucitaj("wwwroot/images/no_image.jpg");
+
+            return File(bajtovi_slike, "image/jpg");
+        }
+
+        [HttpGet("slika_id_fs")]  //id proizvoda trebamo poslati da bismo dobili njegovu sliku
+        public FileContentResult GetSlikaFS(int id)
+        {
+            byte[] bajtovi_slike = Fajlovi.Ucitaj("slike_korisnika/" + id + ".jpg")
+                                  ?? Fajlovi.Ucitaj("wwwroot/images/no_image.jpg");
+
+            return File(bajtovi_slike, "image/jpg");
+        }
+
     }
 }

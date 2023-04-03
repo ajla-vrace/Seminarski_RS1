@@ -130,3 +130,9 @@ border:1px solid black;
   display: inline-block;
  /* margin: 100px auto;*/
 }
+
+#AddNumber{
+  width: 20px;
+  margin-left: 2%;
+  padding-bottom: 1%;
+}

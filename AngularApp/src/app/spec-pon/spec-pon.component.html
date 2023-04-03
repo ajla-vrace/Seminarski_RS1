@@ -2,6 +2,7 @@
 
 
 <div class="sredina">
+  <!--
   <div class="add-spec-pon" [class.has-error]="naziv.invalid && naziv.touched && dateS.invalid && dateS.touched && dateE.invalid && dateE.touched">
     <h4 class="naslov-spec-pon">Dodaj specijalnu ponudu</h4>
     <hr>
@@ -17,8 +18,14 @@
     </span>
   </div>
 
+-->
+
+  <div class="add-spec-pon">
+   <button class="btn-add-sp" (click)="dodajSP()">Dodaj specijalnu ponudu</button>
+  </div>
 
   <div class="dodaj-spec_pon-proizvod">
+    <!--
     <h4>Dodajte proizvod i specijalnu ponudu</h4>
     <hr>
     <h5>Proizvod: </h5>
@@ -38,10 +45,11 @@
     </select>
 
     <br>
-    <button class="btn-add-spp" (click)="snimi_spp()">Dodaj</button>
+    -->
+    <button class="btn-add-spp" (click)="dodajSPP()">Dodaj specijalnu ponudu za proizvod</button>
 
   </div>
-
+<!--
   <div class="popust" [class.has-error]="opis.touched && opis.invalid">
     <h4>Dodajte popust</h4>
     <hr>
@@ -53,7 +61,7 @@
     <button class="btn-add-popust" [disabled]="!opis.valid" (click)="snimi_popust()">Dodaj</button>
     </span>
   </div>
-
+-->
 </div>
 
 <br>
@@ -146,18 +154,12 @@
 
 </div>
 
-
+<!--
 <div class="tabela3">
 
   <h5>Popusti</h5>
   <hr class="tabela-hr">
-<!--
-  <div class="pretraga">
-    <input class="input-pretraga2" placeholder="popust..." #inputPopust>
-    <img src="assets/slike/search.svg" style="width:30px; height: 30px;" class="slika-search"
-         (click)="jelKliknuoSearch=true">
-  </div>
--->
+
   <table class="table">
     <thead>
     <tr>
@@ -180,14 +182,14 @@
 
 </div>
 
+-->
 
-
-<div *ngIf="kliknuoEditSPP==true" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+<div *ngIf="obj_spp!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel">Modifikuj zapis</h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="kliknuoEditSPP=false; getSpecijalnePonudeProizvod();"></button>
+        <h5 class="modal-title" id="exampleModalLiveLabel">{{naslov}}</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="obj_spp=null; getSpecijalnePonudeProizvod();"></button>
       </div>
       <div class="modal-body">
         <div class="mb-3">
@@ -224,12 +226,12 @@
 
 
 
-<div *ngIf="kliknuoEditSP==true" class="modal fade show" id="exampleModalLive1" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+<div *ngIf="obj_sp!=null" class="modal fade show" id="exampleModalLive1" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel1">Modifikuj zapis</h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="kliknuoEditSP=false; getSpecijalnePonudeOpadajuci();"></button>
+        <h5 class="modal-title" id="exampleModalLiveLabel1">{{naslov}}</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="obj_sp=null; getSpecijalnePonudeOpadajuci();"></button>
       </div>
 
       <div class="modal-body">

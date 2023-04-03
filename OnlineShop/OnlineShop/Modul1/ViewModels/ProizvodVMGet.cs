@@ -1,13 +1,13 @@
 ﻿namespace OnlineShop.Modul1.ViewModels
 {
-    public class ProizvodVM
+    public class ProizvodVMGet
     {
         public int Id { get; set; }
         public int Sifra { get; set; }
         public string Naziv { get; set; }
         public float Cijena { get; set; }
         public string Opis { get; set; }
-        public DateTime datum_kreiranja { get; set; }
+        public string datum_kreiranja { get; set; }
         public DateTime? datum_modifikacije { get; set; }
         public bool Aktivan { get; set; }
 
@@ -30,6 +30,5 @@
         public string sezonaOpis { get; set; }
 
         public byte[]? slika_postojeca { get; set; }
-
     }
 }

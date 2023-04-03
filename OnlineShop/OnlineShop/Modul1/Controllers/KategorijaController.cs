@@ -80,6 +80,21 @@ namespace OnlineShop.Modul1.Controllers
         {
             Kategorija? k = context.Kategorija.Find(id);
 
+            if (k == null)
+                return BadRequest("pogresan id");
+
+            var list_p = context.Proizvod.Where(x => x.kategorijaId == k.Id).ToList();
+         
+            if (list_p.Count() > 0)
+            {
+                foreach (var p in list_p)
+                {
+                    context.Remove(p);
+                    context.SaveChanges();
+                }
+            }
+           
+
             List<Podkategorija> lista_pk = context.Podkategorija.Where(x => x.KategorijaId == id).ToList();
 
             if (lista_pk.Count() > 0)
@@ -91,9 +106,7 @@ namespace OnlineShop.Modul1.Controllers
                 }
             }
 
-            if (k == null)
-                return BadRequest("pogresan id");
-
+         
             context.Remove(k);
             context.SaveChanges();
 

@@ -24,6 +24,15 @@ namespace OnlineShop.Modul1.Controllers
             public DateTime datum_zavrsetka { get; set; }
         }
 
+        public class SpecijalnePonudeVMGet
+        {
+            public int Id { get; set; }
+            public string Naziv { get; set; }
+            public string datum_pocetka { get; set; }
+            public string datum_zavrsetka { get; set; }
+        }
+
+
         public class SpecijalnePonudeProizvodVM
         {
             public int Id { get; set; }         
@@ -72,27 +81,27 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpGet("Specijalne_ponude_opadajuci")]
-        public IQueryable<SpecijalnePonudeVM> GetSpecijalnePonudeOpadajuci()
+        public IQueryable<SpecijalnePonudeVMGet> GetSpecijalnePonudeOpadajuci()
         {
-            var data = context.SpecijalnaPonuda.Select(x => new SpecijalnePonudeVM
+            var data = context.SpecijalnaPonuda.Select(x => new SpecijalnePonudeVMGet
             {
                 Id = x.Id,
                 Naziv = x.Naziv,
-                datum_pocetka = x.datum_pocetka,
-                datum_zavrsetka = x.datum_zavrsetka
+                datum_pocetka = x.datum_pocetka.ToString("yyyy-MM-dd"),
+                datum_zavrsetka = x.datum_zavrsetka.ToString("yyyy-MM-dd")
             }).ToList().AsQueryable().OrderByDescending(x => x.datum_pocetka).ThenByDescending(x=>x.datum_zavrsetka);
             return data;
         }
 
         [HttpGet("Specijalne_ponude_rastuci")]
-        public IQueryable<SpecijalnePonudeVM> GetSpecijalnePonudeRastuci()
+        public IQueryable<SpecijalnePonudeVMGet> GetSpecijalnePonudeRastuci()
         {
-            var data = context.SpecijalnaPonuda.Select(x => new SpecijalnePonudeVM
+            var data = context.SpecijalnaPonuda.Select(x => new SpecijalnePonudeVMGet
             {
                 Id = x.Id,
                 Naziv = x.Naziv,
-                datum_pocetka = x.datum_pocetka,
-                datum_zavrsetka = x.datum_zavrsetka
+                datum_pocetka = x.datum_pocetka.ToString("yyyy-MM-dd"),
+                datum_zavrsetka = x.datum_zavrsetka.ToString("yyyy-MM-dd")
             }).ToList().AsQueryable().OrderBy(x => x.datum_pocetka).ThenBy(x => x.datum_zavrsetka);
             return data;
         }

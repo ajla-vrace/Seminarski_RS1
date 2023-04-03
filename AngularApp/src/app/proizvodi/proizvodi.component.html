@@ -11,7 +11,7 @@
 
  <div class="cmb-aktivnost">
   <div class="mb-3" >
-    <select required class="form-control" [(ngModel)]="staJeIzabrano">
+    <select required class="form-control slct" [(ngModel)]="staJeIzabrano">
       <option>
         Sve</option>
       <option>
@@ -25,7 +25,7 @@
 
     <div class="sortiranje">
       <div class="mb-3" >
-        <select required class="form-control" [(ngModel)]="sortirajPo">
+        <select required class="form-control slct" [(ngModel)]="sortirajPo">
           <option>Datum opadajući</option>
           <option>Datum rastući</option>
         </select>
@@ -53,7 +53,7 @@
     <th scope="col">Cijena</th>
     <th scope="col">Opis</th>
     <th scope="col">Datum kreiranja</th>
-    <th scope="col">Datum modifikacije</th>
+    <!--    <th scope="col">Datum modifikacije</th> -->
     <th scope="col">Aktivan</th>
     <th scope="col">Boja</th>
     <th scope="col">Odjel</th>
@@ -61,6 +61,7 @@
     <th scope="col">Podkategorija</th>
     <th scope="col">Kolekcija</th>
     <th scope="col">Sezona</th>
+    <th scope="col">Slika</th>
     <th></th>
     <th></th>
     <th></th>
@@ -82,7 +83,7 @@
     <td>{{p.cijena}}</td>
     <td>{{p.opis}}</td>
     <td>{{p.datum_kreiranja}}</td>
-    <td>{{p.datum_modifikacije}}</td>
+    <!--  <td>{{p.datum_modifikacije}}</td> -->
     <td>{{p.aktivan ? "Aktivan" : "Neaktivan"}}</td>
     <td>{{p.bojaOpis}}</td>
     <td>{{p.odjelOpis}}</td>
@@ -90,9 +91,10 @@
     <td>{{p.podkategorijaOpis}}</td>
     <td>{{p.kolekcijaOpis}}</td>
     <td>{{p.sezonaOpis}}</td>
-    <td> <img src="assets/slike/pencil-square.svg" class="edit-btn" (click)="EditDugme(p)"></td>
-    <td> <img src="assets/slike/x-square.svg" class="delete-btn" (click)="DeleteDugme(p)"></td>
-    <td> <td><button class="btn-dodaj-sliku" (click)="dodajSliku(p)">Dodaj sliku</button></td>
+    <td> <img style="display:block; max-width: 100%; height: 70px" src="{{get_slika_base64_FS(p)}}"></td>
+    <td> <img style="display:block; max-width: 100%; height: 40px" src="assets/slike/pencil-square.svg" class="edit-btn" (click)="EditDugme(p)"></td>
+    <td> <img style="display:block; max-width: 100%; height: 40px" src="assets/slike/x-square.svg" class="delete-btn" (click)="DeleteDugme(p)"></td>
+    <td> <td><button class="btn-dodaj-sliku" (click)="dodajSliku(p)">Slike</button></td>
 
   </tr>
 
@@ -104,7 +106,7 @@
 
 
 <div *ngIf="odabrani_proizvod!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
-  <div class="modal-dialog modal-dialog modal-lg modal-dialog-scrollable">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLiveLabel" > {{naslov}} </h5>
@@ -115,10 +117,10 @@
 
         <div class="mb-3" [class.has-error]="sifraControll.invalid && sifraControll.touched && !dozvoljenaSifra(sifraInput.value)">
           <label class="form-label">sifra</label>
-          <input type="number" #sifraInput required pattern="^\d+$" #sifraControll="ngModel" class="form-control" placeholder="Sifra" [(ngModel)]="odabrani_proizvod.sifra" [disabled]="jelDisabledSifra(odabrani_proizvod)" (click)="dozvoljenaSifra(sifraInput.value)" >
+          <input type="number" #sifraInput required pattern="^\d+$" #sifraControll="ngModel" class="form-control" placeholder="Sifra" [(ngModel)]="odabrani_proizvod.sifra" [disabled]="kliknuoEdit" (click)="dozvoljenaSifra(sifraInput.value)" >
 
           <span class="help-block" *ngIf="kliknuoEdit==false && ((sifraControll.invalid && sifraControll.touched) || dozvoljenaSifra(sifraInput.value)==false)">
-              this is required and can only have numbers and cannot be duplicated
+              Ovo polje je obavezno. Može sadržavati samo brojeve i unikatne vrijednosti.
           </span>
 
         </div>
@@ -157,7 +159,7 @@
         </div>
 
 
-        <div class="mb-3" [class.has-error]="bojaControll.invalid && bojaControll.touched">
+        <div class="mb-3" [class.has-error]="(bojaControll.invalid && bojaControll.touched) || boje?.length==0">
           <label class="form-label">Boja</label>
 
           <select required #bojaControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.bojaId"  >
@@ -165,7 +167,7 @@
 
           </select>
 
-          <span class="help-block" *ngIf="bojaControll.invalid && bojaControll.touched">
+          <span class="help-block" *ngIf="(bojaControll.invalid && bojaControll.touched) || boje?.length==0">
               Ovo polje je obavezno
           </span>
         </div>
@@ -202,21 +204,21 @@
         </div>
 
 
-        <div class="mb-3" [class.has-error]="katControll.invalid && katControll.touched">
+        <div class="mb-3" [class.has-error]="(katControll.invalid && katControll.touched) || kategorije?.length==0">
           <label class="form-label">Kategorija</label>
 
-          <select required #katControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.kategorijaId" (click)="kliknuoEdit=false; getPodkategorijeByKatID();" >
+          <select required #katControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.kategorijaId" (click)="getPodkategorijeByKatID();" >
             <option *ngFor="let k of kategorije " [value]="k?.id"  >{{k.naziv}}</option>
 
           </select>
 
-          <span class="help-block" *ngIf="katControll.invalid && katControll.touched">
+          <span class="help-block" *ngIf="(katControll.invalid && katControll.touched) || kategorije?.length==0">
               Ovo polje je obavezno
           </span>
         </div>
 
 
-        <div class="mb-3" [class.has-error]="podkatControll.invalid && podkatControll.touched">
+        <div class="mb-3" [class.has-error]="(podkatControll.invalid && podkatControll.touched) || podkategorije?.length==0">
           <label class="form-label">Podkategorija</label>
 
           <select required #podkatControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.podkategorijaId">
@@ -225,27 +227,28 @@
 
           </select>
 
-          <span class="help-block" *ngIf="podkatControll.invalid && podkatControll.touched">
+          <span class="help-block" *ngIf="(podkatControll.invalid && podkatControll.touched) || (podkategorije?.length==0)">
               Ovo polje je obavezno
           </span>
+
         </div>
 
 
-        <div class="mb-3" [class.has-error]="sezonaControll.invalid && sezonaControll.touched">
+        <div class="mb-3" [class.has-error]="(sezonaControll.invalid && sezonaControll.touched) || sezone?.length==0">
           <label class="form-label">Sezona</label>
 
-          <select required #sezonaControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.sezonaId" (click)="kliknuoEdit=false; getKolekcijeBySezonaID();" >
+          <select required #sezonaControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.sezonaId" (click)="getKolekcijeBySezonaID();" >
             <option *ngFor="let s of sezone " [value]="s?.id"  >{{s.naziv}}</option>
 
           </select>
 
-          <span class="help-block" *ngIf="sezonaControll.invalid && sezonaControll.touched">
+          <span class="help-block" *ngIf="(sezonaControll.invalid && sezonaControll.touched) || sezone?.length==0">
               Ovo polje je obavezno
           </span>
         </div>
 
 
-        <div class="mb-3" [class.has-error]="kolekcijaControll.invalid && kolekcijaControll.touched">
+        <div class="mb-3" [class.has-error]="(kolekcijaControll.invalid && kolekcijaControll.touched) || kolekcije?.length==0">
           <label class="form-label">Kolekcija</label>
 
           <select required #kolekcijaControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.kolekcijaId">
@@ -254,7 +257,7 @@
 
           </select>
 
-          <span class="help-block" *ngIf="kolekcijaControll.invalid && kolekcijaControll.touched">
+          <span class="help-block" *ngIf="(kolekcijaControll.invalid && kolekcijaControll.touched) || kolekcije?.length==0">
               Ovo polje je obavezno
           </span>
         </div>
