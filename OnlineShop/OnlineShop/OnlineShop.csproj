@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="testne_slike\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

@@ -52,11 +52,11 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpGet]
-        public IQueryable<SkladisteProizvodVMGet> GetAll()
+        public IQueryable<SkladisteProizvodVM> GetAll()
         {
             var sortiranje = "id opadajuci";
 
-            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVMGet
+            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
             {
                 Id = x.Id,
                 proizvodId = x.proizvodId,
@@ -64,16 +64,16 @@ namespace OnlineShop.Modul1.Controllers
                 skladisteId = x.skladisteId,
                 skladisteOpis = x.skladiste.Naziv,
                 kolicina = x.kolicina,
-                datum_kreiranja = x.datum_kreiranja.ToString("dd/MM/yyyy"),
-                datum_modifikacije = x.datum_modifikacije==null? "": x.datum_modifikacije.ToString(),
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije,
             }).ToList().AsQueryable();
             return data;
         }
 
         [HttpGet("kol_pr_opadajuci")]
-        public IQueryable<SkladisteProizvodVMGet> SortirajPoKolProizvodOpadajuci()
+        public IQueryable<SkladisteProizvodVM> SortirajPoKolProizvodOpadajuci()
         {
-            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVMGet
+            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
             {
                 Id = x.Id,
                 proizvodId = x.proizvodId,
@@ -81,16 +81,16 @@ namespace OnlineShop.Modul1.Controllers
                 skladisteId = x.skladisteId,
                 skladisteOpis = x.skladiste.Naziv,
                 kolicina = x.kolicina,
-                datum_kreiranja = x.datum_kreiranja.ToString("dd/MM/yyyy"),
-                datum_modifikacije = x.datum_modifikacije == null ? "" : x.datum_modifikacije.ToString(),
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije,
             }).ToList().AsQueryable().OrderByDescending(x=>x.kolicina).ThenByDescending(x => x.proizvodOpis);
             return data;
         }
 
         [HttpGet("kol_pr_rastuci")]
-        public IQueryable<SkladisteProizvodVMGet> SortirajPoKolProizvodRastuci()
+        public IQueryable<SkladisteProizvodVM> SortirajPoKolProizvodRastuci()
         {
-            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVMGet
+            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
             {
                 Id = x.Id,
                 proizvodId = x.proizvodId,
@@ -98,16 +98,16 @@ namespace OnlineShop.Modul1.Controllers
                 skladisteId = x.skladisteId,
                 skladisteOpis = x.skladiste.Naziv,
                 kolicina = x.kolicina,
-                datum_kreiranja = x.datum_kreiranja.ToString("dd/MM/yyyy"),
-                datum_modifikacije = x.datum_modifikacije == null ? "" : x.datum_modifikacije.ToString(),
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije,
             }).ToList().AsQueryable().OrderBy(x => x.kolicina).ThenBy(x => x.proizvodOpis);
             return data;
         }
 
         [HttpGet("kol_rastuci_pr_opadajuci")]
-        public IQueryable<SkladisteProizvodVMGet> SortirajPoKolRastuci_Pr_Opadajuci()
+        public IQueryable<SkladisteProizvodVM> SortirajPoKolRastuci_Pr_Opadajuci()
         {
-            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVMGet
+            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
             {
                 Id = x.Id,
                 proizvodId = x.proizvodId,
@@ -115,17 +115,17 @@ namespace OnlineShop.Modul1.Controllers
                 skladisteId = x.skladisteId,
                 skladisteOpis = x.skladiste.Naziv,
                 kolicina = x.kolicina,
-                datum_kreiranja = x.datum_kreiranja.ToString("dd/MM/yyyy"),
-                datum_modifikacije = x.datum_modifikacije == null ? "" : x.datum_modifikacije.ToString(),
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije,
             }).ToList().AsQueryable().OrderBy(x => x.kolicina).ThenByDescending(x => x.proizvodOpis);
             return data;
         }
 
 
         [HttpGet("kol_opadajuci_pr_rastuci")]
-        public IQueryable<SkladisteProizvodVMGet> SortirajPoKolOpadajuci_Pr_Rastuci()
+        public IQueryable<SkladisteProizvodVM> SortirajPoKolOpadajuci_Pr_Rastuci()
         {
-            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVMGet
+            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
             {
                 Id = x.Id,
                 proizvodId = x.proizvodId,
@@ -133,8 +133,8 @@ namespace OnlineShop.Modul1.Controllers
                 skladisteId = x.skladisteId,
                 skladisteOpis = x.skladiste.Naziv,
                 kolicina = x.kolicina,
-                datum_kreiranja = x.datum_kreiranja.ToString("dd/MM/yyyy"),
-                datum_modifikacije = x.datum_modifikacije == null ? "" : x.datum_modifikacije.ToString(),
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije,
             }).ToList().AsQueryable().OrderByDescending(x => x.kolicina).ThenBy(x=>x.proizvodOpis);
             return data;
         }

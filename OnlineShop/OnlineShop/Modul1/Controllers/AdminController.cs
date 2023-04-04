@@ -137,6 +137,7 @@ namespace OnlineShop.Modul1.Controllers
             public int ProizvodId { get; set; }
             public ProizvodVM proizvod { get; set; }
             public int Kolicina { get; set; }
+            public string datum_kreiranja { get; set; }
         }
 
 
@@ -171,12 +172,13 @@ namespace OnlineShop.Modul1.Controllers
                     kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                     sezonaId = x.sezonaId,
                     sezonaOpis = x.sezona.Naziv,
+                    slika_postojeca=x.slika_postojeca
                 }).ToList()[0];
 
                 var kolicine_proizvodaId = 
-                    contex.KorpaStavka.Where(x => x.ProizvodId == p_id).Select(x => x.Kolicina).Sum();
+                    contex.KorpaStavka.Where(x => x.ProizvodId == p_id).Sum(x => x.Kolicina);
 
-                proizvodi_kolicine.Add(new Bestseller { ProizvodId = p_id, proizvod=_proizvod, Kolicina = kolicine_proizvodaId });
+                proizvodi_kolicine.Add(new Bestseller { ProizvodId = p_id, proizvod=_proizvod, Kolicina = kolicine_proizvodaId, datum_kreiranja=_proizvod.datum_kreiranja.ToString("dd/MM/yyyy") });
             }
            
             var top3=proizvodi_kolicine.OrderByDescending(x => x.Kolicina).Take(3);

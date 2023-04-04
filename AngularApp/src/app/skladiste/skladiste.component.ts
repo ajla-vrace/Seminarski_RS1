@@ -169,7 +169,7 @@ export class SkladisteComponent implements OnInit {
     if(confirm("Da li stvarno želite obrisati ovu stavku?")){
       this.httpKlijent.delete(MojConfig.adresa_servera+"/api/SkladisteProizvod?id="+
         p.id).subscribe((x:any)=>{
-        this.getSkladisteProizvod();
+        this.getSkladisteProizvod_k_p_opadajuci();
       })
     }
   }

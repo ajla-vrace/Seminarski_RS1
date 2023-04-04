@@ -15,6 +15,7 @@ img{
 }
 
 h3, h5{
+  width:90%;
   text-align: center;
 }
 
@@ -62,7 +63,7 @@ span.carousel-control-next-icon, span.carousel-control-prev-icon{
 }
 
 .poruka-posljednjeDodaniProizvodi{
-  background-color: lightgrey;
+  /*background-color: rgba(30,178,255,0.7);*/
   width:90%;
   padding: 0.5%;
   border-radius: 10px;
@@ -71,7 +72,7 @@ span.carousel-control-next-icon, span.carousel-control-prev-icon{
 }
 
 .poruka-proizvodiNajmanjaKolicina{
-  background-color: lightgrey;
+  /*background-color: rgba(30,178,255,0.7);*/
   width:90%;
   padding: 0.5%;
   border-radius: 10px;
@@ -82,4 +83,134 @@ span.carousel-control-next-icon, span.carousel-control-prev-icon{
 hr{
   width:90%;
   margin: 0 auto 1% auto;
+}
+
+.slike{
+  width:90%;
+  margin:auto;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-gap: 30px;
+  justify-content: center;
+}
+
+.proizvod-div{
+  border:groove;
+  width:220px;
+  padding:1%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.slika-okvir{
+ /* max-width: 100%;*/
+  width: 220px;
+  height: 250px;
+  border: groove;
+  cursor: pointer;
+}
+
+.btn-proizvod-detalji{
+  width:100%;
+  cursor: pointer;
+  background-color: black;
+  color:white;
+}
+
+.btn-proizvod-detalji:hover{
+  opacity: 85%;
+}
+
+.proizvod-opis, .proizvod-datum, .proizvod-kolicina{
+  text-align: center;
+}
+
+
+.okvir-detalji{
+  width:50%;
+  margin:auto;
+  border: groove;
+  border-radius: 30px;
+  padding: 2%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: fixed;
+  top:22%;
+  left:25%;
+  background-color: #ffd1ea;
+}
+
+.btn-ok{
+/*  width:15%;
+  border: none;
+  border-radius: 30px;*/
+  width:10%;
+  border: none;
+  border-radius: 30px;
+  margin-left: 90%;
+  background-color: black;
+  color:white;
+}
+
+.btn-stranicaproizvodi{
+  width: 100%;
+  border:none;
+  background-color: #ffd1ea;
+  color:blue;
+  text-align: end;
+}
+
+.btn-ok:hover, .btn-stranicaproizvodi:hover{
+  opacity: 50%;
+}
+
+.slika-detalji{
+  width:100%;
+  max-width: 100%;
+  height:300px;
+  cursor: pointer;
+}
+
+.slika-i-detalji{
+  display: flex;
+  gap:1%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pregled-slike{
+  width:90%;
+ /* max-width: 100%;
+  height:600px;
+  border:dotted;*/
+/*  height: auto;*/
+  margin:auto;
+  position: absolute;
+  top:-30%;
+  left:5%;
+  background-color: white;
+  border:groove;
+}
+
+.okvir-za-pregled-slike{
+  height: 620px;
+  width: 90%;
+ /* border:solid;*/
+  padding:1.5%;
+  margin:auto;
+  text-align: center;
+
+}
+
+.pregled-slike-okvir{
+ /* width:100%;*/
+  max-width: 100%;
+  height:600px;
+  border: groove;
+  margin:auto;
+}
+
+.btn-x{
+  position:absolute;
+  top:0;
+  right:0;
+  border: none;
 }
