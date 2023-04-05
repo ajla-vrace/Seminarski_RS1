@@ -28,6 +28,7 @@ export class AdminPocetnaComponent implements OnInit {
     })
     this.getBestsellers();
     this.getProdavnice();
+
     this.getStatistika();
   }
 
@@ -41,6 +42,7 @@ export class AdminPocetnaComponent implements OnInit {
         this.brNarMjesecno=this.statistika?.brNarMjesecno;
         console.log(this.statistika);
       })
+
   }
 
   bestsellers:any;
