@@ -83,7 +83,8 @@ export class KatPodkatComponent implements OnInit {
 
     if(this.kliknuoPretrazi){
       let filtriraniPodaci = this.podaci_podkategorije?.filter((x:any)=>(
-        x.naziv.toLowerCase().startsWith(pretraga.toLowerCase())));
+        x.naziv.toLowerCase().startsWith(pretraga.toLowerCase())
+        || x.kategorijaOpis.toLowerCase().startsWith(pretraga.toLowerCase())));
 
       this.totalLength=filtriraniPodaci?.length==0?0:filtriraniPodaci?.length;
 
@@ -210,5 +211,22 @@ export class KatPodkatComponent implements OnInit {
           alert("Uspješno obrisano.");
         })
     }
+  }
+
+
+  postojiKategorija(kat:string){
+      for (let i of this.podaci_kategorije){
+        if(i.naziv===kat && i.id!==this.nova_kategorija.id)
+          return true;
+      }
+      return false;
+  }
+
+  postojiPodkategorija(podkat:string){
+      for (let i of this.podaci_podkategorije){
+        if(i.naziv===podkat && i.id!==this.nova_podkategorija.id)
+          return true;
+      }
+      return false;
   }
 }

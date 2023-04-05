@@ -137,6 +137,7 @@ namespace OnlineShop.Modul1.Controllers
             public int ProizvodId { get; set; }
             public ProizvodVM proizvod { get; set; }
             public int Kolicina { get; set; }
+            public string datum_kreiranja { get; set; }
         }
 
 
@@ -171,12 +172,13 @@ namespace OnlineShop.Modul1.Controllers
                     kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                     sezonaId = x.sezonaId,
                     sezonaOpis = x.sezona.Naziv,
+                    slika_postojeca=x.slika_postojeca
                 }).ToList()[0];
 
                 var kolicine_proizvodaId = 
-                    contex.KorpaStavka.Where(x => x.ProizvodId == p_id).Select(x => x.Kolicina).Sum();
+                    contex.KorpaStavka.Where(x => x.ProizvodId == p_id).Sum(x => x.Kolicina);
 
-                proizvodi_kolicine.Add(new Bestseller { ProizvodId = p_id, proizvod=_proizvod, Kolicina = kolicine_proizvodaId });
+                proizvodi_kolicine.Add(new Bestseller { ProizvodId = p_id, proizvod=_proizvod, Kolicina = kolicine_proizvodaId, datum_kreiranja=_proizvod.datum_kreiranja.ToString("dd/MM/yyyy") });
             }
            
             var top3=proizvodi_kolicine.OrderByDescending(x => x.Kolicina).Take(3);
@@ -221,5 +223,49 @@ namespace OnlineShop.Modul1.Controllers
 
             return top3;
         }
+
+
+        //statistika
+
+        public class Statistika
+        {
+            public int brReg { get; set; }
+            public int brPretpl { get; set; }
+            public int brNarDnevno { get; set; }
+            public int brNarMjesecno { get; set; }
+            public int brNarudzbiUkupno { get; set; }
+            public int brKupaca { get; set; }
+        }
+
+        [HttpGet("statistika")]
+        public Statistika StatistikaPodaci()
+        {
+            var brojRegistriranihOsoba = contex.KorisnickiNalog.Select(x=>x.Id).Distinct().Count();
+            var brojPretplacenihKorisnika = contex.Kupac.Where(x => x.isPretplacen).Select(x => x.Id).Distinct().Count();
+           
+            var currentDate = DateTime.Now;
+
+            var brojNarudzbiDanas = contex.Narudzba.Where(x => x.DatumKreiranja.Day == currentDate.Day &&
+            x.DatumKreiranja.Month == currentDate.Month && x.DatumKreiranja.Year == currentDate.Year).Select(x=>x.Id).
+            Distinct().Count();
+
+            var brojNarudzbiLastMonth = contex.Narudzba.Where(x => x.DatumKreiranja.Month == (currentDate.Month - 1))
+                .Select(x => x.Id).Distinct().Count();
+
+            var brojNarudzbi = contex.Narudzba.Select(x => x.Id).Count();
+
+            var brojKupaca = contex.Narudzba.Select(x => x.KupacId).Distinct().Count();
+
+            return new Statistika
+            {
+                brReg = brojRegistriranihOsoba,
+                brPretpl = brojPretplacenihKorisnika,
+                brNarDnevno = brojNarudzbiDanas,
+                brNarMjesecno = brojNarudzbiLastMonth,
+                brNarudzbiUkupno = brojNarudzbi,
+                brKupaca=brojKupaca
+            };
+        }
+
     }
 }

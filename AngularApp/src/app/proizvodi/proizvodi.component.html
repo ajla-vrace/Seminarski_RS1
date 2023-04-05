@@ -59,8 +59,8 @@
     <th scope="col">Odjel</th>
     <th scope="col">Kategorija</th>
     <th scope="col">Podkategorija</th>
-    <th scope="col">Kolekcija</th>
-    <th scope="col">Sezona</th>
+    <!-- <th scope="col">Kolekcija</th>
+    <th scope="col">Sezona</th>  -->
     <th scope="col">Slika</th>
     <th></th>
     <th></th>
@@ -89,8 +89,8 @@
     <td>{{p.odjelOpis}}</td>
     <td>{{p.kategorijaOpis}}</td>
     <td>{{p.podkategorijaOpis}}</td>
-    <td>{{p.kolekcijaOpis}}</td>
-    <td>{{p.sezonaOpis}}</td>
+ <!--   <td>{{p.kolekcijaOpis}}</td>
+    <td>{{p.sezonaOpis}}</td> -->
     <td> <img style="display:block; max-width: 100%; height: 70px" src="{{get_slika_base64_FS(p)}}"></td>
     <td> <img style="display:block; max-width: 100%; height: 40px" src="assets/slike/pencil-square.svg" class="edit-btn" (click)="EditDugme(p)"></td>
     <td> <img style="display:block; max-width: 100%; height: 40px" src="assets/slike/x-square.svg" class="delete-btn" (click)="DeleteDugme(p)"></td>
@@ -314,7 +314,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" > Dodaj sliku </h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="slika_proizvod_objekat=null; kliknuoDodajSliku=false;" ></button>
+        <button type="button" class="btn-close" aria-label="Close" (click)="slika_proizvod_objekat=null; kliknuoDodajSliku=false; getProizvodOpadajuci();" ></button>
       </div>
       <div class="modal-body">
 
@@ -326,11 +326,21 @@
 
         <div class="mb-3"  >
           <label class="form-label">Stare slike</label>
+   <!--
           <p *ngFor="let x of slike_by_proizvodId">
 
             <img style="display:block;max-width: 100%; height: 200px" src="{{get_slika_FS(x)}}">
 
           </p>
+   -->
+
+          <p *ngFor="let x of listaobjekataProizvodSlike">
+            <img style="display:block;max-width: 100%; height: 200px" src="{{get_slika_base64_DB(x)}}">
+            <button class="btn-obrisi-sliku" (click)="obrisiSliku(x.id)"> Obriši</button>
+          </p>
+
+
+
         </div>
 
 
@@ -345,7 +355,8 @@
 
       </div>
       <div class="modal-footer">
-        <button  type="button" class="btn btn-primary" (click)="snimi_sliku()">Spasi</button>
+        <button  type="button" class="btn btn-primary" [disabled]="slika_proizvod_objekat.slika_nova==''"
+                 (click)="snimi_sliku()">Spasi</button>
       </div>
     </div>
   </div>

@@ -235,12 +235,16 @@
       </div>
 
       <div class="modal-body">
-      <div class="mb-3" [class.has-error]="nazivSP.touched && nazivSP.invalid">
+      <div class="mb-3" [class.has-error]="(nazivSP.touched && nazivSP.invalid) || postojiSP(nazivSP.value)">
         <label class="form-label">Naziv</label>
         <input class="form-control" required pattern="^[A-Za-z\s]*$" #nazivSP="ngModel" [(ngModel)]="obj_sp.naziv" />
 
         <span class="help-block" *ngIf="nazivSP.touched && nazivSP.invalid">
           Ovo polje je obavezno i mora počinjati velikim slovom.
+        </span>
+
+        <span class="help-block" *ngIf="postojiSP(nazivSP.value)">
+          Ne smijete dodavati naziv koji već postoji.
         </span>
 
       </div>

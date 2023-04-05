@@ -9,7 +9,7 @@ namespace OnlineShop.Modul1.Models
         public DateTime? DatumPreuzimanja { get; set; }
         public float? Ukupno { get; set; }
         public int? UkupnoProizvoda { get; set; }
-        public string Status { get; set; }
+        public string Status { get; set; } = "Nova";
         [ForeignKey("KupacId")]
         public Kupac Kupac { get; set; }
         public int? KupacId { get; set; }

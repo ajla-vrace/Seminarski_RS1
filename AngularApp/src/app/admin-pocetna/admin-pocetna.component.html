@@ -5,8 +5,9 @@
   <div class="statistika">
     <h5 class="reg-kor">Broj registriranih korisnika: {{brojReg}}</h5>
     <h5 class="pretpl-kor">Broj pretplaćenih korisnika: {{brojPretpl}}</h5>
-    <h5 class="br-narudzbi">Broj narudzbi danas: {{brNar}}</h5>
+    <h5 class="br-narudzbi">Broj narudžbi danas: {{brNar}}</h5>
     <!--napravimo get metodu koja nam vraca narudzbe na danasnji datum (datum treba bit u formatu dd/MM/yyyy); -->
+    <h5 class="br-narudzbi">Broj narudžbi prethodni mjesec: {{brNarMjesecno}}</h5>
     <h5 class="br-posjeta">Broj posjeta stranice: {{brPosjeta}}</h5>
   </div>
 
@@ -31,6 +32,7 @@
 
   <hr>
 
+    <!--
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -59,6 +61,18 @@
     </button>
   </div>
 
+-->
+
+    <div class="slike">
+
+      <div class="proizvod-div" *ngFor="let b of bestsellers">
+        <img class="slika-okvir" src="{{get_slika_base64_FS(b?.proizvod)}}" (click)="detaljiBestsellera(b)">
+        <h6 class="proizvod-opis">{{b?.proizvod.naziv}}</h6>
+        <button class="btn-proizvod-detalji" (click)="detaljiBestsellera(b)">Detalji</button>
+      </div>
+
+    </div>
+
   </div>
 
 
@@ -71,6 +85,7 @@
     <hr>
 
     <div class="slider-prodavnice">
+
       <div class="prodavnica">
         <h5>Adresa prodavnice: Adresa 25463</h5>
         <img src="assets/slike/store.png" class="prodavnica-slika">
@@ -94,3 +109,42 @@
 
 
 </div>
+
+
+<div class="okvir-detalji" *ngIf="kliknuoDetalji==true">
+  <button class="btn-ok" (click)="kliknuoDetalji=false;">OK</button>
+
+  <h3><b>{{odabrani_proizvod?.proizvod?.naziv}}</b> </h3>
+  <div class="slika-i-detalji">
+    <div class="detalji-proizvoda">
+      <h6>Šifra: <b>{{odabrani_proizvod?.proizvod?.sifra}}</b></h6>
+      <h6>Cijena: <b>{{odabrani_proizvod?.proizvod?.cijena}}</b> KM</h6>
+      <h6>Opis: <b>{{odabrani_proizvod?.proizvod?.opis}}</b></h6>
+      <h6>Odjel: <b>{{odabrani_proizvod?.proizvod?.odjelOpis}}</b></h6>
+      <h6>Boja: <b>{{odabrani_proizvod?.proizvod?.bojaOpis}}</b></h6>
+      <h6>Datum kreiranja: <b>{{odabrani_proizvod?.datum_kreiranja}}</b></h6>
+      <h6>Kategorija: <b>{{odabrani_proizvod?.proizvod?.kategorijaOpis}}</b></h6>
+      <h6>Podkategorija: <b>{{odabrani_proizvod?.proizvod?.podkategorijaOpis}}</b></h6>
+      <h6>Sezona: <b>{{odabrani_proizvod?.proizvod?.sezonaOpis}}</b></h6>
+      <h6>Kolekcija <b>{{odabrani_proizvod?.proizvod?.kolekcijaOpis}}</b></h6>
+      <h6>Aktivan: <b>{{odabrani_proizvod?.proizvod?.aktivan==true?"Da":"Ne"}}</b></h6>
+      <h6>Prodata količina: <b>{{odabrani_proizvod?.Kolicina}}</b></h6>
+    </div>
+    <div class="slika-proizvoda">
+      <img class="slika-detalji" src="{{get_slika_base64_FS(odabrani_proizvod?.proizvod)}}" (click)="kliknuoGetSlika=true">
+    </div>
+  </div>
+  <br>
+
+  <div class="pregled-slike" *ngIf="kliknuoGetSlika==true">
+    <div class="okvir-za-pregled-slike">
+      <button class="btn-x" (click)="kliknuoGetSlika=false;">X</button>
+      <img class="pregled-slike-okvir" src="{{get_slika_base64_FS(odabrani_proizvod?.proizvod)}}">
+    </div>
+  </div>
+
+
+
+</div>
+
+<br>

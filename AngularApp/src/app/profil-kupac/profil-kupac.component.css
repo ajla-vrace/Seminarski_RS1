@@ -131,7 +131,7 @@ border:1px solid black;
  /* margin: 100px auto;*/
 }
 
-#AddNumber{
+#AddNumber,#editIme,#editPrezime{
   width: 20px;
   margin-left: 2%;
   padding-bottom: 1%;

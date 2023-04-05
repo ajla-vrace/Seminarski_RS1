@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
 using OnlineShop.Helper;
 using OnlineShop.Modul1.Models;
+using OnlineShop.Modul2_TestniPodaci;
 
 namespace OnlineShop.Modul1.Controllers
 {
@@ -91,17 +92,29 @@ namespace OnlineShop.Modul1.Controllers
             return Ok();
         }
 
+        [HttpGet("slikeByProizvodId_2")]
+        public List<ProizvodSlika> GetSlike(int proizvod_id)
+        {
+            var lista = new List<ProizvodSlika>();
+            var data = context.ProizvodSlika.Where(x => x.proizvodId == proizvod_id).ToList();
+            foreach (var item in data)
+            {
+                lista.Add(item);
+            }
+            return lista;
+        }
+
 
         [HttpGet("slikaByProizvodId")]
         public List<FileContentResult> GetSlikeByProizvodId(int id = 0)
         {
-            var data = context.ProizvodSlika.Where(x => x.proizvodId == id).Select(s => s.Id);
-          //  var data2 = context.ProizvodSlika.Where(x => x.proizvodId == id).ToList();
+          //  var data = context.ProizvodSlika.Where(x => x.proizvodId == id).Select(s => s.Id);
+            var data2 = context.ProizvodSlika.Where(x => x.proizvodId == id).ToList();
 
             List<FileContentResult> prikaz = new List<FileContentResult>();
 
             //ako zelimo da vidimo slike pohranjene u bazi
-        /*    foreach (var p in data2)
+            foreach (var p in data2)
             {
                 byte[] bajtovi_slike = p.slika_postojeca;
                 if (bajtovi_slike != null)
@@ -110,10 +123,10 @@ namespace OnlineShop.Modul1.Controllers
                     prikaz.Add(slika_prikaz);
                 }
             }
-        */
+        
 
             //ako zelimo da vidimo slike pohranjene u file sistemu
-            foreach (var s_id in data)
+        /*    foreach (var s_id in data)
             {
                 byte[] bajtovi_slike = Fajlovi.Ucitaj("slike_proizvoda/" + s_id + ".jpg");
                 if (bajtovi_slike != null)
@@ -126,8 +139,27 @@ namespace OnlineShop.Modul1.Controllers
                 //ali onda ce se u proizvodima pojavljivati ove slike...
 
             }
+        */
 
             return prikaz;
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult ObrisiSliku(int id)
+        {
+            var slikaProizvod = context.ProizvodSlika.Find(id);
+
+            if (slikaProizvod == null) return BadRequest("nema ovog id");
+
+            var proizvod = context.ProizvodSlika.Where(x => x.Id == id).Select(x => x.proizvod).ToList()[0];
+
+            context.Remove(slikaProizvod);
+
+            proizvod.slika_postojeca = Ekstenzije.ParsirajBase64(Slike.NoImage);
+
+            context.SaveChanges();
+
+            return Ok();
         }
 
 

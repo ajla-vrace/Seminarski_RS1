@@ -25,6 +25,12 @@ kupac_podaci:any;
   ocjeneProizvodaBool:any=false;
    prikaziDiv: any=false;
   kupac: any;
+   brojTel: any;
+  promjena: any=false;
+  promjeniIme: any=false;
+  promjeniBroj: any=false;
+  promjeniPrezime: any=false;
+   kupciPodaci: any;
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient) { }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
@@ -35,6 +41,7 @@ kupac_podaci:any;
    /* this.route.params.subscribe(s=>{
       this.kupac_id=+s["id"];
     })*/
+    this.fetchKupci();
     this.getKupca();
     this.fetchKomentari();
     this.fetchKomentariMoji();
@@ -50,6 +57,12 @@ kupac_podaci:any;
       .subscribe((x:any)=>{
         this.kupac_podaci=x;
         console.log(this.kupac_podaci);
+      })
+  }
+  fetchKupci(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Kupac/GetAll")
+      .subscribe((x:any)=>{
+        this.kupciPodaci=x;
       })
   }
   fetchKomentari() :void
@@ -147,7 +160,7 @@ this.odabranikomentar=s;
 
   modifikuj1(odabranikomentar: any) {
     this.httpKlijent.post(MojConfig.adresa_servera+ "/Komentar/Update/" + this.odabranikomentar.id, this.odabranikomentar)
-      .subscribe((povratnaVrijednost:any) =>{
+      .subscribe((a:any) =>{
       });
 
 this.odabranikomentar=null;
@@ -203,12 +216,77 @@ this.odabranikomentar=null;
     this.prikaziDiv=false;
   }
 
-  editBrojTelefona(kupac :any) {
-for(let x of this.kupac_podaci){
-  if(x.id==this.loginInfo().autentifikacijaToken.korisnickiNalogId){
-    this.kupac=x;
-  }
+  editBrojTelefona() {
+this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+    this.httpKlijent.put(MojConfig.adresa_servera+ "/Kupac/EditTelefon/"+this.kupac_id+"?brojTelefona="+this.kupac.brojTelefona,null, MojConfig.http_opcije())
+      .subscribe((a:any) =>{
+       this.getKupca();
+       this.kupac=null;
+       this.promjeniBroj=false;
+      });
 }
 
+
+  editImeKupca() {
+    this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+    this.httpKlijent.put(MojConfig.adresa_servera+ "/Kupac/EditIme/"+this.kupac_id+"?ime="+this.kupac.ime,null, MojConfig.http_opcije())
+      .subscribe((a:any) =>{
+        this.getKupca();
+        this.kupac=null;
+        this.promjeniIme=false;
+      });
+
+
+  }
+
+  brojTelPromjena() {
+    this.getKupca();
+
+    this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+    for(let x of this.kupciPodaci){
+      if(x.id==this.kupac_id){
+        this.kupac=x;
+      }
+    }
+      this.promjeniBroj=true;
+
+
+  }
+vratiNaFalse(){
+    this.kupac=null;
+    this.promjeniIme=false;
+    this.promjeniBroj=false;
+    this.promjeniPrezime=false;
+}
+
+  promjenaPrezimena() {
+    this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+    for(let x of this.kupciPodaci){
+      if(x.id==this.kupac_id){
+        this.kupac=x;
+      }
+    }
+    this.promjeniPrezime=true;
+  }
+  promjenaImena() {
+    /*this.kupac=this.loginInfo().autentifikacijaToken.korisnickiNalog;*/
+    this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+    for(let x of this.kupciPodaci){
+      if(x.id==this.kupac_id){
+        this.kupac=x;
+      }
+    }
+    this.promjeniIme=true;
+    console.log("ime: "+this.kupac.ime);
+  }
+
+  editPrezimeKupca() {
+    this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+    this.httpKlijent.put(MojConfig.adresa_servera+ "/Kupac/EditPrezime/"+this.kupac_id+"?prezime="+this.kupac.prezime,null, MojConfig.http_opcije())
+      .subscribe((a:any) =>{
+        this.getKupca();
+        this.kupac=null;
+        this.promjeniPrezime=false;
+      });
   }
 }

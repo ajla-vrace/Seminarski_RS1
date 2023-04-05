@@ -28,27 +28,143 @@ KUPAC ID: {{kupac_id}}
 
 <h4 style="margin: 1%">Moj profil</h4>
 
-<div id="kupacPodaci">
+<div id="kupacPodaci" *ngIf="kupac_podaci!=null">
   <h6>Ime:</h6>
   <input value=" {{kupac_podaci.ime}}" disabled>
+  <img src="assets/slike/edit1.png" id="editIme"
+       (click)="promjenaImena()">
   <h6>Prezime: </h6>
   <input value=" {{kupac_podaci.prezime}}" disabled>
+  <img src="assets/slike/edit1.png" id="editPrezime" (click)="promjenaPrezimena()">
   <h6>Email: </h6>
   <input value=" {{kupac_podaci.email}}" disabled>
+
   <h6>Username: </h6>
   <input value=" {{kupac_podaci.username}}" disabled>
-  <h6>Broj telefona: {{kupac_podaci.brojTelefona}}</h6>
+  <h6>Broj telefona: </h6>
 
-  <input value=" {{kupac_podaci.brojTelefona}}" disabled style="display: inline" [(ngModel)]="kupac.brojTelefona">
-  <img src="assets/slike/add1.png" id="AddNumber" >
+  <input value=" {{kupac_podaci.brojTelefona}}" disabled style="display: inline" >
+  <img src="assets/slike/edit1.png" id="AddNumber"
+       (click)="brojTelPromjena()">
   <h6>Datum registracije: {{kupac_podaci.datum_kreiranja}}</h6>
   <input value=" {{kupac_podaci.datumRegistracije | date:'dd-MM-yyyy (hh:mm:ss)'}}" disabled>
 
-  <h6>Pretplata:  {{kupac_podaci.isPretplacen}}</h6>
-  <h6>Adresa: {{kupac_podaci.adresaIsporuke}}</h6>
+  <h6 *ngIf="kupac_podaci.isPretplacen==false">Pretplata: Ne </h6>
+  <h6 *ngIf="kupac_podaci.isPretplacen==true">Pretplata: Da</h6>
+
 
 
 </div>
+
+
+
+<button (click)="kupac=loginInfo().autentifikacijaToken.korisnickiNalog"> uredi</button>
+
+
+
+
+
+
+
+
+
+
+
+<div *ngIf="promjeniBroj==true" class="modal fade show" id="exampleModalLive2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel2">Promjena broja telefona </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="vratiNaFalse()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3" [class.has-error]="brojTelefona.invalid && brojTelefona.touched">
+          <label class="form-label">Broj telefona: </label><br>
+          <input class="form-control" type="text" #brojTelefona="ngModel" [(ngModel)]="kupac.brojTelefona"
+                 required pattern="^[0-9]{3}[-][0-9]{3}[-][0-9]{3}$" placeholder="000-000-000">
+          <span class="poruka-validacija" *ngIf="brojTelefona.invalid && brojTelefona.touched">
+             <p>Unesite broj u ispravnom formatu!</p>
+          </span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="vratiNaFalse()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="editBrojTelefona()"  >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--editIme-->
+<div *ngIf="promjeniIme==true" class="modal fade show" id="exampleModalLive3" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel3">Promjena imena </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="vratiNaFalse()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3" [class.has-error]="ime.invalid && ime.touched">
+          <label class="form-label">Ime:  </label><br>
+          <input class="form-control"  #ime="ngModel" [(ngModel)]="kupac.ime"
+                 required pattern="^[A-Z]{1}[a-z]{2,10}$" placeholder="Ime">
+
+
+          <span class="poruka-validacija" *ngIf="ime.invalid && ime.touched">
+             <p>Ime može sadržavati samo slova!</p>
+          </span>
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="vratiNaFalse()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="editImeKupca()"  >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--editPrezime-->
+<div *ngIf="promjeniPrezime==true;" class="modal fade show" id="exampleModalLive4" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel4">Promjena prezimena </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="vratiNaFalse()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3" [class.has-error]="prezime.invalid && prezime.touched">
+          <label class="form-label">Prezime: </label><br>
+          <input class="form-control" type="text" #prezime="ngModel" [(ngModel)]="kupac.prezime"
+                 required pattern="^[A-Z]{1}[a-z]{2,15}$" placeholder="Prezime">
+
+
+          <span class="poruka-validacija" *ngIf="prezime.invalid && prezime.touched">
+             <p>Prezime može sadržavati samo slova!</p>
+          </span>
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="vratiNaFalse()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="editPrezimeKupca()"  >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
 
 
 <button (click)="prikazKomm()" style="margin: 1%;">Komentari</button>
@@ -160,13 +276,13 @@ KUPAC ID: {{kupac_id}}
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLiveLabel">Novi semestar za </h5>
+          <h5 class="modal-title" id="exampleModalLiveLabel">Edit komentara</h5>
           <button type="button" class="btn-close" aria-label="Close" (click)="odabranikomentar=null"></button>
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label class="form-label">Ime</label>
-            <input class="form-control" placeholder="Ime" [(ngModel)]="odabranikomentar.opis" >
+            <label class="form-label">Komentar</label>
+            <input class="form-control" placeholder="Komentar" [(ngModel)]="odabranikomentar.opis" >
           </div>
 
 
@@ -180,30 +296,4 @@ KUPAC ID: {{kupac_id}}
 
   </div>
 
-<div *ngIf="kupac!=null" class="modal fade show" id="exampleModalLive2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel2">Modifikacija </h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="kupac=null"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label class="form-label">Broj telefona</label>
 
-        <div class="mb-3">
-          <label class="form-label">Velicina</label>
-          <input class="form-control" type="text" [(ngModel)]="kupac.brojTelefona">
-
-
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="kupac=null">Close</button>
-        <button type="button" class="btn btn-primary"  (click)="editBrojTelefona(kupac)">Save changes</button>
-      </div>
-    </div>
-  </div>
-
-</div>

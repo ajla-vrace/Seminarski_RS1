@@ -316,6 +316,7 @@ namespace OnlineShop.Modul1.Controllers
             public ProizvodVM? proizvod { get; set; }
             public int Kolicina { get; set; }
 
+            public string datum_kreiranja { get; set; }
         }
 
         //treba se uzeti proizvodID od ovog, i onda sa metodom GetSlikeByProizvodId dobijamo listu slika,
@@ -359,21 +360,27 @@ namespace OnlineShop.Modul1.Controllers
                 { 
                     ProizvodId = p, 
                     proizvod=_proizvod, 
-                    Kolicina = _kolicina,                
+                    Kolicina = _kolicina,       
+                    datum_kreiranja=_proizvod.datum_kreiranja.ToString("dd/MM/yyyy")
                 });
             }
 
             var minKol=proizvodi_kolicine.OrderBy(x => x.Kolicina).Select(x=>x.Kolicina).ToList()[0];
 
             //proizvodi sa najmanjom kolicinom (istom)
-            return proizvodi_kolicine.Where(x=>x.Kolicina==minKol).OrderBy(x => x.Kolicina);
+
+            var rez= proizvodi_kolicine.Where(x => x.Kolicina == minKol).OrderBy(x => x.Kolicina);
+
+           /// var rez = proizvodi_kolicine.OrderBy(x => x.Kolicina).Take(5).ToList();
+           
+            return rez;
         }
 
         public class ProizvodDatum
         {
             public int ProizvodId { get; set; }
             public ProizvodVM proizvod { get; set; }
-            public DateTime? datum_kreiranja { get; set; }
+            public string datum_kreiranja { get; set; }
         }
 
         [HttpGet("posljednjeDodaniProizvodi")]
@@ -414,10 +421,14 @@ namespace OnlineShop.Modul1.Controllers
                 }).ToList()[0];
            
                 proizvodi_datumi.Add(new ProizvodDatum { 
-                    ProizvodId = p, proizvod = proizvodVM, datum_kreiranja = proizvodVM.datum_kreiranja});
+                    ProizvodId = p, proizvod = proizvodVM, datum_kreiranja = proizvodVM.datum_kreiranja.ToString("dd/MM/yyyy")});
             }
 
-            return proizvodi_datumi;
+            //var rez = proizvodi_datumi.Take(5).ToList();
+
+            var rez = proizvodi_datumi;
+
+            return rez;
         }
 
 

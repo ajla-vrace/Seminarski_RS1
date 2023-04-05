@@ -5,8 +5,11 @@
   <div class="pretraga">
     <select>
       <option>Sve</option>
-      <option>Aktivna</option>
-      <option>Neaktivna</option>
+      <option>Nova</option>
+      <option>Spremna</option>
+      <option>Otkazana</option>
+      <option>Odgođena</option>
+      <option>Preuzeta</option>
     </select>
 
     <div class="pretraga-naziv">
@@ -18,12 +21,12 @@
   </div>
 
   <div class="ukupno-narudzbi">
-    <h5>Ukupno narudžbi: 235</h5>
+    <h5>Ukupno narudžbi: {{ukupnoNarudzbi}}</h5>
   </div>
 
   <!--count kupacID distinct-->
   <div class="ukupno-korisnika">
-    <h5>Ukupno korisnika: 132</h5>
+    <h5>Ukupno kupaca: {{ukupnoKorisnika}}</h5>
   </div>
 
 
@@ -53,16 +56,16 @@
       </tr>
       </thead>
       <tbody>
-      <tr >  <!--ngFor let n of narudzbe-->
-        <th scope="row">1</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+      <tr *ngFor="let n of narudzbe">  <!--ngFor let n of narudzbe-->
+        <th scope="row">{{n.id}}</th>
+        <td>{{n.kupac}}</td>
+        <td>{{n.datumKreiranja}}</td>
+        <td>{{n.datumPreuzimanja}}</td>
+        <td>{{n.total}}</td>
+        <td>{{n.ukupnoProizvoda}}</td>
+        <td>{{n.Status}}</td>
+        <td>{{n.evidentirao}}</td>
+        <td>{{n.prodavnica}}</td>
         <td></td>
         <td> </td>
         <td><button (click)="btnDetalji()" class="btn-detalji">Vidi detalje</button></td>

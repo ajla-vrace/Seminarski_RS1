@@ -92,7 +92,7 @@ export class SezKolComponent implements OnInit {
   }
 
   jelOmogucenSaveSezone(naziv: any, doba: any, godina: any) {
-    if(naziv.valid && doba.valid && godina.valid)
+    if(naziv.valid && doba.valid && godina.valid && !this.postojiIstaSezona(naziv.value))
        return true;
     return false;
   }
@@ -138,7 +138,7 @@ export class SezKolComponent implements OnInit {
   }
 
   jelOmogucenSaveKolekcije(nazivControll: NgModel, sezonaIdControll: NgModel, godinaControll: NgModel) {
-    if(nazivControll.valid && sezonaIdControll.valid && godinaControll.valid)
+    if(nazivControll.valid && sezonaIdControll.valid && godinaControll.valid && !this.postojiIstaKolekcija(nazivControll.value))
       return true;
     return false;
   }
@@ -162,5 +162,23 @@ export class SezKolComponent implements OnInit {
       naziv:"",
       godina:""
     };
+  }
+
+
+
+  postojiIstaSezona(sez:string){
+    for(let i of this.sezone){
+      if(i.naziv===sez && i.id!==this.obj_sezona.id)
+        return true;
+    }
+    return false;
+  }
+
+  postojiIstaKolekcija(kol:string){
+    for(let i of this.kolekcije){
+      if(i.naziv===kol && i.id!==this.obj_kolekcija.id)
+        return true;
+    }
+    return false;
   }
 }

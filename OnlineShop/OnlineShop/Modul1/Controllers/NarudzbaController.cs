@@ -71,12 +71,19 @@ namespace OnlineShop.Modul1.Controllers
                     Total = totalSvega,
                     UkupnoProizvoda = brojProizvoda,
                     Evidentirao=s.Evidentirao,
-
+                    Status=s.Status 
                 })
                 .AsQueryable();
 
 
             return Ok(data.ToList());
         }
+
+        [HttpGet]
+        public List<Narudzba> Sve()
+        {
+            return _dbContext.Narudzba.ToList();
+        }
+
     }
 }

@@ -242,14 +242,16 @@
       </div>
       <div class="modal-body">
 
-        <div class="mb-3" [class.has-error]="naziv.touched && naziv.invalid">
+        <div class="mb-3" [class.has-error]="(naziv.touched && naziv.invalid) || postojiIstoSkladiste(naziv.value)">
           <label class="form-label">Naziv</label>
           <input class="form-control" type="text"
                  #naziv="ngModel" required pattern="[a-zA-Z\s\d]*"
                  [(ngModel)]="obj_skladiste.naziv">
 
           <span *ngIf="naziv.touched && naziv.invalid">Unos je obavezan</span>
-
+          <span class="help-block" *ngIf="postojiIstoSkladiste(naziv.value)">
+             Ne smijete dodavati naziv koji već postoji.
+          </span>
         </div>
 
 
@@ -266,7 +268,7 @@
         <div class="mb-3" [class.has-error]="tel.touched && tel.invalid">
           <label class="form-label">Broj telefona</label>
           <input class="form-control" type="text"
-                 #tel="ngModel" required pattern="^[0-9]{3}(\/|\-|\s)[0-9]{3}(\-|\s)[0-9]{3}$"
+                 #tel="ngModel" required pattern="^[0-9]{3}(\/|-|\s)[0-9]{3}(-|\s)[0-9]{3}$"
                  placeholder="062/111-111 ili 062 111 111 ili 062-111-111..."
                  [(ngModel)]="obj_skladiste.brojTelefona">
 
@@ -311,7 +313,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary"
-                [disabled]="!(naziv.valid && adresa.valid && tel.valid && povrsina.valid)"
+                [disabled]="!(naziv.valid && adresa.valid && tel.valid && povrsina.valid )"
                 (click)="spasi_skladiste()">Spasi promjene</button>
       </div>
     </div>
@@ -331,13 +333,17 @@
       </div>
       <div class="modal-body">
 
-        <div class="mb-3" [class.has-error]="naziv.touched && naziv.invalid">
+        <div class="mb-3" [class.has-error]="(naziv.touched && naziv.invalid) || postojiIstaProdavnica(naziv.value)">
           <label class="form-label">Naziv</label>
           <input class="form-control" type="text"
                  #naziv="ngModel" required pattern="[a-zA-Z\s\d]*"
                  [(ngModel)]="obj_prodavnica.naziv">
 
           <span *ngIf="naziv.touched && naziv.invalid">Unos je obavezan</span>
+
+          <span class="help-block" *ngIf="postojiIstaProdavnica(naziv.value)">
+             Ne smijete dodavati naziv koji već postoji.
+          </span>
 
         </div>
 
@@ -355,7 +361,7 @@
         <div class="mb-3" [class.has-error]="tel.touched && tel.invalid">
           <label class="form-label">Broj telefona</label>
           <input class="form-control" type="text"
-                 #tel="ngModel" required pattern="^[0-9]{3}(\/|\-|\s)[0-9]{3}(\-|\s)[0-9]{3}$"
+                 #tel="ngModel" required pattern="^[0-9]{3}(\/|-|\s)[0-9]{3}(-|\s)[0-9]{3}$"
                  placeholder="062/111-111 ili 062 111 111 ili 062-111-111..."
                  [(ngModel)]="obj_prodavnica.brojTelefona">
 
@@ -389,7 +395,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary"
-                [disabled]="!(naziv.valid && adresa.valid && tel.valid && povrsina.valid)"
+                [disabled]="!(naziv.valid && adresa.valid && tel.valid && povrsina.valid && !postojiIstaProdavnica(naziv.value))"
                 (click)="spasi_prodavnicu()">Spasi promjene</button>
       </div>
     </div>

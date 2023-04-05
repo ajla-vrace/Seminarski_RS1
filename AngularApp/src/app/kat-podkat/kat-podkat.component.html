@@ -111,7 +111,13 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let p of getFilterKategorije(pretraga2.value)">
+      <tr *ngFor="let p of getFilterKategorije(pretraga2.value)| paginate:
+   {
+        id:'pagination2',
+        itemsPerPage: 5,
+        currentPage:page_2,
+        totalItems:totalLenght2
+        }">
         <th scope="row">{{p.id}}</th>
         <td>{{p.naziv}}</td>
         <td> <img src="assets/slike/pencil-square.svg" (click)="uredi_kat(p)"></td>
@@ -120,8 +126,10 @@
 
       </tbody>
 
-
     </table>
+
+    <pagination-controls id="pagination2" class="text-center my-pagination" (pageChange)="page_2=$event"></pagination-controls>
+
 
 
 
@@ -143,13 +151,17 @@
 
 
 
-        <div class="mb-3" [class.has-error]="nazivControll.invalid && nazivControll.touched">
+        <div class="mb-3" [class.has-error]="(nazivControll.invalid && nazivControll.touched) || postojiPodkategorija(nazivControll.value)">
           <label class="form-label">Naziv podkategorije:</label>
           <input type="text" required pattern="^[A-Z][a-zA-Z\d\s]*$" [(ngModel)]="nova_podkategorija.naziv"
                  minlength="3" #nazivControll="ngModel" class="form-control" placeholder="naziv" >
 
           <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">
             Ovo polje je obavezno. Prvo slovo mora biti veliko. Najmanje 3 karaktera.
+          </span>
+
+          <span class="help-block" *ngIf="postojiPodkategorija(nazivControll.value)">
+            Ne smijete dodavati naziv koji već postoji.
           </span>
         </div>
 
@@ -168,7 +180,7 @@
 
       </div>
       <div class="modal-footer">
-        <button [disabled]="!(nazivControll.valid && katIdControll.valid)" type="button"
+        <button [disabled]="!(nazivControll.valid && katIdControll.valid && !postojiPodkategorija(nazivControll.value))" type="button"
                 class="btn" (click)="spasi_podkat()">Spasi promjene</button>
       </div>
     </div>
@@ -190,7 +202,7 @@
 
 
 
-        <div class="mb-3" [class.has-error]="nazivControll.invalid && nazivControll.touched">
+        <div class="mb-3" [class.has-error]="(nazivControll.invalid && nazivControll.touched) || postojiKategorija(nazivControll.value)">
           <label class="form-label">Naziv kategorije:</label>
           <input type="text" required pattern="^[A-Z][a-zA-Z\d\s]*$" [(ngModel)]="nova_kategorija.naziv"
                  minlength="3" #nazivControll="ngModel" class="form-control" placeholder="naziv" >
@@ -198,12 +210,17 @@
           <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">
             Ovo polje je obavezno. Prvo slovo mora biti veliko. Najmanje 3 karaktera.
           </span>
+
+          <span class="help-block" *ngIf=" postojiKategorija(nazivControll.value)">
+            Ne smijete dodavati naziv koji već postoji.
+          </span>
+
         </div>
 
 
       </div>
       <div class="modal-footer">
-        <button [disabled]="!(nazivControll.valid)" type="button"
+        <button [disabled]="!(nazivControll.valid && !postojiKategorija(nazivControll.value))" type="button"
                 class="btn" (click)="spasi_kat()">Spasi promjene</button>
       </div>
     </div>

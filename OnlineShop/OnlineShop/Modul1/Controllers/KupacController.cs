@@ -111,14 +111,41 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(data.ToList());
         }
-        [HttpPut]
-        public ActionResult EditTelefon(KupacVM x)
+        [HttpPut("{id}")]
+        public ActionResult EditTelefon(int id, string brojTelefona)
         {
-            Kupac objekat = _dbContext.Kupac.Find(x.Id);
+            Kupac? objekat = _dbContext.Kupac.Find(id);
             if (objekat != null)
             {
-                objekat.BrojTelefona = x.BrojTelefona;
+                objekat.BrojTelefona = brojTelefona;
             }
+            _dbContext.SaveChanges();
+            return Ok(objekat);
+
+        }
+        [HttpPut("{id}")]
+        public ActionResult EditIme(int id, string ime)
+        {
+            Kupac? objekat = _dbContext.Kupac.Find(id);
+            if (objekat != null)
+            {
+                objekat.Ime = ime;
+            }
+            _dbContext.SaveChanges();
+            return Ok(objekat);
+
+        }
+        [HttpPut("{id}")]
+        public ActionResult EditPrezime(int id, string prezime)
+        {
+            Kupac? objekat = _dbContext.Kupac.Find(id);
+            if (objekat != null)
+            {
+                objekat.Prezime = prezime;
+                _dbContext.Update(objekat);
+                _dbContext.SaveChanges();
+            }
+            
             return Ok(objekat);
 
         }

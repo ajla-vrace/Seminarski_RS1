@@ -239,7 +239,7 @@ export class SpecPonComponent implements OnInit {
 
 
   jelDisabledSnimiSP(nazivSP: NgModel, dateStart: NgModel, dateEnd: NgModel) {
-    if(nazivSP.valid && dateStart.valid && dateEnd.valid)
+    if(nazivSP.valid && dateStart.valid && dateEnd.valid && !this.postojiSP(nazivSP.value))
       return true;
     return false;
   }
@@ -307,4 +307,14 @@ export class SpecPonComponent implements OnInit {
 
     console.log("ob_spp: ",this.obj_spp)
   }
+
+
+  postojiSP(sp:string){
+    for(let i of this.specijalne_ponude){
+      if(i.naziv === sp && i.id!==this.obj_sp.id)
+        return true;
+    }
+    return false;
+  }
+
 }

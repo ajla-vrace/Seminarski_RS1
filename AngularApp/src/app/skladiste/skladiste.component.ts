@@ -108,6 +108,7 @@ export class SkladisteComponent implements OnInit {
           this.skladisteID=this.s[0].id;
           this.odabrana_stavka.skladisteId=this.s[0].id; //defaultna vrijednost
         }
+        console.log("SKLADISTA: ", this.s);
 
       })
   }
@@ -169,7 +170,7 @@ export class SkladisteComponent implements OnInit {
     if(confirm("Da li stvarno želite obrisati ovu stavku?")){
       this.httpKlijent.delete(MojConfig.adresa_servera+"/api/SkladisteProizvod?id="+
         p.id).subscribe((x:any)=>{
-        this.getSkladisteProizvod();
+        this.getSkladisteProizvod_k_p_opadajuci();
       })
     }
   }
@@ -320,4 +321,22 @@ export class SkladisteComponent implements OnInit {
 
   }
 
+
+  postojiIstaProdavnica(prod:string){
+    for(let i of this.prodavnice){
+      if(i.naziv===prod && i.id!==this.obj_prodavnica.id)
+        return true;
+    }
+    return false;
+  }
+
+  postojiIstoSkladiste(sklad:string){
+    for(let i of this.s){
+      if(i.naziv===sklad && i.id!==this.obj_skladiste?.id) {
+        console.log(i.id, this.obj_skladiste.id);
+        return true;
+      }
+    }
+    return false;
+  }
 }
