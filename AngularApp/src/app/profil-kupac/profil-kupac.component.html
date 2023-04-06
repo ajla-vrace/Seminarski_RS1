@@ -61,7 +61,7 @@ KUPAC ID: {{kupac_id}}
 <button (click)="kupac=loginInfo().autentifikacijaToken.korisnickiNalog"> uredi</button>
 
 
-
+<button (click)="promjenaLozinke()">prmjeni lozinku</button>
 
 
 
@@ -158,6 +158,59 @@ KUPAC ID: {{kupac_id}}
   </div>
 </div>
 
+<!--promjena lozinke-->
+<div *ngIf="promjeniLozinku==true" class="modal fade show" id="exampleModalLive5" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel5">Promjena lozinke </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="vratiNaFalse()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3" [class.has-error]="lozinkaSadasnja.invalid && lozinkaSadasnja.touched">
+          <label class="form-label">Sadašnja lozinka:  </label><br>
+          <input class="form-control" type="password" #lozinkaSadasnja="ngModel" [(ngModel)]="sadasnjaLozinka"
+                 required pattern="^[a-zA-Z0-9]{3,}$" placeholder="">
+
+
+          <span class="poruka-validacija" *ngIf="lozinkaSadasnja.invalid && lozinkaSadasnja.touched">
+             <p>Unesite ispravno sadašnju lozinku!</p>
+          </span>
+
+        </div>
+
+        <div class="mb-3" [class.has-error]="lozinkaNova.invalid && lozinkaNova.touched">
+          <label class="form-label">Nova lozinka:  </label><br>
+          <input class="form-control" type="password" #lozinkaNova="ngModel" [(ngModel)]="novaLozinka"
+                 required pattern="^[a-zA-Z0-9]{3,}$" placeholder="">
+
+
+          <span class="poruka-validacija" *ngIf="lozinkaNova.invalid && lozinkaNova.touched">
+             <p>Unesite ispravno novu lozinku!</p>
+          </span>
+
+        </div>
+
+        <div class="mb-3" [class.has-error]="loznkaNovaPonovo.invalid && loznkaNovaPonovo.touched">
+          <label class="form-label">Ponovi lozinku:  </label><br>
+          <input class="form-control" type="password" #loznkaNovaPonovo="ngModel" [(ngModel)]="novaLozinkaPonovo"
+                 required pattern="^[a-zA-Z0-9]{3,}$" placeholder="">
+
+
+          <span class="poruka-validacija" *ngIf="loznkaNovaPonovo.invalid && loznkaNovaPonovo.touched">
+             <p>Unesite ispravno novu lozinku!</p>
+          </span>
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="vratiNaFalse()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="editLozinkeKupca()"  >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

@@ -149,6 +149,20 @@ namespace OnlineShop.Modul1.Controllers
             return Ok(objekat);
 
         }
+        [HttpPut("{id}")]
+        public ActionResult EditLozinka(int id, string lozinka)
+        {
+            Kupac? objekat = _dbContext.Kupac.Find(id);
+            if (objekat != null)
+            {
+                objekat.Lozinka = lozinka;
+                _dbContext.Update(objekat);
+                _dbContext.SaveChanges();
+            }
+
+            return Ok(objekat);
+
+        }
         [HttpGet]
         public ActionResult GetById(int id)
         {

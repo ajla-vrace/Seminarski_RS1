@@ -31,6 +31,10 @@ kupac_podaci:any;
   promjeniBroj: any=false;
   promjeniPrezime: any=false;
    kupciPodaci: any;
+  promjeniLozinku: any;
+  novaLozinka: any;
+  novaLozinkaPonovo:any;
+  sadasnjaLozinka: any;
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient) { }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
@@ -257,6 +261,7 @@ vratiNaFalse(){
     this.promjeniIme=false;
     this.promjeniBroj=false;
     this.promjeniPrezime=false;
+    this.promjeniLozinku=false;
 }
 
   promjenaPrezimena() {
@@ -267,6 +272,15 @@ vratiNaFalse(){
       }
     }
     this.promjeniPrezime=true;
+  }
+  promjenaLozinke() {
+    this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+    for(let x of this.kupciPodaci){
+      if(x.id==this.kupac_id){
+        this.kupac=x;
+      }
+    }
+    this.promjeniLozinku=true;
   }
   promjenaImena() {
     /*this.kupac=this.loginInfo().autentifikacijaToken.korisnickiNalog;*/
@@ -288,5 +302,21 @@ vratiNaFalse(){
         this.kupac=null;
         this.promjeniPrezime=false;
       });
+  }
+  editLozinkeKupca() {
+    this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+    console.log("novalozinka: "+this.novaLozinka);
+    this.httpKlijent.put(MojConfig.adresa_servera+ "/Kupac/EditLozinka/"+this.kupac_id+"?lozinka="+this.novaLozinka,null, MojConfig.http_opcije())
+      .subscribe((a:any) =>{
+        this.getKupca();
+        this.kupac=null;
+        this.promjeniLozinku=false;
+      });
+    setTimeout( ()=>{
+     this.novaLozinka="";
+     this.novaLozinkaPonovo="";
+     this.sadasnjaLozinka="";
+     this.ngOnInit();
+    }, 400);
   }
 }
