@@ -3,7 +3,7 @@
 
 <div class="filteri">
   <div class="pretraga">
-    <select>
+    <select [(ngModel)]="statusFilter">
       <option>Sve</option>
       <option>Nova</option>
       <option>Spremna</option>
@@ -12,9 +12,10 @@
       <option>Preuzeta</option>
     </select>
 
+
     <div class="pretraga-naziv">
       <input class="pretrazi-po" type="text" placeholder="pretrazi kupca, zaposlenika, prodavnicu..."
-             #pretraga>
+             #pretraga [(ngModel)]="_filter">
       <img class="img-search" src="assets/slike/search.svg">
     </div>
 
@@ -56,24 +57,29 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let n of narudzbe">  <!--ngFor let n of narudzbe-->
+      <tr *ngFor="let n of getFilterNarudzbe() | paginate:
+   {
+        itemsPerPage: 4,
+        currentPage:page,
+        totalItems:totalLength
+        }">  <!--ngFor let n of narudzbe-->
         <th scope="row">{{n.id}}</th>
-        <td>{{n.kupac}}</td>
+        <td>{{n.kupacNaziv}}</td>
         <td>{{n.datumKreiranja}}</td>
         <td>{{n.datumPreuzimanja}}</td>
-        <td>{{n.total}}</td>
+        <td>{{n.ukupno}}</td>
         <td>{{n.ukupnoProizvoda}}</td>
-        <td>{{n.Status}}</td>
+        <td>{{n.status}}</td>
         <td>{{n.evidentirao}}</td>
-        <td>{{n.prodavnica}}</td>
+        <td>{{n.nazivProdavnice}}</td>
         <td></td>
         <td> </td>
-        <td><button (click)="btnDetalji()" class="btn-detalji">Vidi detalje</button></td>
+        <td><button (click)="btnDetalji(n.id)" class="btn-detalji">Vidi detalje</button></td>
       </tr>
       </tbody>
     </table>
 
-    <p class="paginacija">PAGINACIJA</p>
+    <pagination-controls class="text-center my-pagination paginacija" (pageChange)="page=$event"></pagination-controls>
 
   </div>
 

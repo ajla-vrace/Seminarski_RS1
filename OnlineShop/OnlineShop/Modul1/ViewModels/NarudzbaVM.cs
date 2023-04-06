@@ -12,7 +12,9 @@ namespace OnlineShop.Modul1.ViewModels
         public int? UkupnoProizvoda { get; set; }
         public string? Status { get; set; }
         public int? KupacId { get; set; }
+        public string? KupacNaziv { get; set; }
         public int? ProdavnicaId { get; set; }
+        public string? nazivProdavnice { get; set; }
         public string? Evidentirao { get; set; }
     }
 }

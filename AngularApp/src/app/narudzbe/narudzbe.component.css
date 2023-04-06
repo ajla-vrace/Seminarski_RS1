@@ -83,3 +83,9 @@ select,.ukupno-korisnika,.ukupno-narudzbi{
 .paginacija{
   text-align: center;
 }
+
+.my-pagination /deep/ .ngx-pagination .current
+{
+  background-color: pink;
+  border-radius: 30px;
+}

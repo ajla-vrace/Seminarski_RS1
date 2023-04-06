@@ -17,8 +17,12 @@ export class NarudzbeComponent implements OnInit {
   statistika:any;
   ukupnoNarudzbi:any;
   ukupnoKorisnika:any;
+  statusFilter:any="Sve";
 
-  _filter:any;
+  _filter:any="";
+
+  totalLength:number=0;
+  page:any;
 
   ngOnInit(): void {
     this.route.params.subscribe(s=>{
@@ -29,8 +33,8 @@ export class NarudzbeComponent implements OnInit {
   }
 
 
-  btnDetalji() {
-    this.router.navigate(['narudzba-detalji',this.zaposlenik_id]);
+  btnDetalji(narId:any) {
+    this.router.navigate(['narudzba-detalji',narId]);
   }
 
   getStatistika(){
@@ -44,21 +48,36 @@ export class NarudzbeComponent implements OnInit {
   }
 
   getNarudzbe(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/Narudzba/GetAll")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Narudzba/Sve")
       .subscribe((x:any)=>{
         this.narudzbe=x;
+        this.totalLength=this.narudzbe?.length;
         console.log(this.narudzbe);
       })
   }
 
   getFilterNarudzbe(){
-    //if status == sve ...
-    //if status == nova ... filter && x.status==nova
-    //itd...
-    var rez=this.narudzbe?.filter((x:any)=>
-      (
-        x.kupac.toLowerCase().startsWith(this._filter.toLowerCase())
-        //|| zaposlenik || prodavnica
+    var rez:any;
+    if(this._filter=="" && this.statusFilter=="Sve")
+      return this.narudzbe;
+    if(this.statusFilter=="Sve"){
+      rez=this.narudzbe?.filter((x:any)=> (
+          x?.kupacNaziv.toLowerCase().startsWith(this._filter?.toLowerCase()) || this._filter==""
+          || x?.evidentirao.toLowerCase().startsWith(this._filter?.toLowerCase()) || this._filter==""
+          || x?.nazivProdavnice.toLowerCase().startsWith(this._filter?.toLowerCase()) || this._filter==""
+        ))
+    }
+    else{
+      rez=this.narudzbe?.filter((x:any)=> (
+        (x.kupacNaziv.toLowerCase().startsWith(this._filter?.toLowerCase()) || this._filter==""
+        || x.evidentirao.toLowerCase().startsWith(this._filter?.toLowerCase()) || this._filter==""
+        || x.nazivProdavnice.toLowerCase().startsWith(this._filter?.toLowerCase()) || this._filter=="")
+        && x.status===this.statusFilter
       ))
+    }
+
+    console.log("rez:",rez);
+    return rez;
+
   }
 }

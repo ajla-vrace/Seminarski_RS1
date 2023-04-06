@@ -17,6 +17,7 @@ namespace OnlineShop.Modul1.ViewModels
         
         public int? SpolId { get; set; }
         public Spol? Spol { get; set; }
+        public string? spolOpis { get; set; }
         public DateTime? DatumPrveNarudzbe { get; set; }
         public DateTime? DatumPretplate { get; set; }
         public bool isPretplacen { get; set; }=false;

@@ -55,6 +55,37 @@ namespace OnlineShop.Modul1.Controllers
         }
 
 
+        [HttpGet("proizvodId")]
+        public ProizvodVM GetProizvod(int proizvod_id)
+        {
+            var data = context.Proizvod.Where(x => x.Id == proizvod_id).Select(x => new ProizvodVM
+            {
+                Id = x.Id,
+                Sifra = x.Sifra,
+                Naziv = x.Naziv,
+                Cijena = x.Cijena,
+                Opis = x.Opis,
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije,
+                Aktivan = x.Aktivan,
+                bojaId = x.bojaId,
+                bojaOpis = x.boja.Naziv,
+                odjelId = x.odjelId,
+                odjelOpis = x.odjel.Naziv,
+                kategorijaId = x.kategorijaId,
+                kategorijaOpis = x.kategorija.Naziv,
+                podkategorijaId = x.podkategorijaId,
+                podkategorijaOpis = x.podkategorija.Naziv,
+                kolekcijaId = x.kolekcijaId,
+                kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
+                sezonaId = x.sezonaId,
+                sezonaOpis = x.sezona.Naziv,
+                slika_postojeca = x.slika_postojeca
+            }).ToList()[0];
+
+            return data;
+        }
+
 
         [HttpPost("drugiNacin")]
         public ActionResult Snimi2(ProizvodSnimi2VM x)

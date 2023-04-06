@@ -73,18 +73,51 @@
 
 
   <div *ngIf="zakljucivanjeNarudzbe==true;">
-    <h1>Zakljucivanje narudzbe</h1>
-    <div *ngFor="let x of korpaStavkePodaci">
+    <h4 style="text-align: center;">Stavke narudžbe</h4>
+    <div id="divTabela">
+      <table class="table table-bordered table-primary">
+        <thead style="background-color: black;">
+        <tr style="background-color: black;">
+          <th>Proizvod</th>
+          <th>Boja</th>
+          <th>Veličina</th>
+          <th>Cijena</th>
+          <th>Količina</th>
+          <th>Total</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let s of korpaStavkePodaci">
+          <td>{{s.proizvodIme}}</td>
+          <td>{{s.boja.naziv}}</td>
+          <td>{{s.velicina}}</td>
+          <td>{{s.cijena}}</td>
+          <td>{{s.kolicina}}</td>
+          <td>{{s.total}}</td>
+        </tr>
+        <td colspan="4" ></td>
+        <td ><h6>Ukupna cijena:</h6></td>
+        <td ><h6>{{korpePodaci[0].total}}</h6></td>
+       <!-- <td style="text-align: right;">Ukupna cijena: {{korpePodaci[0].total}} </td>-->
+        </tbody>
+      </table>
+
+
+    </div>
+    <!--<div *ngFor="let x of korpaStavkePodaci">
       <li>id: {{x.id}}</li>
       <li>proizvodId: {{x.proizvodId}}</li>
       <li>cijena: {{x.cijena}}</li>
       <li>kolicina: {{x.kolicina}}</li>
       <li>total: {{x.total}}</li>
     </div>
+    -->
     <div id="prod">
-      <h5>Odabrana prodavnica je: </h5>
-      <h5>Ukupno proizvoda: </h5>
-      <h5>Ukupna cijena: </h5>
+      <h6>Odabrana prodavnica je: </h6>
+
+
     </div>
     <hr>
     <div class="dugmadZaKretanje">
@@ -99,5 +132,5 @@
 <div *ngIf="kreiranaNarudzba==true;" id="uspjesnoKreiranaNarudzba">
   <img src="assets/slike/plavaTacnica.png" id="slikaPlavaTacnica">
   <h1>Narudžba je uspješno kreirana!</h1>
-  <h6 style="cursor: pointer;">Provjeri status</h6>
+  <h6 style="cursor: pointer;" (click)="otvoriProfilKupca()">Provjeri status</h6>
 </div>

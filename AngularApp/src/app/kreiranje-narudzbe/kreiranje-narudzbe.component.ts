@@ -23,6 +23,7 @@ kupac_id:any;
    narudzba: any;
    narudzbaPodaci: any;
    korpePodaci: any;
+
   constructor(private httpKlijent: HttpClient,private router: Router, private route:ActivatedRoute,private datePipe:DatePipe) {
   }
 
@@ -53,6 +54,7 @@ kupac_id:any;
     });
 
   }
+
   fetchProdavnice() {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Prodavnica/GetAll", MojConfig.http_opcije()).subscribe(x=>{
       this.prodavnicePodaci = x;
@@ -164,5 +166,9 @@ this.kreiranaNarudzba=true;
 
   otvoriPocetnu() {
     this.router.navigate(['/kupac-pocetna/',this.loginInfo().autentifikacijaToken.korisnickiNalogId]);
+  }
+
+  otvoriProfilKupca() {
+    this.router.navigate(['profil-kupac']);
   }
 }
