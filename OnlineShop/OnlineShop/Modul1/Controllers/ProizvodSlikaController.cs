@@ -154,8 +154,12 @@ namespace OnlineShop.Modul1.Controllers
             var proizvod = context.ProizvodSlika.Where(x => x.Id == id).Select(x => x.proizvod).ToList()[0];
 
             context.Remove(slikaProizvod);
+            context.SaveChanges();
 
-            proizvod.slika_postojeca = Ekstenzije.ParsirajBase64(Slike.NoImage);
+            byte[] noImage = Ekstenzije.ParsirajBase64(Slike.NoImage);
+            var data = context.ProizvodSlika.Where(x => proizvod.Id == x.proizvodId);
+            byte[]? posljednjaSlika = data.Count()>0 ? data.OrderByDescending(x => x.Id).Select(x => x.slika_postojeca).ToList()[0] : null;
+            proizvod.slika_postojeca = posljednjaSlika == null ? noImage : posljednjaSlika;
 
             context.SaveChanges();
 

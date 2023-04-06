@@ -4,6 +4,7 @@ import {MojConfig} from "../moj-config";
 import {HttpClient} from "@angular/common/http";
 import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 import {LoginInformacije} from "../helpers/login-informacije";
+import {NgModel} from "@angular/forms";
 
 @Component({
   selector: 'app-profil-kupac',
@@ -35,9 +36,25 @@ kupac_podaci:any;
   novaLozinka: any;
   novaLozinkaPonovo:any;
   sadasnjaLozinka: any;
+   ime: any="";
+   prezime: any="";
+   lozinka: any="";
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient) { }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
+  }
+  getKupca(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Kupac/GetById?id="+this.kupac_id)
+      .subscribe((x:any)=>{
+        this.kupac_podaci=x;
+        console.log(this.kupac_podaci);
+        setTimeout( ()=>{
+         /* this.ime=this.kupac_podaci[0].ime;
+          this.prezime=this.kupac_podaci[0].prezime;
+          this.lozinka=this.kupac_podaci[0].lozinka;*/
+        }, 400);
+
+      })
   }
   ngOnInit(): void {
     this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
@@ -53,16 +70,11 @@ kupac_podaci:any;
     this.fetchOcjeneProdavniceMoje();
     this.fetchOcjeneProizvoda();
     this.fetchOcjeneProizvodaMoje();
+
   }
 
 
-  getKupca(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/Kupac/GetById?id="+this.kupac_id)
-      .subscribe((x:any)=>{
-        this.kupac_podaci=x;
-        console.log(this.kupac_podaci);
-      })
-  }
+
   fetchKupci(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/Kupac/GetAll")
       .subscribe((x:any)=>{
@@ -303,20 +315,54 @@ vratiNaFalse(){
         this.promjeniPrezime=false;
       });
   }
+  jeLiOmoguceno(sadasnja:NgModel, nova:NgModel,ponovljena :NgModel){
+   /* this.getKupca();*/
+
+      if(this.kupac_podaci.lozinka!=undefined)
+      {
+       /* console.log(this.kupac_podaci.lozinka);*/
+        if(this.sadasnjaLozinka==this.kupac_podaci.lozinka && this.novaLozinka===this.novaLozinkaPonovo
+          && this.sadasnjaLozinka!=="" && this.novaLozinka!==""
+          && sadasnja.valid && nova.valid && ponovljena.valid){
+          return true;
+        }
+        else{
+          return false; }
+      }
+      else {
+       return false;
+      }
+
+
+}
+
+
+
+
   editLozinkeKupca() {
     this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
-    console.log("novalozinka: "+this.novaLozinka);
-    this.httpKlijent.put(MojConfig.adresa_servera+ "/Kupac/EditLozinka/"+this.kupac_id+"?lozinka="+this.novaLozinka,null, MojConfig.http_opcije())
-      .subscribe((a:any) =>{
-        this.getKupca();
-        this.kupac=null;
-        this.promjeniLozinku=false;
-      });
+   /* console.log("novalozinka: "+this.novaLozinka);*/
+
+
+      this.httpKlijent.put(MojConfig.adresa_servera+ "/Kupac/EditLozinka/"+this.kupac_id+"?lozinka="+this.novaLozinka,null, MojConfig.http_opcije())
+        .subscribe((a:any) =>{
+          this.getKupca();
+          this.kupac=null;
+          this.promjeniLozinku=false;
+          this.novaLozinka="";
+          this.novaLozinkaPonovo="";
+          this.sadasnjaLozinka="";
+        });
+  }
+
+  provjera() {
+    this.getKupca();
     setTimeout( ()=>{
-     this.novaLozinka="";
-     this.novaLozinkaPonovo="";
-     this.sadasnjaLozinka="";
-     this.ngOnInit();
+      console.log("podaci:"+this.kupac_podaci.lozinka);
+
+     /* console.log("podatak: "+this.kupac_podaci[0]?.lozinka);
+      console.log("lenght je"+this.kupac_podaci.length);*/
     }, 400);
+
   }
 }

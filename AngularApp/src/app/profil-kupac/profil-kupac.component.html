@@ -191,13 +191,13 @@ KUPAC ID: {{kupac_id}}
 
         </div>
 
-        <div class="mb-3" [class.has-error]="loznkaNovaPonovo.invalid && loznkaNovaPonovo.touched">
+        <div class="mb-3" [class.has-error]="lozinkaNovaPonovo.invalid && lozinkaNovaPonovo.touched">
           <label class="form-label">Ponovi lozinku:  </label><br>
-          <input class="form-control" type="password" #loznkaNovaPonovo="ngModel" [(ngModel)]="novaLozinkaPonovo"
+          <input class="form-control" type="password" #lozinkaNovaPonovo="ngModel" [(ngModel)]="novaLozinkaPonovo"
                  required pattern="^[a-zA-Z0-9]{3,}$" placeholder="">
 
 
-          <span class="poruka-validacija" *ngIf="loznkaNovaPonovo.invalid && loznkaNovaPonovo.touched">
+          <span class="poruka-validacija" *ngIf="lozinkaNovaPonovo.invalid && lozinkaNovaPonovo.touched">
              <p>Unesite ispravno novu lozinku!</p>
           </span>
 
@@ -206,14 +206,17 @@ KUPAC ID: {{kupac_id}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="vratiNaFalse()">Close</button>
-        <button type="button" class="btn btn-primary" (click)="editLozinkeKupca()"  >Save changes</button>
+        <button type="button" class="btn btn-primary"
+                [disabled]="!jeLiOmoguceno(lozinkaSadasnja,lozinkaNova,lozinkaNovaPonovo)"
+                (click)="editLozinkeKupca()"
+                >Save changes</button>
       </div>
     </div>
   </div>
 </div>
 
 
-
+<button (click)="provjera()">vjde</button>
 
 
 
