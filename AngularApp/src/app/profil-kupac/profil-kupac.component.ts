@@ -45,6 +45,7 @@ kupac_podaci:any;
    jeLiNarudzbe:any=false;
    prikazPodataka: any=false;
   prikazKomentara: any=false;
+  PrikazOcjena: any=false;
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient) { }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
@@ -70,7 +71,7 @@ kupac_podaci:any;
     })*/
     this.fetchKupci();
     this.getKupca();
-    this.fetchKomentari();
+   // this.fetchKomentari();
     this.fetchKomentariMoji();
     this.fetchOcjeneProdavnice();
     this.fetchOcjeneProdavniceMoje();
@@ -149,6 +150,8 @@ this.fetchNarudzbeKupca();
     this.prikazKomentara = true;
     this.prikazPodataka=false;
     this.prikaziNarudzbe=false;
+    this.PrikazOcjena=false;
+    this.ocjeneProizvodaBool=false;
   }
 
   prikaziMojeOcjeneProdavnica() {
@@ -164,7 +167,11 @@ this.fetchNarudzbeKupca();
   }
 
   prikazOcjene() {
-    this.ocjene = true;
+    this.PrikazOcjena = true;
+    this.prikazKomentara = false;
+    this.prikazPodataka=false;
+    this.prikaziNarudzbe=false;
+    this.ocjeneProizvodaBool=false;
   }
 
   brisikomm(s: any) {
@@ -217,6 +224,10 @@ this.odabranikomentar=null;
 
   prikazOcjeneProizvoda() {
     this.ocjeneProizvodaBool=true;
+    this.prikazPodataka=false;
+    this.prikaziNarudzbe=false;
+    this.prikazKomentara=false;
+    this.PrikazOcjena=false;
   }
 
 
@@ -374,6 +385,8 @@ vratiNaFalse(){
     this.prikazPodataka=false;
     this.prikaziNarudzbe=true;
 this.prikazKomentara=false;
+    this.PrikazOcjena=false;
+    this.ocjeneProizvodaBool=false;
 
   }
 
@@ -381,5 +394,7 @@ this.prikazKomentara=false;
     this.prikazPodataka=true;
     this.prikaziNarudzbe=false;
     this.prikazKomentara=false;
+    this.PrikazOcjena=false;
+    this.ocjeneProizvodaBool=false;
   }
 }

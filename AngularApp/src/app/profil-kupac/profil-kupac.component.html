@@ -16,14 +16,15 @@ KUPAC ID: {{kupac_id}}
       <hr class="dugmad">
       <button class="dugmeProfil" (click)="prikazKomm()">Moji komentari</button>
       <hr class="dugmad">
-      <button class="dugmeProfil" (click)="prikaziMojeOcjeneProdavnica()">Moje ocjene prodavnica</button>
+      <button class="dugmeProfil" (click)="prikazOcjene()">Moje ocjene prodavnica</button>
       <hr class="dugmad">
-      <button class="dugmeProfil" (click)="prikaziMojeOcjeneProizvoda()">Moje ocjene proizvoda</button>
+      <button class="dugmeProfil" (click)="prikazOcjeneProizvoda()">Moje ocjene proizvoda</button>
     </div>
 
   </div>
   <div id="sadrzaj">
-    <div id="kupacPodaci" *ngIf="jeLiPodaci==true && prikaziNarudzbe==false && prikazKomentara==false;">
+    <div id="kupacPodaci" *ngIf="jeLiPodaci==true && prikaziNarudzbe==false && prikazKomentara==false &&
+     PrikazOcjena==false && ocjeneProizvodaBool==false;">
       <h6>Ime:</h6>
       <input value=" {{kupac_podaci.ime}}" disabled class="kupacpodaci">
       <img src="assets/slike/edit1.png" id="editIme"
@@ -54,8 +55,9 @@ KUPAC ID: {{kupac_id}}
 
 
 
-      <div id="divTabela4" *ngIf="prikaziNarudzbe==true && prikazPodataka==false && prikazKomentara==false;" >
-        <table class="table table-warning">
+      <div id="divTabela4" *ngIf="prikaziNarudzbe==true && prikazPodataka==false && prikazKomentara==false &&
+      PrikazOcjena==false && ocjeneProizvodaBool==false;" >
+        <table class="table table-primary">
           <thead style="background-color: black;">
           <tr style="background-color: black;">
             <th>Prodavnica</th>
@@ -85,8 +87,9 @@ KUPAC ID: {{kupac_id}}
 
 
 
-      <div id="divTabela" *ngIf="prikazKomentara==true && prikaziNarudzbe==false && prikazPodataka==false;" >
-        <table class="table table-warning">
+      <div id="divTabela" *ngIf="prikazKomentara==true && prikaziNarudzbe==false && prikazPodataka==false &&
+       PrikazOcjena==false && ocjeneProizvodaBool==false;" >
+        <table class="table table-primary">
           <thead style="background-color: black;">
           <tr style="background-color: black;">
             <th>Opis</th>
@@ -118,9 +121,71 @@ KUPAC ID: {{kupac_id}}
       </div>
 
 
-    <div id="prikazOcjenaProdavnice"></div>
-    <div id="prikazOcjenaProizvoda"></div>
-  </div>
+
+      <div id="divTabela1" *ngIf="PrikazOcjena==true && prikazPodataka==false && prikaziNarudzbe==false &&
+      prikazKomentara==false && ocjeneProizvodaBool==false;">
+        <table class="table table-primary">
+          <thead style="background-color: black;">
+          <tr style="background-color: black;">
+            <th>Ocjena</th>
+            <th>Kupac</th>
+            <th>Prodavnica</th>
+            <th>Datum</th>
+            <th>Brisanje</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let o of prikaziMojeOcjeneProdavnica()">
+            <td>{{o.ocjena}}</td>
+            <td>{{o.kupac}}</td>
+            <td>{{o.prodavnica}}</td>
+            <td>{{o.datumKreiranja | date:'dd-MM-yyyy'}}</td>
+            <td>
+              <button (click)="brisiOcjenu(o)">Obrisi</button>
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+
+
+
+      <div id="divTabela2" *ngIf="ocjeneProizvodaBool==true && PrikazOcjena==false && prikazPodataka==false &&
+      prikaziNarudzbe==false && prikazKomentara==false">
+        <table class="table table-primary">
+          <thead style="background-color: black;">
+          <tr style="background-color: black;">
+            <th>Ocjena</th>
+            <th>Kupac</th>
+            <th>Proizvod</th>
+            <th>Datum</th>
+            <th>Brisanje</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let op of prikaziMojeOcjeneProizvoda()">
+            <td>{{op.ocjena}}</td>
+            <td>{{op.kupac}}</td>
+            <td>{{op.proizvod}}</td>
+            <td>{{op.datumKreiranja | date:'dd-MM-yyyy'}}</td>
+            <td>
+              <button (click)="brisiOcjenuProizvoda(op)">Obrisi</button>
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+
+
 </div>
 <!--
 <button (click)="prikazDiva()">Klikni ovdje</button>
@@ -316,67 +381,7 @@ KUPAC ID: {{kupac_id}}
 
 
 
-  <div *ngIf="ocjene==true" style="margin: 2% 3%;">
-    <div id="divTabela1">
-      <table class="table table-warning">
-        <thead style="background-color: black;">
-        <tr style="background-color: black;">
-          <th>Ocjena</th>
-          <th>Kupac</th>
-          <th>Prodavnica</th>
-          <th>Datum</th>
-          <th>Brisanje</th>
-        </tr>
-        </thead>
 
-        <tbody>
-        <tr *ngFor="let o of prikaziMojeOcjeneProdavnica()">
-          <td>{{o.ocjena}}</td>
-          <td>{{o.kupac}}</td>
-          <td>{{o.prodavnica}}</td>
-          <td>{{o.datumKreiranja}}</td>
-          <td>
-            <button (click)="brisiOcjenu(o)">Obrisi</button>
-          </td>
-
-        </tr>
-        </tbody>
-      </table>
-
-    </div>
-
-</div>
-
-<div *ngIf="ocjeneProizvodaBool==true" style="margin: 2% 3%;">
-  <div id="divTabela2">
-    <table class="table table-warning">
-      <thead style="background-color: black;">
-      <tr style="background-color: black;">
-        <th>Ocjena</th>
-        <th>Kupac</th>
-        <th>Proizvod</th>
-        <th>Datum</th>
-        <th>Brisanje</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <tr *ngFor="let op of prikaziMojeOcjeneProizvoda()">
-        <td>{{op.ocjena}}</td>
-        <td>{{op.kupac}}</td>
-        <td>{{op.proizvod}}</td>
-        <td>{{op.datumKreiranja}}</td>
-        <td>
-          <button (click)="brisiOcjenuProizvoda(op)">Obrisi</button>
-        </td>
-
-      </tr>
-      </tbody>
-    </table>
-
-  </div>
-
-</div>
 
 
 

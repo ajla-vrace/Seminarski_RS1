@@ -157,12 +157,12 @@ input.kupacpodaci{
 #VelikiProfilDiv{
   width: 90%;
   margin: 1% 5%;
-  background-color: #28a745;
+  background-color: #eef5fa;
   display: flex;
 }
 #stavkeProfila{
   width: 29%;
-  background-color: gold;
+ /* background-color: gold;*/
   padding: 1% ;
 }
 #Korisnik{
@@ -183,13 +183,15 @@ hr.dugmad{
 }
 #sadrzaj{
   width: 71%;
-  background-color: hotpink;
+  border-left: 1px solid gray;
+ /* background-color: hotpink;*/
 
 }
 .dugmeProfil{
 display: block;
   padding: 3%;
-  background-color: gold;
+ /* background-color: gold;*/
+  background-color: white;
 border: 0;
   margin: 3% 20%;
 }
@@ -197,6 +199,7 @@ border: 0;
   font-weight: bold;
 }
 #divTabela4, #divTabela,#divTabela1,#divTabela2,#divTabela3{
-  margin: 1%;
-  padding: 1%;
+padding-top: 2%;
+  width: 100%;
 }
+
