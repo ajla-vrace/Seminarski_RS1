@@ -143,8 +143,8 @@
     <tr *ngFor="let sp of getFilterPodatkeSP(inputSP.value)">
       <th scope="row">{{sp.id}}</th>
       <td>{{sp.naziv}}</td>
-      <td>{{sp.datum_pocetka}}</td>
-      <td>{{sp.datum_zavrsetka}}</td>
+      <td>{{formatDatum(sp.datum_pocetka)}}</td>
+      <td>{{formatDatum(sp.datum_zavrsetka)}}</td>
       <td><img src="assets/slike/pencil-square.svg" (click)="edit_sp(sp)"></td>
       <td><img src="assets/slike/x-square.svg" (click)="delete_sp(sp)"></td>
     </tr>

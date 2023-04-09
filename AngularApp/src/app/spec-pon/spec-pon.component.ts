@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
 import {NgModel} from "@angular/forms";
-import {DatePipe} from "@angular/common";
+import {DatePipe, formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-spec-pon',
@@ -315,6 +315,11 @@ export class SpecPonComponent implements OnInit {
         return true;
     }
     return false;
+  }
+
+  formatDatum(datum:any){
+    if(datum=="" || datum==null) return "-";
+    return formatDate(datum,"dd/MM/yyyy","en-Us");
   }
 
 }

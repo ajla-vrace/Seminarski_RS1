@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
 import {NgModel} from "@angular/forms";
-import {DatePipe} from "@angular/common";
+import {DatePipe, formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-evid-zaposl',
@@ -32,6 +32,8 @@ export class EvidZaposlComponent implements OnInit {
       this.getZaposlenike();
       this.getSpolovi();
       this.getProdavnice();
+      this.getTelefoni();
+      this.getMailovi();
      // this.getKorisnickaImena();
      // this.getEmailove();
     })
@@ -147,6 +149,24 @@ export class EvidZaposlComponent implements OnInit {
     }
   }
 
+
+  mailovi:any;
+  telefoni:any;
+
+  getTelefoni(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Validacija/tels").subscribe((x:any)=>{
+      this.telefoni=x;
+      console.log(this.telefoni);
+    })
+  }
+
+  getMailovi(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Validacija/emails").subscribe((x:any)=>{
+      this.mailovi=x;
+      console.log(this.mailovi);
+    })
+  }
+
   postojiKorIme(korIme: string) {
     for (let k of this.zaposlenici){
       if(k.username===korIme && this.zaposlenik_obj.id!==k.id)
@@ -156,7 +176,7 @@ export class EvidZaposlComponent implements OnInit {
   }
 
   postojiMail(mail:string){
-    for (let k of this.zaposlenici)
+    for (let k of this.mailovi)
     {
       if(k.email===mail && this.zaposlenik_obj.id!==k.id)
         return true;
@@ -178,8 +198,11 @@ export class EvidZaposlComponent implements OnInit {
   }
 
   postojiTel(tel:string){
-    for (let k of this.zaposlenici){
-      if(k.brojTelefona===tel && this.zaposlenik_obj.id!==k.id) {
+    tel=this.replaceFunckija(tel);
+    console.log("tel:",tel);
+
+    for (let k of this.telefoni){
+      if(k.telefon===tel && this.zaposlenik_obj.id!==k.id) {
         return true;
       }
     }
@@ -254,4 +277,10 @@ export class EvidZaposlComponent implements OnInit {
         this.zaposlenik_obj=null;
       })
   }
+
+  formatDatum(datum:any){
+    if(datum=="" || datum==null) return "-";
+    return formatDate(datum,"dd/MM/yyyy","en-Us");
+  }
+
 }

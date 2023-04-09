@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-narudzba-detalji',
@@ -12,10 +13,14 @@ export class NarudzbaDetaljiComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router:Router,private httpKlijent:HttpClient) { }
 
-//  zaposlenik_id:any;
+  zaposlenik_id:any;
 //  kupac_id:any;
-  narudzba_id:any;
+  narudzba_id:any=1; //sad za sad
   narudzbaDetalji:any;
+
+ // Input():any nar_id="";
+
+  _datumKreiranjaNarudzbe:any;
 
   ngOnInit(): void {
     this.route.params.subscribe(s=>{
@@ -29,6 +34,7 @@ export class NarudzbaDetaljiComponent implements OnInit {
     +this.narudzba_id).subscribe((x:any)=>{
       this.narudzbaDetalji=x;
       console.log(this.narudzbaDetalji);
+      this._datumKreiranjaNarudzbe=formatDate(this.narudzbaDetalji?.narudzba?.datumKreiranja,"dd/MM/yyyy","en-Us");
     })
   }
 }

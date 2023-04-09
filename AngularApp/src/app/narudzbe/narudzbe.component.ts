@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-narudzbe',
@@ -54,6 +55,11 @@ export class NarudzbeComponent implements OnInit {
         this.totalLength=this.narudzbe?.length;
         console.log(this.narudzbe);
       })
+  }
+
+  formatDatum(datum:any){
+    if(datum=="" || datum==null) return "-";
+    return formatDate(datum,"dd/MM/yyyy","en-Us");
   }
 
   getFilterNarudzbe(){

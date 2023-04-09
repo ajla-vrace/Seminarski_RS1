@@ -5,14 +5,14 @@
 
   <div class="narudzba-id">
     <div class="nar">
-      <h6 class="naslov-narudzba">Narudžba: </h6> <br> <h4>1</h4>
+      <h6 class="naslov-narudzba">Narudžba: </h6> <br> <h4>{{narudzbaDetalji?.narudzba?.id}}</h4>
     </div>
     <div class="dat">
       <h6 class="date"> Datum kreiranja narudžbe: </h6>  <br>
-      <h4>3.4.2022</h4>
+      <h4>{{_datumKreiranjaNarudzbe}}</h4>
     </div>
     <div class="stat">
-      <h6 class="status">Status:</h6> <br>  <h4>Aktivna</h4>
+      <h6 class="status">Status:</h6> <br>  <h4>{{narudzbaDetalji?.narudzba?.status}}</h4>
     </div>
   </div>
 
@@ -25,20 +25,23 @@
         <div class="dat-kreir">
 
         </div>
+        <!--
         <div class="product-total">
-          <h6 >Ukupna suma po proizvodu: </h6> <p>60.95 KM</p>
+          <h6 >Ukupna suma po proizvodu: </h6> <p>{{narudzbaDetalji?.narudzba?.ukupno}}</p>
         </div>
-        <div class="pdv">
+        -->
+ <!--       <div class="pdv">
           <h6 > PDV: </h6> <p>17%</p>
         </div>
-        <div class="dostava-opis">
+        -->
+   <!--     <div class="dostava-opis">
           <h6 > Dostava:</h6> <p>8 KM</p>
         </div>
 
         <hr>
-
+-->
         <div class="ukupno">
-          <h6 > Ukupno:</h6> <p><b>71 KM</b></p>
+          <h6 > Ukupno:</h6> <p><b>{{narudzbaDetalji?.narudzba?.ukupno}} KM</b></p>
         </div>
 
       </div>
@@ -55,13 +58,13 @@
           </div>
 
           <div class="podaci-prodano">
-            <h6 class="imePrezimeKupca">Adil Joldić</h6>
-            <h6 class="brojTel">062/722-566</h6>
-            <h6 class="email">adil.joldic@gmail.com</h6>
+            <h6 class="imePrezimeKupca">{{narudzbaDetalji?.kupac?.ime}} {{narudzbaDetalji?.kupac?.prezime}}</h6>
+            <h6 class="brojTel">{{narudzbaDetalji?.kupac?.brojTelefona}}</h6>
+            <h6 class="email">{{narudzbaDetalji?.kupac?.email}}</h6>
           </div>
         </div>
 
-
+<!--
         <hr>
 
 
@@ -79,6 +82,8 @@
           </div>
 
         </div>
+
+        -->
       </div>
     </div>
 
@@ -93,27 +98,19 @@
         <th scope="col">Proizvod</th>
         <th scope="col">Cijena</th>
         <th scope="col">Količina</th>
+        <th scope="col">Total</th>
       </tr>
 
       </thead>
       <tbody>
-      <tr>
+      <tr *ngFor="let n  of narudzbaDetalji?.narudzbaStavka">
         <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+        <td>{{n?.proizvodNaziv}}</td>
+        <td>{{n?.cijena}}</td>
+        <td>{{n?.kolicina}}</td>
+        <td>{{n?.total}}</td>
       </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry the Bird</td>
-        <td>@twitter</td>
-      </tr>
+
       </tbody>
     </table>
 

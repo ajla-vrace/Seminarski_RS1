@@ -1,0 +1,73 @@
+<app-navbar-zaposlenik></app-navbar-zaposlenik>
+<br>
+<div class="sredina">
+  <div class="naslov">
+    <h4>Obavijestite kupca o narudžbi</h4>
+    <hr class="naslov-hr">
+  </div>
+<br>
+  <div class="poruke">
+    <div class="poruka">
+      <div class="poruka-naslov">
+        <h6>Ova poruka se šalje kada se status narudžbe promijeni na "Spremna"</h6>
+      </div>
+      <div class="poruka-sadrzaj">
+        <textarea [value]="porukaSpremna" disabled></textarea>
+      </div>
+    </div>
+
+    <div class="dugmad">
+      <button class="btn-edit" (click)="uredi_poruku(porukaSpremna)">Izmijeni poruku</button>
+      <button class="btn-posalji">Pošalji poruku</button>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="poruke">
+    <div class="poruka">
+      <div class="poruka-naslov">
+        <h6>Ova poruka se šalje kada se status narudžbe promijeni na "Odgođena"</h6>
+      </div>
+      <div class="poruka-sadrzaj">
+        <textarea [value]="porukaOdgodjena" disabled></textarea>
+      </div>
+    </div>
+
+    <div class="dugmad">
+      <button class="btn-edit" (click)="uredi_poruku(porukaOdgodjena)">Izmijeni poruku</button>
+      <button class="btn-posalji">Pošalji poruku</button>
+    </div>
+  </div>
+
+
+</div>
+
+{{_poruka}}
+<br><br>
+
+
+<div *ngIf="_poruka!=null" class="modal fade show" id="exampleModalLive2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg modal-dialog-scrollable" id="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLiveLabel2">Izmijeni poruku</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="_poruka=null"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Poruka</label>
+          <textarea class="form-control" id="message-text" [(ngModel)]="_poruka"></textarea>
+        </div>
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-spasi btn-primary" (click)="_poruka=null; spasi();">Spasi promjene</button>
+      </div>
+    </div>
+  </div>
+</div>

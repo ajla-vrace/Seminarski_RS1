@@ -15,6 +15,7 @@ export class NavbarZaposlenikComponent implements OnInit {
 
   zaposlenik_id:any;
 
+  loginId:any=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.id;
 
   ngOnInit(): void {
     this.route.params.subscribe(s=>{
@@ -25,26 +26,30 @@ export class NavbarZaposlenikComponent implements OnInit {
 
   narudzbe() {
 
-    this.router.navigate(['/narudzbe',this.zaposlenik_id])
+    this.router.navigate(['/narudzbe',this.loginId])
   }
 
   pocetna() {
 
-    this.router.navigate(['/zaposlenik-pocetna',this.zaposlenik_id])
+    this.router.navigate(['/zaposlenik-pocetna',this.loginId])
   }
 
   proizvodi(){
 
-    this.router.navigate(['/proizvodi',this.zaposlenik_id])
+    this.router.navigate(['/proizvodi',this.loginId])
   }
 
   profil(){
 
-    this.router.navigate(['/profil-zaposlenik',this.zaposlenik_id])
+    this.router.navigate(['/profil-zaposlenik',this.loginId])
   }
 
   skladiste(){
 
-    this.router.navigate(['/skladiste',this.zaposlenik_id])
+    this.router.navigate(['/skladiste',this.loginId])
+  }
+
+  postavke() {
+    this.router.navigate(['/postavke-poruke'])
   }
 }

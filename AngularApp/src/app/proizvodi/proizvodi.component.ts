@@ -4,6 +4,7 @@ import {MojConfig} from "../moj-config";
 import {NgModel} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {formatDate} from "@angular/common";
+import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 
 @Component({
   selector: 'app-proizvodi',
@@ -274,7 +275,8 @@ export class ProizvodiComponent implements OnInit {
       kolekcijaOpis:"",
      // skladisteId:1,
      // kolicina:1
-    }
+      evidentirao:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username
+  }
 
     //mozda su viska getKategorije i getSezone, u objektu mozemo
     //postaviti difoltnu vrijednost
@@ -449,4 +451,11 @@ export class ProizvodiComponent implements OnInit {
         })
     }
   }
+
+
+  formatDatum(datum:any){
+    if(datum=="" || datum==null) return "-";
+    return formatDate(datum,"dd/MM/yyyy","en-Us");
+  }
+
 }

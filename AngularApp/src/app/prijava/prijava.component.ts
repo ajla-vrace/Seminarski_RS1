@@ -55,7 +55,7 @@ export class PrijavaComponent implements OnInit {
           else if(x.autentifikacijaToken.korisnickiNalog.isZaposlenik==true){
             AutentifikacijaHelper.setLoginInfo(x)
             this.router.navigate(["/zaposlenik-pocetna",x.autentifikacijaToken.korisnickiNalog.id]);
-            //this.router.navigate(['navbar-zaposlenik',x.autentifikacijaToken.korisnickiNalog.id])
+           // this.router.navigate(['navbar-zaposlenik',x.autentifikacijaToken.korisnickiNalog.id])
           }
           else{
             AutentifikacijaHelper.setLoginInfo(x)

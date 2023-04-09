@@ -30,6 +30,7 @@
         public string sezonaOpis { get; set; }
 
         public byte[]? slika_postojeca { get; set; }
+        public string? evidentirao { get; set; }
 
     }
 }

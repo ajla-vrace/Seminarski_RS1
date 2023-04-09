@@ -65,8 +65,8 @@
         }">  <!--ngFor let n of narudzbe-->
         <th scope="row">{{n.id}}</th>
         <td>{{n.kupacNaziv}}</td>
-        <td>{{n.datumKreiranja}}</td>
-        <td>{{n.datumPreuzimanja}}</td>
+        <td>{{formatDatum(n.datumKreiranja)}}</td>
+        <td>{{formatDatum(n.datumPreuzimanja)}}</td>
         <td>{{n.ukupno}}</td>
         <td>{{n.ukupnoProizvoda}}</td>
         <td>{{n.status}}</td>

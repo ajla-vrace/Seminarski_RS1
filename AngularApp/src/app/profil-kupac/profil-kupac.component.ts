@@ -39,6 +39,11 @@ kupac_podaci:any;
    ime: any="";
    prezime: any="";
    lozinka: any="";
+   prikaziNarudzbe: any=false;
+   narudzbeKupcaPodaci: any;
+   jeLiPodaci:any=true;
+   jeLiNarudzbe:any=false;
+   prikazPodataka: any=false;
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient) { }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
@@ -70,7 +75,7 @@ kupac_podaci:any;
     this.fetchOcjeneProdavniceMoje();
     this.fetchOcjeneProizvoda();
     this.fetchOcjeneProizvodaMoje();
-
+this.fetchNarudzbeKupca();
   }
 
 
@@ -105,6 +110,12 @@ kupac_podaci:any;
   {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Zvjezdica/GetAll", MojConfig.http_opcije()).subscribe(x=>{
       this.ocjeneProizvoda = x;
+    });
+  }
+  fetchNarudzbeKupca()
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Narudzba/GetByIdKupca?kupacId="+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
+      this.narudzbeKupcaPodaci = x;
     });
 
   }
@@ -355,14 +366,15 @@ vratiNaFalse(){
         });
   }
 
-  provjera() {
-    this.getKupca();
-    setTimeout( ()=>{
-      console.log("podaci:"+this.kupac_podaci.lozinka);
 
-     /* console.log("podatak: "+this.kupac_podaci[0]?.lozinka);
-      console.log("lenght je"+this.kupac_podaci.length);*/
-    }, 400);
+  prikazNarudzbi() {
+    this.prikazPodataka=false;
+    this.prikaziNarudzbe=true;
 
+
+  }
+
+  prikaziPodatke() {
+    this.prikazPodataka=true;
   }
 }

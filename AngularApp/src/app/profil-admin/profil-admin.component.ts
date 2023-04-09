@@ -25,7 +25,9 @@ export class ProfilAdminComponent implements OnInit {
       this.admin_id=+s["id"];
       this.getAdminPodaci();
       this.getSpolove();
-      this.getKorisnickaImena();
+     // this.getKorisnickaImena();
+      this.getTelefoni();
+      this.getMailovi();
     })
   }
 
@@ -161,7 +163,7 @@ export class ProfilAdminComponent implements OnInit {
   jelOmogucenSave(imeControll: NgModel, prezimeControll: NgModel, spolControll: NgModel, emailControll: NgModel, telControll: NgModel) {
 
     if(imeControll.valid && prezimeControll.valid && spolControll.valid && emailControll.valid
-    && telControll.valid){
+    && telControll.valid && !this.postojiMail(emailControll.value) && !this.postojiTel(telControll.value)){
       return true;
     }
     return false;
@@ -178,5 +180,50 @@ export class ProfilAdminComponent implements OnInit {
 
   }
 
+  mailovi:any;
+  telefoni:any;
+
+  getTelefoni(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Validacija/tels").subscribe((x:any)=>{
+      this.telefoni=x;
+      console.log(this.telefoni);
+    })
+  }
+
+  getMailovi(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Validacija/emails").subscribe((x:any)=>{
+      this.mailovi=x;
+      console.log(this.mailovi);
+    })
+  }
+
+  postojiMail(mail:string){
+    for (let k of this.mailovi)
+    {
+      if(k.email==mail && this.admin_podaci[0].id!=k.id)
+        return true;
+    }
+    return false;
+  }
+
+  replaceFunckija(repl:any)
+  {
+    return repl?.replace(/[^0-9]/g, '');
+  }
+
+
+  postojiTel(tel:string){
+  //  tel=tel?.replace("-","");
+
+    tel=this.replaceFunckija(tel);
+    console.log("tel",tel);
+
+    for (let k of this.telefoni){
+      if(k.telefon==tel && this.admin_podaci[0].id!=k.id) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 }

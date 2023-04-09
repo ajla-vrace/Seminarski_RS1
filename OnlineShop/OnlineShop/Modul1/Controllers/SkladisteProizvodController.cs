@@ -32,6 +32,7 @@ namespace OnlineShop.Modul1.Controllers
 
             public DateTime datum_kreiranja { get; set; }
             public DateTime? datum_modifikacije { get; set; }
+            public string? evidentirao { get; set; }
         }
 
 
@@ -66,6 +67,7 @@ namespace OnlineShop.Modul1.Controllers
                 kolicina = x.kolicina,
                 datum_kreiranja = x.datum_kreiranja,
                 datum_modifikacije = x.datum_modifikacije,
+                evidentirao=x.evidentirao
             }).ToList().AsQueryable();
             return data;
         }
@@ -83,6 +85,7 @@ namespace OnlineShop.Modul1.Controllers
                 kolicina = x.kolicina,
                 datum_kreiranja = x.datum_kreiranja,
                 datum_modifikacije = x.datum_modifikacije,
+                evidentirao=x.evidentirao
             }).ToList().AsQueryable().OrderByDescending(x=>x.kolicina).ThenByDescending(x => x.proizvodOpis);
             return data;
         }
@@ -100,6 +103,7 @@ namespace OnlineShop.Modul1.Controllers
                 kolicina = x.kolicina,
                 datum_kreiranja = x.datum_kreiranja,
                 datum_modifikacije = x.datum_modifikacije,
+                evidentirao=x.evidentirao
             }).ToList().AsQueryable().OrderBy(x => x.kolicina).ThenBy(x => x.proizvodOpis);
             return data;
         }
@@ -117,6 +121,7 @@ namespace OnlineShop.Modul1.Controllers
                 kolicina = x.kolicina,
                 datum_kreiranja = x.datum_kreiranja,
                 datum_modifikacije = x.datum_modifikacije,
+                evidentirao=x.evidentirao
             }).ToList().AsQueryable().OrderBy(x => x.kolicina).ThenByDescending(x => x.proizvodOpis);
             return data;
         }
@@ -135,6 +140,7 @@ namespace OnlineShop.Modul1.Controllers
                 kolicina = x.kolicina,
                 datum_kreiranja = x.datum_kreiranja,
                 datum_modifikacije = x.datum_modifikacije,
+                evidentirao=x.evidentirao
             }).ToList().AsQueryable().OrderByDescending(x => x.kolicina).ThenBy(x=>x.proizvodOpis);
             return data;
         }
@@ -162,6 +168,7 @@ namespace OnlineShop.Modul1.Controllers
             s.proizvodId = x.proizvodId;
             s.skladisteId = x.skladisteId;
             s.kolicina = x.kolicina;
+            s.evidentirao = x.evidentirao;
 
             context.SaveChanges();
 

@@ -246,7 +246,7 @@
 
         <hr>
 
-        <div class="mb-3" [class.has-error]="emailControll.invalid && emailControll.touched">
+        <div class="mb-3" [class.has-error]="(emailControll.invalid && emailControll.touched) || postojiMail(emailControll.value)">
           <label class="form-label">Email:</label>
           <input type="text" required pattern="^[a-z]{1,15}\.?[a-z]*?[0-9]*?@(edu\.fit|gmail)\.(com|ba)$"
                  minlength="3" #emailControll="ngModel"
@@ -255,10 +255,15 @@
           <span class="help-block" *ngIf="emailControll.invalid && emailControll.touched">
             Ovo polje je obavezno.
           </span>
+
+          <span class="help-block" *ngIf="postojiMail(emailControll.value)">
+            Već postoji ovaj email.
+          </span>
+
         </div>
 
 
-        <div class="mb-3" [class.has-error]="telControll.invalid && telControll.touched">
+        <div class="mb-3" [class.has-error]="(telControll.invalid && telControll.touched) || postojiTel(telControll.value)">
           <label class="form-label">Broj telefona:</label>
           <input type="text" required pattern="^[0-9]{3}(\/|-|\s)[0-9]{3}(-|\s)[0-9]{3}$"
                  minlength="3" #telControll="ngModel"
@@ -267,6 +272,11 @@
           <span class="help-block" *ngIf="telControll.invalid && telControll.touched">
             Ovo polje je obavezno.
           </span>
+
+          <span class="help-block" *ngIf=" postojiTel(telControll.value)">
+            Već postoji ovaj broj telefona.
+          </span>
+
         </div>
 
 

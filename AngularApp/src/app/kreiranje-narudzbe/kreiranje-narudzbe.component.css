@@ -96,3 +96,21 @@ width: 33%;
   width: 26%;
   margin-left:74% ;
 }
+#SveStavke{
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+}
+.jednaStavka{
+ /*width: 35%;*/
+border: 1px solid gray;
+  margin: 3% 5%;
+}
+.slikaStavka{
+
+}
+.tekstStavke{
+padding: 3%;
+}
+.slikaStavkeSama{
+  width: 100%;
+}

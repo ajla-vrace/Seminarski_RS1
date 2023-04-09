@@ -73,6 +73,7 @@
       <th scope="col">Skladiste</th>
       <th scope="col">Datum kreiranja</th>
       <th scope="col">Datum modifikacije</th>
+      <th scope="col">Evidentirao</th>
       <th scope="col">Dugmad</th>
     </tr>
     </thead>
@@ -82,8 +83,9 @@
       <td>{{p.kolicina}}</td>
       <td>{{p.proizvodOpis}}</td>
       <td>{{p.skladisteOpis}}</td>
-      <td>{{p.datum_kreiranja}}</td>
-      <td>{{p.datum_modifikacije}}</td>
+      <td>{{formatDatum(p.datum_kreiranja)}}</td>
+      <td>{{formatDatum(p.datum_modifikacije)}}</td>
+      <td>{{p.evidentirao}}</td>
       <td>
         <button class="btn-edit" (click)="btnEdit(p)">Uredi</button>
         <button class="btn-delete" (click)="btnDelete(p)">Obriši</button>

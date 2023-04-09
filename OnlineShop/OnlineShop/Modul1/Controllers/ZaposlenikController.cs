@@ -160,23 +160,25 @@ namespace OnlineShop.Modul1.Controllers
             //    return BadRequest("ne postoji ovaj zaposlenik");
 
             List<FileContentResult> prikaz = new List<FileContentResult>();
-           /* foreach (var z_id in z)
+            /* foreach (var z_id in z)
+             {
+                 byte[] bajtovi_slike = Fajlovi.Ucitaj("slike_korisnika/" + z_id + ".jpg");
+
+                 if (bajtovi_slike != null)
+                 {
+                     var slika_prikaz = File(bajtovi_slike, "image/jpg");
+                     prikaz.Add(slika_prikaz);
+                 }
+
+             }*/
+            if (z != null)
             {
-                byte[] bajtovi_slike = Fajlovi.Ucitaj("slike_korisnika/" + z_id + ".jpg");
-              
-                if (bajtovi_slike != null)
+                byte[] bajtovi = z.slikaZaposlenikaBajtovi;
+                if (bajtovi != null)
                 {
-                    var slika_prikaz = File(bajtovi_slike, "image/jpg");
+                    var slika_prikaz = File(bajtovi, "image/jpg");
                     prikaz.Add(slika_prikaz);
                 }
-
-            }*/
-
-            byte[] bajtovi = z.slikaZaposlenikaBajtovi;
-            if (bajtovi != null)
-            {
-                var slika_prikaz = File(bajtovi, "image/jpg");
-                prikaz.Add(slika_prikaz);
             }
             return prikaz;
 

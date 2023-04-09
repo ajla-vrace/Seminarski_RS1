@@ -35,19 +35,22 @@ namespace OnlineShop.Modul1.Controllers
             _dbContext.Add(objekat);
 
             // objekat.Cijena = x.Cijena;
-           /* if (x.Kolicina == 0)
-            {
-                return BadRequest("Kolicina ne moze biti 0!");
-            }*/
+            /* if (x.Kolicina == 0)
+             {
+                 return BadRequest("Kolicina ne moze biti 0!");
+             }*/
+            
             objekat.Kolicina = x.Kolicina;
             objekat.ProizvodId = x.ProizvodId;
             objekat.KorpaId = x.KorpaId;
             objekat.Velicina = x.Velicina;
             var proizvod = _dbContext.Proizvod.Find(x.ProizvodId);
+           
             float samoCijena;
             if (proizvod != null)
             {
-                samoCijena=proizvod.Cijena;
+                objekat.Cijena = proizvod.Cijena;
+                samoCijena =proizvod.Cijena;
                 objekat.Total = samoCijena * x.Kolicina;
             }
             

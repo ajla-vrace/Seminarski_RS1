@@ -80,7 +80,8 @@ namespace OnlineShop.Modul1.Controllers
                 kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                 sezonaId = x.sezonaId,
                 sezonaOpis = x.sezona.Naziv,
-                slika_postojeca = x.slika_postojeca
+                slika_postojeca = x.slika_postojeca,
+                evidentirao=x.evidentirao
             }).ToList()[0];
 
             return data;
@@ -119,7 +120,7 @@ namespace OnlineShop.Modul1.Controllers
             p.podkategorijaId = x.podkategorijaId;
             p.sezonaId = x.sezonaId;
             p.kolekcijaId = x.kolekcijaId;
-
+           
             context.SaveChanges();
 
             if (x.Id == 0)
@@ -172,6 +173,7 @@ namespace OnlineShop.Modul1.Controllers
             p.podkategorijaId = x.podkategorijaId;
             p.sezonaId = x.sezonaId;
             p.kolekcijaId = x.kolekcijaId;
+            p.evidentirao = x.evidentirao;
 
             context.SaveChanges();
 
@@ -204,7 +206,8 @@ namespace OnlineShop.Modul1.Controllers
                 kolekcijaOpis=x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                 sezonaId=x.sezonaId,
                 sezonaOpis=x.sezona.Naziv,          
-                slika_postojeca=x.slika_postojeca
+                slika_postojeca=x.slika_postojeca,
+                evidentirao = x.evidentirao
             });
 
             return data.OrderByDescending(x=>x.Id).ToList();
@@ -235,7 +238,8 @@ namespace OnlineShop.Modul1.Controllers
                 kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                 sezonaId = x.sezonaId,
                 sezonaOpis = x.sezona.Naziv,
-                slika_postojeca = x.slika_postojeca
+                slika_postojeca = x.slika_postojeca,
+                evidentirao = x.evidentirao
             });
 
             return data.OrderBy(x=>x.datum_kreiranja).ToList();
@@ -267,7 +271,8 @@ namespace OnlineShop.Modul1.Controllers
                 kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                 sezonaId = x.sezonaId,
                 sezonaOpis = x.sezona.Naziv,
-                slika_postojeca = x.slika_postojeca
+                slika_postojeca = x.slika_postojeca,
+                evidentirao = x.evidentirao
             });
 
             return data.OrderByDescending(x => x.datum_kreiranja).ToList();
@@ -382,7 +387,8 @@ namespace OnlineShop.Modul1.Controllers
                     kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                     sezonaId = x.sezonaId,
                     sezonaOpis = x.sezona.Naziv,
-                    slika_postojeca = x.slika_postojeca
+                    slika_postojeca = x.slika_postojeca,
+                    evidentirao = x.evidentirao
                 }).ToList()[0];
                 var _kolicina = context.SkladisteProizvod.Where(x => x.proizvodId == p).Sum(x => x.kolicina);
 
@@ -448,7 +454,8 @@ namespace OnlineShop.Modul1.Controllers
                     kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                     sezonaId = x.sezonaId,
                     sezonaOpis = x.sezona.Naziv,
-                    slika_postojeca = x.slika_postojeca
+                    slika_postojeca = x.slika_postojeca,
+                    evidentirao = x.evidentirao
                 }).ToList()[0];
            
                 proizvodi_datumi.Add(new ProizvodDatum { 

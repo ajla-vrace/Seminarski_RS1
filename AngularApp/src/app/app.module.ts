@@ -49,6 +49,7 @@ import { PretragaComponent } from './pretraga/pretraga.component';
 import { KreiranjeNarudzbeComponent } from './kreiranje-narudzbe/kreiranje-narudzbe.component';
 
 import {DatePipe} from "@angular/common";
+import { PostavkePorukeComponent } from './postavke-poruke/postavke-poruke.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import {DatePipe} from "@angular/common";
    SpecijalnePonudeComponent,
    PretragaComponent,
    KreiranjeNarudzbeComponent,
+   PostavkePorukeComponent,
 
 
 
@@ -148,7 +150,7 @@ import {DatePipe} from "@angular/common";
       {path:'zaposlenik-detalji/:id', component:ZaposlenikDetaljiComponent},
       {path:'ocjene-proizvoda/:id', component:OcjeneProizvodaComponent},
       {path:'kreiranje-narudzbe', component:KreiranjeNarudzbeComponent},
-
+      {path:'postavke-poruke', component:PostavkePorukeComponent},
   ]),
     FormsModule,
     HttpClientModule,

@@ -18,6 +18,7 @@ namespace OnlineShop.Modul1.Models
 
         public DateTime datum_kreiranja { get; set; }
         public DateTime? datum_modifikacije { get; set; }
+        public string? evidentirao { get; set; }
 
     }
 }

@@ -30,11 +30,11 @@
 
       <h5> Spol: <input #spol disabled [value]="obj_zaposlenik?.spolOpis"> </h5>
 
-      <h5> Datum rođenja: <input #dtm_rodj disabled  [value]="obj_zaposlenik?.datumRodjenja"> </h5>
+      <h5> Datum rođenja: <input #dtm_rodj disabled  [value]="formatDatum(obj_zaposlenik?.datumRodjenja)"> </h5>
 
-      <h5> Datum zaposlenja: <input #dtm_zaposl disabled  [value]="obj_zaposlenik?.datumZaposlenja"> </h5>
+      <h5> Datum zaposlenja: <input #dtm_zaposl disabled  [value]="formatDatum(obj_zaposlenik?.datumZaposlenja)"> </h5>
 
-      <h5> Datum registracije: <input #dtm_reg disabled [value]="datum_reg"> </h5>
+      <h5> Datum registracije: <input #dtm_reg disabled [value]="formatDatum(datum_reg)"> </h5>
 
       <h5> Zaposlen u: <input disabled [value]="obj_zaposlenik?.prodavnicaOpis"> </h5>
 

@@ -15,6 +15,8 @@ namespace OnlineShop.Modul1.Models
 
         public byte[]? slika_postojeca { get; set; }
 
+        public string? evidentirao { get; set; }
+
         [ForeignKey("bojaId")]
         public int bojaId { get; set; }
         public Boja boja { get; set; }

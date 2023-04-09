@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
-import {DatePipe} from "@angular/common";
+import {DatePipe, formatDate} from "@angular/common";
+import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 
 @Component({
   selector: 'app-skladiste',
@@ -200,8 +201,9 @@ export class SkladisteComponent implements OnInit {
       skladisteOpis:"",
       kolicina:0,
       proizvodId:0,
-      skladisteId:0
-    }
+      skladisteId:0,
+      evidentirao:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username
+  }
     this.getProizvodi();
     this.getSkladista();
 
@@ -339,4 +341,10 @@ export class SkladisteComponent implements OnInit {
     }
     return false;
   }
+
+  formatDatum(datum:any){
+    if(datum=="" || datum==null) return "-";
+    return formatDate(datum,"dd/MM/yyyy","en-Us");
+  }
+
 }

@@ -27,7 +27,7 @@ namespace OnlineShop.Modul1.Controllers
             {
                 objekat = new Narudzba();
                 _dbContext.Add(objekat);
-                objekat.Status = "Pravi se";
+                objekat.Status = "Nova";
             }
             else
             {
@@ -38,8 +38,22 @@ namespace OnlineShop.Modul1.Controllers
             objekat.DatumKreiranja = DateTime.Now;
             objekat.ProdavnicaId = x.ProdavnicaId;
             /*objekat.DatumPreuzimanja = (DateTime)x.DatumPreuzimanja;*/
-            objekat.Ukupno = (float)x.Ukupno;
-            objekat.UkupnoProizvoda = (int)x.UkupnoProizvoda;
+            int? kupacid = x.KupacId;
+            /*List<Korpa> korpa = _dbContext.Korpa
+                .Where(s => s.KupacId == x.KupacId).ToList();
+            for (int i = 0; i < korpa.Count; i++)
+            {
+                objekat.Ukupno = korpa[i].Total;
+                objekat.UkupnoProizvoda = korpa[i].UkupnoProizvoda;
+            }*/
+            Korpa? korpa = _dbContext.Korpa.First(s => s.KupacId == kupacid);
+            if (korpa != null)
+            {
+                objekat.Ukupno = korpa.Total;
+                objekat.UkupnoProizvoda = korpa.UkupnoProizvoda;
+            }
+            /*objekat.Ukupno = (float)x.Ukupno;
+            objekat.UkupnoProizvoda = (int)x.UkupnoProizvoda;*/
             objekat.Evidentirao = x.Evidentirao;
             _dbContext.SaveChanges();
             return Ok(objekat);
@@ -69,8 +83,8 @@ namespace OnlineShop.Modul1.Controllers
                     Prodavnica=s.Prodavnica.Naziv,
                     DatumKreiranja = s.DatumKreiranja,
                     DatumPreuzimanja = s.DatumPreuzimanja,
-                    Total = totalSvega,
-                    UkupnoProizvoda = brojProizvoda,
+                    Total = s.Ukupno,
+                    UkupnoProizvoda = s.UkupnoProizvoda,
                     Evidentirao=s.Evidentirao,
                     Status=s.Status 
                 })
@@ -115,7 +129,47 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpGet]
-        public List<NarudzbaVM> Sve()
+        public ActionResult GetByIdKupca(int kupacId)
+        {
+            
+            float totalSvega = default;
+            int brojProizvoda = 0;
+           /* List<Narudzba> KupacNarudzbe = _dbContext.Narudzba
+                .Where(s => s.KupacId == kupacId)
+                .ToList();*/
+            /*for (int i = 0; i < KupacNarudzbe.Count; i++)
+            {
+                totalSvega += KupacNarudzbe[i].Total;
+                brojProizvoda += KupacNarudzbe[i].Kolicina;
+            }*/
+
+            var data = _dbContext.Narudzba
+                .OrderByDescending(s => s.Id)
+                .Where(s=>s.KupacId==kupacId)
+                .Select(s => new
+                {
+                    Id = s.Id,
+                    KupacId = s.KupacId,
+                    Kupac = s.Kupac.Username,
+                    Prodavnica = s.Prodavnica.Naziv,
+                    DatumKreiranja = s.DatumKreiranja,
+                    DatumPreuzimanja = s.DatumPreuzimanja,
+                    Total = s.Ukupno,
+                    UkupnoProizvoda = s.UkupnoProizvoda,
+                    Evidentirao = s.Evidentirao,
+                    Status = s.Status
+                })
+                .AsQueryable();
+
+
+            return Ok(data.ToList());
+        }
+
+
+
+
+        [HttpGet]
+        public IQueryable<NarudzbaVM> Sve()
         {
             var _narudzbe = _dbContext.Narudzba.Select(x=>x.Id).Distinct().ToList();
             var _narudzbeLista = new List<NarudzbaVM>();
@@ -142,7 +196,7 @@ namespace OnlineShop.Modul1.Controllers
                 _narudzbeLista.Add(narudzba);
             }
 
-            return _narudzbeLista;
+            return _narudzbeLista.OrderByDescending(x=>x.Id).AsQueryable();
         
         }
 
@@ -207,6 +261,35 @@ namespace OnlineShop.Modul1.Controllers
             var objekat = new DetaljiKupacNarudzba { kupac = _kupac, narudzba = narudzba, narudzbaStavka = stavke };
 
             return objekat;
+        }
+
+        //[HttpPost]
+        //public ActionResult Snimi(int id_narudzbe, string evidentirao)
+        //{
+        //    var narudzba = _dbContext.Narudzba.Find(id_narudzbe);
+
+        //    if (narudzba != null)
+        //    {
+        //        narudzba.Evidentirao = evidentirao;
+        //        _dbContext.Update(narudzba);
+        //        _dbContext.SaveChanges();
+        //    }
+        //    return Ok(narudzba);
+        //}
+
+        [HttpPost] 
+        public ActionResult PromijeniStatus(int narudzba_id, string status, string evidentirao)
+        {
+            var narudzba = _dbContext.Narudzba.Find(narudzba_id);
+
+            if (narudzba != null)
+            {
+                narudzba.Status = status;
+                narudzba.Evidentirao = evidentirao;
+                _dbContext.Update(narudzba);
+                _dbContext.SaveChanges();
+            }
+            return Ok(narudzba);
         }
     }
 }

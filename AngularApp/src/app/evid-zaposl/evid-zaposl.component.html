@@ -46,7 +46,7 @@
         <td>{{z.prezime}}</td>
         <td>{{z.email}}</td>
         <td>{{z.brojTelefona}}</td>
-        <td>{{z.datumRegistracije}}</td>
+        <td>{{formatDatum(z.datumRegistracije)}}</td>
         <td>{{z.spolOpis}}</td>
         <td><img src="{{get_slika_base64_FS(z)}}" style="display:block;max-width: 100%; height: 70px"></td>
     <!--    <td><button class="btn-promijeniLozinku" (click)="promijeniLozinku(z)">Promijeni lozinku</button></td>  -->

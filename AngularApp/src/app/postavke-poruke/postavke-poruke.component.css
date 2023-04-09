@@ -1,0 +1,39 @@
+.sredina{
+  width:90%;
+  margin:auto;
+}
+
+.poruke{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.naslov, .naslov-hr{
+  width:50%;
+}
+
+.poruka{
+  width:80%;
+}
+
+textarea{
+  width:100%;
+  padding: 2%;
+  border-radius: 10px;
+  background-color: rgba(255,225,245,0.7);
+}
+
+.dugmad{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap:3%;
+  width: 17%;
+}
+
+.btn-edit, .btn-posalji{
+  border:none;
+  border-radius: 10px;
+  padding: 2%;
+}

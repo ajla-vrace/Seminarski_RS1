@@ -34,10 +34,13 @@ kupac_id:any;
     this.fetchNarudzbe();
     this.fetchNarudzbaStavke();
     this.fetchKorpe();
+
+
   }
   datum:any=this.datePipe.transform(new Date(),"dd-MM-yyyy");
    narudzbaID: any;
   kreiranaNarudzba: any=false;
+  prodId: any;
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
   }
@@ -45,6 +48,9 @@ kupac_id:any;
    /* setTimeout( ()=>{
      this.pretvoriStavkeKorpeUStavkeNarudzbe();
     }, 300)*/
+    setTimeout( ()=>{
+      this.prodId=this.prodavnicePodaci[0].id;
+    }, 400);
   }
    fetchKorpaStavke() {
     //this.imeKorpe="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
@@ -123,7 +129,7 @@ brisiSveIzKorpe(idKorpe:any){
       ukupnoProizvoda:0,
       kupacId:this.loginInfo().autentifikacijaToken.korisnickiNalogId,
       status:"Nova",
-      prodavnicaId:1,
+      prodavnicaId:this.prodId,
       evidentirao:"",
     }
     console.log(this.narudzba);
@@ -156,7 +162,7 @@ funkcija(){
        this.fetchNarudzbaStavke();
        console.log("id korpe: "+this.korpePodaci[0].id);
        this.brisiSveIzKorpe(this.korpePodaci[0].id);
-     }, 500);
+     }, 1000);
 
 this.kreiranaNarudzba=true;
 
@@ -170,5 +176,10 @@ this.kreiranaNarudzba=true;
 
   otvoriProfilKupca() {
     this.router.navigate(['profil-kupac']);
+  }
+
+  ispisi() {
+    console.log("Vrijednost proId: "+this.prodId);
+    console.log("lenght: "+this.prodavnicePodaci.length);
   }
 }

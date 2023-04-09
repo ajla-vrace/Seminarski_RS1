@@ -2,7 +2,93 @@
 
 KUPAC ID: {{kupac_id}}
 
+<div id="VelikiProfilDiv">
+  <div id="stavkeProfila">
+    <div id="Korisnik">
+      <img src="assets/slike/dress.png" id="SlikaKorisnika">
+      <p style="margin: 0;">{{loginInfo().autentifikacijaToken.korisnickiNalog.ime}} {{loginInfo().autentifikacijaToken.korisnickiNalog.prezime}}</p>
+    </div>
+    <hr>
+    <div id="opcije">
+      <button class="dugmeProfil" (click)="prikaziPodatke()">Moji podaci</button>
+      <hr class="dugmad">
+      <button class="dugmeProfil" (click)="prikazNarudzbi()">Moje narudžbe</button>
+      <hr class="dugmad">
+      <button class="dugmeProfil" (click)="prikaziMojeKomentare()">Moji komentari</button>
+      <hr class="dugmad">
+      <button class="dugmeProfil" (click)="prikaziMojeOcjeneProdavnica()">Moje ocjene prodavnica</button>
+      <hr class="dugmad">
+      <button class="dugmeProfil" (click)="prikaziMojeOcjeneProizvoda()">Moje ocjene proizvoda</button>
+    </div>
 
+  </div>
+  <div id="sadrzaj">
+    <div id="kupacPodaci" *ngIf="jeLiPodaci==true && prikaziNarudzbe==false;">
+      <h6>Ime:</h6>
+      <input value=" {{kupac_podaci.ime}}" disabled class="kupacpodaci">
+      <img src="assets/slike/edit1.png" id="editIme"
+           (click)="promjenaImena()">
+      <h6>Prezime: </h6>
+      <input value=" {{kupac_podaci.prezime}}" disabled class="kupacpodaci">
+      <img src="assets/slike/edit1.png" id="editPrezime" (click)="promjenaPrezimena()">
+      <h6>Email: </h6>
+      <input value=" {{kupac_podaci.email}}" disabled class="kupacpodaci">
+
+      <h6>Username: </h6>
+      <input value=" {{kupac_podaci.username}}" disabled class="kupacpodaci">
+      <h6>Broj telefona: </h6>
+
+      <input value=" {{kupac_podaci.brojTelefona}}" disabled style="display: inline" class="kupacpodaci">
+      <img src="assets/slike/edit1.png" id="AddNumber"
+           (click)="brojTelPromjena()">
+      <h6>Datum registracije: {{kupac_podaci.datum_kreiranja}}</h6>
+      <input value=" {{kupac_podaci.datumRegistracije | date:'dd-MM-yyyy (hh:mm:ss)'}}" disabled class="kupacpodaci">
+
+      <h6 *ngIf="kupac_podaci.isPretplacen==false">Pretplata: Ne </h6>
+      <h6 *ngIf="kupac_podaci.isPretplacen==true">Pretplata: Da</h6>
+
+      <button (click)="promjenaLozinke()" id="promjenaLozinke">Promjeni lozinku</button>
+
+    </div>
+
+
+
+
+      <div id="divTabela4" *ngIf="prikaziNarudzbe==true && prikazPodataka==false;" >
+        <table class="table table-warning">
+          <thead style="background-color: black;">
+          <tr style="background-color: black;">
+            <th>Prodavnica</th>
+            <th>Datum kreiranja</th>
+            <th>Datum preuzimanja</th>
+            <th>Total</th>
+            <th>Ukupno proizvoda</th>
+            <th>Status</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let s of narudzbeKupcaPodaci">
+            <td>{{s.prodavnica}}</td>
+            <td>{{s.datumKreiranja | date:'dd-MM-yyyy'}}</td>
+            <td>{{s.datumPreuzimanja | date:'dd-MM-yyyy'}}</td>
+            <td>{{s.total}}</td>
+            <td>{{s.ukupnoProizvoda}}</td>
+            <td>{{s.status}}</td>
+
+
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+
+    <div id="prikazKomenatara"></div>
+    <div id="prikazOcjenaProdavnice"></div>
+    <div id="prikazOcjenaProizvoda"></div>
+  </div>
+</div>
 <!--
 <button (click)="prikazDiva()">Klikni ovdje</button>
 <div *ngIf="prikaziDiv==true" id="probaDiva" >
@@ -28,48 +114,12 @@ KUPAC ID: {{kupac_id}}
 
 <h4 style="margin: 1%">Moj profil</h4>
 
-<div id="kupacPodaci" *ngIf="kupac_podaci!=null">
-  <h6>Ime:</h6>
-  <input value=" {{kupac_podaci.ime}}" disabled>
-  <img src="assets/slike/edit1.png" id="editIme"
-       (click)="promjenaImena()">
-  <h6>Prezime: </h6>
-  <input value=" {{kupac_podaci.prezime}}" disabled>
-  <img src="assets/slike/edit1.png" id="editPrezime" (click)="promjenaPrezimena()">
-  <h6>Email: </h6>
-  <input value=" {{kupac_podaci.email}}" disabled>
-
-  <h6>Username: </h6>
-  <input value=" {{kupac_podaci.username}}" disabled>
-  <h6>Broj telefona: </h6>
-
-  <input value=" {{kupac_podaci.brojTelefona}}" disabled style="display: inline" >
-  <img src="assets/slike/edit1.png" id="AddNumber"
-       (click)="brojTelPromjena()">
-  <h6>Datum registracije: {{kupac_podaci.datum_kreiranja}}</h6>
-  <input value=" {{kupac_podaci.datumRegistracije | date:'dd-MM-yyyy (hh:mm:ss)'}}" disabled>
-
-  <h6 *ngIf="kupac_podaci.isPretplacen==false">Pretplata: Ne </h6>
-  <h6 *ngIf="kupac_podaci.isPretplacen==true">Pretplata: Da</h6>
-
-
-
-</div>
-
-
-
-<button (click)="kupac=loginInfo().autentifikacijaToken.korisnickiNalog"> uredi</button>
-
-
-<button (click)="promjenaLozinke()">prmjeni lozinku</button>
 
 
 
 
 
-
-
-
+<!--editBrojTelefona-->
 <div *ngIf="promjeniBroj==true" class="modal fade show" id="exampleModalLive2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -216,16 +266,21 @@ KUPAC ID: {{kupac_id}}
 </div>
 
 
-<button (click)="provjera()">vjde</button>
 
 
 
 
 
-
+<button (click)="prikazNarudzbi()">narudzbe</button>
 <button (click)="prikazKomm()" style="margin: 1%;">Komentari</button>
 <button (click)="prikazOcjene()" style="margin: 1%;">Ocjene prodavnica</button>
 <button (click)="prikazOcjeneProizvoda()" style="margin: 1%;">Ocjene proizvoda</button>
+
+
+
+
+
+
 <div *ngIf="komm==true" style="margin: 2% 3%;">
   <div id="divTabela">
     <table class="table table-warning">

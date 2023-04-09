@@ -1,10 +1,11 @@
 <app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
 <h1 *ngIf="loginInfo().isLogiran==false">Košarica</h1>
 <div id="naslovKosarice">
-  <h2>Košarica</h2>
+  <h1>Košarica</h1>
   <h4 *ngIf="korpaStavkePodaci!=0">Pogledajte proizvode koje ste dodali u košaricu.</h4>
 <div *ngIf="korpaStavkePodaci==0">
-  <h1  style="margin-top: 5%">Nemate nijedan proizvod u košarici.</h1>
+  <div id="praznaKorpaDiv"><img src="assets/slike/emptycart.png" id="praznaKorpaSlika"> </div>
+  <h1  style="margin-top: 2%">Nemate nijedan proizvod u košarici.</h1>
   <label style="font-style: italic">Inspirirajte se i obogatite svoju garderobu.</label>
   <button (click)="vratiNaPocetnu()" id="getInspired"> Pogledaj proizvode</button>
 </div>

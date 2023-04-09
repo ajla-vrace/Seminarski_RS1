@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
 import {NgModel} from "@angular/forms";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-zaposlenik-detalji',
@@ -180,6 +181,10 @@ export class ZaposlenikDetaljiComponent implements OnInit {
 
   }
 
+  formatDatum(datum:any){
+    if(datum=="" || datum==null) return "-";
+    return formatDate(datum,"dd/MM/yyyy","en-Us");
+  }
 
 }
 
