@@ -14,7 +14,7 @@ KUPAC ID: {{kupac_id}}
       <hr class="dugmad">
       <button class="dugmeProfil" (click)="prikazNarudzbi()">Moje narudžbe</button>
       <hr class="dugmad">
-      <button class="dugmeProfil" (click)="prikaziMojeKomentare()">Moji komentari</button>
+      <button class="dugmeProfil" (click)="prikazKomm()">Moji komentari</button>
       <hr class="dugmad">
       <button class="dugmeProfil" (click)="prikaziMojeOcjeneProdavnica()">Moje ocjene prodavnica</button>
       <hr class="dugmad">
@@ -23,7 +23,7 @@ KUPAC ID: {{kupac_id}}
 
   </div>
   <div id="sadrzaj">
-    <div id="kupacPodaci" *ngIf="jeLiPodaci==true && prikaziNarudzbe==false;">
+    <div id="kupacPodaci" *ngIf="jeLiPodaci==true && prikaziNarudzbe==false && prikazKomentara==false;">
       <h6>Ime:</h6>
       <input value=" {{kupac_podaci.ime}}" disabled class="kupacpodaci">
       <img src="assets/slike/edit1.png" id="editIme"
@@ -54,7 +54,7 @@ KUPAC ID: {{kupac_id}}
 
 
 
-      <div id="divTabela4" *ngIf="prikaziNarudzbe==true && prikazPodataka==false;" >
+      <div id="divTabela4" *ngIf="prikaziNarudzbe==true && prikazPodataka==false && prikazKomentara==false;" >
         <table class="table table-warning">
           <thead style="background-color: black;">
           <tr style="background-color: black;">
@@ -84,7 +84,40 @@ KUPAC ID: {{kupac_id}}
       </div>
 
 
-    <div id="prikazKomenatara"></div>
+
+      <div id="divTabela" *ngIf="prikazKomentara==true && prikaziNarudzbe==false && prikazPodataka==false;" >
+        <table class="table table-warning">
+          <thead style="background-color: black;">
+          <tr style="background-color: black;">
+            <th>Opis</th>
+            <th>Kupac</th>
+            <th>Prodavnica</th>
+            <th>Datum</th>
+            <th>Modifikacija</th>
+            <th>Brisanje</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let s of prikaziMojeKomentare()">
+            <td>{{s.opis}}</td>
+            <td>{{s.kupac}}</td>
+            <td>{{s.prodavnica}}</td>
+            <td>{{s.datumKreiranja | date:'dd-MM-yyyy'}}</td>
+            <td>
+              <button (click)="modifikuj(s)">Modifikacija</button>
+            </td>
+            <td>
+              <button (click)="brisikomm(s)">Obrisi</button>
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+
     <div id="prikazOcjenaProdavnice"></div>
     <div id="prikazOcjenaProizvoda"></div>
   </div>
@@ -280,40 +313,6 @@ KUPAC ID: {{kupac_id}}
 
 
 
-
-<div *ngIf="komm==true" style="margin: 2% 3%;">
-  <div id="divTabela">
-    <table class="table table-warning">
-      <thead style="background-color: black;">
-      <tr style="background-color: black;">
-        <th>Opis</th>
-        <th>Kupac</th>
-        <th>Prodavnica</th>
-        <th>Datum</th>
-        <th>Modifikacija</th>
-        <th>Brisanje</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <tr *ngFor="let s of prikaziMojeKomentare()">
-        <td>{{s.opis}}</td>
-        <td>{{s.kupac}}</td>
-        <td>{{s.prodavnica}}</td>
-        <td>{{s.datumKreiranja}}</td>
-        <td>
-          <button (click)="modifikuj(s)">Modifikacija</button>
-        </td>
-        <td>
-          <button (click)="brisikomm(s)">Obrisi</button>
-        </td>
-
-      </tr>
-      </tbody>
-    </table>
-
-  </div>
-</div>
 
 
 

@@ -44,6 +44,7 @@ kupac_podaci:any;
    jeLiPodaci:any=true;
    jeLiNarudzbe:any=false;
    prikazPodataka: any=false;
+  prikazKomentara: any=false;
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient) { }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
@@ -145,7 +146,9 @@ this.fetchNarudzbeKupca();
   }
 
   prikazKomm() {
-    this.komm = true;
+    this.prikazKomentara = true;
+    this.prikazPodataka=false;
+    this.prikaziNarudzbe=false;
   }
 
   prikaziMojeOcjeneProdavnica() {
@@ -370,11 +373,13 @@ vratiNaFalse(){
   prikazNarudzbi() {
     this.prikazPodataka=false;
     this.prikaziNarudzbe=true;
-
+this.prikazKomentara=false;
 
   }
 
   prikaziPodatke() {
     this.prikazPodataka=true;
+    this.prikaziNarudzbe=false;
+    this.prikazKomentara=false;
   }
 }

@@ -196,7 +196,7 @@ border: 0;
 .dugmeProfil:hover{
   font-weight: bold;
 }
-#divTabela4{
+#divTabela4, #divTabela,#divTabela1,#divTabela2,#divTabela3{
   margin: 1%;
   padding: 1%;
 }
