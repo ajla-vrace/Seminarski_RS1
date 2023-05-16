@@ -81,14 +81,18 @@
   background-color: #95e4ff;
 }
 
-.btn-dodaj-sliku{
+.btn-dodaj-sliku, .btn-sezkol{
   border:groove;
   border-radius: 10px;
   padding:1%;
-  background-color: #95e4ff;
+  background-color: #ffa6f6;
 }
 
-.btn-dodaj-sliku:hover, .add-proizvod:hover{
+.btn-sezkol{
+  background-color: #ffd48f;
+}
+
+.btn-dodaj-sliku:hover, .add-proizvod:hover, .btn-sezkol:hover{
   opacity: 80%;
 }
 /*tabela*/
@@ -114,3 +118,4 @@ select{
   border:none;
   font-weight: 600;
 }
+

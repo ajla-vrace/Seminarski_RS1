@@ -7,13 +7,7 @@
 KUPAC ID: {{kupac_id}}
 <div id="sve">
   <div id="filteri">
-    <div *ngFor="let k of getKategorije()">
-      <li style="background-color: #2ecc71">{{k.naziv}}</li>
-      <div *ngFor="let p of getPodKategorijeMuskarci(k.id)">
-        <li>{{p.naziv}}</li>
-      </div>
 
-    </div>
   </div>
   <div id="muskarciProizvodi">
     <div *ngFor="let pr of getMProizvodi()" class="proizvodJedan" >
@@ -23,8 +17,8 @@ KUPAC ID: {{kupac_id}}
         </div>
 
         <div class="tekst" >
-          <h3>{{pr.naziv}}</h3>
-          <h5>{{pr.cijena}} KM</h5>
+          <h5>{{pr.naziv}}</h5>
+          <h6>{{pr.cijena}} KM</h6>
         </div>
 </div>
         <!--

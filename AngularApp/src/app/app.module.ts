@@ -51,6 +51,25 @@ import { KreiranjeNarudzbeComponent } from './kreiranje-narudzbe/kreiranje-narud
 import {DatePipe} from "@angular/common";
 import { PostavkePorukeComponent } from './postavke-poruke/postavke-poruke.component';
 
+import {AngularFireModule} from "@angular/fire/compat";
+import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatSliderModule} from "@angular/material/slider";
+import { OtkljucajComponent } from './otkljucaj/otkljucaj.component';
+import {AutorizacijaLoginProvjera} from "./guards/autorizacija-login-provjera.service";
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyDfrQ_BHWj1HHt4wLaQDO9feLtEF3xKZwc",
+  authDomain: "demo2-e3683.firebaseapp.com",
+  databaseURL: "https://demo2-e3683-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "demo2-e3683",
+  storageBucket: "demo2-e3683.appspot.com",
+  messagingSenderId: "848732733588",
+  appId: "1:848732733588:web:69b2601f6d5e7f119b3481"
+};
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,16 +116,17 @@ import { PostavkePorukeComponent } from './postavke-poruke/postavke-poruke.compo
    PretragaComponent,
    KreiranjeNarudzbeComponent,
    PostavkePorukeComponent,
+   OtkljucajComponent,
 
 
 
   ],
   imports: [
     BrowserModule,
-
-
-
-
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    MatSliderModule,
+    MatSlideToggleModule,
 
 
 
@@ -123,7 +143,7 @@ import { PostavkePorukeComponent } from './postavke-poruke/postavke-poruke.compo
       {path: 'kontakt', component: KontaktComponent},
       {path: 'prodavnice/:id', component: ProdavniceComponent},
       {path: 'zaposlenik-pocetna/:id', component:ZaposlenikPocetnaComponent},
-      {path: 'admin-pocetna/:id',component:AdminPocetnaComponent},
+      {path: 'admin-pocetna/:id',component:AdminPocetnaComponent, canActivate: [AutorizacijaLoginProvjera]},
       {path: 'prijava', component:PrijavaComponent},
       {path: 'navbar-zaposlenik/:id', component:NavbarZaposlenikComponent},
       {path: 'navbar-admin/:id', component:NavbarAdminComponent},
@@ -151,14 +171,17 @@ import { PostavkePorukeComponent } from './postavke-poruke/postavke-poruke.compo
       {path:'ocjene-proizvoda/:id', component:OcjeneProizvodaComponent},
       {path:'kreiranje-narudzbe', component:KreiranjeNarudzbeComponent},
       {path:'postavke-poruke', component:PostavkePorukeComponent},
+      {path:'otkljucaj',component:OtkljucajComponent}
   ]),
     FormsModule,
     HttpClientModule,
     NgxPaginationModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
 
   ],
   providers: [
+    AutorizacijaLoginProvjera,
     DatePipe
   ],
   bootstrap: [AppComponent]

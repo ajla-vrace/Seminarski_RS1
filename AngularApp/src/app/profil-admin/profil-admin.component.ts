@@ -4,6 +4,8 @@ import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 import {MojConfig} from "../moj-config";
 import {HttpClient} from "@angular/common/http";
 import {NgControl, NgModel} from "@angular/forms";
+import {AngularFireDatabase} from "@angular/fire/compat/database";
+
 
 @Component({
   selector: 'app-profil-admin',
@@ -12,7 +14,8 @@ import {NgControl, NgModel} from "@angular/forms";
 })
 export class ProfilAdminComponent implements OnInit {
   constructor(private route:ActivatedRoute, private router:Router,
-              private httpKlijent:HttpClient) { }
+              private httpKlijent:HttpClient,
+              private afDB: AngularFireDatabase) { }
 
   admin_id:any;
   jelKliknuoPromijeniLoz: boolean=false;
@@ -28,8 +31,12 @@ export class ProfilAdminComponent implements OnInit {
      // this.getKorisnickaImena();
       this.getTelefoni();
       this.getMailovi();
+
     })
   }
+
+
+
 
   _ime:any="";
   _prezime:any="";
@@ -60,14 +67,16 @@ export class ProfilAdminComponent implements OnInit {
   }
 
   odjaviSe() {
+    let token=MojConfig.http_opcije();
     // @ts-ignore
     AutentifikacijaHelper.setLoginInfo(null);
 
-    this.httpKlijent.post(MojConfig.adresa_servera + "/api/Autentifikacija", null, MojConfig.http_opcije())
+    this.httpKlijent.post(MojConfig.adresa_servera + "/api/Autentifikacija", null, token)
       .subscribe((x: any) => {
-        this.router.navigateByUrl("/pocetna");
-      //  alert("Uspješno ste se odjavili.");
+        alert("Uspješno ste se odjavili.");
       });
+
+    this.router.navigateByUrl("/pocetna");
   }
 
   getSpolove(){

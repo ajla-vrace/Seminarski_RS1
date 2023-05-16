@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
+using OnlineShop.Helper.AutentifikacijaAutorizacija;
 using OnlineShop.Modul1.Models;
+using OnlineShop.Modul1.ViewModels;
+using static OnlineShop.Modul1.Controllers.ZaposlenikController;
 
 namespace OnlineShop.Modul1.Controllers
 {
@@ -27,6 +30,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpPost("nova_p")]
+        [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult Snimi([FromBody] PodkategorijaVM x)
         {
             Podkategorija? pk;
@@ -57,6 +61,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpGet]
+       // [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public List<PodkategorijaVM> Get()
         {
             var data = context.Podkategorija.Select(x => new PodkategorijaVM
@@ -75,6 +80,7 @@ namespace OnlineShop.Modul1.Controllers
         //get podkategorije koje imaju unesen katID
 
         [HttpGet("kategorijaID")]
+       // [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public List<PodkategorijaVM> GetAll(int katID)
         {
             var data = context.Podkategorija.Where(x => x.KategorijaId == katID).Select(x =>
@@ -93,6 +99,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpDelete]
+        //[Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult Delete(int id)
         {
             Podkategorija? pk = context.Podkategorija.Find(id);
@@ -120,5 +127,90 @@ namespace OnlineShop.Modul1.Controllers
             return Ok(pk);
         }
 
+        public class Paginacija<T>
+        {
+            public int ukupnoStranica { get; set; }
+            public int trenutnaStranica { get; set; }
+            public int trenutniBrojPodatakaNaStranici { get; set; }
+            public int selektovaniBrojPodataka { get; set; }
+            public int maxBrojPodataka { get; set; } = 5;
+            public IQueryable<T>? podaci { get; set; }
+        }
+
+        [HttpGet("paging")]
+       // [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
+        public Paginacija<PodkategorijaVM> GetPodkategorijePaged(string? naziv, int trenutnaStr=1, int brojPodataka = 5)
+        {
+            if (brojPodataka > 5) brojPodataka = 5;
+
+            var filter = naziv != null ? naziv.ToLower() : null;
+
+            var filteredPodaci = context.Podkategorija.Where(x => naziv == null ||
+            (x.Naziv.ToLower().StartsWith(filter) || x.Kategorija.Naziv.ToLower().StartsWith(filter)));
+
+            var _podaci = filteredPodaci.OrderByDescending(x=>x.Id)
+                .Skip((trenutnaStr - 1)*brojPodataka).Take(brojPodataka)
+                .Select(x => new PodkategorijaVM
+                {
+                    Id=x.Id,
+                    KategorijaID=x.KategorijaId,
+                    KategorijaOpis=x.Kategorija.Naziv,
+                    Naziv=x.Naziv,
+                    datum_kreiranja=x.datum_kreiranja,
+                    datum_modifikacije=x.datum_modifikacije
+                }).ToList().AsQueryable();
+
+            var trenutniBrojPodataka = _podaci.Count();
+
+            var totalStranica = (int)Math.Ceiling(filteredPodaci.Count() / 5.0);
+
+            return new Paginacija<PodkategorijaVM>
+            {
+                maxBrojPodataka = 5,
+                trenutniBrojPodatakaNaStranici = trenutniBrojPodataka,
+                selektovaniBrojPodataka = brojPodataka,
+                ukupnoStranica = totalStranica,
+                trenutnaStranica = trenutnaStr,
+                podaci = _podaci
+            };
+
+        }
+
+        [HttpGet("paging_kat")]
+       // [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
+        public Paginacija<KategorijaVM> GetKategorijePaged(string? naziv, int trenutnaStr = 1, int brojPodataka = 5)
+        {
+            if (brojPodataka > 5) brojPodataka = 5;
+
+            var filter = naziv != null ? naziv.ToLower() : null;
+
+            var filteredPodaci = context.Kategorija.Where(x => naziv == null ||
+            (x.Naziv.ToLower().StartsWith(filter)));
+
+            var _podaci = filteredPodaci.OrderByDescending(x => x.Id)
+                .Skip((trenutnaStr - 1) * brojPodataka).Take(brojPodataka)
+                .Select(x => new KategorijaVM
+                {
+                    Id = x.Id,
+                    Naziv = x.Naziv,
+                    datum_kreiranja = x.datum_kreiranja,
+                    datum_modifikacije = x.datum_modifikacije
+                }).ToList().AsQueryable();
+
+            var trenutniBrojPodataka = _podaci.Count();
+
+            var totalStranica = (int)Math.Ceiling(filteredPodaci.Count() / 5.0);
+
+            return new Paginacija<KategorijaVM>
+            {
+                maxBrojPodataka = 5,
+                trenutniBrojPodatakaNaStranici = trenutniBrojPodataka,
+                selektovaniBrojPodataka = brojPodataka,
+                ukupnoStranica = totalStranica,
+                trenutnaStranica = trenutnaStr,
+                podaci = _podaci
+            };
+
+        }
     }
 }

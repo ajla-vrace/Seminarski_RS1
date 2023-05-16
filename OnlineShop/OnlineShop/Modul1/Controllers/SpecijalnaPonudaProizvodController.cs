@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
+using OnlineShop.Helper.AutentifikacijaAutorizacija;
 using OnlineShop.Modul1.Models;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices;
 
 namespace OnlineShop.Modul1.Controllers
 {
@@ -66,6 +68,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpGet("Specijalne_ponude")]
+        //[Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public IQueryable<SpecijalnePonudeVM> GetSpecijalnePonude()
         {
             var data = context.SpecijalnaPonuda.Select(x => new SpecijalnePonudeVM
@@ -81,6 +84,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpGet("Specijalne_ponude_opadajuci")]
+      //  [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public IQueryable<SpecijalnePonudeVMGet> GetSpecijalnePonudeOpadajuci()
         {
             var data = context.SpecijalnaPonuda.Select(x => new SpecijalnePonudeVMGet
@@ -94,6 +98,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpGet("Specijalne_ponude_rastuci")]
+      //  [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public IQueryable<SpecijalnePonudeVMGet> GetSpecijalnePonudeRastuci()
         {
             var data = context.SpecijalnaPonuda.Select(x => new SpecijalnePonudeVMGet
@@ -108,6 +113,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpGet("Specijalne_ponude_proizvod")]
+      //  [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public IQueryable<SpecijalnePonudeProizvodGetVM> GetSpecijalnePonudeProizvod()
         {
             var data = context.SpecijalnaPonudaProizvod.Select(x => new SpecijalnePonudeProizvodGetVM
@@ -144,10 +150,11 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpPost("post_sp")]
+        [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult SnimiSP(SpecijalnePonudeVM x)
         {
             SpecijalnaPonuda? sp;
-
+   
             if (x.Id == 0)
             {
                 sp = new SpecijalnaPonuda();
@@ -155,6 +162,9 @@ namespace OnlineShop.Modul1.Controllers
 
                 if (x.Naziv == "" && x.datum_pocetka == null && x.datum_zavrsetka == null)
                     return BadRequest("Nisu unesena obavezna polja.");
+                if (!UslovIspravan(x.datum_pocetka, x.datum_zavrsetka,x.Id).uslovIspravan)
+                    return BadRequest("Validacija datuma nije ispravna");
+
             }
             else
             {
@@ -163,16 +173,49 @@ namespace OnlineShop.Modul1.Controllers
                     return BadRequest("pogresan id");
             }
 
+            
             sp.Naziv = x.Naziv;
             sp.datum_pocetka = x.datum_pocetka;
             sp.datum_zavrsetka = x.datum_zavrsetka;
-
+            
+           
             context.SaveChanges();
 
             return Ok();
         }
 
+        public class UslovDatum
+        {
+            public bool uslovIspravan { get; set; }
+            public int spId { get; set; }
+        }
+
+        [HttpGet("uporediDatume")]
+        public UslovDatum UslovIspravan(DateTime datumUnosPocetak,DateTime datumUnosZavrsetak, int sp_id)
+        {
+            DateTime min_datum_pocetka, max_datum_zavrsetka;
+
+            if (sp_id != 0) //znaci da je editovanje. ne treba razmatrati datume koji se edituju
+            {
+                min_datum_pocetka = context.SpecijalnaPonuda.Where(x=>x.Id!=sp_id).OrderBy(x => x.datum_pocetka).Select(x => x.datum_pocetka).ToList()[0];
+                max_datum_zavrsetka = context.SpecijalnaPonuda.Where(x => x.Id != sp_id).OrderByDescending(x => x.datum_zavrsetka).Select(x => x.datum_zavrsetka).ToList()[0];
+            }
+            else
+            {
+                min_datum_pocetka = context.SpecijalnaPonuda.OrderBy(x => x.datum_pocetka).Select(x => x.datum_pocetka).ToList()[0];
+                max_datum_zavrsetka = context.SpecijalnaPonuda.OrderByDescending(x => x.datum_zavrsetka).Select(x => x.datum_zavrsetka).ToList()[0];
+            }
+
+            var uslov = (datumUnosPocetak.Date >= DateTime.Now.Date && 
+                ((datumUnosPocetak.Date < datumUnosZavrsetak.Date && datumUnosZavrsetak.Date < min_datum_pocetka.Date)
+                   || (datumUnosZavrsetak.Date > datumUnosPocetak.Date && datumUnosPocetak.Date > max_datum_zavrsetka.Date)));
+
+            return new UslovDatum { uslovIspravan = uslov, spId = sp_id };
+        
+        }
+
         [HttpPost("post_spp")]
+        [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult SnimiSPP(SpecijalnePonudeProizvodVM x)
         {
             SpecijalnaPonudaProizvod? spp;
@@ -199,6 +242,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpPost("post_popust")]
+        [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult SnimiPopust(PopustVM x)
         {
             Popust? p;
@@ -226,6 +270,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpDelete("del_sp")]
+       // [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult DeleteSP (int id)
         {
             SpecijalnaPonuda? sp = context.SpecijalnaPonuda.Find(id);
@@ -250,6 +295,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpDelete("del_popust")]
+        //[Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult DeleteP(int id)
         {
             Popust? p = context.Popust.Find(id);
@@ -274,6 +320,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpDelete("del_spp")]
+        //[Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult DeleteSPP(int id)
         {
             SpecijalnaPonudaProizvod? p = context.SpecijalnaPonudaProizvod.Find(id);

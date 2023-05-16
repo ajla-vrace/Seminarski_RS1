@@ -10,38 +10,39 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class KatPodkatComponent implements OnInit {
 
-  constructor(private httpKlijent:HttpClient, private route:ActivatedRoute) { }
+  constructor(private httpKlijent: HttpClient, private route: ActivatedRoute) {
+  }
 
-  podaci_podkategorije:any;
-  podaci_kategorije:any;
+  podaci_podkategorije: any;
+  podaci_kategorije: any;
 
-  nova_kategorija:any;
-  nova_podkategorija:any;
+  nova_kategorija: any;
+  nova_podkategorija: any;
 
 
-  admin_id:any;
+  admin_id: any;
 
-  totalLength:number=0;
-  page:number=1;
+  totalLength: number = 0;
+  page: number = 1;
 
-  totalLenght2:number=0;
-  page_2:number=1;
+  totalLenght2: number = 0;
+  page_2: number = 1;
 
-  kat_id:any;
+  kat_id: any;
 
 
   timeLeft: number = 10;
-  interval:any;
+  interval: any;
 
   startTimer() {
     this.interval = setInterval(() => {
-      if(this.timeLeft > 0) {
+      if (this.timeLeft > 0) {
         this.timeLeft--;
         console.log(this.timeLeft);
       } else {
-       // this.timeLeft = 60;
+        // this.timeLeft = 60;
       }
-    },1000)
+    }, 1000)
   }
 
   pauseTimer() {
@@ -50,13 +51,112 @@ export class KatPodkatComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getPodkategorije();
-    this.getKategorije();
+    this.getPodkategorije(); //zbog validacije naziva
+    this.getKategorije(); //isto
+    this.getPodkategorijePaged();
+    this.getKategorijePaged();
 
     this.route.params.subscribe(s => {
       this.admin_id = +s["id"];
     })
   }
+
+  podkatPaged: any;
+  naziv_filter: any = "";
+  trenutnaStr: any = 1;
+
+  getPodkategorijePaged() {
+    this.httpKlijent.get(MojConfig.adresa_servera +
+      "/api/Podkategorija/paging?naziv=" + this.naziv_filter + "&trenutnaStr=" + this.trenutnaStr + "&brojPodataka=5")
+      .subscribe((x: any) => {
+        this.podkatPaged = x;
+        console.log("PODKAT PAGED:", this.podkatPaged)
+      })
+  }
+
+  katPaged: any;
+  naziv_kat_filter: any = "";
+  trenutnaStr_kat: any = 1;
+
+  getKategorijePaged() {
+    this.httpKlijent.get(MojConfig.adresa_servera +
+      "/api/Podkategorija/paging_kat?naziv=" + this.naziv_kat_filter + "&trenutnaStr=" + this.trenutnaStr_kat + "&brojPodataka=5")
+      .subscribe((x: any) => {
+        this.katPaged = x;
+        console.log("KAT PAGED:", this.katPaged)
+      })
+  }
+
+
+  broj1p: any = 1;
+  broj2p: any = 2;
+  broj3p: any = 3;
+  broj4p: any = 4;
+
+  pomjeriBrojeveUdesno() {
+    this.broj1p++;
+    this.broj2p++;
+    this.broj3p++;
+    this.broj4p++;
+  }
+
+  pomjeniBrojeveUlijevo() {
+    this.broj1p--;
+    this.broj2p--;
+    this.broj3p--;
+    this.broj4p--;
+  }
+
+  postaviStraniceDefaultno() {
+    this.broj1p = 1;
+    this.broj2p = 2;
+    this.broj3p = 3;
+    this.broj4p = 4;
+  }
+
+  uslovSljedecaPodkat() {
+    console.log("trenutnaStr", this.trenutnaStr);
+    if (this.trenutnaStr == this.podkatPaged?.ukupnoStranica) {
+      this.trenutnaStr = this.podkatPaged?.ukupnoStranica;
+    } else {
+      this.trenutnaStr++;
+    }
+    /*   if(this.trenutnaStr>=4 && this.trenutnaStr<this.podkatPaged?.ukupnoStranica){
+         this.pomjeriBrojeveUdesno();
+       }
+     */
+    this.getPodkategorijePaged();
+  }
+
+  uslovSljedecaKat() {
+    if (this.trenutnaStr_kat == this.katPaged?.ukupnoStranica) {
+      this.trenutnaStr_kat = this.katPaged?.ukupnoStranica;
+    } else {
+      this.trenutnaStr_kat++;
+    }
+    this.getKategorijePaged();
+  }
+
+  uslovPrethodnaPodkat() {
+    if (this.trenutnaStr > 1) {
+      this.trenutnaStr = this.trenutnaStr - 1;
+      //  this.pomjeniBrojeveUlijevo();
+    } else {
+      this.trenutnaStr = 1;
+    }
+    this.getPodkategorijePaged();
+  }
+
+
+  uslovPrethodnaKat() {
+    if (this.trenutnaStr_kat > 1) {
+      this.trenutnaStr_kat = this.trenutnaStr_kat - 1;
+    } else {
+      this.trenutnaStr_kat = 1;
+    }
+    this.getKategorijePaged();
+  }
+
 
   getPodkategorije(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Podkategorija")
@@ -127,10 +227,11 @@ export class KatPodkatComponent implements OnInit {
 
   spasi_kat(){
 
-    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Kategorija",this.nova_kategorija)
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Kategorija",this.nova_kategorija,MojConfig.http_opcije())
       .subscribe((x:any)=>{
 
         this.getKategorije();
+        this.getKategorijePaged();
 
         this.nova_kategorija=null;
 
@@ -162,9 +263,10 @@ export class KatPodkatComponent implements OnInit {
 
   spasi_podkat(){
     console.log(this.nova_podkategorija);
-    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Podkategorija/nova_p",this.nova_podkategorija)
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Podkategorija/nova_p",this.nova_podkategorija, MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.getPodkategorije();
+        this.getPodkategorijePaged();
 
         this.nova_podkategorija=null;
 
@@ -222,9 +324,10 @@ export class KatPodkatComponent implements OnInit {
       return false;
   }
 
+  //ne smiju postojati dvije iste podkategorije!
   postojiPodkategorija(podkat:string){
       for (let i of this.podaci_podkategorije){
-        if(i.naziv===podkat && i.id!==this.nova_podkategorija.id)
+        if(i.naziv===podkat && i.id!==this.nova_podkategorija.id && i.kategorijaID==this.nova_podkategorija.kategorijaID)
           return true;
       }
       return false;

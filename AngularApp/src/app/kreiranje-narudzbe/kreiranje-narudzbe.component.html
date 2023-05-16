@@ -55,7 +55,7 @@
     <div style="width: 20%;">
       <br>
       <select class="form-control" [(ngModel)]="prodId" (click)="ispisi()" value="prodavnicePodaci.length">
-        <option *ngFor="let x of prodavnicePodaci" [value]="x.id" >{{x.naziv}}</option>
+        <option *ngFor="let x of prodavnicePodaci" [value]="x.id" >{{x.adresa}}</option>
       </select>
       <!--<mat-form-field appearance="fill">
         <mat-label>Odaberi prodavnicu: </mat-label>

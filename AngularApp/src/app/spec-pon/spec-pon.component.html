@@ -89,7 +89,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let spp of getFilterPodatkeSPP(inputSPP.value)">
+    <tr *ngFor="let spp of getFilterPodatkeSPP(inputSPP.value) | paginate:
+   {
+        id:'pag2',
+        itemsPerPage: 10,
+        currentPage:page2,
+        totalItems:totalLength2
+        }">
       <th scope="row">{{spp.id}}</th>
       <td>{{spp.specijalnaPonudaOpis}}</td>
       <td>{{spp.proizvodOpis}}</td>
@@ -102,6 +108,7 @@
 
   </table>
 
+  <pagination-controls id="pag2" class="text-center my-pagination" (pageChange)="page2=$event"></pagination-controls>
 
 
 </div>
@@ -140,7 +147,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let sp of getFilterPodatkeSP(inputSP.value)">
+    <tr *ngFor="let sp of getFilterPodatkeSP(inputSP.value) | paginate:
+   {
+        id:'pag1',
+        itemsPerPage: 10,
+        currentPage:page1,
+        totalItems:totalLength1
+        }">
       <th scope="row">{{sp.id}}</th>
       <td>{{sp.naziv}}</td>
       <td>{{formatDatum(sp.datum_pocetka)}}</td>
@@ -151,6 +164,8 @@
 
     </tbody>
   </table>
+
+  <pagination-controls id="pag1" class="text-center my-pagination" (pageChange)="page1=$event"></pagination-controls>
 
 </div>
 
@@ -194,7 +209,7 @@
       <div class="modal-body">
         <div class="mb-3">
           <label class="form-label">Proizvod</label>
-          <select class="form-control" [(ngModel)]="obj_spp.proizvodId" >
+          <select class="form-control" [(ngModel)]="obj_spp.proizvodId">
             <option *ngFor="let o of proizvodi" [value]="o.id" > {{o.naziv}} </option>
           </select>
         </div>
@@ -235,18 +250,18 @@
       </div>
 
       <div class="modal-body">
-      <div class="mb-3" [class.has-error]="(nazivSP.touched && nazivSP.invalid) || postojiSP(nazivSP.value)">
+      <div class="mb-3" [class.has-error]="(nazivSP.touched && nazivSP.invalid)">
         <label class="form-label">Naziv</label>
         <input class="form-control" required pattern="^[A-Za-z\s]*$" #nazivSP="ngModel" [(ngModel)]="obj_sp.naziv" />
 
         <span class="help-block" *ngIf="nazivSP.touched && nazivSP.invalid">
           Ovo polje je obavezno i mora počinjati velikim slovom.
         </span>
-
+<!--
         <span class="help-block" *ngIf="postojiSP(nazivSP.value)">
           Ne smijete dodavati naziv koji već postoji.
         </span>
-
+-->
       </div>
 
       <div class="mb-3" [class.has-error]="dateStart.touched && dateStart.invalid">

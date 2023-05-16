@@ -1,0 +1,16 @@
+<p>otkljucaj works!</p>
+
+
+<div class="sredina" style=" width:70%; margin:auto;">
+    <img src="assets/slike/unlock.png" style="height: 300px;max-width: 100%; margin: auto 33%;">
+    <br><br>
+      <div class="unos" style="border: groove;padding:5%; width:90%; margin:auto;">
+        <input [(ngModel)]="code" style="max-width: 30%; border:groove; ">
+        <br><br>
+        <button (click)="otkljucaj()" style="padding:1%; border-radius: 30px; background: dodgerblue; border:none;">Otkljucaj</button>
+      </div>
+    {{ispravan_kod}}
+</div>
+
+<br>
+<br>

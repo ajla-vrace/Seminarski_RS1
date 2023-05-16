@@ -96,19 +96,23 @@
       <tr class="table-light">
         <th scope="col">#</th>
         <th scope="col">Proizvod</th>
+        <th scope="col">Šifra proizvoda</th>
         <th scope="col">Cijena</th>
         <th scope="col">Količina</th>
         <th scope="col">Total</th>
+        <th scope="col"></th>
       </tr>
 
       </thead>
       <tbody>
       <tr *ngFor="let n  of narudzbaDetalji?.narudzbaStavka">
-        <th scope="row">1</th>
+        <th scope="row"></th>
         <td>{{n?.proizvodNaziv}}</td>
+        <td>{{n?.sifraProizvoda}}</td>
         <td>{{n?.cijena}}</td>
         <td>{{n?.kolicina}}</td>
         <td>{{n?.total}}</td>
+        <td><button class="btn-provjeriSkladiste" (click)="provjeriSkladiste()">Provjeri stanje na skladištu</button></td>
       </tr>
 
       </tbody>
@@ -117,8 +121,111 @@
   </div>
 
   <br>
+
+  <div class="dugmad">
+    <div class="status-okvir">
+      <button class="btn-status" (click)="kliknuoPromijeniStatus=true; promijeniStatus();">Promijeni status</button>
+    </div>
+
+    <div class="email-okvir">
+      <button class="btn-email"
+              [disabled]="(_jel_poslana_prouka==true && _jel_promijenjen_status==false) ||
+                           (_jel_promijenjen_status==false && _jel_poslana_prouka==false)"
+              (click)="kliknuoPosaljiMail=true; posaljiMail();">Pošalji email</button>
+    </div>
+  </div>
   <br>
   <br>
 
 </div>
+
+
+
+<div *ngIf="kliknuoPromijeniStatus==true" class="modal fade show" id="exampleModalLive2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg modal-dialog-scrollable" id="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLiveLabel2">Promijeni status narudžbe</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="kliknuoPromijeniStatus=false" ></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="mb-3">
+          <label class="col-form-label">Status narudžbe:</label>
+          <input type="text" class="form-control"  [value]="status" disabled>
+        </div>
+
+        <div class="mb-3">
+          <label class="col-form-label">Novi status:</label>
+          <select class="form-control" [(ngModel)]="obj_status.status">
+            <option>Nova</option>
+            <option>Spremna</option>
+            <option>Odgodjena</option>
+            <option>Istekla</option>
+            <option>Preuzeta</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-spasi btn-primary" (click)="changeStatus()">Promijeni status</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div *ngIf="kliknuoPosaljiMail==true" class="modal fade show" id="exampleModalLive1" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLiveLabel1">Pošalji poruku kupcu</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="kliknuoPosaljiMail=false" ></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="mb-3">
+          <label class="col-form-label">Od:</label>
+          <input type="text" class="form-control"  value="prodavnicaluna@gmail.com" disabled>
+        </div>
+
+        <div class="mb-3">
+          <label class="col-form-label">Za:</label>
+          <input type="text" class="form-control"  [value]="narudzbaDetalji?.kupac?.email" disabled>
+        </div>
+
+        <div class="mb-3" [class.has-error]="naslov.invalid && naslov.touched">
+          <label class="col-form-label">Naslov:</label>
+          <input type="text" class="form-control" #naslov="ngModel" [(ngModel)]="obj_email.subject" required>
+
+          <span class="help-block" *ngIf="(naslov.invalid && naslov.touched)">
+             Ovo polje je obavezno.
+          </span>
+
+        </div>
+
+        <div class="mb-3" [class.has-error]="sadrzaj.invalid && sadrzaj.touched">
+          <label class="col-form-label">Sadržaj:</label>
+          <textarea type="text" class="form-control" #sadrzaj="ngModel"  [(ngModel)]="obj_email.body" required> </textarea>
+
+          <span class="help-block" *ngIf="(sadrzaj.invalid && sadrzaj.touched)">
+             Ovo polje je obavezno.
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-spasi btn-primary" [disabled]="!(naslov.valid && sadrzaj.valid)" (click)="sendEmail()">Pošalji</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 

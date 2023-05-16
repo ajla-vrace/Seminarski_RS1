@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 
 using Microsoft.Extensions.Configuration;
-
+using OnlineShop.Helper.AutentifikacijaAutorizacija;
 
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", false)
@@ -17,7 +17,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+//builder.Services.AddSwaggerGen();   ///zakomentarisala ovu i dodala onu ispod
+builder.Services.AddSwaggerGen(c => c.OperationFilter<AutorizacijaSwaggerHeader>());
 
 var app = builder.Build();
 

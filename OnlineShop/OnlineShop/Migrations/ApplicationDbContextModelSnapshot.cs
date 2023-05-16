@@ -37,6 +37,13 @@ namespace OnlineShop.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("jel_otkljucan")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("twoFcode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("vrijednost")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -199,6 +206,9 @@ namespace OnlineShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool?>("Aktivna")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Godina")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -342,6 +352,10 @@ namespace OnlineShop.Migrations
                     b.Property<DateTime?>("DatumPreuzimanja")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("Deadline")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Evidentirao")
                         .HasColumnType("nvarchar(max)");
 
@@ -362,6 +376,12 @@ namespace OnlineShop.Migrations
 
                     b.Property<int?>("UkupnoProizvoda")
                         .HasColumnType("int");
+
+                    b.Property<bool>("jel_poslana_prouka")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("jel_promijenjen_status")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -632,6 +652,9 @@ namespace OnlineShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool?>("Aktivna")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Doba")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -712,6 +735,9 @@ namespace OnlineShop.Migrations
 
                     b.Property<int?>("skladisteId")
                         .HasColumnType("int");
+
+                    b.Property<string>("velicina")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -836,6 +862,9 @@ namespace OnlineShop.Migrations
 
                     b.Property<DateTime?>("DatumPrveNarudzbe")
                         .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("SlikaKupca")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<bool>("isPretplacen")
                         .HasColumnType("bit");

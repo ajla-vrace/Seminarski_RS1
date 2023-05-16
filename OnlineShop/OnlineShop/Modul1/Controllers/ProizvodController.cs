@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
 using OnlineShop.Helper;
+using OnlineShop.Helper.AutentifikacijaAutorizacija;
 using OnlineShop.Modul1.Models;
 using OnlineShop.Modul1.ViewModels;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -142,6 +143,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpPost]
+        [Autorizacija(Kupac:false,Zaposlenik:true,Admin:true)]
         public ActionResult Snimi (ProizvodVM x)
         {
             Proizvod? p;
@@ -179,6 +181,31 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(p);
 
+        }
+
+        public class SetSezonuIKolekciju
+        {
+            public int proizvod_id { get; set; }
+            public int? kolekcijaId { get; set; }
+            public int? sezonaId { get; set; }
+        }
+
+        [HttpPost("sezkol")]
+        public ActionResult DodajSezIKol(SetSezonuIKolekciju x)
+        {
+            Proizvod? p=context.Proizvod.Find(x.proizvod_id);
+
+            if (p == null)
+                return BadRequest("pogrešan ID");
+            p.datum_modifikacije = DateTime.Now;
+
+            p.sezonaId = x.sezonaId;
+            p.kolekcijaId = x.kolekcijaId;
+
+            context.Update(p);
+            context.SaveChanges();
+
+            return Ok(p);
         }
 
         [HttpGet]
@@ -280,6 +307,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpDelete]
+        [Autorizacija(Kupac:false,Zaposlenik:true,Admin:true)]
         public ActionResult ObrisiProizvod (int id)
         {
             Proizvod? p = context.Proizvod.Find(id);
@@ -345,27 +373,46 @@ namespace OnlineShop.Modul1.Controllers
             return context.Odjel.ToList();
         }
 
-        //proizvodi sa najmanjom kolicinom
-        public class ProizvodiMinKolicina
+
+        public class VelicinaKolicina
         {
-            public int ProizvodId { get; set; }
+            public string velicina { get; set; }
+            public int kolicina { get; set; }
+        }
+
+        //proizvodi sa najmanjom kolicinom
+        public class ProizvodiKolicina
+        {
             public ProizvodVM? proizvod { get; set; }
             public int Kolicina { get; set; }
-
+            public string Velicina { get; set; }
             public string datum_kreiranja { get; set; }
+            public List<VelicinaKolicina> velKol { get; set; }
         }
 
         //treba se uzeti proizvodID od ovog, i onda sa metodom GetSlikeByProizvodId dobijamo listu slika,
         //onda idemo for petljom i saljemo jedan item metodi get_slika_FS(item); - angular 
 
         [HttpGet("proizvodiMinKolicina")]
-        public IEnumerable<ProizvodiMinKolicina> GetProizvodeMinKolicina()
+        public IEnumerable<ProizvodiKolicina> GetProizvodeMinKolicina()
         {
-            var proizvodi = context.SkladisteProizvod.Select(x => x.proizvodId).Distinct();
-            var proizvodi_kolicine = new List<ProizvodiMinKolicina>();
-            foreach (int p in proizvodi)
+          //  var proizvodi = context.SkladisteProizvod.Select(x => x.proizvodId).Distinct();
+            var min_kol = context.SkladisteProizvod.OrderBy(x => x.kolicina).Select(x => x.kolicina).ToList()[0];
+            var odabrani = context.SkladisteProizvod.Where(x => x.kolicina == min_kol).OrderBy(x=>x.kolicina).ToList();
+            var proizvodi_kolicine = new List<ProizvodiKolicina>();
+
+            foreach (var p in odabrani)
             {
-                var _proizvod = context.Proizvod.Where(x => x.Id == p).Select(x=>new ProizvodVM
+                var velkol = context.SkladisteProizvod.Where(x => x.proizvodId == p.proizvodId).Select(x => new VelicinaKolicina
+                {
+                    velicina = x.velicina,
+                    kolicina = x.kolicina
+                }).ToList();
+
+                var kol = velkol.OrderBy(x => x.kolicina).Select(x => x.kolicina).ToList()[0];
+                var vel = velkol.OrderBy(x => x.kolicina).Select(x => x.velicina).ToList()[0];
+
+                var _proizvod = context.Proizvod.Where(x => x.Id == p.proizvodId).Select(x=>new ProizvodVM
                 {
                     Id = x.Id,
                     Sifra = x.Sifra,
@@ -390,27 +437,60 @@ namespace OnlineShop.Modul1.Controllers
                     slika_postojeca = x.slika_postojeca,
                     evidentirao = x.evidentirao
                 }).ToList()[0];
-                var _kolicina = context.SkladisteProizvod.Where(x => x.proizvodId == p).Sum(x => x.kolicina);
 
-              
-                proizvodi_kolicine.Add(new ProizvodiMinKolicina 
-                { 
-                    ProizvodId = p, 
-                    proizvod=_proizvod, 
-                    Kolicina = _kolicina,       
-                    datum_kreiranja=_proizvod.datum_kreiranja.ToString("dd/MM/yyyy")
+                proizvodi_kolicine.Add(new ProizvodiKolicina
+                {
+                    proizvod = _proizvod,
+                    Kolicina = kol,
+                    Velicina = vel,
+                    datum_kreiranja = _proizvod.datum_kreiranja.ToString("dd/MM/yyyy"),
+                    velKol = velkol
                 });
             }
 
-            var minKol=proizvodi_kolicine.OrderBy(x => x.Kolicina).Select(x=>x.Kolicina).ToList()[0];
+            return proizvodi_kolicine;
+        }
 
-            //proizvodi sa najmanjom kolicinom (istom)
 
-            var rez= proizvodi_kolicine.Where(x => x.Kolicina == minKol).OrderBy(x => x.Kolicina);
+        [HttpGet("proizvodi_bezkolicine")]
+        public ActionResult GetProizvodeBezKolicine()
+        {
+            var rez = new List<dynamic>();
+            //oni koji nisu dodani u skladiste a ne oni koji imaju 0 kolicinu
+            //ne treba nam velicina - nece svi proizvodi imati sve velicine
 
-           /// var rez = proizvodi_kolicine.OrderBy(x => x.Kolicina).Take(5).ToList();
-           
-            return rez;
+            var skladiste = context.SkladisteProizvod.Select(x => x.proizvodId).Distinct().ToList();
+            var proizvodi = context.Proizvod.Where(x => !skladiste.Contains(x.Id)).Select(x=>new ProizvodVM
+            {
+                Id = x.Id,
+                Sifra = x.Sifra,
+                Naziv = x.Naziv,
+                Cijena = x.Cijena,
+                Opis = x.Opis,
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije,
+                Aktivan = x.Aktivan,
+                bojaId = x.bojaId,
+                bojaOpis = x.boja.Naziv,
+                odjelId = x.odjelId,
+                odjelOpis = x.odjel.Naziv,
+                kategorijaId = x.kategorijaId,
+                kategorijaOpis = x.kategorija.Naziv,
+                podkategorijaId = x.podkategorijaId,
+                podkategorijaOpis = x.podkategorija.Naziv,
+                kolekcijaId = x.kolekcijaId,
+                kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
+                sezonaId = x.sezonaId,
+                sezonaOpis = x.sezona.Naziv,
+                slika_postojeca = x.slika_postojeca,
+                evidentirao = x.evidentirao
+            }).ToList();
+
+            for (int i = 0; i < proizvodi.Count(); i++)
+            {
+                rez.Add(new { proizvod = proizvodi[i] });
+            }
+            return Ok(rez);
         }
 
         public class ProizvodDatum
@@ -418,6 +498,7 @@ namespace OnlineShop.Modul1.Controllers
             public int ProizvodId { get; set; }
             public ProizvodVM proizvod { get; set; }
             public string datum_kreiranja { get; set; }
+          //  public List<VelicinaKolicina> velKol { get; set; }
         }
 
         [HttpGet("posljednjeDodaniProizvodi")]
@@ -457,9 +538,18 @@ namespace OnlineShop.Modul1.Controllers
                     slika_postojeca = x.slika_postojeca,
                     evidentirao = x.evidentirao
                 }).ToList()[0];
-           
+
+                //var velkol = context.SkladisteProizvod.Where(x => x.proizvodId == proizvodVM.Id).Select(x => new VelicinaKolicina
+                //{
+                //    velicina = x.velicina,
+                //    kolicina = x.kolicina
+                //}).ToList();
+
                 proizvodi_datumi.Add(new ProizvodDatum { 
-                    ProizvodId = p, proizvod = proizvodVM, datum_kreiranja = proizvodVM.datum_kreiranja.ToString("dd/MM/yyyy")});
+                    ProizvodId = p, proizvod = proizvodVM, 
+                    datum_kreiranja = proizvodVM.datum_kreiranja.ToString("dd/MM/yyyy"),
+                   // velKol=velkol
+                });
             }
 
             //var rez = proizvodi_datumi.Take(5).ToList();

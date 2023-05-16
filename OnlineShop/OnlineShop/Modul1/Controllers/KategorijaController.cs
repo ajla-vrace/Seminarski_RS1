@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
+using OnlineShop.Helper.AutentifikacijaAutorizacija;
 using OnlineShop.Modul1.Models;
 using static OnlineShop.Modul1.Controllers.PodkategorijaController;
 
@@ -16,16 +17,9 @@ namespace OnlineShop.Modul1.Controllers
             this.context = context;
         }
 
-        public class KategorijaVM
-        {
-            public int Id { get; set; }
-            public string Naziv { get; set; }
-            public DateTime datum_kreiranja { get; set; }
-            public DateTime? datum_modifikacije { get; set; }
-        }
-
-
+       
         [HttpPost]
+        [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult Snimi(Kategorija x)
         {
             Kategorija? k;
@@ -54,6 +48,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpGet]
+       // [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public List<Kategorija> Get()
         {
             return context.Kategorija.ToList();
@@ -61,6 +56,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpGet("GetPodkategorije")]
+     //   [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public List<PodkategorijaVM> GetByKategorija(int katID)
         {
             return context.Podkategorija.Where(x => x.KategorijaId == katID).Select(x =>
@@ -76,6 +72,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpDelete]
+        //[Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult Delete(int id)
         {
             Kategorija? k = context.Kategorija.Find(id);

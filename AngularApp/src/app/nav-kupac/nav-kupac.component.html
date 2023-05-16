@@ -55,15 +55,15 @@
 </div>
 
 <div id="samoPodkat">
-  <option *ngFor="let x of podkategorijePodaci" [value]="x.id" class="podkat" >{{x.naziv}}</option>
+  <option *ngFor="let x of podkategorijePodaci" [value]="x.id" class="podkat" (click)="prikaziPodkategoriju(x.id)">{{x.naziv}}</option>
 </div>
 
 </div>
+
+
+
+<app-zene *ngIf="prikazPodkat==true" [proslijedi]="objekat_proslijedi"></app-zene>
 
 -->
-
-
-
-
 
 

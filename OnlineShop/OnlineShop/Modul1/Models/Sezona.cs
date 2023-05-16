@@ -6,5 +6,6 @@
         public string Naziv { get; set; }
         public string Doba { get; set; }
         public string Godina { get; set; }
+        public bool? Aktivna { get; set; }
     }
 }

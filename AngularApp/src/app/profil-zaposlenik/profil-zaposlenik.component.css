@@ -1,12 +1,17 @@
 .slika-glavni{
-
+  width:90%;
+  margin:auto;
+  display: flex;
+  justify-content: space-between;
 }
 
 .glavni{
-  width:90%;
-  margin:3% auto 3% auto;
+  width:80%;
+  margin:1% auto 1% auto;
   display: flex;
   justify-content: space-between;
+  border:none;
+  padding-right: 2%;
   /*display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto;
@@ -14,31 +19,39 @@
 }
 
 .img-profilna{
-  border: groove;
+ /* border: groove;*/
+  width:80%;
+  margin:3% auto;
 }
 
 .divslika{
   width:20%;
-  margin:auto;
+  margin:1% 0 1% 0;
+/*  margin:auto;
+  border: groove;
+  padding: 2%;*/
+  border: groove;
 }
 .slika{
   /*display: grid;
   grid-template-columns: auto;
   width:20%;
   margin:auto;*/
-
+width:100%;
 }
 
 .dodaj-sliku{
-  color:blue;
+  color:deeppink;
   border:none;
-  background-color: white;
+  background-color: transparent;
+  width: 100%;
 }
 
 .ukloni-sliku{
-  color:red;
+  color:white;
   border:none;
-  background-color: white;
+  background-color: red;
+  width: 100%;
 }
 
 .dodaj-sliku:hover, .ukloni-sliku:hover{
@@ -51,7 +64,6 @@ h4{
 
 .osnovni-podaci{
   background-color: #ffdddc;
-  border: groove;
   padding:2%;
   width: 32%;
 }
@@ -59,14 +71,12 @@ h4{
 .kontakt-podaci{
   background-color: #ffdddc;
   width: 32%;
-  border: groove;
   padding:2%;
 }
 
 .datum-podaci{
   background-color: #ffdddc;
   width: 32%;
-  border: groove;
   padding:2%;
 }
 
@@ -93,9 +103,55 @@ h5{
   padding:0.5%;
   border: groove;
   background-color: rgba(255,128,99,0.68);
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .btn-odjava:hover{
   background-color: rgba(255,128,99,0.45);
+}
+
+.evidentirao{
+  width: 90%;
+  margin:auto;
+}
+
+.evid{
+  width:78%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.proizvodi-otvori, .narudzbe-otvori, .skladiste-otvori{
+  width: 78%;
+}
+
+.evidentirao button{
+  width:100%;
+  padding:1%;
+  border:none;
+  background-color: #ffdddc; /**/
+}
+
+.evidentirao button:hover{
+  opacity: 80%;
+}
+
+.my-pagination /deep/ .ngx-pagination .current
+{
+  background-color: pink;
+  border-radius: 30px;
+}
+
+.inp-pretraga{
+  width: 100%;
+  border: groove;
+}
+
+.img-pretraga{
+  border: groove;
+}
+
+.pretraga{
+  display: flex;
+  width: 100%;
 }

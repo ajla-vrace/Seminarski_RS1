@@ -122,3 +122,42 @@ table th, table td{
   text-align: center;
 }
 
+.status-okvir,.email-okvir{
+  width:80%;
+}
+
+.btn-status,.btn-email{
+  background-color: red;
+  color:white;
+  padding:1%;
+  border:none;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.btn-email{
+  background-color: cadetblue;
+}
+
+.btn-status:hover, .btn-email:hover{
+  opacity: 80%;
+}
+
+.btn-provjeriSkladiste{
+  border: none;
+  color: deeppink;
+  width:60%;
+  background-color: transparent;
+}
+
+.dugmad{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width:30%;
+  gap:3%;
+}
+
+.help-block{
+  color:red;
+}

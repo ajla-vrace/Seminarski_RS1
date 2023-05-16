@@ -51,7 +51,7 @@
     <th scope="col">Šifra</th>
     <th scope="col">Naziv</th>
     <th scope="col">Cijena</th>
-    <th scope="col">Opis</th>
+<!--    <th scope="col">Opis</th>-->
     <th scope="col">Datum kreiranja</th>
     <!--    <th scope="col">Datum modifikacije</th> -->
     <th scope="col">Aktivan</th>
@@ -59,15 +59,14 @@
     <th scope="col">Odjel</th>
     <th scope="col">Kategorija</th>
     <th scope="col">Podkategorija</th>
-    <th scope="col">Kolekcija</th>
-    <th scope="col">Sezona</th>
+  <!--  <th scope="col">Kolekcija</th>
+    <th scope="col">Sezona</th> -->
     <th scope="col">Evidentirao</th>
     <th scope="col">Slika</th>
     <th></th>
     <th></th>
     <th></th>
     <th></th>
-
   </tr>
   </thead>
   <tbody>
@@ -82,7 +81,7 @@
     <td>{{p.sifra}}</td>
     <td>{{p.naziv}}</td>
     <td>{{p.cijena}}</td>
-    <td>{{p.opis}}</td>
+  <!--  <td>{{p.opis}}</td>-->
     <td>{{formatDatum(p.datum_kreiranja)}}</td>
     <!--  <td>{{p.datum_modifikacije}}</td> -->
     <td>{{p.aktivan ? "Aktivan" : "Neaktivan"}}</td>
@@ -90,13 +89,14 @@
     <td>{{p.odjelOpis}}</td>
     <td>{{p.kategorijaOpis}}</td>
     <td>{{p.podkategorijaOpis}}</td>
-    <td>{{p.kolekcijaOpis}}</td>
-    <td>{{p.sezonaOpis}}</td>
+ <!--   <td>{{p.kolekcijaOpis}}</td>
+    <td>{{p.sezonaOpis}}</td> -->
     <td>{{p.evidentirao}}</td>
-    <td> <img style="display:block; max-width: 100%; height: 70px" src="{{get_slika_base64_FS(p)}}"></td>
+    <td> <img style="display:block; max-width: 100%; width:60%; height: 70px" src="{{get_slika_base64_FS(p)}}"></td>
     <td> <img style="display:block; max-width: 100%; height: 40px" src="assets/slike/pencil-square.svg" class="edit-btn" (click)="EditDugme(p)"></td>
     <td> <img style="display:block; max-width: 100%; height: 40px" src="assets/slike/x-square.svg" class="delete-btn" (click)="DeleteDugme(p)"></td>
-    <td> <td><button class="btn-dodaj-sliku" (click)="dodajSliku(p)">Slike</button></td>
+    <td> <button class="btn-dodaj-sliku" (click)="dodajSliku(p)">Slike</button></td>
+    <td> <button class="btn-sezkol" (click)="dodajSezonuIKolekcij(p.id, p)">Sezone/kolekcije</button></td>
 
   </tr>
 
@@ -153,7 +153,7 @@
 
         <div class="mb-3" [class.has-error]="opisControll.invalid && opisControll.touched">
           <label class="form-label">opis</label>
-          <input required #opisControll="ngModel" class="form-control" placeholder="Opis" [(ngModel)]="odabrani_proizvod.opis" />
+          <textarea required #opisControll="ngModel" class="form-control" placeholder="Opis" [(ngModel)]="odabrani_proizvod.opis" ></textarea>
 
           <span class="help-block" *ngIf="opisControll.invalid && opisControll.touched">
               Ovo polje je obavezno
@@ -235,7 +235,7 @@
 
         </div>
 
-
+<!--
         <div class="mb-3" [class.has-error]="(sezonaControll.invalid && sezonaControll.touched) || sezone?.length==0">
           <label class="form-label">Sezona</label>
 
@@ -263,7 +263,7 @@
               Ovo polje je obavezno
           </span>
         </div>
-
+-->
         <div class="mb-3">
           <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="odabrani_proizvod.aktivan">
           <label class="form-check-label" for="exampleCheck1" >Aktivan</label>
@@ -302,7 +302,7 @@
 
       </div>
       <div class="modal-footer">
-        <button [disabled]="jelOmogucenSave(sifraControll, sifraInput, nazivControll,cijenaControll,opisControll,bojaControll, podkatControll,katControll,sezonaControll,kolekcijaControll)" type="button" class="btn btn-primary" (click)="spasi(odabrani_proizvod)" >Spasi</button>
+        <button [disabled]="jelOmogucenSave(sifraControll, sifraInput, nazivControll,cijenaControll,opisControll,bojaControll, podkatControll,katControll)" type="button" class="btn btn-primary" (click)="spasi(odabrani_proizvod)" >Spasi</button>
       </div>
     </div>
   </div>
@@ -363,3 +363,57 @@
     </div>
   </div>
 </div>
+
+
+
+
+<div *ngIf="obj_sezkol!=null" class="modal fade show" id="exampleModalLive1" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel1" > {{naslov}} </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="obj_sezkol=null; getProizvodOpadajuci();"></button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="mb-3" [class.has-error]="(sezonaControll.invalid && sezonaControll.touched) || sezone?.length==0">
+          <label class="form-label">Sezona</label>
+
+          <select required #sezonaControll="ngModel" class="form-control" [(ngModel)]="obj_sezkol.sezonaId" (click)="getKolekcijeBySezonaID();" >
+            <option *ngFor="let s of sezone " [value]="s?.id"  >{{s.naziv}} - {{s.aktivna?"Aktivna":"Neaktivna"}}</option>
+
+          </select>
+
+          <span class="help-block" *ngIf="(sezonaControll.invalid && sezonaControll.touched) || sezone?.length==0">
+              Ovo polje je obavezno
+          </span>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="(kolekcijaControll.invalid && kolekcijaControll.touched) || kolekcije?.length==0">
+          <label class="form-label">Kolekcija</label>
+
+          <select required #kolekcijaControll="ngModel" class="form-control" [(ngModel)]="obj_sezkol.kolekcijaId">
+
+            <option *ngFor="let kol of kolekcije " [value]="kol?.id" >{{kol.naziv}} - {{kol.aktivna?"Aktivna":"Neaktivna"}} </option>
+
+          </select>
+
+          <span class="help-block" *ngIf="(kolekcijaControll.invalid && kolekcijaControll.touched) || kolekcije?.length==0">
+              Ovo polje je obavezno
+          </span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button  type="button"
+                class="btn btn-primary" (click)="spasi_sezkol()">Spasi promjene</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

@@ -12,14 +12,14 @@ namespace OnlineShop.Helper.AutentifikacijaAutorizacija
 
         public class LoginInformacije
         {
-            public LoginInformacije(AutentifikacijaToken autentifikacijaToken)
+            public LoginInformacije(AutentifikacijaToken? autentifikacijaToken)
             {
                 this.autentifikacijaToken = autentifikacijaToken;
             }
 
       
-            public KorisnickiNalog korisnickiNalog => autentifikacijaToken?.korisnickiNalog;
-            public AutentifikacijaToken autentifikacijaToken { get; set; }
+            public KorisnickiNalog? korisnickiNalog => autentifikacijaToken?.korisnickiNalog;
+            public AutentifikacijaToken? autentifikacijaToken { get; set; }
 
             public bool isLogiran => korisnickiNalog != null;
 
@@ -35,12 +35,12 @@ namespace OnlineShop.Helper.AutentifikacijaAutorizacija
             return new LoginInformacije(token);
         }
 
-        public static AutentifikacijaToken GetAuthToken(this HttpContext httpContext)
+        public static AutentifikacijaToken? GetAuthToken(this HttpContext httpContext)
         {
             string token = httpContext.GetMyAuthToken();
-            ApplicationDbContext db = httpContext.RequestServices.GetService<ApplicationDbContext>();
+            ApplicationDbContext? db = httpContext.RequestServices.GetService<ApplicationDbContext>();
 
-            AutentifikacijaToken korisnickiNalog = db.AutentifikacijaToken
+            AutentifikacijaToken? korisnickiNalog = db?.AutentifikacijaToken
                 .Include(s => s.korisnickiNalog)
                 .SingleOrDefault(x => token != null && x.vrijednost == token);
 

@@ -13,5 +13,6 @@ namespace OnlineShop.Modul1.ViewModels
         public int? ProizvodId { get; set; }
         public string? ProizvodNaziv { get; set; }
         public int? NarudzbaId { get; set; }
+        public int? SifraProizvoda { get; set; }
     }
 }

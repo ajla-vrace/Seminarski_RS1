@@ -40,10 +40,27 @@
     </div>
   </div>
 
+  <br>
+
+  <div class="poruke">
+    <div class="poruka">
+      <div class="poruka-naslov">
+        <h6>Ova poruka se šalje kada se status narudžbe promijeni na "Istekla"</h6>
+      </div>
+      <div class="poruka-sadrzaj">
+        <textarea [value]="porukaIstekla" disabled></textarea>
+      </div>
+    </div>
+
+    <div class="dugmad">
+      <button class="btn-edit" (click)="uredi_poruku(porukaIstekla)">Izmijeni poruku</button>
+      <button class="btn-posalji">Pošalji poruku</button>
+    </div>
+  </div>
+
 
 </div>
 
-{{_poruka}}
 <br><br>
 
 

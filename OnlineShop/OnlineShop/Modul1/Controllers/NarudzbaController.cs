@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using OnlineShop.Data;
 using OnlineShop.Modul1.Models;
 using OnlineShop.Modul1.ViewModels;
@@ -152,12 +153,13 @@ namespace OnlineShop.Modul1.Controllers
                     KupacId = s.KupacId,
                     Kupac = s.Kupac.Username,
                     Prodavnica = s.Prodavnica.Naziv,
+                    ProdavnicaAdresa=s.Prodavnica.Adresa,
                     DatumKreiranja = s.DatumKreiranja,
                     DatumPreuzimanja = s.DatumPreuzimanja,
                     Total = s.Ukupno,
                     UkupnoProizvoda = s.UkupnoProizvoda,
                     Evidentirao = s.Evidentirao,
-                    Status = s.Status
+                    Status = s.Status 
                 })
                 .AsQueryable();
 
@@ -242,7 +244,7 @@ namespace OnlineShop.Modul1.Controllers
                 KupacId = x.KupacId,
                 KupacNaziv = x.Kupac.Ime + " " + x.Kupac.Prezime,
                 ProdavnicaId = x.ProdavnicaId,
-                nazivProdavnice = x.Prodavnica.Naziv,
+                nazivProdavnice = x.Prodavnica.Adresa,
                 Status = x.Status
             }).ToList()[0];
 
@@ -255,7 +257,8 @@ namespace OnlineShop.Modul1.Controllers
                     Total=x.Total,
                     NarudzbaId=x.NarudzbaId,
                     ProizvodId=x.ProizvodId,
-                    ProizvodNaziv=x.Proizvod.Naziv
+                    ProizvodNaziv=x.Proizvod.Naziv,
+                    SifraProizvoda=x.Proizvod.Sifra
                 }).ToList();
 
             var objekat = new DetaljiKupacNarudzba { kupac = _kupac, narudzba = narudzba, narudzbaStavka = stavke };
@@ -275,21 +278,127 @@ namespace OnlineShop.Modul1.Controllers
         //        _dbContext.SaveChanges();
         //    }
         //    return Ok(narudzba);
-        //}
+        //} 
+
+        public class SetStatus
+        {
+            public int narudzbaId { get; set; }
+            public string status { get; set; }
+            public string evidentirao { get; set; }
+        }
 
         [HttpPost] 
-        public ActionResult PromijeniStatus(int narudzba_id, string status, string evidentirao)
+        public ActionResult PromijeniStatus(SetStatus s)
         {
-            var narudzba = _dbContext.Narudzba.Find(narudzba_id);
-
+            var narudzba = _dbContext.Narudzba.Find(s.narudzbaId);
+           
             if (narudzba != null)
             {
-                narudzba.Status = status;
-                narudzba.Evidentirao = evidentirao;
+                narudzba.Status = s.status;
+                narudzba.Evidentirao = s.evidentirao;
+                narudzba.jel_promijenjen_status = true;
+                narudzba.jel_poslana_prouka = false;
                 _dbContext.Update(narudzba);
                 _dbContext.SaveChanges();
             }
             return Ok(narudzba);
+        }
+
+        [HttpPost]
+        public ActionResult PosaljiPoruku(int narId)
+        {
+            var narudzba = _dbContext.Narudzba.Find(narId);
+
+            if (narudzba != null)
+            { 
+                narudzba.jel_promijenjen_status = false;
+                narudzba.jel_poslana_prouka = true;
+                _dbContext.Update(narudzba);
+                _dbContext.SaveChanges();
+            }
+            return Ok(narudzba);
+        }
+
+        [HttpGet]
+        public ActionResult zaEmail (int narId)
+        {
+            var narudzba = _dbContext.Narudzba.Find(narId);
+
+            if (narudzba != null)
+            {
+                return Ok(new
+                {
+                    jel_promijenjen_status = narudzba.jel_promijenjen_status,
+                    jel_poslana_poruka = narudzba.jel_poslana_prouka
+                });
+            }
+            return Ok("nema tog narId");
+        }
+
+        [HttpGet]
+        public ActionResult BrojNovihNarudzbi()
+        {
+            var broj = _dbContext.Narudzba.Where(x => x.Status == "Nova").ToList().Count();
+            string poruka = broj > 0 ? $"Imate {broj} novih narudžbi!" : "Trenutno nemate novih narudžbi";
+            return Ok(new { Broj = broj, Poruka = poruka });
+        }
+
+        [HttpGet]
+        public ActionResult BrojStatusa()
+        {
+            var narudzbe = _dbContext.Narudzba.ToList();
+            var nova = narudzbe.Where(s => s.Status == "Nova").Count();
+            var spremna = narudzbe.Where(s => s.Status == "Spremna").Count();
+            var otkazana = narudzbe.Where(s => s.Status == "Otkazana").Count();
+            var preuzeta = narudzbe.Where(s => s.Status == "Preuzeta").Count();
+            var istekla = narudzbe.Where(s => s.Status == "Istekla").Count();
+            var odgodjena = narudzbe.Where(s => s.Status == "Odgodjena").Count();
+            return Ok(new
+            {
+                _nova = nova,
+                _spremna = spremna,
+                _otkazana = otkazana,
+                _preuzeta = preuzeta,
+                _istekla = istekla,
+                _odgodjena = odgodjena
+            });
+        }
+
+        [HttpGet]
+        public ActionResult SortByStatus(string status)
+        {
+            List<NarudzbaVM> podaci = new List<NarudzbaVM>();
+            if (status == "Sve")
+                podaci = _dbContext.Narudzba.OrderByDescending(x => x.Id).Select(x => new NarudzbaVM
+                {
+                    Id = x.Id,
+                    DatumKreiranja = x.DatumKreiranja,
+                    DatumPreuzimanja = x.DatumPreuzimanja,
+                    Ukupno = x.Ukupno,
+                    UkupnoProizvoda = x.UkupnoProizvoda,
+                    Evidentirao = x.Evidentirao,
+                    KupacId = x.KupacId,
+                    KupacNaziv = x.Kupac.Ime + " " + x.Kupac.Prezime,
+                    ProdavnicaId = x.ProdavnicaId,
+                    nazivProdavnice = x.Prodavnica.Adresa,
+                    Status = x.Status
+                }).ToList(); 
+            else if (status !="Sve")
+                podaci = _dbContext.Narudzba.OrderByDescending(x => x.Id).Where(x => x.Status == status).Select(x => new NarudzbaVM
+                {
+                    Id = x.Id,
+                    DatumKreiranja = x.DatumKreiranja,
+                    DatumPreuzimanja = x.DatumPreuzimanja,
+                    Ukupno = x.Ukupno,
+                    UkupnoProizvoda = x.UkupnoProizvoda,
+                    Evidentirao = x.Evidentirao,
+                    KupacId = x.KupacId,
+                    KupacNaziv = x.Kupac.Ime + " " + x.Kupac.Prezime,
+                    ProdavnicaId = x.ProdavnicaId,
+                    nazivProdavnice = x.Prodavnica.Adresa,
+                    Status = x.Status
+                }).ToList();
+            return Ok(podaci);
         }
     }
 }

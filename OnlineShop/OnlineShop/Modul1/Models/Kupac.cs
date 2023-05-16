@@ -10,5 +10,6 @@ namespace OnlineShop.Modul1.Models
         public DateTime? DatumPretplate { get; set; }
         public bool isPretplacen { get; set; }=false;
         public string? AdresaIsporuke { get; set; }
+        public byte[]? SlikaKupca { get; set; }
     } 
     }

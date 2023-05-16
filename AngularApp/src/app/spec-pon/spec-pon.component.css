@@ -118,3 +118,9 @@ img{
 .help-block{
   color:red;
 }
+
+.my-pagination /deep/ .ngx-pagination .current
+{
+  background-color: pink;
+  border-radius: 30px;
+}

@@ -5,9 +5,11 @@
 
  <div class="pretraga-dodaj">
   <div class="pretraga-div">
-    <input class="pretrazi-zaposl" type="text" placeholder="pretrazi zaposlenika..." #pretraga_zaposl>
+    <input class="pretrazi-zaposl" type="text" placeholder="pretrazi zaposlenika..."
+           #pretraga_zaposl [(ngModel)]="filter">
     <!--getFilterZaposlenike(pretragaZaposl.value)-->
-    <img class="img-search" src="assets/slike/search.svg" (click)="kliknuoPretrazi=true">
+    <img class="img-search" src="assets/slike/search.svg" (click)="kliknuoPretrazi=true;">
+                                                                     <!--getPaged()-->
   </div>
 
   <div class="dodajZaposl">
@@ -39,8 +41,14 @@
         <th scope="col"></th>
       </tr>
       </thead>
-      <tbody>
-      <tr *ngFor="let z of getFilterZaposlenike(pretraga_zaposl.value)">
+      <tbody> <!--pagedZaposlenici?.zaposlenici-->
+      <tr *ngFor="let z of getFilterZaposlenike(pretraga_zaposl.value) | paginate:
+   {
+        id:'pag1',
+        itemsPerPage: 5,
+        currentPage:page1,
+        totalItems:totalLength1
+        }">
         <th scope="row">{{z.id}}</th>
         <td>{{z.ime}}</td>
         <td>{{z.prezime}}</td>
@@ -50,17 +58,34 @@
         <td>{{z.spolOpis}}</td>
         <td><img src="{{get_slika_base64_FS(z)}}" style="display:block;max-width: 100%; height: 70px"></td>
     <!--    <td><button class="btn-promijeniLozinku" (click)="promijeniLozinku(z)">Promijeni lozinku</button></td>  -->
+        <td><button class="btn-detalji" (click)="vidiDetaljeZaposlenika(z.id)">Detalji</button></td>
         <td><button class="btn-edit" (click)="urediZaposlenika(z)">Uredi</button> </td>
         <td><button class="btn-delete" (click)="obrisiZaposlenika(z)">Obriši</button> </td>
-        <td><button class="btn-detalji" (click)="vidiDetaljeZaposlenika(z.id)">Detalji</button></td>
+
       </tr>
 
       </tbody>
+
     </table>
+
+    <pagination-controls id="pag1" class="text-center my-pagination" (pageChange)="page1=$event"></pagination-controls>
+
+
   </div>
 
 </div>
 
+<!--
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" (click)="trenutnaStr!=1 ? trenutnaStr=trenutnaStr-1 : trenutnaStr=1; getPagedZaposlenike();">Prethodna</a></li>
+    <li class="page-item"><a class="page-link" (click)="trenutnaStr=1; getPagedZaposlenike();">1</a></li>
+    <li class="page-item"><a class="page-link" (click)="trenutnaStr=2; getPagedZaposlenike();">2</a></li>
+    <li class="page-item"><a class="page-link" (click)="trenutnaStr=3; getPagedZaposlenike();">3</a></li>
+    <li class="page-item"><a class="page-link" (click)="trenutnaStr==pagedZaposlenici?.ukupnoStranica?trenutnaStr=pagedZaposlenici?.ukupnoStranica : trenutnaStr=trenutnaStr+1; getPagedZaposlenike();">Sljedeća</a></li>
+  </ul>
+</nav>
+-->
 
 <div *ngIf="zaposlenik_obj!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog modal-dialog modal-dialog-scrollable">

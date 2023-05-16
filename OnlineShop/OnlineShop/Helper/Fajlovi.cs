@@ -2,7 +2,7 @@
 {
     public class Fajlovi
     {
-        public static byte[] Ucitaj(string path)
+        public static byte[] Ucitaj(string path)  
         {
             try
             {

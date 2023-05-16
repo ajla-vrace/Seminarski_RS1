@@ -62,7 +62,7 @@ export class ProizvodiComponent implements OnInit {
   skladistaProizvod:any;
 
   getSkladistaProizvod(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/kol_pr_opadajuci").subscribe((x:any)=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/kol_pr_opadajuci",MojConfig.http_opcije()).subscribe((x:any)=>{
       this.skladistaProizvod=x;
       console.log(this.skladistaProizvod);
     })
@@ -71,14 +71,14 @@ export class ProizvodiComponent implements OnInit {
   skladista:any;
 
   getSkladista(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Skladiste").subscribe((x:any)=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Skladiste",MojConfig.http_opcije()).subscribe((x:any)=>{
       this.skladista=x;
       console.log(this.skladista);
     })
   }
 
   getProizvodPodaci(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod").subscribe((x:any)=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod",MojConfig.http_opcije()).subscribe((x:any)=>{
       this.proizvodi=x;
       console.log(this.proizvodi);
     })
@@ -91,7 +91,7 @@ export class ProizvodiComponent implements OnInit {
   }
 
   getProizvodRastuci(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/datumRastuci").subscribe((x:any)=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/datumRastuci",MojConfig.http_opcije()).subscribe((x:any)=>{
       this.proizvodi_rastuci=x;
 /*
       this.proizvodi_rastuci.datum_kreiranja=formatDate(this.proizvodi_rastuci.datum_kreiranja,'dd/MM/yyyy',"en-US");
@@ -103,7 +103,7 @@ export class ProizvodiComponent implements OnInit {
   }
 
   getProizvodOpadajuci(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/datumOpadajuci").subscribe((x:any)=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/datumOpadajuci",MojConfig.http_opcije()).subscribe((x:any)=>{
       this.proizvod_opadajuci=x;
 /*
       this.proizvod_opadajuci.datum_kreiranja=formatDate(this.proizvod_opadajuci.datum_kreiranja,'dd/MM/yyyy',"en-US");
@@ -114,17 +114,19 @@ export class ProizvodiComponent implements OnInit {
     })
   }
 
+  kategorijaDefault:any;
   getKategorije(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Kategorija").subscribe((x:any)=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Kategorija",MojConfig.http_opcije()).subscribe((x:any)=>{
       this.kategorije=x;
+      this.kategorijaDefault=this.kategorije[0]?.id;
     })
   }
 
   getPodkategorijeByKatID(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Kategorija/GetPodkategorije?katID="+
-      this.odabrani_proizvod.kategorijaId).subscribe((x:any)=>{
+      this.odabrani_proizvod.kategorijaId,MojConfig.http_opcije()).subscribe((x:any)=>{
       this.podkategorije=x;
-      //if(this.kliknuoEdit==false) //ako je dodavanje proizvoda, ovo ce bit difoltni podkategorijaID
+      if(this.kliknuoEdit==false) //ako je dodavanje proizvoda, ovo ce bit difoltni podkategorijaID
       {
         if(this.podkategorije.length>0)
            this.odabrani_proizvod.podkategorijaId=this.podkategorije[0]?.id;
@@ -136,18 +138,24 @@ export class ProizvodiComponent implements OnInit {
     })
   }
 
+  sezonaDefaultno:any;
+  kolekcijaDefaultno:any;
+
   getSezone(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/sezone")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/sezone",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.sezone=x;
+        this.sezonaDefaultno=this.sezone[0]?.id;
       })
+
   }
 
-  getKolekcijeBySezonaID(){
+  getKolekcijeBySezonaID(){  //+this.obj_sezkol.sezonaId
+    /*
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/getKolekcije?id="+
-    this.odabrani_proizvod.sezonaId).subscribe((x:any)=>{
+    this.odabrani_proizvod.sezonaId,MojConfig.http_opcije()).subscribe((x:any)=>{
       this.kolekcije=x;
-    //  if(this.kliknuoEdit==false)
+      if(this.kliknuoEdit==false)
       {
         if(this.kolekcije.length>0)
            this.odabrani_proizvod.kolekcijaId=this.kolekcije[0].id;
@@ -155,24 +163,38 @@ export class ProizvodiComponent implements OnInit {
           this.kolekcije=[];
       }
     })
+    */
+
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/getKolekcije?id="+
+      this.obj_sezkol.sezonaId,MojConfig.http_opcije()).subscribe((x:any)=>{
+      this.kolekcije=x;
+      if(this.kliknuo_add_sezkol==true) {
+        if(this.kolekcije.length>0)
+          this.obj_sezkol.kolekcijaId=this.kolekcije[0].id;
+        else
+          this.kolekcije=[];
+      }
+    })
+
+
   }
 
   getBoje(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Boja")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Boja",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.boje=x;
       })
   }
 
   getSifre(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/sifra")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/sifra",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.sifre=x;
       })
   }
 
   getOdjeli(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/odjeli")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/odjeli",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.odjeli=x;
       })
@@ -181,14 +203,12 @@ export class ProizvodiComponent implements OnInit {
 
 
   EditDugme(p: any) {
+    this.naslov="Edit proizvoda (ID: "+p.id+")";
     this.kliknuoEdit=true;
     this.odabrani_proizvod=p;
-
-    this.naslov="Edit proizvoda (ID: "+p.id+")";
-
+    this.odabrani_proizvod.evidentirao=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username;
     this.getPodkategorijeByKatID();
     this.getKolekcijeBySezonaID();
-
   }
 
   DeleteDugme(p: any) {
@@ -196,7 +216,7 @@ export class ProizvodiComponent implements OnInit {
     this.kliknuoEdit=false;
 
     if(confirm("Jeste li sigurni da želite obrisati ovaj zapis?"))
-      this.httpKlijent.delete(MojConfig.adresa_servera + "/api/Proizvod?id=" + p.id)
+      this.httpKlijent.delete(MojConfig.adresa_servera + "/api/Proizvod?id=" + p.id,MojConfig.http_opcije())
         .subscribe((x: any) => {
           this.getProizvodOpadajuci();
           alert("Zapis uspješno obrisan");
@@ -281,13 +301,13 @@ export class ProizvodiComponent implements OnInit {
     //mozda su viska getKategorije i getSezone, u objektu mozemo
     //postaviti difoltnu vrijednost
     this.getKategorije();
-    this.odabrani_proizvod.kategorijaId=1; //difoltna vrijednost
+    this.odabrani_proizvod.kategorijaId=this.kategorijaDefault; //difoltna vrijednost
     this.getPodkategorijeByKatID();
-
+/*
     this.getSezone();
     this.odabrani_proizvod.sezonaId=1; //difotna vrijednost
     this.getKolekcijeBySezonaID();
-
+*/
   }
 
 
@@ -302,10 +322,11 @@ export class ProizvodiComponent implements OnInit {
   jelOmogucenSave(sifraControll: NgModel, sifraInput: HTMLInputElement, nazivControll: NgModel, cijenaControll: NgModel, opisControll: NgModel,
                   bojaControll:NgModel,
                   podkatControll: NgModel, katControll: NgModel,
-                  sezonaControll:NgModel, kolekcijaControll:NgModel) {
+  //                sezonaControll:NgModel, kolekcijaControll:NgModel
+  ) {
     if(this.kliknuoEdit==true){
       if(nazivControll.valid && cijenaControll.valid && opisControll.valid && this.boje?.length>0
-        && this.podkategorije?.length>0 && this.kolekcije?.length>0 && this.kategorije?.length>0 && this.sezone?.length>0
+        && this.podkategorije?.length>0 && this.kategorije?.length>0 // && this.kolekcije?.length>0  && this.sezone?.length>0
       ){
       //  console.log(this.podkategorije?.length);
         return false;
@@ -315,7 +336,7 @@ export class ProizvodiComponent implements OnInit {
     else{
       if(sifraControll.valid && this.dozvoljenaSifra(sifraInput.value) && nazivControll.valid && cijenaControll.valid && opisControll.valid
         && this.boje?.length>0
-        && this.podkategorije?.length>0 && this.kolekcije?.length>0 && this.kategorije?.length>0 && this.sezone?.length>0
+        && this.podkategorije?.length>0 && this.kategorije?.length>0 // && this.kolekcije?.length>0  && this.sezone?.length>0
       ){
         return false;
       }
@@ -326,7 +347,7 @@ export class ProizvodiComponent implements OnInit {
 //  /api/Proizvod/drugiNacin
 
   spasi(o: any) {
-    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Proizvod",o).subscribe(
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Proizvod",o,MojConfig.http_opcije()).subscribe(
       (x:any)=>{
         this.getProizvodOpadajuci();
      //   this.getSkladistaProizvod();
@@ -359,7 +380,7 @@ export class ProizvodiComponent implements OnInit {
 
   getSlikeByProizvodId(p:number){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/ProizvodSlika/slikaByProizvodId?id="
-    +p).subscribe((x:any)=>{
+    +p,MojConfig.http_opcije()).subscribe((x:any)=>{
       this.slike_by_proizvodId=x;
       console.log(this.slike_by_proizvodId);
     })
@@ -367,7 +388,7 @@ export class ProizvodiComponent implements OnInit {
 
   getSlikeByProizvodId_2nacin(p:number){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/ProizvodSlika/slikeByProizvodId_2?proizvod_id="
-      +p).subscribe((x:any)=>{
+      +p,MojConfig.http_opcije()).subscribe((x:any)=>{
       this.listaobjekataProizvodSlike=x;
       console.log(this.listaobjekataProizvodSlike);
     })
@@ -413,7 +434,7 @@ export class ProizvodiComponent implements OnInit {
   snimi_sliku() {
     this.kliknuoDodajSliku=false;
 
-    this.httpKlijent.post(MojConfig.adresa_servera+"/api/ProizvodSlika", this.slika_proizvod_objekat)
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/ProizvodSlika", this.slika_proizvod_objekat,MojConfig.http_opcije())
       .subscribe(x=>{
         this.getProizvodOpadajuci();
         this.get_slika_novi_request_FS(this.slika_proizvod_objekat.proizvodId);
@@ -445,7 +466,7 @@ export class ProizvodiComponent implements OnInit {
 
   obrisiSliku(id_slikaProizvod:any) {
     if(confirm("Jeste li sigurni da želite izbrisati sliku?")){
-      this.httpKlijent.delete(MojConfig.adresa_servera+"/api/ProizvodSlika/"+id_slikaProizvod)
+      this.httpKlijent.delete(MojConfig.adresa_servera+"/api/ProizvodSlika/"+id_slikaProizvod,MojConfig.http_opcije())
         .subscribe((res:any)=>{
           this.getSlikeByProizvodId_2nacin(this.proizvod_id);
         })
@@ -458,4 +479,42 @@ export class ProizvodiComponent implements OnInit {
     return formatDate(datum,"dd/MM/yyyy","en-Us");
   }
 
+  obj_sezkol:any;
+  odabrani:any;
+  kliknuo_add_sezkol:boolean=false;
+  dodajSezonuIKolekcij(p_id:any, p:any){
+    this.odabrani=p;
+    console.log("odabrani:",this.odabrani);
+
+    this.getSezone();
+
+    this.obj_sezkol={
+      proizvod_id:p_id,
+    }
+
+    if(this.odabrani?.sezonaId!=null && this.odabrani?.kolekcijaId!=null){
+      this.naslov="Edituj sezonu i kolekciju za proizvod: "+p_id;
+      this.obj_sezkol.sezonaId=this.odabrani?.sezonaId;
+      this.getKolekcijeBySezonaID();
+      this.obj_sezkol.kolekcijaId=this.odabrani?.kolekcijaId;
+    }
+    else{
+      this.kliknuo_add_sezkol=true;
+      this.naslov="Dodaj sezonu i kolekciju za proizvod: "+p_id;
+      this.obj_sezkol.sezonaId=this.sezonaDefaultno;
+      this.getKolekcijeBySezonaID();
+      this.obj_sezkol.kolekcijaId=this.kolekcijaDefaultno;
+    }
+    console.log("sezId:",this.obj_sezkol.sezonaId,"kolId:",this.obj_sezkol.kolekcijaId);
+  }
+
+  spasi_sezkol(){
+
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Proizvod/sezkol",this.obj_sezkol)
+      .subscribe((x:any)=>{
+        this.obj_sezkol=null;
+        this.kliknuo_add_sezkol=false;
+        this.getProizvodOpadajuci();
+      });
+  }
 }
