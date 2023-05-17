@@ -184,13 +184,18 @@ namespace OnlineShop.Modul1.Controllers
             sp.Naziv = x.Naziv;
             sp.datum_pocetka = x.datum_pocetka;
             sp.datum_zavrsetka = x.datum_zavrsetka;
+<<<<<<< HEAD
             sp.aktivna = x.aktivna;
+=======
+            
+>>>>>>> f477e6aab0e3b38b7ca30c64a3e3509f919bc403
            
             context.SaveChanges();
 
             return Ok();
         }
 
+<<<<<<< HEAD
         public class SPAktivna
         {
             public int id { get; set; }
@@ -210,6 +215,8 @@ namespace OnlineShop.Modul1.Controllers
             return Ok();
         }
 
+=======
+>>>>>>> f477e6aab0e3b38b7ca30c64a3e3509f919bc403
         public class UslovDatum
         {
             public bool uslovIspravan { get; set; }

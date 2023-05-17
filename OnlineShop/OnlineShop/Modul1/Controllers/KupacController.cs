@@ -81,7 +81,11 @@ namespace OnlineShop.Modul1.Controllers
             return Ok();
         }
 
+<<<<<<< HEAD
         /*[HttpGet("slikaKorisnika")]
+=======
+        [HttpGet("slikaKorisnika")]
+>>>>>>> f477e6aab0e3b38b7ca30c64a3e3509f919bc403
         public List<FileContentResult> Slika(int id)
         {
             var z = _dbContext.Kupac.Where(x => x.Id == id).ToList()[0];
@@ -101,7 +105,11 @@ namespace OnlineShop.Modul1.Controllers
                  }
 
              }*/
+<<<<<<< HEAD
            /* if (z != null)
+=======
+            if (z != null)
+>>>>>>> f477e6aab0e3b38b7ca30c64a3e3509f919bc403
             {
                 byte[] bajtovi = z.SlikaKupca;
                 if (bajtovi != null)
@@ -112,7 +120,11 @@ namespace OnlineShop.Modul1.Controllers
             }
             return prikaz;
 
+<<<<<<< HEAD
         }*/
+=======
+        }
+>>>>>>> f477e6aab0e3b38b7ca30c64a3e3509f919bc403
 
 
 

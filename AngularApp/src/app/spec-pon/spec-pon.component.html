@@ -216,9 +216,14 @@
         <div class="mb-3">
           <label class="form-label">Proizvod</label>
 
+
           <select class="form-select" size="5" [(ngModel)]="obj_spp.proizvodId">
 
             <option *ngFor="let o of pr_rastuci" [value]="o.id" > {{o.naziv}} </option>
+
+
+          <select class="form-control" [(ngModel)]="obj_spp.proizvodId">
+            <option *ngFor="let o of proizvodi" [value]="o.id" > {{o.naziv}} </option>
 
           </select>
         </div>

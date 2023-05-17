@@ -171,9 +171,11 @@ export const firebaseConfig = {
       {path:'ocjene-proizvoda/:id', component:OcjeneProizvodaComponent},
       {path:'kreiranje-narudzbe', component:KreiranjeNarudzbeComponent},
       {path:'postavke-poruke', component:PostavkePorukeComponent},
+
       {path:'pretraga', component:PretragaComponent},
 
       {path:'otkljucaj',component:OtkljucajComponent}
+
 
   ]),
     FormsModule,

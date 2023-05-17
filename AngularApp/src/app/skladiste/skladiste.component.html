@@ -234,10 +234,47 @@
       <div class="modal-body">
 
 
+
         <div class="mb-3">
           <label class="form-label">Proizvod</label>
 
           <select class="form-control" size="5" [(ngModel)]="odabrana_stavka.proizvodId" >
+
+            <option *ngFor="let k of p " [value]="k.id">{{k.naziv}} - {{k.sifra}}</option>
+
+          </select>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="(vel.invalid && vel.touched) || postojiIstaVelicina(vel.value)">
+          <label class="form-label">Veličina</label>
+          <input class="form-control" placeholder="XS" type="text"
+                 required pattern="^(XXS|XS|S|M|L|XL|XXL)$" #vel="ngModel"
+                 [(ngModel)]="odabrana_stavka.velicina">
+
+          <span class="help-block" *ngIf="vel.invalid && vel.touched">
+            Ovo polje je obavezno i smije sadržavati samo predefinisane vrijednosti za veličine.
+          </span>
+
+          <span class="help-block" *ngIf="postojiIstaVelicina(vel.value)">
+            Ne smijete dodavati veličinu koja već postoji.
+          </span>
+
+        </div>
+
+
+        <div class="mb-3">
+          <label class="form-label">Količina</label>
+          <input class="form-control" placeholder="količina" type="number" [(ngModel)]="odabrana_stavka.kolicina">
+        </div>
+
+
+
+
+        <div class="mb-3">
+          <label class="form-label">Proizvod</label>
+
+          <select class="form-control" [(ngModel)]="odabrana_stavka.proizvodId" >
 
             <option *ngFor="let k of p " [value]="k.id">{{k.naziv}} - {{k.sifra}}</option>
 

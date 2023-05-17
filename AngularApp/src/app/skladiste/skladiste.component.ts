@@ -131,7 +131,11 @@ export class SkladisteComponent implements OnInit {
   }
 
   getProizvodi(){
+
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/naziv_asc",MojConfig.http_opcije())
+
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod",MojConfig.http_opcije())
+
       .subscribe((x:any)=>{
         this.p=x;
         if(this.kliknuoEdit==false && this.odabrana_stavka!=null){

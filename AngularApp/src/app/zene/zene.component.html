@@ -4,6 +4,10 @@
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f477e6aab0e3b38b7ca30c64a3e3509f919bc403
 <!--
 <div *ngFor="let color of colors">
   <input type="checkbox" name="color-{{color.naziv}}" id="color-{{color.naziv}}" [value]="color.naziv" [(ngModel)]="selectedColors">
@@ -11,8 +15,17 @@
 </div>
 -->
 
+<<<<<<< HEAD
 
 
+=======
+<div>
+  <label *ngFor="let color of colors" style="display: block;">
+    <input type="checkbox" [value]="color.id" (change)="updateSelectedColors($event)">
+    {{color.naziv}}
+  </label>
+</div>
+>>>>>>> f477e6aab0e3b38b7ca30c64a3e3509f919bc403
 
 
 
@@ -50,6 +63,7 @@
 
       <button class="kategorije" (click)="idkategorije=k.id;odabranaKategorija=true;prikaziPodkategorije();" *ngFor="let k of kategorijePodaci">{{k.naziv.toUpperCase(k.naziv)}}</button>
     </div>
+<<<<<<< HEAD
 
 
 </div>
@@ -67,10 +81,31 @@
 
 </div>
 
+=======
+>>>>>>> f477e6aab0e3b38b7ca30c64a3e3509f919bc403
 
 
+</div>
+
+<div style="background-color: #ffffff;" id="podKategorijeMeni" *ngIf="odabranaKategorija==true;">
+
+  <div  class="divZaJednu" >
+    <button class="kategorije" (click)="odabranaKategorija=true;idPodkategorije='';prikaziPodkategorije()">{{svePodkategorije.toUpperCase(svePodkategorije)}}</button>
+
+    <button class="kategorije" (click)="idPodkategorije=p.id;odabranaKategorija=true;" *ngFor="let p of PodkategorijePodaci">{{p.naziv.toUpperCase(p.naziv)}}</button>
+
+  </div>
+
+
+</div>
+
+
+<div id="filteri">
+  <button id="zaFilter" (click)="prikaziDiv=true;"><img src="assets/slike/filterr.png" id="filterSlika"> </button>
+</div>
 
 <div id="sve">
+<<<<<<< HEAD
 
   <div id="filteriSvi">
     <button (click)="ponistiFiltere()" id="ponistiFiltere">Poništi filtere</button>
@@ -132,6 +167,9 @@
 
 
 
+=======
+
+>>>>>>> f477e6aab0e3b38b7ca30c64a3e3509f919bc403
 
   <div id="zeneProizvodi">
     <div *ngFor="let p of getZProizvodi()" class="proizvodJedan" >
@@ -162,6 +200,7 @@
     <h4 style="margin: 3% 0%">Filteri</h4>
 
     <div style="background-color: yellowgreen; display: flex;">
+<<<<<<< HEAD
 
         <div style="background-color: gold" id="divBojeFilter1">
           <label *ngFor="let color of colors" style="display: block;">
@@ -170,12 +209,22 @@
           </label>
         </div>
       <div style="background-color: #62383e" id="divSezoneFilter1">
+=======
+      <div style="background-color: gold" id="divBojeFilter">
+        <label *ngFor="let b of bojePodaci" class="boje">
+          <input type="checkbox"> {{b.naziv.toUpperCase(b.naziv)}} <br>
+        </label>
+
+      </div>
+      <div style="background-color: #62383e" id="divSezoneFilter">
+>>>>>>> f477e6aab0e3b38b7ca30c64a3e3509f919bc403
         <label *ngFor="let s of sezonePodaci" class="boje">
           <input type="checkbox"> {{s.naziv.toUpperCase(s.naziv)}} <br>
         </label>
 
       </div>
 
+<<<<<<< HEAD
      <!-- <div style="background-color: violet;" id="divCijeneFilter">
         <label for="price-range1">Raspon cijena: </label>
        <span> {{minPrice}}</span> <span> - {{maxPrice}}</span>
@@ -192,6 +241,21 @@
       </div>
 
 -->
+=======
+      <div style="background-color: blueviolet">
+        <label for="price-range1">Raspon cijena: </label>
+        <span> {{minPrice}}</span>
+        <span> - {{maxPrice}}</span>
+        <br>
+        <span>Odabrana cijena: {{selectedPriceRange}}</span>
+        <input type="range" id="price-range1" min="0" max="{{maxPrice}}"
+               (input)="updateSelectedPriceRange($event)"
+               [(ngModel)]="selectedPriceRange" value="{{maxPrice/2}}" (change)="getZProizvodi()">
+
+      </div>
+
+
+>>>>>>> f477e6aab0e3b38b7ca30c64a3e3509f919bc403
     </div>
     <button id="dugme1" (click)="skloniDiv()" class="dugmeDelete" >
       <label style="font-size: larger;" class="labelDugme">Nazad</label></button>

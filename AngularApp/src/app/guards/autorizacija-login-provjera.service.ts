@@ -9,7 +9,11 @@ import {HttpClient} from "@angular/common/http";
 export class AutorizacijaLoginProvjera implements CanActivate{
 
   constructor(private router: Router, private httpKlijent:HttpClient) {
+
     //this.getOtkljucan();
+
+    this.getOtkljucan();
+
   }
 
   getOtkljucan(){
@@ -18,7 +22,9 @@ export class AutorizacijaLoginProvjera implements CanActivate{
         this.jel_otkljucan=x?.jelOtkljucan;
         console.log(this.jel_otkljucan);
       })
+
     return this.jel_otkljucan;
+
   }
 
   jel_otkljucan:boolean=false;
@@ -27,7 +33,11 @@ export class AutorizacijaLoginProvjera implements CanActivate{
 
     console.log(AutentifikacijaHelper.getLoginInfo().isLogiran,
       AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.isAdmin,
+
       this.getOtkljucan())
+
+      //this.jel_otkljucan();
+
 
     try {
       //nedovrseno privremeno rjesenje
@@ -35,7 +45,11 @@ export class AutorizacijaLoginProvjera implements CanActivate{
         return true;
       else if(AutentifikacijaHelper.getLoginInfo().isLogiran
         && AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.isAdmin
-        && this.getOtkljucan()==true)
+
+        && this.getOtkljucan()==true
+
+        && this.jel_otkljucan)
+
         return true;
     }catch (e) {
     }
