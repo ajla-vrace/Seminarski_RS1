@@ -107,9 +107,7 @@ prikazPodkat:any=false;
     this.objekat_proslijedi=this.podkategorija;*/
   }
 
-
   idiNaPretragu() {
     this.router.navigate(['/pretraga']);
   }
-
 }

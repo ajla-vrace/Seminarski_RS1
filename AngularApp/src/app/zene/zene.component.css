@@ -12,7 +12,7 @@
   border-right: 1px solid lightgray;
   padding: 1%;
   height: fit-content;
-  /* height: fit-content;*/
+ /* height: fit-content;*/
 }
 #ponistiFiltere{
   border: 0;
@@ -24,9 +24,9 @@
 
   display: inline;
   width: 98%;
-  border: 1px solid gray;
+border: 1px solid gray;
   margin: 2%;
-}
+ }
 #filteri{
 
 }
@@ -51,7 +51,7 @@
   float: right;
 }
 .slikasrce{
-  width: 20px;
+width: 20px;
   padding: 1%;
 }
 li{
@@ -76,18 +76,18 @@ li{
 
 }
 .tekst{
-  text-align: center;
+text-align: center;
 }
 .favorit{
   width: 50px;
   position: absolute;
-  top:3%;
+top:3%;
   right: 3%;
 }
 #zeneProizvodi{
-  width: 100%;
+width: 100%;
   height: fit-content;
-  display: grid;
+display: grid;
   grid-template-columns: 25% 25% 25% 25%;
 }
 #mojDiv{
@@ -103,7 +103,7 @@ li{
   background-color: lightpink;
 }
 .jednaSpecijalna{
-  background-color: gold;
+background-color: gold;
   display: flex;
   width: 80%;
 }
@@ -114,7 +114,7 @@ li{
   margin-left: 90%;
 }
 #filterSlika{
-  width: 50%;
+ width: 50%;
 }
 #kategorijeMeni,#podKategorijeMeni{
   width: 90%;
@@ -122,7 +122,7 @@ li{
   margin-left: 5%;
   display: flex;
   text-align: center;
-  margin-top: 2%;
+margin-top: 2%;
 }
 
 .divZaJednu{
@@ -135,8 +135,8 @@ li{
 .kategorije{
   width: 15%;
   padding: 1%;
-  border: 0;
-  font-size: small;
+border: 0;
+font-size: small;
   background-color: white;
   border-bottom: 1px solid lightgray;
 }
@@ -160,12 +160,12 @@ li{
   /* opacity: 0.2;*/
 }#poruka,#poruka1,#poruka2,#poruka3{
    width:100%;
-   height: fit-content;
+  height: fit-content;
 
    padding: 2%;
    background-color:white;
    /*opacity: 100%;*/
-   /* margin: 5% 35%;*/
+  /* margin: 5% 35%;*/
    position: absolute;
    text-align: center;
    border:1px solid black;
@@ -220,7 +220,7 @@ li{
 }
 .dugmad_kolekcije:hover{
 
-  background-color: #faf1e1;
+  background-color: #fcf5e9;
 
 }
 .kategorije.active{
@@ -229,8 +229,8 @@ li{
 .clicked {
   /* Add your custom styles for the clicked state */
   /* For example, change the background color or add a border */
-  background-color: #faf1e1;
-  border: 2px solid #f1d59f;
+  background-color: #fcf5e9;
+  border: 2px solid #fcf5e9;
 }
 
 

@@ -4,6 +4,7 @@
   <h5>Pogledajte proizvode koje ste dodali u favorite</h5>
 </div>
 <div *ngIf="favoritiPodaci==0" id="nemaFavorita">
+  <img src="assets/slike/broken-heart.png" style="width: 20%; text-align: center;">
   <h1 >Niste dodali nijedan proizvod u favorite!</h1>
   <label style="font-style: italic">Inspirirajte se i obogatite svoju garderobu.</label>
   <button (click)="vratiNaPocetnu()" id="getInspired"> Pogledaj proizvode</button>

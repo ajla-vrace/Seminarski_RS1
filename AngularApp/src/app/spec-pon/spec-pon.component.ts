@@ -170,10 +170,8 @@ export class SpecPonComponent implements OnInit {
         alert("Uslov je neispravan.");
         this.obj_sp=null;
         this.getSpecijalnePonudeOpadajuci();
-
         this.getSpecijalnePonudeRastuci();
-        //this.getSpecijalnePonudeProizvod();
-
+        this.getSpecijalnePonudeProizvod();
         return;
       }
       else{
@@ -184,7 +182,8 @@ export class SpecPonComponent implements OnInit {
             console.log(this.obj_sp);
 
             this.getSpecijalnePonudeOpadajuci();
-
+            this.getSpecijalnePonudeRastuci();
+            this.getSpecijalnePonudeProizvod();
 
             alert("Uspješno spašeno.");
 
@@ -344,7 +343,6 @@ export class SpecPonComponent implements OnInit {
       datum_zavrsetka:this.trenutniDatum,
       aktivna:true
     };
-
   }
 
   obj_sp_aktivna:any;

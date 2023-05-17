@@ -92,11 +92,7 @@ this.fetchKupci1();
     this.fetchOcjeneProizvoda();
     this.fetchOcjeneProizvodaMoje();
 this.fetchNarudzbeKupca();
-
 //this.getSlikuKupca();
-
-//this.getSlikuKupca();
-
   }
 
 
@@ -462,7 +458,6 @@ isPretplacen:any="";
     this.httpKlijent.get(MojConfig.adresa_servera+"/Kupac/GetById?id="+this.kupac_id)
       .subscribe((x:any)=>{
         this.kupac_podaci=x;
-
         this.ime=this.kupac_podaci.ime;
         console.log("ime je : "+this.ime);
         this.prezime=this.kupac_podaci.prezime;
@@ -477,7 +472,6 @@ isPretplacen:any="";
         //this.slika_kupca_postojeca_fs=x.slika_kupca_postojeca_FS;
        // this.slika_kupca_postojeca_db=x.slika_kupca_postojeca_DB;
 
-
       })
 
 
@@ -490,10 +484,7 @@ isPretplacen:any="";
   slika_kupca_postojeca_db:any;
 
 slika_kupca:any;
-
  /*
-=======
-
   getSlikuKupca(){
     //  /api/Zaposlenik/slikaKorisnika?id=5
     this.httpKlijent.get(MojConfig.adresa_servera+"/Kupac/Slika/slikaKorisnika?id="+this.kupac_id)
@@ -505,11 +496,7 @@ slika_kupca:any;
         }
       })
   }
-
 */
-
-
-
 
   kliknuoDodajSliku:boolean=false;
   slika_obj:any;

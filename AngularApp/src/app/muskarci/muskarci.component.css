@@ -9,6 +9,7 @@
 #filteriSvi{
   width: 20%;
   background-color: #ffffff;
+  border-right: 1px solid lightgray;
   /* height: fit-content;*/
 }
 #ponistiFiltere{
@@ -21,6 +22,7 @@
 
   display: inline;
   width: 98%;
+  height: fit-content;
   border: 1px solid gray;
   margin: 2%;
 }
@@ -57,7 +59,7 @@ li{
 #sve{
   width: 90%;
   margin: 1% auto;
-  background-color: #f8cece;
+  background-color: #ffffff;
   display: flex;
 }
 .zaSliku{
@@ -205,7 +207,7 @@ li{
 }
 .error_poruka{
   font-size: small;
-  color: #5d0606;
+  color: #f11414;
 }
 .dugmad_kolekcije{
   border: 0;
@@ -216,7 +218,7 @@ li{
 }
 .dugmad_kolekcije:hover{
 
-  background-color: #faf1e1;
+  background-color: #fcf5e9;
 
 }
 .kategorije.active{
@@ -225,8 +227,8 @@ li{
 .clicked {
   /* Add your custom styles for the clicked state */
   /* For example, change the background color or add a border */
-  background-color: #faf1e1;
-  border: 2px solid #f1d59f;
+  background-color: #fcf5e9;
+  border: 2px solid #fcf5e9;
 }
 
 
