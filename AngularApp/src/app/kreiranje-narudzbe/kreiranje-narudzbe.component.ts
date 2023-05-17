@@ -95,6 +95,7 @@ kupac_id:any;
         proizvodId:ks.proizvodId,
         cijena:ks.cijena,
         kolicina:ks.kolicina,
+        velicina:ks.velicina,
         total:ks.total,
         narudzbaId:narudzba,
       }

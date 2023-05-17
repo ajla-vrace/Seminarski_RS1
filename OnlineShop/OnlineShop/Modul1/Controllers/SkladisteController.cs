@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
+using OnlineShop.Helper.AutentifikacijaAutorizacija;
 using OnlineShop.Modul1.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -34,6 +35,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpGet]
+       // [Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
         public IQueryable<SkladisteVM> GetAll()
         {
             return context.Skladiste.Select(x => new SkladisteVM{
@@ -51,6 +53,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpPost]
+        [Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
         public ActionResult Snimi(SkladisteVM x)
         {
             Skladiste? s;
@@ -80,6 +83,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpDelete]
+        [Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
         public ActionResult ObrisiSkladiste(int id)
         {
             Skladiste? s = context.Skladiste.Find(id);

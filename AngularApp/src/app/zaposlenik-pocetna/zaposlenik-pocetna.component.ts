@@ -13,6 +13,8 @@ export class ZaposlenikPocetnaComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router:Router, private httpKlijent:HttpClient) { }
 
   zaposlenik_id:any;
+  poruka:any="";
+  brojNovihNarudzbi:any=0;
 
   totalLength:number=0;
   _page:any;
@@ -20,17 +22,38 @@ export class ZaposlenikPocetnaComponent implements OnInit {
   totalLength2:number=0;
   _page2:any;
 
+  totalLength3:number=0;
+  _page3:any;
+
   ngOnInit(): void {
     this.route.params.subscribe(s=>{
       this.zaposlenik_id=+s["id"];
     })
     this.getProizvodeDatum();
     this.getProizvodeKolicina();
+    this.getProizvodeBezKolicine();
+    this.getBrojNovihNarudzbi();
   }
 
+  getBrojNovihNarudzbi(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Narudzba/BrojNovihNarudzbi")
+      .subscribe((x:any)=>{
+        this.poruka=x?.poruka;
+        this.brojNovihNarudzbi=x?.broj;
+        console.log(x);
+      })
+  }
+
+  getBoja(){
+    if(this.brojNovihNarudzbi==0)
+      return "rgba(237,163,205,0.45)";
+    else
+      return "#ffc61c";
+  }
 
   proizvodi_datumi:any;
   proizvodi_kolicina:any;
+  proizvodi_bezkolicine:any;
   kliknuoDetalji:boolean=false;
 
   getProizvodeKolicina(){
@@ -49,14 +72,17 @@ export class ZaposlenikPocetnaComponent implements OnInit {
     })
   }
 
-  odabrani_proizvod:any;
-
-  detaljiProizvodaDatum(p: any) {
-    this.odabrani_proizvod=p;
-    this.kliknuoDetalji=true;
+  getProizvodeBezKolicine(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/proizvodi_bezkolicine").subscribe((x:any)=>{
+      this.proizvodi_bezkolicine=x;
+      console.log(this.proizvodi_bezkolicine);
+      this.totalLength3=this.proizvodi_bezkolicine?.length;
+    })
   }
 
-  detaljiProizvodaKolicina(p: any) {
+  odabrani_proizvod:any;
+
+  detalji(p:any){
     this.odabrani_proizvod=p;
     this.kliknuoDetalji=true;
   }
@@ -76,6 +102,7 @@ export class ZaposlenikPocetnaComponent implements OnInit {
 
 
   kliknuoGetSlika:boolean=false;
+
 
 
 }

@@ -3,13 +3,14 @@
 
 <div class="filteri">
   <div class="pretraga">
-    <select [(ngModel)]="statusFilter">
+    <select [(ngModel)]="statusFilter" (click)="getNarudzbePoStatusu()">
       <option>Sve</option>
       <option>Nova</option>
       <option>Spremna</option>
       <option>Otkazana</option>
       <option>Odgođena</option>
       <option>Preuzeta</option>
+      <option>Istekla</option>
     </select>
 
 
@@ -34,9 +35,36 @@
 </div>
 
 
-<br>
+<div class="detalji">
+  <div class="nova">
+    <h6 class="h6-detalji">Ukupno novih: {{obj_ukupnoNarudzbi?.nova}} </h6>
+  </div>
+
+  <div class="spremna">
+    <h6 class="h6-detalji">Ukupno spremnih:  {{obj_ukupnoNarudzbi?.spremna}} </h6>
+  </div>
+
+  <div class="otkazana">
+    <h6 class="h6-detalji">Ukupno otkazanih:  {{obj_ukupnoNarudzbi?.otkazana}}</h6>
+  </div>
+
+  <div class="istekla">
+    <h6 class="h6-detalji">Ukupno isteklih:  {{obj_ukupnoNarudzbi?.istekla}}</h6>
+  </div>
+
+  <div class="preuzeta">
+    <h6 class="h6-detalji">Ukupno preuzetih:  {{obj_ukupnoNarudzbi?.preuzeta}}</h6>
+  </div>
+
+  <div class="odgodjena">
+    <h6 class="h6-detalji">Ukupno odgođenih:  {{obj_ukupnoNarudzbi?.odgodjena}}</h6>
+  </div>
+
+</div>
+
 
 <div class="sredina">
+
 
   <div class="tabela">
     <table class="table">
@@ -48,9 +76,9 @@
         <th scope="col">Datum preuzimanja</th>
         <th scope="col">Suma</th>
         <th scope="col">Ukupno proizvoda</th>
-        <th scope="col">Status</th>
         <th scope="col">Zaposlenik</th>
         <th scope="col">Prodavnica</th>
+        <th scope="col">Status</th>
         <th scope="col"></th>
         <th></th>
         <th></th>
@@ -59,7 +87,7 @@
       <tbody>
       <tr *ngFor="let n of getFilterNarudzbe() | paginate:
    {
-        itemsPerPage: 4,
+        itemsPerPage: 5,
         currentPage:page,
         totalItems:totalLength
         }">  <!--ngFor let n of narudzbe-->
@@ -69,21 +97,26 @@
         <td>{{formatDatum(n.datumPreuzimanja)}}</td>
         <td>{{n.ukupno}}</td>
         <td>{{n.ukupnoProizvoda}}</td>
-        <td>{{n.status}}</td>
         <td>{{n.evidentirao}}</td>
         <td>{{n.nazivProdavnice}}</td>
+        <td>{{n.status}}</td>
         <td></td>
         <td> </td>
         <td><button (click)="btnDetalji(n.id)" class="btn-detalji">Vidi detalje</button></td>
       </tr>
       </tbody>
+
     </table>
+
+    <h6> Ukupno rezultata: {{totalLength}} </h6>
 
     <pagination-controls class="text-center my-pagination paginacija" (pageChange)="page=$event"></pagination-controls>
 
+    <br>
+
   </div>
 
-  <br>
+
 
 </div>
 

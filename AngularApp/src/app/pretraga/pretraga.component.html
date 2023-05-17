@@ -1,1 +1,82 @@
-<p>pretraga works!</p>
+<app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
+
+
+<div style="text-align: center;padding: 6%"
+     *ngIf="filtriraniProizvodi?.length==0 || filtriraniProizvodi==undefined || pretragaPoNazivu==''">
+  <h3 style="text-align: center;" id="naslovPretraga1">Pretraga po nazivu</h3>
+  <h5>Ukucajte ono što želite pretražiti:</h5>
+</div>
+
+<div style="text-align: center;padding: 3%"
+     *ngIf="filtriraniProizvodi?.length>0 && pretragaPoNazivu!=''">
+  <h3 style="text-align: center;" id="naslovPretraga">Pretraga po nazivu</h3>
+  <h5>Ukucajte ono što želite pretražiti:</h5>
+</div>
+
+<div id="pretragaDiv" style="margin-bottom: 2%;">
+  <input type="text" [(ngModel)]="pretragaPoNazivu" (input)="getProizvodi();" id="inputPretraga" placeholder="Pretrazite proizvode...">
+  <button (click)=" kliknuto=true;" id="buttonPretraga">Pretraži</button>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sve" *ngIf="pretragaPoNazivu!='' ">
+
+
+
+  <div id="Proizvodi" >
+    <div *ngFor="let p of getProizvodi()" class="proizvodJedan" >
+      <div (click)="prikaziDetaljeProizvoda(p.id)" style="cursor: pointer;">
+        <div class="zaSliku" >
+          <img src="assets/slike/suit.png" style="width: 100%">
+        </div>
+
+        <div class="tekst" >
+          <h5>{{p.naziv}}</h5>
+          <h6>{{p.cijena}} KM</h6>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<div id="prazanDiv" *ngIf="filtriraniProizvodi?.length==0 || filtriraniProizvodi==undefined || pretragaPoNazivu==''">
+
+</div>
+
+
+
+

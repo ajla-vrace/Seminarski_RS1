@@ -52,8 +52,9 @@ export class SpecPonComponent implements OnInit {
       this.admin_id=+s["id"];
 
       this.getPopusti();
-      this.getProizvodPodaci();
-      this.getSpecijalnePonude();
+     // this.getProizvodPodaci();
+      this.getProizvodRastuci();
+    //  this.getSpecijalnePonude();
       this.getSpecijalnePonudeProizvod();
       this.getSpecijalnePonudeOpadajuci();
       this.getSpecijalnePonudeRastuci();
@@ -78,8 +79,21 @@ export class SpecPonComponent implements OnInit {
     })
   }
 
+  pr_rastuci:any;
+  getProizvodRastuci(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/naziv_asc",MojConfig.http_opcije())
+      .subscribe((x:any)=>{
+        this.pr_rastuci=x;
+        this.proizvod_id=this.pr_rastuci[0].id;
+        this.duzinaProizvod=this.pr_rastuci.length;
+        console.log("proizvod id: ",this.proizvod_id);
+        console.log(this.pr_rastuci);
+      })
+  }
+
+
   getSpecijalnePonude(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/Specijalne_ponude")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/Specijalne_ponude", MojConfig.http_opcije())
       .subscribe((x:any)=>{
       this.specijalne_ponude=x;
       this.specijalna_ponuda_id=this.specijalne_ponude[0].id;
@@ -88,22 +102,30 @@ export class SpecPonComponent implements OnInit {
     })
   }
 
+  totalLength1:any;
+  page1:any;
+
+  totalLength2:any;
+  page2:any;
+
   getSpecijalnePonudeRastuci(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/Specijalne_ponude_rastuci")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/Specijalne_ponude_rastuci",MojConfig.http_opcije())
       .subscribe((x:any)=>{
-       this.sp_rastuci=x;
+        this.sp_rastuci=x;
+        this.specijalna_ponuda_id=this.sp_rastuci[0]?.id;
+        this.duzinaSP=this.sp_rastuci.length;
       })
   }
 
   getSpecijalnePonudeOpadajuci(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/Specijalne_ponude_opadajuci")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/Specijalne_ponude_opadajuci",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.sp_opadajuci=x;
       })
   }
 
   getSpecijalnePonudeProizvod(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/Specijalne_ponude_proizvod")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/Specijalne_ponude_proizvod",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.specijalne_ponude_proizvodi=x;
         this.duzinaSPP=this.specijalne_ponude_proizvodi.length;
@@ -112,7 +134,7 @@ export class SpecPonComponent implements OnInit {
   }
 
   getPopusti(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/Popust")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/Popust",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.popusti=x;
         this.popust_id=this.popusti[0].id;
@@ -123,7 +145,7 @@ export class SpecPonComponent implements OnInit {
 
   snimi_spp(){
     this.httpKlijent.post(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/post_spp"
-      ,this.obj_spp)
+      ,this.obj_spp, MojConfig.http_opcije())
       .subscribe((x:any)=>
       {
         console.log(this.obj_spp);
@@ -140,26 +162,46 @@ export class SpecPonComponent implements OnInit {
   }
 
   snimi_sp(){
+    this.httpKlijent.get(MojConfig.adresa_servera+
+      "/api/SpecijalnaPonudaProizvod/uporediDatume?datumUnosPocetak="+this.obj_sp.datum_pocetka
+      +"&datumUnosZavrsetak="+this.obj_sp.datum_zavrsetka+"&sp_id="+this.obj_sp.id).subscribe((x:any)=>{
 
-    this.httpKlijent.post(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/post_sp"
-      ,this.obj_sp)
-      .subscribe((x:any)=>
-      {
-        console.log(this.obj_sp);
-
-        this.getSpecijalnePonudeOpadajuci();
-
-        alert("Uspješno spašeno.");
-
+      if(x.uslovIspravan==false){
+        alert("Uslov je neispravan.");
         this.obj_sp=null;
+        this.getSpecijalnePonudeOpadajuci();
+        this.getSpecijalnePonudeRastuci();
+        this.getSpecijalnePonudeProizvod();
+        return;
+      }
+      else{
+        this.httpKlijent.post(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/post_sp"
+          ,this.obj_sp, MojConfig.http_opcije())
+          .subscribe((x:any)=>
+          {
+            console.log(this.obj_sp);
 
-        this.kliknuoEditSP=false;
-      })
+            this.getSpecijalnePonudeOpadajuci();
+            this.getSpecijalnePonudeRastuci();
+            this.getSpecijalnePonudeProizvod();
+
+            alert("Uspješno spašeno.");
+
+            this.obj_sp=null;
+
+            this.kliknuoEditSP=false;
+          })
+
+      }
+
+    });
+
+
   }
 
   snimi_popust(){
     this.httpKlijent.post(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/post_popust"
-      ,this.obj_popust)
+      ,this.obj_popust, MojConfig.http_opcije())
       .subscribe((x:any)=>{
 
         alert("Uspješno spašeno.");
@@ -201,9 +243,11 @@ export class SpecPonComponent implements OnInit {
     if(confirm("Brisanjem ovog zapisa brišete i sve specijalne ponude koje sadrže ovaj zapis." +
       " Jeste li sigurni da želite obrisati zapis?")){
       this.httpKlijent.delete(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/del_sp?id="
-      +sp.id)
+      +sp.id, MojConfig.http_opcije())
         .subscribe((x:any)=>{
           this.getSpecijalnePonudeOpadajuci();
+          this.getSpecijalnePonudeRastuci();
+          this.getSpecijalnePonudeProizvod();;
         //  console.log(this.getSpecijalnePonudeOpadajuci())
         })
     }
@@ -215,10 +259,11 @@ export class SpecPonComponent implements OnInit {
 
     if(confirm("Jeste li sigurni da želite obrisati zapis?")){
       this.httpKlijent.delete(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/del_spp?id="
-      +spp.id)
+      +spp.id,MojConfig.http_opcije())
         .subscribe((x:any)=>{
           this.getSpecijalnePonudeProizvod();
-
+          this.getSpecijalnePonudeOpadajuci();
+          this.getSpecijalnePonudeRastuci();
         })
     }
   }
@@ -230,7 +275,7 @@ export class SpecPonComponent implements OnInit {
     if(confirm("Brisanjem ovog zapisa brišete i sve specijalne ponude koje sadrže ovaj zapis." +
       " Jeste li sigurni da želite obrisati zapis?")){
       this.httpKlijent.delete(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/del_popust?id="
-      +p.id)
+      +p.id,MojConfig.http_opcije())
         .subscribe((x:any)=>{
           this.getPopusti();
         })
@@ -239,7 +284,8 @@ export class SpecPonComponent implements OnInit {
 
 
   jelDisabledSnimiSP(nazivSP: NgModel, dateStart: NgModel, dateEnd: NgModel) {
-    if(nazivSP.valid && dateStart.valid && dateEnd.valid && !this.postojiSP(nazivSP.value))
+    if(nazivSP.valid && dateStart.valid && dateEnd.valid //&& !this.postojiSP(nazivSP.value)
+    )
       return true;
     return false;
   }
@@ -250,11 +296,13 @@ export class SpecPonComponent implements OnInit {
 
   get_filter(naziv:string, niz:any){
     if(this.jelKliknuoSearch){
-      return niz?.filter((x:any)=>(
-        x.naziv.toLowerCase().includes(naziv.toLowerCase())
-      ))
+      let filterPodaci=niz?.filter((x:any)=>(
+        x.naziv.toLowerCase().includes(naziv.toLowerCase())));
+      this.totalLength1=filterPodaci?.length;
+      return filterPodaci;
     }
     else{
+      this.totalLength1=niz?.length;
       return niz;
     }
   }
@@ -270,13 +318,16 @@ export class SpecPonComponent implements OnInit {
 
   getFilterPodatkeSPP(spp:string){
     if(this.jelKliknuoSearch){
-      return this.specijalne_ponude_proizvodi?.filter((x:any)=>(
+      let filterPodaci = this.specijalne_ponude_proizvodi?.filter((x:any)=>(
         x.proizvodOpis.toLowerCase().includes(spp.toLowerCase())
         || x.specijalnaPonudaOpis.toLowerCase().includes(spp.toLowerCase())
         || x.popustOpis.includes(spp)
-      ))
+      ));
+      this.totalLength2=filterPodaci?.length;
+      return filterPodaci;
     }
     else{
+      this.totalLength2=this.specijalne_ponude_proizvodi?.length;
       return this.specijalne_ponude_proizvodi;
     }
   }
@@ -289,8 +340,33 @@ export class SpecPonComponent implements OnInit {
       id:0,
       naziv:"",
       datum_pocetka:this.trenutniDatum,
-      datum_zavrsetka:this.trenutniDatum
+      datum_zavrsetka:this.trenutniDatum,
+      aktivna:true
     };
+  }
+
+  obj_sp_aktivna:any;
+  promijeni_aktivnost:boolean=false;
+  promijeni_aktivnost_sp(sp:any){
+    this.promijeni_aktivnost=true;
+    this.obj_sp_aktivna={
+      id:sp.id,
+      aktivna:sp.aktivna
+    }
+  }
+
+  spasi_aktivnost(){
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/post_aktivna_sp"
+      ,this.obj_sp_aktivna, MojConfig.http_opcije())
+      .subscribe((x:any)=>
+      {
+        console.log("uspjesno spasena aktivnost");
+        this.promijeni_aktivnost=false;
+        this.obj_sp_aktivna=null;
+        this.getSpecijalnePonudeOpadajuci();
+        this.getSpecijalnePonudeRastuci();
+        this.getSpecijalnePonudeProizvod();
+      })
   }
 
   dodajSPP() {
@@ -320,6 +396,17 @@ export class SpecPonComponent implements OnInit {
   formatDatum(datum:any){
     if(datum=="" || datum==null) return "-";
     return formatDate(datum,"dd/MM/yyyy","en-Us");
+  }
+
+  jel_disabled_spp(){
+    let brojac=0;
+    for(let i of this.sp_rastuci){
+      if(i.specijalnaPonudaId==this.obj_spp.specijalnaPonudaId && i.id!=this.obj_spp.id)
+        brojac++;
+    }
+    if(brojac>=5)
+      return true;
+    else return false;
   }
 
 }

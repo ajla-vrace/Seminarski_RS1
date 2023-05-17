@@ -8,7 +8,7 @@
     <h5 class="br-narudzbi">Broj narudžbi danas: {{brNar}}</h5>
     <!--napravimo get metodu koja nam vraca narudzbe na danasnji datum (datum treba bit u formatu dd/MM/yyyy); -->
     <h5 class="br-narudzbi">Broj narudžbi prethodni mjesec: {{brNarMjesecno}}</h5>
-    <h5 class="br-posjeta">Broj posjeta stranice: {{brPosjeta}}</h5>
+    <h5 class="br-posjeta">Broj posjeta stranice: {{brojPregleda}}</h5>
   </div>
 
   <br>
@@ -86,22 +86,10 @@
 
     <div class="slider-prodavnice">
 
-      <div class="prodavnica">
-        <h5>Adresa prodavnice: Adresa 25463</h5>
+      <div class="prodavnica" *ngFor="let p of prodavnice">
+        <h5>Adresa prodavnice: {{p?.prodavnica?.adresa}}</h5>
         <img src="assets/slike/store.png" class="prodavnica-slika">
-        <h6>Prosjecna ocjena: 4.9</h6>
-      </div>
-
-      <div class="prodavnica">
-        <h5>Adresa prodavnice: Adresa 25463</h5>
-        <img src="assets/slike/store.png" class="prodavnica-slika">
-        <h6>Prosjecna ocjena: 4.9</h6>
-      </div>
-
-      <div class="prodavnica">
-        <h5>Adresa prodavnice: Adresa 25463</h5>
-        <img src="assets/slike/store.png" class="prodavnica-slika">
-        <h6>Prosjecna ocjena: 4.9</h6>
+        <h6>Prosječna ocjena: {{zaokruziNaDvijeDecimale(p?.ocjena)}}</h6>
       </div>
 
     </div>
@@ -126,9 +114,9 @@
       <h6>Kategorija: <b>{{odabrani_proizvod?.proizvod?.kategorijaOpis}}</b></h6>
       <h6>Podkategorija: <b>{{odabrani_proizvod?.proizvod?.podkategorijaOpis}}</b></h6>
       <h6>Sezona: <b>{{odabrani_proizvod?.proizvod?.sezonaOpis}}</b></h6>
-      <h6>Kolekcija <b>{{odabrani_proizvod?.proizvod?.kolekcijaOpis}}</b></h6>
+      <h6>Kolekcija: <b>{{odabrani_proizvod?.proizvod?.kolekcijaOpis}}</b></h6>
       <h6>Aktivan: <b>{{odabrani_proizvod?.proizvod?.aktivan==true?"Da":"Ne"}}</b></h6>
-      <h6>Prodata količina: <b>{{odabrani_proizvod?.Kolicina}}</b></h6>
+      <h6>Prodata količina: <b>{{odabrani_proizvod?.kolicina}}</b></h6>
     </div>
     <div class="slika-proizvoda">
       <img class="slika-detalji" src="{{get_slika_base64_FS(odabrani_proizvod?.proizvod)}}" (click)="kliknuoGetSlika=true">

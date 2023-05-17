@@ -20,11 +20,19 @@
   background-color: rgba(0,26,26,0.05);
   width:40%;
   display: grid;
+  grid-auto-columns: 80% 10%;
+  gap: 5%;
   align-items: center;
+  justify-content: center;
+}
+
+.kol, .pr{
+  width:60%;
+  margin: auto;
 }
 
 .kolicina-sort, .proizvod-sort{
-  width:40%;
+  width:80%;
   margin:0 auto 0 auto;
   border-radius: 10px;
   text-align: center;
@@ -135,4 +143,16 @@ h5{
 
 span{
   color:red;
+}
+
+.my-pagination /deep/ .ngx-pagination .current
+{
+  background-color: pink;
+  border-radius: 30px;
+}
+
+.btncheck{
+  width:30px;
+  height:30px;
+  border:none;
 }

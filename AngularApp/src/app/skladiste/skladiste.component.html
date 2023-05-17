@@ -10,7 +10,6 @@
   <button class="btn-dodaj btn-skl" (click)="btnDodajSkladiste()">Dodaj skladište</button>
 </div>
 
-
 <div class="dodaj-stavku">
   <button class="btn-dodaj btn-stavka" (click)="btnDodaj()">Dodaj stavku</button>
 </div>
@@ -29,7 +28,7 @@
     <br>
     <br>
 
-    <label>Pretraga po nazivu proizvoda: </label>
+    <label>Pretraga po nazivu/šifri/odjelu proizvoda: </label>
     <input class="input-proizvod" [(ngModel)]="nazivProizvoda"><br>
 
 
@@ -39,17 +38,27 @@
 
   <div class="sortiraj">
 
-    <select class="kolicina-sort" [(ngModel)]="sortirajPoKolicina">
-      <option>Količina opadajući</option>
-      <option>Količina rastući</option>
-    </select>
+    <div class="kol">
+      <select class="kolicina-sort" [(ngModel)]="sortirajPoKolicina">
+        <option>Količina opadajući</option>
+        <option>Količina rastući</option>
+      </select>
 
+      <button class="btncheck"
+        (click)="kolicina_x=!kolicina_x;">
+        <img [ngStyle]="{'width':'30px','height':'30px'}" src="{{putanjaDoSlike2()}}"> </button>
+    </div>
 
-    <select class="proizvod-sort" [(ngModel)]="sortirajPoNaziv">
-      <option>Proizvod opadajući</option>
-      <option>Proizvod rastući</option>
-    </select>
+    <div class="pr">
+      <select class="proizvod-sort" [(ngModel)]="sortirajPoNaziv">
+        <option>Proizvod opadajući</option>
+        <option>Proizvod rastući</option>
+      </select>
 
+      <button class="btncheck"
+        (click)="proizvod_x=!proizvod_x;">
+        <img [ngStyle]="{'width':'30px','height':'30px'}" src="{{putanjaDoSlike()}}"> </button>
+    </div>
 
   </div>
 
@@ -68,8 +77,10 @@
     <thead>
     <tr>
       <th scope="col">Id</th>
+      <th scope="col">Proizvod - Šifra</th>
+      <th scope="col">Odjel</th>
+      <th scope="col">Veličina</th>
       <th scope="col">Kolicina</th>
-      <th scope="col">Proizvod</th>
       <th scope="col">Skladiste</th>
       <th scope="col">Datum kreiranja</th>
       <th scope="col">Datum modifikacije</th>
@@ -78,10 +89,18 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let p of getFilter()">
+    <tr *ngFor="let p of getFilter() | paginate:
+   {
+        id:'pag1',
+        itemsPerPage: 10,
+        currentPage:page1,
+        totalItems:totalLength1
+        }">
       <th scope="row">{{p.id}}</th>
-      <td>{{p.kolicina}}</td>
       <td>{{p.proizvodOpis}}</td>
+      <td>{{p.odjel}}</td>
+      <td>{{p.velicina}}</td>
+      <td>{{p.kolicina}}</td>
       <td>{{p.skladisteOpis}}</td>
       <td>{{formatDatum(p.datum_kreiranja)}}</td>
       <td>{{formatDatum(p.datum_modifikacije)}}</td>
@@ -98,6 +117,9 @@
   </table>
 
 </div>
+
+<pagination-controls id="pag1" class="text-center my-pagination" (pageChange)="page1=$event"></pagination-controls>
+
 
 <br>
 <br>
@@ -122,7 +144,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let p of s">
+    <tr *ngFor="let p of s | paginate:
+   {
+        id:'pag2',
+        itemsPerPage: 10,
+        currentPage:page2,
+        totalItems:totalLength2
+        }">
       <th scope="row">{{p.id}}</th>
       <td>{{p.naziv}}</td>
       <td>{{p.adresa}}</td>
@@ -138,9 +166,11 @@
     </tr>
 
     </tbody>
-
   </table>
+
 </div>
+
+<pagination-controls id="pag2" class="text-center my-pagination" (pageChange)="page2=$event"></pagination-controls>
 
 
 <br>
@@ -163,7 +193,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let p of prodavnice">
+    <tr *ngFor="let p of prodavnice | paginate:
+   {
+        id:'pag3',
+        itemsPerPage: 10,
+        currentPage:page3,
+        totalItems:totalLength3
+        }">
       <th scope="row">{{p.id}}</th>
       <td>{{p.naziv}}</td>
       <td>{{p.adresa}}</td>
@@ -179,9 +215,12 @@
     </tr>
 
     </tbody>
-
   </table>
+
 </div>
+
+<pagination-controls id="pag3" class="text-center my-pagination" (pageChange)="page3=$event"></pagination-controls>
+
 
 
 
@@ -194,37 +233,67 @@
       </div>
       <div class="modal-body">
 
+
+        <div class="mb-3">
+          <label class="form-label">Proizvod</label>
+
+          <select class="form-control" size="5" [(ngModel)]="odabrana_stavka.proizvodId" >
+
+            <option *ngFor="let k of p " [value]="k.id">{{k.naziv}} - {{k.sifra}}</option>
+
+          </select>
+        </div>
+
+
+        <div class="mb-3" [class.has-error]="(vel.invalid && vel.touched) || postojiIstaVelicina(vel.value)">
+          <label class="form-label">Veličina</label>
+          <input class="form-control" placeholder="XS" type="text"
+                 required pattern="^(XXS|XS|S|M|L|XL|XXL)$" #vel="ngModel"
+                 [(ngModel)]="odabrana_stavka.velicina">
+
+          <span class="help-block" *ngIf="vel.invalid && vel.touched">
+            Ovo polje je obavezno i smije sadržavati samo predefinisane vrijednosti za veličine.
+          </span>
+
+          <span class="help-block" *ngIf="postojiIstaVelicina(vel.value)">
+            Ne smijete dodavati veličinu koja već postoji.
+          </span>
+
+        </div>
+
+
         <div class="mb-3">
           <label class="form-label">Količina</label>
           <input class="form-control" placeholder="količina" type="number" [(ngModel)]="odabrana_stavka.kolicina">
         </div>
 
 
-        <div class="mb-3">
-          <label class="form-label">Proizvod</label>
-
-          <select class="form-control" [(ngModel)]="odabrana_stavka.proizvodId" >
-
-            <option *ngFor="let k of p " [value]="k.id">{{k.naziv}}</option>
-
-          </select>
-        </div>
-
-
-        <div class="mb-3">
+        <div class="mb-3" [class.has-error]="(skl.invalid && skl.touched)">
           <label class="form-label">Skladiste</label>
 
-          <select class="form-control" [(ngModel)]="odabrana_stavka.skladisteId">
+          <select class="form-control" [(ngModel)]="odabrana_stavka.skladisteId" #skl="ngModel">
 
-            <option *ngFor="let p of s " [value]="p.id" >{{p.naziv}} </option>
+            <option *ngFor="let p of s " [value]="p.id" >{{p.adresa}} </option>
 
           </select>
+
+          <span class="help-block" *ngIf="skl.invalid && skl.touched">
+            Ovo polje je obavezno.
+          </span>
+<!--
+          <span class="help-block" *ngIf="postojiSkladisteZaProizvod()">
+            Skladište za ovaj proizvod već postoji.
+          </span>
+-->
+
         </div>
 
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="spasi()" >Spasi promjene</button>
+        <button type="button" class="btn btn-primary"
+                [disabled]="!(vel.valid && !(postojiIstaVelicina(vel.value) && skl.valid))"
+                (click)="spasi()" >Spasi promjene</button>
       </div>
     </div>
   </div>
@@ -307,7 +376,7 @@
 
           <select class="form-control" [(ngModel)]="obj_skladiste.prodavnicaId" >
 
-            <option *ngFor="let k of prodavnice " [value]="k.id">{{k.naziv}}</option>
+            <option *ngFor="let k of prodavnice " [value]="k.id">{{k.adresa}}</option>
 
           </select>
         </div>

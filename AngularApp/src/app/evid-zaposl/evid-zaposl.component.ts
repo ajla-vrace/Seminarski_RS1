@@ -29,6 +29,7 @@ export class EvidZaposlComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(s=>{
       this.admin_id=+s["id"];
+     // this.getPagedZaposlenike();
       this.getZaposlenike();
       this.getSpolovi();
       this.getProdavnice();
@@ -65,20 +66,38 @@ export class EvidZaposlComponent implements OnInit {
       })
   }
 
+  trenutnaStr:any=1;
+  pagedZaposlenici:any;
+  filter:any="";
+
+  getPagedZaposlenike(){
+    this.httpKlijent.get(MojConfig.adresa_servera+
+      "/api/Zaposlenik/paginacija?imePrezime="+this.filter+"&trenutnaStr="+this.trenutnaStr+"&brojPodataka=5")
+      .subscribe((x:any)=>{
+        this.pagedZaposlenici=x;
+        console.log(this.pagedZaposlenici);
+      })
+  }
+
+  totalLength1:any;
+  page1:any;
+
   getFilterZaposlenike(filter:string){
 
-    if(this.kliknuoPretrazi==true){
       let podaci=this.zaposlenici?.filter((x:any)=>(
-        ( x.ime.toLowerCase().startsWith(filter.toLowerCase()))
+        this.filter?
+        ( x.ime.toLowerCase().includes(filter.toLowerCase()))
         ||
-        (x.prezime.toLowerCase().startsWith(filter.toLowerCase()))
+        (x.prezime.toLowerCase().includes(filter.toLowerCase())) : this.zaposlenici
       ));
+      this.totalLength1=podaci?.length;
       return podaci;
-    }
-    else {
+
+ /*   else {
+      this.totalLength1=this.zaposlenici?.length;
        return this.zaposlenici;
     }
-
+*/
   }
 
   prodavnica_id:any;  //ovo ce biti prva prodavnica u nizu
@@ -130,7 +149,7 @@ export class EvidZaposlComponent implements OnInit {
   snimiDugme() {
     this.jel_edit=false;
 
-    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Zaposlenik", this.zaposlenik_obj)
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Zaposlenik", this.zaposlenik_obj, MojConfig.http_opcije())
       .subscribe((x:any)=>{
       this.getZaposlenike();
       this.zaposlenik_obj=null;
@@ -142,7 +161,7 @@ export class EvidZaposlComponent implements OnInit {
 
   obrisiZaposlenika(z: any) {
     if(confirm("Da li ste sigurni da želite izbrisati ovog zaposlenika?")){
-      this.httpKlijent.delete(MojConfig.adresa_servera+"/api/Zaposlenik?id="+z.id)
+      this.httpKlijent.delete(MojConfig.adresa_servera+"/api/Zaposlenik?id="+z.id, MojConfig.http_opcije())
         .subscribe((x:any)=>{
           this.getZaposlenike();
         })

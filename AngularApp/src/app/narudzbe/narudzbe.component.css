@@ -77,7 +77,24 @@ select,.ukupno-korisnika,.ukupno-narudzbi{
   justify-content: space-between;
   align-items: center;
   width:90%;
-  margin:3% auto 3% auto;
+  margin:2% auto 2% auto;
+}
+
+.detalji{
+  width:90%;
+  margin:0 auto 2% auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap:5%;
+}
+
+.nova, .spremna, .otkazana, .istekla, .odgodjena, .preuzeta{
+  width:80%;
+}
+
+.h6-detalji{
+  color: gray;
 }
 
 .paginacija{

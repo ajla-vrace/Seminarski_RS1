@@ -1,6 +1,34 @@
 <app-nav-kupac></app-nav-kupac>
 
+
+<!--
+
 KUPAC ID: {{kupac_id}}
+
+-->
+<!--  [ngStyle]="{'max-width':'auto', 'height':'250px'}"-->
+<!--<div>
+  <label>dodaj sliku</label>
+  <input class="form-control" id="slikaKupca" type="file">
+  <img id="slikaPreview" style="width: 100px; height: 100px">
+</div>
+-->
+<!--
+<div class="divslika">
+  <div class="slika">
+
+    <img style="display:block;max-width: 100%; height: 200px" src="{{get_slika_base64_FS(kupac_podaci[0])}}"
+         class="img-profilna">
+
+
+    <button class="dodaj-sliku" (click)="dodajSliku()">Dodaj novu sliku</button> <br>
+    <button class="ukloni-sliku" (click)="ukloniSliku()">Ukloni sliku</button>
+  </div>
+</div>
+
+-->
+
+
 
 <div id="VelikiProfilDiv">
   <div id="stavkeProfila">
@@ -26,27 +54,27 @@ KUPAC ID: {{kupac_id}}
     <div id="kupacPodaci" *ngIf="jeLiPodaci==true && prikaziNarudzbe==false && prikazKomentara==false &&
      PrikazOcjena==false && ocjeneProizvodaBool==false;">
       <h6>Ime:</h6>
-      <input value=" {{kupac_podaci.ime}}" disabled class="kupacpodaci">
+      <input value=" {{ime}}" disabled class="kupacpodaci">
       <img src="assets/slike/edit1.png" id="editIme"
            (click)="promjenaImena()">
       <h6>Prezime: </h6>
-      <input value=" {{kupac_podaci.prezime}}" disabled class="kupacpodaci">
+      <input value=" {{prezime}}" disabled class="kupacpodaci">
       <img src="assets/slike/edit1.png" id="editPrezime" (click)="promjenaPrezimena()">
       <h6>Email: </h6>
-      <input value=" {{kupac_podaci.email}}" disabled class="kupacpodaci">
+      <input value=" {{email}}" disabled class="kupacpodaci">
 
       <h6>Username: </h6>
-      <input value=" {{kupac_podaci.username}}" disabled class="kupacpodaci">
+      <input value=" {{username}}" disabled class="kupacpodaci">
       <h6>Broj telefona: </h6>
 
-      <input value=" {{kupac_podaci.brojTelefona}}" disabled style="display: inline" class="kupacpodaci">
+      <input value=" {{brojTelefona}}" disabled style="display: inline" class="kupacpodaci">
       <img src="assets/slike/edit1.png" id="AddNumber"
            (click)="brojTelPromjena()">
-      <h6>Datum registracije: {{kupac_podaci.datum_kreiranja}}</h6>
-      <input value=" {{kupac_podaci.datumRegistracije | date:'dd-MM-yyyy (hh:mm:ss)'}}" disabled class="kupacpodaci">
+      <h6>Datum registracije: </h6>
+      <input value=" {{datumRegistracije | date:'dd-MM-yyyy'}}" disabled class="kupacpodaci">
 
-      <h6 *ngIf="kupac_podaci.isPretplacen==false">Pretplata: Ne </h6>
-      <h6 *ngIf="kupac_podaci.isPretplacen==true">Pretplata: Da</h6>
+      <h6 *ngIf="isPretplacen==false">Pretplata: Ne </h6>
+      <h6 *ngIf="isPretplacen==true">Pretplata: Da</h6>
 
       <button (click)="promjenaLozinke()" id="promjenaLozinke">Promjeni lozinku</button>
 
@@ -210,7 +238,7 @@ KUPAC ID: {{kupac_id}}
 
 
 
-<h4 style="margin: 1%">Moj profil</h4>
+<!--<h4 style="margin: 1%">Moj profil</h4>-->
 
 
 
@@ -368,12 +396,12 @@ KUPAC ID: {{kupac_id}}
 
 
 
-
+<!--
 <button (click)="prikazNarudzbi()">narudzbe</button>
 <button (click)="prikazKomm()" style="margin: 1%;">Komentari</button>
 <button (click)="prikazOcjene()" style="margin: 1%;">Ocjene prodavnica</button>
 <button (click)="prikazOcjeneProizvoda()" style="margin: 1%;">Ocjene proizvoda</button>
-
+-->
 
 
 
@@ -412,3 +440,37 @@ KUPAC ID: {{kupac_id}}
   </div>
 
 
+
+<!--
+
+
+<div *ngIf="kliknuoDodajSliku==true" class="modal fade show"  tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" > Dodaj sliku </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)=" kliknuoDodajSliku=false;" ></button>
+      </div>
+      <div class="modal-body">
+
+
+
+
+
+        <div class="mb-3">
+          <label class="form-label">Nova slika</label>
+          <input class="form-control" id="slika-input" type="file"  accept="image/jpg" (change)="generisi_preview()" />
+          <img style="max-width: 100%; height: 200px" src="{{slika_obj.slika_nova}}">
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-primary" (click)="snimi_sliku()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+-->

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using OnlineShop.Data;
 using OnlineShop.Helper;
+using OnlineShop.Helper.AutentifikacijaAutorizacija;
 using OnlineShop.Modul0_Autentifikacija.Models;
 using OnlineShop.Modul1.Models;
 using OnlineShop.Modul1.ViewModels;
@@ -304,7 +305,67 @@ namespace OnlineShop.Modul1.Controllers
 
         }
 
-        [HttpPost]   
+        //public class Paginacija
+        //{
+        //    public int ukupnoStranica { get; set; }
+        //    public int trenutnaStranica { get; set; }
+        //    public int trenutniBrojPodatakaNaStranici { get; set; }
+        //    public int selektovaniBrojPodataka { get; set; }
+        //    public int maxBrojPodataka { get; set; } = 5;
+        //    public IQueryable<ZaposlenikVM> zaposlenici { get; set; }
+        //}
+
+        //[HttpGet("paginacija")]
+        //public Paginacija GetPagedZaposlenike(string? imePrezime, int trenutnaStr=1, int brojPodataka=5)
+        //{
+        //    if (brojPodataka > 5) brojPodataka = 5;
+
+        //    var filter = imePrezime!=null ? imePrezime.ToLower() : null;
+
+        //    var totalStranica = (int)Math.Ceiling(context.Zaposlenik.Count() / 5.0);
+
+        //    var podaci = context.Zaposlenik.Where(x=>imePrezime==null || 
+        //    (x.Ime.ToLower().StartsWith(filter) || x.Prezime.ToLower().StartsWith(filter)))
+        //        .Skip((trenutnaStr - 1)*brojPodataka).Take(brojPodataka)
+        //        .Select(x => new ZaposlenikVM
+        //    {
+        //        Id = x.Id,
+        //        Ime = x.Ime,
+        //        Prezime = x.Prezime,
+        //        Username = x.Username,
+        //        Lozinka = x.Lozinka,
+        //        Email = x.Email,
+        //        BrojTelefona = x.BrojTelefona,
+        //        DatumRegistracije = x.DatumRegistracije.ToString("yyyy-MM-dd"),
+        //        SpolId = x.SpolId,
+        //        spolOpis = x.Spol.Naziv,
+        //        DatumZaposlenja = x.DatumZaposlenja.ToString("yyyy-MM-dd"),
+        //        DatumOtkaza = x.DatumOtkaza,
+        //        AdresaStanovanja = x.AdresaStanovanja,
+        //        DatumRodjenja = x.DatumRodjenja.ToString("yyyy-MM-dd"),
+        //        jmbg = x.JMBG,
+        //        ProdavnicaId = x.ProdavnicaId,
+        //        prodavnicaOpis = x.Prodavnica.Naziv,
+        //        slika_zaposlenika_postojeca_DB = x.slikaZaposlenikaBajtovi,
+        //        slika_zaposlenika_postojeca_FS = x.slikaZaposlenikaBajtovi
+        //    }).ToList().AsQueryable();
+
+        //    var trenutniBrojPodataka = podaci.Count();
+
+        //    return new Paginacija
+        //    {
+        //        trenutnaStranica = trenutnaStr,
+        //        ukupnoStranica = totalStranica,
+        //        trenutniBrojPodatakaNaStranici = trenutniBrojPodataka,
+        //        selektovaniBrojPodataka = brojPodataka,
+        //        maxBrojPodataka = 5,
+        //        zaposlenici = podaci
+        //    };
+        //}
+
+
+        [HttpPost]
+        [Autorizacija(Kupac:false,Zaposlenik:false,Admin:true)]
         public ActionResult Snimi(ZaposlenikVMSnimi x)
         {
             Zaposlenik? k;
@@ -361,6 +422,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpDelete]
+      //  [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult DeleteZaposlenik(int id)
         {
             Zaposlenik? z = context.Zaposlenik.Find(id);
@@ -377,6 +439,36 @@ namespace OnlineShop.Modul1.Controllers
         public int UkupnoZaposlenika()
         {
             return context.Zaposlenik.ToList().Count();
+        }
+
+
+        [HttpGet("oZaposleniku")]
+        public ActionResult Detalji(int zap_id)
+        {
+            string? z = context.Zaposlenik.Find(zap_id)?.Username;
+            var proizvodi = context.Proizvod.Where(x => x.evidentirao == z).ToList();
+            var narudzbe = context.Narudzba.Where(x => x.Evidentirao == z).Select(x=>new
+            {
+                kupac= x.Kupac.Ime+" "+x.Kupac.Prezime,
+                evidentirao=x.Evidentirao,
+                ukupnoProizvoda=x.UkupnoProizvoda,
+                total=x.Ukupno,
+                status=x.Status,
+                datum_kreiranja=x.DatumKreiranja,
+                datum_preuzimanja=x.DatumPreuzimanja
+            }).ToList();
+            var skladisteProizvod = context.SkladisteProizvod.Where(x=>x.evidentirao==z).Select(x=>new
+            {
+                skladiste=x.skladiste.Adresa,
+                proizvod=x.proizvod.Naziv+" - "+x.proizvod.Sifra,
+                datum_kreiranja=x.datum_kreiranja,
+                kolicina=x.kolicina,
+                velicina=x.velicina,
+                odjel=x.proizvod.odjel.Naziv,
+                evidentirao=x.evidentirao
+            }).ToList();
+
+            return Ok(new { _proizvodi = proizvodi, _narudzbe = narudzbe, _skladisteProizvod = skladisteProizvod });
         }
     }
 }

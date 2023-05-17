@@ -14,5 +14,7 @@ namespace OnlineShop.Modul0_Autentifikacija.Models
         public KorisnickiNalog korisnickiNalog { get; set; }
         public DateTime vrijemeEvidentiranja { get; set; }
         public string ipAdresa { get; set; }
+        public string twoFcode { get; set; }  //dva nova polja
+        public bool jel_otkljucan { get; set; }
     }
 }

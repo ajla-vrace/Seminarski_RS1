@@ -174,6 +174,7 @@ padding: 5% 10%;
 #SlikaKorisnika{
   width: 50%;
   border: 2px solid black;
+  border-radius: 50%;
 }
 #opcije{
 
@@ -191,7 +192,7 @@ hr.dugmad{
 display: block;
   padding: 3%;
  /* background-color: gold;*/
-  background-color: white;
+  background-color: #eef5fa;
 border: 0;
   margin: 3% 20%;
 }
@@ -201,5 +202,35 @@ border: 0;
 #divTabela4, #divTabela,#divTabela1,#divTabela2,#divTabela3{
 padding-top: 2%;
   width: 100%;
+}
+
+
+
+.divslika{
+  width:20%;
+  margin:auto;
+}
+.slika{
+  /*display: grid;
+  grid-template-columns: auto;
+  width:20%;
+  margin:auto;*/
+
+}
+
+.dodaj-sliku{
+  color:blue;
+  border:none;
+  background-color: white;
+}
+
+.ukloni-sliku{
+  color:red;
+  border:none;
+  background-color: white;
+}
+
+.dodaj-sliku:hover, .ukloni-sliku:hover{
+  opacity: 40%;
 }
 

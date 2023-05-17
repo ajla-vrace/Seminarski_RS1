@@ -188,11 +188,13 @@ for(let x of this.proizvodiPodaciDetalji){
 }
 console.log("KORPA id je:(prije dodavanja stavke)"+this.korpaID);
    if(this.korpaID!=undefined){
+     console.log("odabrana velicina: "+this.odabranavelicina);
      this.korpaStavka={
        id:0,
        proizvodId:p,
        korpaId:this.korpaID,
        kolicina:1,
+
        cijena:this.proizvod.cijena,
        velicina:this.odabranavelicina,
      }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
-import {NgModel} from "@angular/forms";
+import {NgControl, NgModel} from "@angular/forms";
 
 @Component({
   selector: 'app-sez-kol',
@@ -38,17 +38,24 @@ export class SezKolComponent implements OnInit {
   kliknuoEditSezona:boolean=false;
   kliknuoEditKolekcija:boolean=false;
 
+  totalLength1:any;
+  page1:any;
+  totalLength2:any;
+  page2:any;
+
   getKolekcije(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Kolekcija/kolekcija").subscribe((x:any)=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Kolekcija/kolekcija",MojConfig.http_opcije()).subscribe((x:any)=>{
       this.kolekcije=x;
+      this.totalLength1=this.kolekcije?.length;
      // this.sezona_id=this.kolekcije[0].sezonaId;
       console.log(this.kolekcije,"sezonaID:",this.sezona_id);
     })
   }
 
   getSezone(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/sezone").subscribe((x:any)=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/sezone",MojConfig.http_opcije()).subscribe((x:any)=>{
       this.sezone=x;
+      this.totalLength2=this.sezone?.length;
       this.sezona_id=this.sezone[0]?.id;
       console.log(this.sezone);
     })
@@ -58,7 +65,7 @@ export class SezKolComponent implements OnInit {
 
     console.log(this.obj_sezona);
 
-    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Sezona",this.obj_sezona).subscribe((x:any)=>{
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Sezona",this.obj_sezona,MojConfig.http_opcije()).subscribe((x:any)=>{
       if(this.kliknuoEditSezona==false)
         alert("Uspješno ste dodali sezonu.");
       else
@@ -77,7 +84,7 @@ export class SezKolComponent implements OnInit {
 
     console.log(this.obj_kolekcija);
 
-    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Kolekcija",this.obj_kolekcija).subscribe((x:any)=>{
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Kolekcija",this.obj_kolekcija,MojConfig.http_opcije()).subscribe((x:any)=>{
       if(this.kliknuoEditKolekcija==false)
          alert("Uspješno ste dodali kolekciju.");
       else
@@ -110,7 +117,7 @@ export class SezKolComponent implements OnInit {
       "Savjetujemo Vam da umjesto brisanja izvršite modifikaciju zapisa. Ako ste sigurni da želite " +
       "obrisati, molimo Vas da potvrdite sa OK.")){
 
-      this.httpKlijent.delete(MojConfig.adresa_servera+"/api/Sezona?id="+s.id)
+      this.httpKlijent.delete(MojConfig.adresa_servera+"/api/Sezona?id="+s.id,MojConfig.http_opcije())
         .subscribe((x:any)=>{
           this.getSezone();
         })
@@ -130,7 +137,7 @@ export class SezKolComponent implements OnInit {
       "Savjetujemo Vam da umjesto brisanja izvršite modifikaciju zapisa. Ako ste sigurni da želite " +
       "obrisati, molimo Vas da potvrdite sa OK.")){
 
-      this.httpKlijent.delete(MojConfig.adresa_servera+"/api/Kolekcija?id="+k.id)
+      this.httpKlijent.delete(MojConfig.adresa_servera+"/api/Kolekcija?id="+k.id,MojConfig.http_opcije())
         .subscribe((x:any)=>{
           this.getKolekcije();
         })
@@ -149,7 +156,8 @@ export class SezKolComponent implements OnInit {
       id:0,
       naziv:"",
       doba:"",
-      godina:""
+      godina:"",
+      aktivna:true
     };
   }
 
@@ -160,7 +168,8 @@ export class SezKolComponent implements OnInit {
       sezonaId:this.sezona_id,
       sezonaOpis:"",
       naziv:"",
-      godina:""
+      godina:"",
+      aktivna:true
     };
   }
 
@@ -176,9 +185,34 @@ export class SezKolComponent implements OnInit {
 
   postojiIstaKolekcija(kol:string){
     for(let i of this.kolekcije){
-      if(i.naziv===kol && i.id!==this.obj_kolekcija.id)
+      if(i.naziv===kol && i.id!==this.obj_kolekcija.id) //&& i.sezonaId==this.obj_kolekcija.sezonaId
         return true;
     }
     return false;
+  }
+
+  filter_kolekcija:any="";
+  filter_sezona:any="";
+
+  getFilterKolekcije(){
+    var podaci=this.kolekcije?.filter((x:any)=>(
+      this.filter_kolekcija?
+      x.naziv.toLowerCase().includes(this.filter_kolekcija.toLowerCase())
+      || x.sezonaOpis.toLowerCase().includes(this.filter_kolekcija.toLowerCase())
+        || (x.aktivna==true?"aktivna":"neaktivna").startsWith(this.filter_kolekcija.toLowerCase()) : this.kolekcije
+    ))
+
+    this.totalLength1=podaci?.length;
+    return podaci;
+  }
+
+  getFilterSezone(){
+    var podaci=this.sezone?.filter((x:any)=>(
+      this.filter_sezona ? x.naziv.toLowerCase().includes(this.filter_sezona.toLowerCase())
+      || (x.aktivna==true?"aktivna":"neaktivna").startsWith(this.filter_sezona.toLowerCase()) : this.sezone
+    ))
+
+    this.totalLength2=podaci?.length;
+    return podaci;
   }
 }

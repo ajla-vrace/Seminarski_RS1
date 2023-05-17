@@ -97,4 +97,17 @@ this.prikaziPodkat1();
   vrijednost(value: any) {
     this.broj=value;
   }
+prikazPodkat:any=false;
+  podkategorija:any;
+  objekat_proslijedi:any;
+  prikaziPodkategoriju(id:any) {
+    /*this.prikazPodkat = true;
+    this.podkategorija=id;
+    console.log("id je :"+this.podkategorija);
+    this.objekat_proslijedi=this.podkategorija;*/
+  }
+
+  idiNaPretragu() {
+    this.router.navigate(['/pretraga']);
+  }
 }

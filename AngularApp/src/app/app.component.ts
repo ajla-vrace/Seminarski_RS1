@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "./moj-config";
 import {AutentifikacijaHelper} from "./helpers/autentifikacija-helper";
 import {LoginInformacije} from "./helpers/login-informacije";
+import {AngularFireDatabase} from "@angular/fire/compat/database";
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ export class AppComponent implements OnInit{
   title = 'AngularApp';
   potvrda: any = false;
 
-  constructor(private router: Router, private httpKlijent: HttpClient) {
+  constructor(private router: Router, private httpKlijent: HttpClient,  private afDB:AngularFireDatabase) {
+    //this.getBrojPosjeta();
   }
 
   reloadPage() {
@@ -102,19 +104,50 @@ export class AppComponent implements OnInit{
     odjaviSe()
 
     {
+      let token=MojConfig.http_opcije();
       // @ts-ignore
       AutentifikacijaHelper.setLoginInfo(null);
 
-      this.httpKlijent.post(MojConfig.adresa_servera + "/api/Autentifikacija", null, MojConfig.http_opcije())
+      this.httpKlijent.post(MojConfig.adresa_servera + "/api/Autentifikacija", null, token)
         .subscribe((x: any) => {
-          this.router.navigateByUrl("/pocetna");
           alert("Uspješno ste se odjavili.");
         });
+      this.router.navigateByUrl("/pocetna");
     }
+
+
+
 
 
   ngOnInit(): void {
     this.pocetna();
+   // this.getBrojPosjeta();
+  }
+
+
+  brojPosjetaUpdate:any;
+  brojPregled:any;
+  brojPosjetaRef?:any;
+  counter:any=0;
+
+  update_varijable(){
+    console.log("update se desio");
+    if(this.counter<1) {
+      this.afDB.object('Varijable/').update({brojPregleda:++this.brojPregled});
+      this.counter++;
+    }
+  }
+
+  getBrojPosjeta(){
+    this.brojPosjetaRef=this.afDB.object('Varijable').valueChanges().subscribe
+    ((x:any)=>{
+      this.brojPosjetaUpdate=x;
+      console.log("brojposjeta:",this.brojPosjetaUpdate);
+      this.brojPregled=this.brojPosjetaUpdate.brojPregleda;
+      console.log(this.brojPregled);
+
+      this.update_varijable();
+    });
   }
 
 

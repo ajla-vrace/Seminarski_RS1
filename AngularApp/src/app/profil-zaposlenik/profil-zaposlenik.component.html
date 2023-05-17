@@ -2,29 +2,15 @@
 
 {{zaposlenik_id}}
 
-<div class="odjava">
-  <button class="btn-odjava" (click)="odjaviSe()">Odjavi se</button>
-</div>
+
 
 <div class="slika-glavni">
 
-<br>
 
-  <div class="divslika">
-    <div class="slika">
 
-      <img style="display:block;max-width: 100%; height: 200px" src="{{get_slika_base64_FS(podaci_zaposlenika)}}"
-      class="img-profilna">
-         <!--  [ngStyle]="{'max-width':'auto', 'height':'250px'}"-->
-
-      <button class="dodaj-sliku" (click)="dodajSliku()">Dodaj novu sliku</button> <br>
-      <button class="ukloni-sliku" (click)="ukloniSliku()">Ukloni sliku</button>
-    </div>
-  </div>
-
-  <br><br>
-  <hr [ngStyle]="{'width':'90%','margin':'auto'}">
-
+  <!--
+  <hr [ngStyle]="{'width':'100%','margin':'auto'}">
+-->
 <div class="glavni">
 
   <div class="osnovni-podaci">
@@ -126,9 +112,196 @@ pristupni podaci:
 
 </div>
 
+
+  <div class="divslika">
+    <div class="slika">
+
+      <img style="display:block;max-width: 100%; height: 200px" src="{{get_slika_base64_FS(podaci_zaposlenika)}}"
+           class="img-profilna">
+      <!--  [ngStyle]="{'max-width':'auto', 'height':'250px'}"-->
+
+      <button class="dodaj-sliku" (click)="dodajSliku()">Dodaj novu sliku</button> <br>
+      <button class="ukloni-sliku" (click)="ukloniSliku()">Ukloni sliku</button>
+    </div>
+  </div>
+
+
 </div>
 
+<br>
 
+<div class="evidentirao">
+
+  <div class="evid">
+    <button class="b1"  (click)="otvoriProizvode=true;otvoriNarudzbe=false;otvoriSkladiste=false" [ngStyle]="{'background-color':boja(otvoriProizvode)}">Proizvodi</button>
+    <button class="b2" (click)="otvoriProizvode=false;otvoriNarudzbe=true;otvoriSkladiste=false" [ngStyle]="{'background-color':boja(otvoriNarudzbe)}">Narudžbe</button>
+    <button class="b3" (click)="otvoriProizvode=false;otvoriNarudzbe=false;otvoriSkladiste=true" [ngStyle]="{'background-color':boja(otvoriSkladiste)}">Skladište</button>
+  </div>
+
+  <div class="proizvodi-otvori" *ngIf="otvoriProizvode">
+
+    <br>
+
+    <h5> Proizvodi evidentirani od strane zaposlenika <b> {{podaci_zaposlenika?.ime}} {{podaci_zaposlenika?.prezime}} </b>  </h5>
+
+    <br>
+
+    <div class="pretraga">
+      <input class="inp-pretraga" [(ngModel)]="filter_proizvod_sifra"> <img src="assets/slike/search.svg" style="'width':'50px','height':'50px'"
+                                        class="img-pretraga">
+    </div>
+
+    <br>
+
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Proizvod</th>
+        <th scope="col">Šifra</th>
+        <th scope="col">Datum kreiranja</th>
+        <th scope="col">Evidentirao</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let p of getFilterProizvod() | paginate:
+   {
+        id:'pag1',
+        itemsPerPage: 10,
+        currentPage:page1,
+        totalItems:totalLength1
+        } " >
+        <td>{{p.naziv}}</td>
+        <td>{{p.sifra}}</td>
+        <td>{{formatDatum(p.datum_kreiranja)}}</td>
+        <td>{{p.evidentirao}}</td>
+      </tr>
+
+      </tbody>
+    </table>
+
+    <br>
+
+    <h6>Ukupno rezultata: {{totalLength1}}</h6>
+
+    <pagination-controls id="pag1" class="text-center my-pagination" (pageChange)="page1=$event"></pagination-controls>
+
+  </div>
+
+  <div class="narudzbe-otvori" *ngIf="otvoriNarudzbe">
+    <br>
+
+    <h5> Narudžbe evidentirane od strane zaposlenika <b> {{podaci_zaposlenika?.ime}} {{podaci_zaposlenika?.prezime}} </b>  </h5>
+
+    <br>
+
+    <div class="pretraga">
+      <input class="inp-pretraga" [(ngModel)]="filter_kupac_status_total_ukupnoProizvoda"> <img src="assets/slike/search.svg" style="'width':'50px','height':'50px'"
+                                        class="img-pretraga">
+    </div>
+
+    <br>
+
+
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Kupac</th>
+        <th scope="col">Ukupno proizvoda</th>
+        <th scope="col">Total</th>
+        <th scope="col">Status</th>
+        <th scope="col">Datum kreiranja</th>
+        <th scope="col">Datum preuzimanja</th>
+        <th scope="col">Evidentirao</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let p of getFilterNarudzbe() | paginate:
+   {
+        id:'pag2',
+        itemsPerPage: 10,
+        currentPage:page2,
+        totalItems:totalLenght2
+        } " >
+        <td>{{p.kupac}}</td>
+        <td>{{p.ukupnoProizvoda}}</td>
+        <td>{{p.total}}</td>
+        <td>{{p.status}}</td>
+        <td>{{formatDatum(p.datum_kreiranja)}}</td>
+        <td>{{formatDatum(p.datum_preuzimanja)}}</td>
+        <td>{{p.evidentirao}}</td>
+      </tr>
+
+      </tbody>
+    </table>
+
+    <br>
+    <h6>Ukupno rezultata: {{totalLenght2}}</h6>
+    <pagination-controls id="pag2" class="text-center my-pagination" (pageChange)="page2=$event"></pagination-controls>
+
+  </div>
+
+  <div class="skladiste-otvori" *ngIf="otvoriSkladiste">
+    <br>
+
+    <h5> Količina na skladištu evidentirana od strane zaposlenika <b> {{podaci_zaposlenika?.ime}} {{podaci_zaposlenika?.prezime}} </b>  </h5>
+
+    <br>
+
+    <div class="pretraga">
+      <input class="inp-pretraga" [(ngModel)]="filter_skladiste_proizvod_kolicina"> <img src="assets/slike/search.svg" style="'width':'50px','height':'50px'"
+                                        class="img-pretraga">
+    </div>
+
+    <br>
+
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Proizvod</th>
+        <th scope="col">Odjel</th>
+        <th scope="col">Veličina</th>
+        <th scope="col">Stanje na skladištu</th>
+        <th scope="col">Skladište</th>
+        <th scope="col">Datum kreiranja</th>
+        <th scope="col">Evidentirao</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let p of getFilterSkladista() | paginate:
+   {
+        id:'pag3',
+        itemsPerPage: 10,
+        currentPage:page1,
+        totalItems:totalLenght3
+        } " >
+        <td>{{p.proizvod}}</td>
+        <td>{{p.odjel}}</td>
+        <td>{{p.velicina}}</td>
+        <td>{{p.kolicina}}</td>
+        <td>{{p.skladiste}}</td>
+        <td>{{formatDatum(p.datum_kreiranja)}}</td>
+        <td>{{p.evidentirao}}</td>
+      </tr>
+
+      </tbody>
+    </table>
+
+    <br>
+    <h6>Ukupno rezultata: {{totalLenght3}}</h6>
+
+    <pagination-controls id="pag3" class="text-center my-pagination" (pageChange)="page3=$event"></pagination-controls>
+
+  </div>
+
+</div>
+
+<br><br>
+
+<div class="odjava">
+  <button class="btn-odjava" (click)="odjaviSe()">Odjavi se</button>
+</div>
+
+<br><br>
 
 <div *ngIf="kliknuoDodajSliku==true" class="modal fade show"  tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog modal-dialog modal-lg modal-dialog-scrollable">

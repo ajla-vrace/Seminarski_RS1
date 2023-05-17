@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
+using OnlineShop.Helper.AutentifikacijaAutorizacija;
 using OnlineShop.Modul1.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
@@ -33,26 +34,12 @@ namespace OnlineShop.Modul1.Controllers
             public DateTime datum_kreiranja { get; set; }
             public DateTime? datum_modifikacije { get; set; }
             public string? evidentirao { get; set; }
-        }
-
-
-        public class SkladisteProizvodVMGet
-        {
-            public int Id { get; set; }
-
-            public int? proizvodId { get; set; }
-            public string proizvodOpis { get; set; }
-
-            public int? skladisteId { get; set; }
-            public string skladisteOpis { get; set; }
-
-            public int kolicina { get; set; }
-
-            public string datum_kreiranja { get; set; }
-            public string? datum_modifikacije { get; set; }
+            public string? velicina { get; set; }
+            public string? odjel { get; set; }
         }
 
         [HttpGet]
+        //[Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
         public IQueryable<SkladisteProizvodVM> GetAll()
         {
             var sortiranje = "id opadajuci";
@@ -61,92 +48,190 @@ namespace OnlineShop.Modul1.Controllers
             {
                 Id = x.Id,
                 proizvodId = x.proizvodId,
-                proizvodOpis = x.proizvod.Naziv,
+                proizvodOpis = x.proizvod.Naziv + " - " + x.proizvod.Sifra,
                 skladisteId = x.skladisteId,
-                skladisteOpis = x.skladiste.Naziv,
+                skladisteOpis = x.skladiste.Adresa,
                 kolicina = x.kolicina,
                 datum_kreiranja = x.datum_kreiranja,
                 datum_modifikacije = x.datum_modifikacije,
-                evidentirao=x.evidentirao
+                evidentirao = x.evidentirao,
+                velicina = x.velicina,
+                odjel=x.proizvod.odjel.Naziv
             }).ToList().AsQueryable();
             return data;
         }
 
         [HttpGet("kol_pr_opadajuci")]
+        //[Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
         public IQueryable<SkladisteProizvodVM> SortirajPoKolProizvodOpadajuci()
         {
             var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
             {
                 Id = x.Id,
                 proizvodId = x.proizvodId,
-                proizvodOpis = x.proizvod.Naziv,
+                proizvodOpis = x.proizvod.Naziv + " - " + x.proizvod.Sifra,
                 skladisteId = x.skladisteId,
-                skladisteOpis = x.skladiste.Naziv,
+                skladisteOpis = x.skladiste.Adresa,
                 kolicina = x.kolicina,
                 datum_kreiranja = x.datum_kreiranja,
                 datum_modifikacije = x.datum_modifikacije,
-                evidentirao=x.evidentirao
+                evidentirao=x.evidentirao,
+                velicina=x.velicina,
+                odjel = x.proizvod.odjel.Naziv
             }).ToList().AsQueryable().OrderByDescending(x=>x.kolicina).ThenByDescending(x => x.proizvodOpis);
             return data;
         }
 
         [HttpGet("kol_pr_rastuci")]
+       // [Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
         public IQueryable<SkladisteProizvodVM> SortirajPoKolProizvodRastuci()
         {
             var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
             {
                 Id = x.Id,
                 proizvodId = x.proizvodId,
-                proizvodOpis = x.proizvod.Naziv,
+                proizvodOpis = x.proizvod.Naziv + " - " + x.proizvod.Sifra,
                 skladisteId = x.skladisteId,
-                skladisteOpis = x.skladiste.Naziv,
+                skladisteOpis = x.skladiste.Adresa,
                 kolicina = x.kolicina,
                 datum_kreiranja = x.datum_kreiranja,
                 datum_modifikacije = x.datum_modifikacije,
-                evidentirao=x.evidentirao
+                evidentirao=x.evidentirao,
+                velicina=x.velicina,
+                odjel = x.proizvod.odjel.Naziv
             }).ToList().AsQueryable().OrderBy(x => x.kolicina).ThenBy(x => x.proizvodOpis);
             return data;
         }
 
         [HttpGet("kol_rastuci_pr_opadajuci")]
+        //[Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
         public IQueryable<SkladisteProizvodVM> SortirajPoKolRastuci_Pr_Opadajuci()
         {
             var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
             {
                 Id = x.Id,
                 proizvodId = x.proizvodId,
-                proizvodOpis = x.proizvod.Naziv,
+                proizvodOpis = x.proizvod.Naziv + " - " + x.proizvod.Sifra,
                 skladisteId = x.skladisteId,
-                skladisteOpis = x.skladiste.Naziv,
+                skladisteOpis = x.skladiste.Adresa,
                 kolicina = x.kolicina,
                 datum_kreiranja = x.datum_kreiranja,
                 datum_modifikacije = x.datum_modifikacije,
-                evidentirao=x.evidentirao
+                evidentirao=x.evidentirao,
+                velicina=x.velicina,
+                odjel = x.proizvod.odjel.Naziv
             }).ToList().AsQueryable().OrderBy(x => x.kolicina).ThenByDescending(x => x.proizvodOpis);
             return data;
         }
 
 
         [HttpGet("kol_opadajuci_pr_rastuci")]
+      //  [Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
         public IQueryable<SkladisteProizvodVM> SortirajPoKolOpadajuci_Pr_Rastuci()
         {
             var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
             {
                 Id = x.Id,
                 proizvodId = x.proizvodId,
-                proizvodOpis = x.proizvod.Naziv,
+                proizvodOpis = x.proizvod.Naziv + " - " + x.proizvod.Sifra,
                 skladisteId = x.skladisteId,
-                skladisteOpis = x.skladiste.Naziv,
+                skladisteOpis = x.skladiste.Adresa,
                 kolicina = x.kolicina,
                 datum_kreiranja = x.datum_kreiranja,
                 datum_modifikacije = x.datum_modifikacije,
-                evidentirao=x.evidentirao
+                evidentirao=x.evidentirao,
+                velicina=x.velicina,
+                odjel = x.proizvod.odjel.Naziv
             }).ToList().AsQueryable().OrderByDescending(x => x.kolicina).ThenBy(x=>x.proizvodOpis);
             return data;
         }
 
 
+        [HttpGet("kol_opadajuci")]
+        //  [Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
+        public IQueryable<SkladisteProizvodVM> SortirajPoKolOpadajuci()
+        {
+            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
+            {
+                Id = x.Id,
+                proizvodId = x.proizvodId,
+                proizvodOpis = x.proizvod.Naziv + " - " + x.proizvod.Sifra,
+                skladisteId = x.skladisteId,
+                skladisteOpis = x.skladiste.Adresa,
+                kolicina = x.kolicina,
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije,
+                evidentirao = x.evidentirao,
+                velicina = x.velicina,
+                odjel = x.proizvod.odjel.Naziv
+            }).ToList().AsQueryable().OrderByDescending(x => x.kolicina);
+            return data;
+        }
+
+        [HttpGet("kol_rastuci")]
+        //  [Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
+        public IQueryable<SkladisteProizvodVM> SortirajPoKolRastuci()
+        {
+            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
+            {
+                Id = x.Id,
+                proizvodId = x.proizvodId,
+                proizvodOpis = x.proizvod.Naziv + " - " + x.proizvod.Sifra,
+                skladisteId = x.skladisteId,
+                skladisteOpis = x.skladiste.Adresa,
+                kolicina = x.kolicina,
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije,
+                evidentirao = x.evidentirao,
+                velicina = x.velicina,
+                odjel = x.proizvod.odjel.Naziv
+            }).ToList().AsQueryable().OrderBy(x => x.kolicina);
+            return data;
+        }
+
+        [HttpGet("pr_rastuci")]
+        //  [Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
+        public IQueryable<SkladisteProizvodVM> SortirajPoPr_Rastuci()
+        {
+            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
+            {
+                Id = x.Id,
+                proizvodId = x.proizvodId,
+                proizvodOpis = x.proizvod.Naziv + " - " + x.proizvod.Sifra,
+                skladisteId = x.skladisteId,
+                skladisteOpis = x.skladiste.Adresa,
+                kolicina = x.kolicina,
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije,
+                evidentirao = x.evidentirao,
+                velicina = x.velicina,
+                odjel = x.proizvod.odjel.Naziv
+            }).ToList().AsQueryable().OrderBy(x => x.proizvodOpis);
+            return data;
+        }
+
+        [HttpGet("pr_opadajuci")]
+        //  [Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
+        public IQueryable<SkladisteProizvodVM> SortirajPoPr_Opadajuci()
+        {
+            var data = context.SkladisteProizvod.Select(x => new SkladisteProizvodVM
+            {
+                Id = x.Id,
+                proizvodId = x.proizvodId,
+                proizvodOpis = x.proizvod.Naziv + " - " + x.proizvod.Sifra,
+                skladisteId = x.skladisteId,
+                skladisteOpis = x.skladiste.Adresa,
+                kolicina = x.kolicina,
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije,
+                evidentirao = x.evidentirao,
+                velicina = x.velicina,
+                odjel = x.proizvod.odjel.Naziv
+            }).ToList().AsQueryable().OrderByDescending(x => x.proizvodOpis);
+            return data;
+        }
         [HttpPost]
+        [Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
         public ActionResult Snimi(SkladisteProizvodVM x)
         {
             SkladisteProizvod? s;
@@ -169,6 +254,7 @@ namespace OnlineShop.Modul1.Controllers
             s.skladisteId = x.skladisteId;
             s.kolicina = x.kolicina;
             s.evidentirao = x.evidentirao;
+            s.velicina = x.velicina;
 
             context.SaveChanges();
 
@@ -177,6 +263,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpDelete]
+        //[Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
         public ActionResult ObrisiSkladisteProizvod(int id)
         {
             SkladisteProizvod? s = context.SkladisteProizvod.Find(id);

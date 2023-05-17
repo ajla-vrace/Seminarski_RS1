@@ -125,3 +125,18 @@ img{
 .btn{
   background-color: hotpink;
 }
+
+.stranice{
+  width:25%;
+  margin:auto;
+}
+
+.pocetak-kraj{
+  background-color: #ffb5f7;
+  border:none;
+}
+
+.prethodna-sljedeca{
+  border:none;
+  background-color: white;
+}

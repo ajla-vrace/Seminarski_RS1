@@ -34,6 +34,7 @@ namespace OnlineShop.Modul1.Controllers
             Proizvod p = _dbContext.Proizvod.Find(x.ProizvodId);
             
             objekat.Kolicina = x.Kolicina;
+            objekat.Velicina = x.Velicina;
             objekat.ProizvodId = x.ProizvodId;
             //objekat.Cijena = x.Proizvod.Cijena;
             if (p != null)
@@ -64,6 +65,7 @@ namespace OnlineShop.Modul1.Controllers
                     Id = s.Id,
                     Cijena = s.Proizvod.Cijena,
                     Kolicina = s.Kolicina,
+                    Velicina=s.Velicina,
                     Total = s.Total,
                     // Total = s.Proizvod.Cijena*s.Kolicina,
                     ProizvodId = s.ProizvodId,

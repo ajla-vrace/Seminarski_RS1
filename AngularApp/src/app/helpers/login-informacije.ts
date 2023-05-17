@@ -14,6 +14,8 @@ export interface AutentifikacijaToken {
   korisnickiNalog:      KorisnickiNalog;
   vrijemeEvidentiranja: Date;
   ipAdresa:             string;
+  twoFcode:             string;
+  jel_otkljucan:        boolean;
 }
 
 export interface KorisnickiNalog {

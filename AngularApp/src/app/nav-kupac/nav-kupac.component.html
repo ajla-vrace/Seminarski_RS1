@@ -7,7 +7,7 @@
   </div>
   <div id="desno" style="display: inline">
     <li style="padding-right: 30%;padding-left: 30%"></li>
-    <li ><input  type="text" placeholder="Search" style="padding-left: 1%">
+    <li (click)="idiNaPretragu()"><input  type="text" placeholder="Search" style="padding-left: 1%">
    <button id="pretragaLupa">
      <img src="assets/slike/lupa1.png" style="width:18px;"></button>  </li>
 
@@ -55,15 +55,15 @@
 </div>
 
 <div id="samoPodkat">
-  <option *ngFor="let x of podkategorijePodaci" [value]="x.id" class="podkat" >{{x.naziv}}</option>
+  <option *ngFor="let x of podkategorijePodaci" [value]="x.id" class="podkat" (click)="prikaziPodkategoriju(x.id)">{{x.naziv}}</option>
 </div>
 
 </div>
+
+
+
+<app-zene *ngIf="prikazPodkat==true" [proslijedi]="objekat_proslijedi"></app-zene>
 
 -->
-
-
-
-
 
 

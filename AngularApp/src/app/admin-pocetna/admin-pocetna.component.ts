@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
+import {AngularFireDatabase} from "@angular/fire/compat/database";
 
 @Component({
   selector: 'app-admin-pocetna',
@@ -10,7 +11,8 @@ import {MojConfig} from "../moj-config";
 })
 export class AdminPocetnaComponent implements OnInit {
 
-  constructor(private route:ActivatedRoute, private router:Router, private httpKlijent:HttpClient) { }
+  constructor(private route:ActivatedRoute, private router:Router,
+              private httpKlijent:HttpClient, private afDB:AngularFireDatabase) { }
 
   admin_id:any;
   brPreuzimanja: any;
@@ -29,7 +31,25 @@ export class AdminPocetnaComponent implements OnInit {
     this.getBestsellers();
     this.getProdavnice();
     this.getStatistika();
+    this.getBrojPosjeta();
   }
+
+
+  brojPosjetaUpdate:any;
+  brojPregleda:any;
+  brojPosjetaRef?:any;
+
+  getBrojPosjeta(){
+    this.brojPosjetaRef=this.afDB.object('Varijable').valueChanges().subscribe
+    ((x:any)=>{
+      this.brojPosjetaUpdate=x;
+      console.log("brojposjeta:",this.brojPosjetaUpdate);
+      this.brojPregleda=this.brojPosjetaUpdate.brojPregleda;
+      console.log(this.brojPregleda);
+    });
+  }
+
+
 
   getStatistika(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Admin/statistika")
@@ -101,4 +121,7 @@ export class AdminPocetnaComponent implements OnInit {
     this.kliknuoDetalji=true;
   }
 
+  zaokruziNaDvijeDecimale(broj:any){
+    return broj.toFixed(2);
+  }
 }

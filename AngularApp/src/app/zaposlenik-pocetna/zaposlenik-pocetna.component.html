@@ -1,11 +1,9 @@
 <app-navbar-zaposlenik></app-navbar-zaposlenik>
 
 
-<!--napraviti u c# funkciju da vrati narudzbe koje imaju status Nova, vratiti objekat {{lista narudzbi, count}}-->
 <div class="sredina">
-  <div class="poruka-narudzbe">
-    <h3 class="h3-porukaNarudzbe"> Trenutno nemate aktivnih narudzbi!</h3>  <!--{{poruka}}
-    poruka:"Trenutno nemate aktivnih narudzbi" ili "Imate {{brojNovihNarudzbi}} novih narudzbi"-->
+  <div class="poruka-narudzbe" [ngStyle]="{'background-color':getBoja()}">
+    <h3 class="h3-porukaNarudzbe"> {{poruka}}</h3>
   </div>
 
 <hr>
@@ -62,10 +60,10 @@
         currentPage:_page,
         totalItems:totalLength
         }">
-    <img class="slika-okvir" src="{{get_slika_base64_FS(p?.proizvod)}}" (click)="detaljiProizvodaDatum(p)">
+    <img class="slika-okvir" src="{{get_slika_base64_FS(p?.proizvod)}}" (click)="detalji(p)">
     <h6 class="proizvod-opis">{{p.proizvod?.naziv}}</h6>
     <h6 class="proizvod-datum">{{p.datum_kreiranja}}</h6>
-    <button class="btn-proizvod-detalji" (click)="detaljiProizvodaDatum(p)">Detalji</button>
+    <button class="btn-proizvod-detalji" (click)="detalji(p)">Detalji</button>
   </div>
 
 </div>
@@ -125,10 +123,10 @@
         currentPage:_page2,
         totalItems:totalLength2
         }">
-      <img class="slika-okvir" src="{{get_slika_base64_FS(p?.proizvod)}}" (click)="detaljiProizvodaKolicina(p)">
+      <img class="slika-okvir" src="{{get_slika_base64_FS(p?.proizvod)}}" (click)="detalji(p)">
       <h6 class="proizvod-opis">{{p?.proizvod.naziv}}</h6>
-      <h6 class="proizvod-kolicina">Količina: {{p?.kolicina}}</h6>
-      <button class="btn-proizvod-detalji" (click)="detaljiProizvodaKolicina(p)">Detalji</button>
+      <h6 class="proizvod-kolicina">Količina: {{p?.kolicina}} ({{p?.velicina}})</h6>
+      <button class="btn-proizvod-detalji" (click)="detalji(p)">Detalji</button>
     </div>
 
   </div>
@@ -141,6 +139,36 @@
   <br>
 
 
+  <br>
+
+  <div class="poruka-proizvodiBezStanjaNaSkladistu">
+    <h5 class="h5-porukaPosljednjiProizvodi">Proizvodi kojima još nije dodijeljena količina na skladištu: </h5>
+  </div>
+
+  <br>
+
+
+  <div class="slike">
+
+    <div class="proizvod-div" *ngFor="let p of proizvodi_bezkolicine | paginate:
+   {
+        id:'pagination3',
+        itemsPerPage: 5,
+        currentPage:_page3,
+        totalItems:totalLength3
+        }">
+      <img class="slika-okvir" src="{{get_slika_base64_FS(p?.proizvod)}}" (click)="detalji(p)">
+      <h6 class="proizvod-opis">{{p?.proizvod.naziv}}</h6>
+      <button class="btn-proizvod-detalji" (click)="detalji(p)">Detalji</button>
+    </div>
+
+  </div>
+
+  <br>
+  <pagination-controls id="pagination3" class="text-center my-pagination" (pageChange)="_page3=$event"></pagination-controls>
+
+  <br><br>
+
 </div>
 
 
@@ -152,7 +180,7 @@ moguce navigirati na stranicu za proizvode-->
 
 <div class="okvir-detalji" *ngIf="kliknuoDetalji==true">
   <button class="btn-ok" (click)="kliknuoDetalji=false;">OK</button>
-  <h3><b>{{odabrani_proizvod?.proizvod?.naziv}}</b> </h3>
+  <h3> <b>{{odabrani_proizvod?.proizvod?.naziv}}</b> </h3>
   <div class="slika-i-detalji">
       <div class="detalji-proizvoda">
         <h6>Šifra: <b>{{odabrani_proizvod?.proizvod?.sifra}}</b></h6>
@@ -163,9 +191,29 @@ moguce navigirati na stranicu za proizvode-->
         <h6>Datum kreiranja: <b>{{odabrani_proizvod?.datum_kreiranja}}</b></h6>
         <h6>Kategorija: <b>{{odabrani_proizvod?.proizvod?.kategorijaOpis}}</b></h6>
         <h6>Podkategorija: <b>{{odabrani_proizvod?.proizvod?.podkategorijaOpis}}</b></h6>
-        <h6>Sezona: <b>{{odabrani_proizvod?.proizvod?.sezonaOpis}}</b></h6>
-        <h6>Kolekcija <b>{{odabrani_proizvod?.proizvod?.kolekcijaOpis}}</b></h6>
+        <h6>Sezona: <b>{{odabrani_proizvod?.proizvod?.sezonaOpis==null?"-":odabrani_proizvod?.proizvod?.sezonaOpis}}</b></h6>
+        <h6>Kolekcija: <b>{{odabrani_proizvod?.proizvod?.kolekcijaOpis==" "?"-":odabrani_proizvod?.proizvod?.kolekcijaOpis}}</b></h6>
         <h6>Aktivan: <b>{{odabrani_proizvod?.proizvod?.aktivan==true?"Da":"Ne"}}</b></h6>
+
+
+        <!--
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th scope="col">Veličina</th>
+                    <th scope="col">Količina</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let p of odabrani_proizvod?.velKol">
+                    <td>{{p.velicina}}</td>
+                    <td>{{p.kolicina}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+        -->
+
+
       </div>
     <div class="slika-proizvoda">
       <img class="slika-detalji" src="{{get_slika_base64_FS(odabrani_proizvod?.proizvod)}}" (click)="kliknuoGetSlika=true">

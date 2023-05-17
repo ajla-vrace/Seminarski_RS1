@@ -1,0 +1,18 @@
+<p>otkljucaj works!</p>
+
+
+<div class="sredina" style=" width:70%; margin:auto;">
+    <img src="assets/slike/unlock.png" style="height: 250px;max-width: 100%; margin: auto 36%;">
+    <br><br>
+      <div class="unos" style="border: groove;padding:5%; width:90%; margin:auto;">
+        <label>Unesite kod za otključavanje računa koji je poslan na Vaš mail</label>
+        <br><br>
+        <input [(ngModel)]="code" style="max-width: 30%; border:groove; ">
+        <br><br>
+        <button (click)="otkljucaj()" style="padding:1%; border-radius: 30px; background: dodgerblue; border:none;">Otključaj</button>
+      </div>
+    {{ispravan_kod}}
+</div>
+
+<br>
+<br>

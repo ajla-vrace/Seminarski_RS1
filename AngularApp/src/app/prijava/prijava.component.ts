@@ -44,7 +44,8 @@ export class PrijavaComponent implements OnInit {
 
           if(x.autentifikacijaToken.korisnickiNalog.isAdmin==true){
             AutentifikacijaHelper.setLoginInfo(x)
-            this.router.navigate(['/admin-pocetna',x.autentifikacijaToken.korisnickiNalog.id]);
+            this.router.navigate(['/otkljucaj']);
+           // this.router.navigate(['/admin-pocetna',x.autentifikacijaToken.korisnickiNalog.id]);
            // this.router.navigate(['navbar-admin',x.autentifikacijaToken.korisnickiNalog.id])
           }
           else if(x.autentifikacijaToken.korisnickiNalog.isKupac==true){

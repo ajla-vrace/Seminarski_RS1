@@ -9,9 +9,10 @@ export class PostavkePorukeComponent implements OnInit {
 
   constructor() { }
 
-  porukaSpremna:any="Vaša narudžba je spremna za preuzeti već od sutra.";
+  porukaSpremna:any="Vaša narudžba je spremna za preuzeti već od sutra. Rok za preuzimanje naružbe je do narednih 14 dana.";
   porukaOdgodjena:any="Vaša narudžba je odgođena jer trenutno nemamo zaliha proizvoda kojeg naručujete";
   _poruka:any;
+  porukaIstekla: any="Vaša narudžba nije preuzeta u predefinisano vrijeme te je stoga istekla.";
 
   ngOnInit(): void {
   }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
+using OnlineShop.Helper.AutentifikacijaAutorizacija;
 using OnlineShop.Modul1.Models;
 using System.Linq;
 
@@ -22,6 +23,7 @@ namespace OnlineShop.Modul1.Controllers
             public string Naziv { get; set; }
             public string Doba { get; set; }
             public string Godina { get; set; }
+            public bool? Aktivna { get; set; }
         }
 
         [HttpGet("getKolekcije")] 
@@ -31,6 +33,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpGet("sezone")]
+       // [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public IQueryable<SezonaVM> GetAll()
         {
             return context.Sezona.Select(x => new SezonaVM
@@ -38,10 +41,12 @@ namespace OnlineShop.Modul1.Controllers
                 Id=x.Id,
                 Naziv=x.Naziv,
                 Doba=x.Doba,
-                Godina=x.Godina
+                Godina=x.Godina,
+                Aktivna=x.Aktivna
             }).ToList().OrderByDescending(x=>x.Id).AsQueryable();
         }
         [HttpPost]
+        [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult Snimi(SezonaVM x)
         {
             Sezona? s;
@@ -60,6 +65,7 @@ namespace OnlineShop.Modul1.Controllers
             s.Naziv = x.Naziv;
             s.Doba = x.Doba;
             s.Godina = x.Godina;
+            s.Aktivna = x.Aktivna;
 
             context.SaveChanges();
 
@@ -67,6 +73,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpDelete]
+        //[Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult ObrisiSezonu(int id)
         {
             Sezona? s = context.Sezona.Find(id);

@@ -6,16 +6,29 @@
   display: grid;
   grid-template-columns: auto auto auto;
 }
+#filteriSvi{
+  width: 20%;
+  background-color: #ffffff;
+  border-right: 1px solid lightgray;
+  padding: 1%;
+  height: fit-content;
+ /* height: fit-content;*/
+}
+#ponistiFiltere{
+  border: 0;
+  background-color: white;
+  font-weight: bold;
+  margin-bottom: 5%;
+}
 .proizvodJedan{
 
   display: inline;
-  width: 80%;
+  width: 98%;
 border: 1px solid gray;
   margin: 2%;
  }
 #filteri{
-  width: 25%;
-padding: 1%;
+
 }
 #ZenskiOdjelNaslov{
   margin: 1%;
@@ -45,6 +58,9 @@ li{
   list-style: none;
 }
 #sve{
+  width: 90%;
+  margin: 1% auto;
+  background-color: #ffffff;
   display: flex;
 }
 .zaSliku{
@@ -69,8 +85,10 @@ top:3%;
   right: 3%;
 }
 #zeneProizvodi{
-
-
+width: 100%;
+  height: fit-content;
+display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
 }
 #mojDiv{
   height: fit-content;
@@ -89,3 +107,139 @@ background-color: gold;
   display: flex;
   width: 80%;
 }
+#zaFilter{
+  width: 5%;
+  background-color: white;
+  border: 0;
+  margin-left: 90%;
+}
+#filterSlika{
+ width: 50%;
+}
+#kategorijeMeni,#podKategorijeMeni{
+  width: 90%;
+  margin-right: 5%;
+  margin-left: 5%;
+  display: flex;
+  text-align: center;
+margin-top: 2%;
+}
+
+.divZaJednu{
+
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+.kategorije{
+  width: 15%;
+  padding: 1%;
+border: 0;
+font-size: small;
+  background-color: white;
+  border-bottom: 1px solid lightgray;
+}
+.kategorije:hover{
+  background-color: #f5c8cf;
+}
+
+
+
+
+
+
+
+#probaDiva,#probaDiva1,#probaDiva2,#probaDiva3{
+  width: 100%;
+  height: 100%;
+  background: rgba(192,192,192,0.8);
+  position: absolute;
+  top:0;
+  bottom:0;
+  /* opacity: 0.2;*/
+}#poruka,#poruka1,#poruka2,#poruka3{
+   width:100%;
+  height: fit-content;
+
+   padding: 2%;
+   background-color:white;
+   /*opacity: 100%;*/
+  /* margin: 5% 35%;*/
+   position: absolute;
+   text-align: center;
+   border:1px solid black;
+   /* transform: translate(-50%,-50%);*/
+ }
+
+.dugmeDelete{
+  margin: 1%;
+  padding: 1% 8%;
+  background-color: blue;
+  cursor:pointer;
+}
+.labelDugme,#labelDugme,#labelDugme1{
+  cursor: pointer;
+}
+#dugme1,#dugme11,#dugme21,#dugme2,#dugme22,#dugme112{
+  background-color: #b8bbbf;
+  border: none;
+  border-radius: 2px;
+}
+#dugme2,#dugme21,#dugme23,#dugme211{
+  background-color: black;
+  color:white;
+  border: none;
+  border-radius: 2px;
+}
+.boje{
+  font-size: smaller;
+  display: block;
+}
+#divBojeFilter,#divSezoneFilter,#divCijeneFilter, #divCijeneFilter1,#divKolekcijeFilter{
+  width: 100%;
+  text-align: left;
+  padding: 1%;
+  /*margin: 1%;*/
+  margin-top: 5%;
+}
+.od_do{
+  width: 100%;
+  align-items: center;
+}
+.error_poruka{
+  font-size: small;
+  color: #5d0606;
+}
+.dugmad_kolekcije{
+  border: 0;
+  background-color: #ffffff;
+  padding: 1%;
+  width: 90%;
+  text-align: left;
+}
+.dugmad_kolekcije:hover{
+
+  background-color: #faf1e1;
+
+}
+.kategorije.active{
+  border:1px #a2a19f solid;
+}
+.clicked {
+  /* Add your custom styles for the clicked state */
+  /* For example, change the background color or add a border */
+  background-color: #faf1e1;
+  border: 2px solid #f1d59f;
+}
+
+
+
+
+
+
+
+
+
+
+

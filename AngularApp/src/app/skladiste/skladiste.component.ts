@@ -14,8 +14,6 @@ export class SkladisteComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient, private datePipe:DatePipe) { }
 
-
-
   zaposlenik_id:any;
   kolicinaF: number=0;
   nazivProizvoda: string="";
@@ -44,19 +42,63 @@ export class SkladisteComponent implements OnInit {
       this.zaposlenik_id=+s["id"];
 
       this.getProizvodi();
+      this.getProizvodRastuci();
       this.getSkladista();
      // this.getSkladisteProizvod();
       this.getSkladisteProizvod_k_p_opadajuci();
       this.getSkladisteProizvod_k_p_rastuci();
       this.getSkladisteProizvod_k_opadajuci_p_rastuci();
       this.getSkladisteProizvod_k_rastuci_p_opadajuci();
+      this.getProizvodRastuci();
+      this.getKolicinaRastuci();
+      this.getProizvodOpadajuci();
+      this.getKolicinaOpadajuci();
       this.getProdavnice();
       this.getGradove();
     })
   }
 
+  kolicina_x:boolean=false;
+  proizvod_x:boolean=false;
+  kol_rastuci:any;
+  kol_opadajuci:any;
+  pr_rastuci:any;
+  pr_opadajuci:any;
+
+  getProizvodRastuci(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/pr_rastuci",MojConfig.http_opcije())
+      .subscribe((x:any)=>{
+        this.pr_rastuci=x;
+        console.log(this.pr_rastuci);
+      })
+  }
+
+  getProizvodOpadajuci(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/pr_opadajuci",MojConfig.http_opcije())
+      .subscribe((x:any)=>{
+        this.pr_opadajuci=x;
+        console.log(this.pr_opadajuci);
+      })
+  }
+
+  getKolicinaRastuci(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/kol_rastuci",MojConfig.http_opcije())
+      .subscribe((x:any)=>{
+        this.kol_rastuci=x;
+        console.log(this.kol_rastuci);
+      })
+  }
+
+  getKolicinaOpadajuci(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/kol_opadajuci",MojConfig.http_opcije())
+      .subscribe((x:any)=>{
+        this.kol_opadajuci=x;
+        console.log(this.kol_opadajuci);
+      })
+  }
+
   getSkladisteProizvod_k_p_opadajuci(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/kol_pr_opadajuci")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/kol_pr_opadajuci",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.k_p_opadajuci=x;
         console.log(this.k_p_opadajuci);
@@ -65,7 +107,7 @@ export class SkladisteComponent implements OnInit {
   }
 
   getSkladisteProizvod_k_p_rastuci(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/kol_pr_rastuci")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/kol_pr_rastuci",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.k_p_rastuci=x;
         console.log(this.k_p_rastuci);
@@ -73,7 +115,7 @@ export class SkladisteComponent implements OnInit {
   }
 
   getSkladisteProizvod_k_opadajuci_p_rastuci(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/kol_opadajuci_pr_rastuci")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/kol_opadajuci_pr_rastuci",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.k_opadajuci_p_rastuci=x;
         console.log(this.k_opadajuci_p_rastuci);
@@ -81,7 +123,7 @@ export class SkladisteComponent implements OnInit {
   }
 
   getSkladisteProizvod_k_rastuci_p_opadajuci(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/kol_rastuci_pr_opadajuci")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/kol_rastuci_pr_opadajuci",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.k_rastuci_p_opadajuci=x;
         console.log(this.k_rastuci_p_opadajuci);
@@ -89,7 +131,7 @@ export class SkladisteComponent implements OnInit {
   }
 
   getProizvodi(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/naziv_asc",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.p=x;
         if(this.kliknuoEdit==false && this.odabrana_stavka!=null){
@@ -101,21 +143,26 @@ export class SkladisteComponent implements OnInit {
       })
   }
 
+
+  totalLength2:any;
+  page2:any;
   getSkladista(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Skladiste")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Skladiste",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.s=x;
         if(this.kliknuoEdit==false && this.odabrana_stavka!=null){
           this.skladisteID=this.s[0].id;
           this.odabrana_stavka.skladisteId=this.s[0].id; //defaultna vrijednost
         }
+
+        this.totalLength2=this.s?.length;
         console.log("SKLADISTA: ", this.s);
 
       })
   }
 
   getSkladisteProizvod(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.s_p=x;
 
@@ -124,40 +171,91 @@ export class SkladisteComponent implements OnInit {
 
   }
 
+  totalLength1:any;
+  page1:any;
+
   getFilterKolicinaNaziv(niz:any) {
-    return niz?.filter((x:any)=>
-        (
-          this.nazivProizvoda ?
-            x.proizvodOpis.toLowerCase().startsWith(this.nazivProizvoda.toLowerCase()) : niz
-        )
-        &&
-        (
-          this.kolicinaF?
-            x.kolicina==(this.kolicinaF) : niz
-        )
-    )
+    let podaci = niz?.filter((x:any)=>
+      (
+        this.nazivProizvoda ?
+          ( x.proizvodOpis.toLowerCase().includes(this.nazivProizvoda.toLowerCase())
+          || x.odjel.toLowerCase().includes(this.nazivProizvoda.toLowerCase())): niz
+      )
+      &&
+      (
+        this.kolicinaF?
+          x.kolicina==(this.kolicinaF) : niz
+      )
+    );
+
+    this.totalLength1=podaci?.length;
+    return podaci;
   }
 
   getFilter(){
-    if(this.sortirajPoKolicina=="Količina opadajući" && this.sortirajPoNaziv=="Proizvod opadajući"){
-      return this.getFilterKolicinaNaziv(this.k_p_opadajuci);
+    if(this.proizvod_x==false && this.kolicina_x==false)
+     {
+      if (this.sortirajPoKolicina == "Količina opadajući" && this.sortirajPoNaziv == "Proizvod opadajući") {
+        return this.getFilterKolicinaNaziv(this.k_p_opadajuci);
+      } else if (this.sortirajPoKolicina == "Količina rastući" && this.sortirajPoNaziv == "Proizvod rastući") {
+        return this.getFilterKolicinaNaziv(this.k_p_rastuci);
+      } else if (this.sortirajPoNaziv == "Količina opadajući" && this.sortirajPoKolicina == "Proizvod rastući") {
+        return this.getFilterKolicinaNaziv(this.k_opadajuci_p_rastuci);
+      } else if (this.sortirajPoKolicina == "Količina rastući" && this.sortirajPoNaziv == "Proizvod opadajući") {
+        return this.getFilterKolicinaNaziv(this.k_rastuci_p_opadajuci);
+      }
     }
-    else if(this.sortirajPoKolicina=="Količina rastući" && this.sortirajPoNaziv=="Proizvod rastući"){
-      return this.getFilterKolicinaNaziv(this.k_p_rastuci);
+
+    else if(this.proizvod_x==false && this.kolicina_x==true){
+      if(this.sortirajPoNaziv == "Proizvod opadajući")
+        return this.getFilterKolicinaNaziv(this.pr_opadajuci);
+      else if (this.sortirajPoNaziv=="Proizvod rastući")
+        return this.getFilterKolicinaNaziv(this.pr_rastuci);
     }
-    else if(this.sortirajPoNaziv=="Količina opadajući" && this.sortirajPoKolicina=="Proizvod rastući"){
-      return this.getFilterKolicinaNaziv(this.k_opadajuci_p_rastuci);
+    else if(this.proizvod_x==true && this.kolicina_x==false){
+      if(this.sortirajPoKolicina == "Količina opadajući")
+        return this.getFilterKolicinaNaziv(this.kol_opadajuci);
+      else if (this.sortirajPoKolicina=="Količina rastući")
+        return this.getFilterKolicinaNaziv(this.kol_rastuci);
     }
-    else{
-      return this.getFilterKolicinaNaziv(this.k_rastuci_p_opadajuci);
+
+  }
+
+
+  getPodatke(){
+    if(this.proizvod_x==false && this.kolicina_x==false)
+    {
+      if (this.sortirajPoKolicina == "Količina opadajući" && this.sortirajPoNaziv == "Proizvod opadajući") {
+        this.getSkladisteProizvod_k_p_opadajuci();
+      } else if (this.sortirajPoKolicina == "Količina rastući" && this.sortirajPoNaziv == "Proizvod rastući") {
+        this.getSkladisteProizvod_k_p_rastuci();
+      } else if (this.sortirajPoNaziv == "Količina opadajući" && this.sortirajPoKolicina == "Proizvod rastući") {
+        this.getSkladisteProizvod_k_opadajuci_p_rastuci();
+      } else if (this.sortirajPoKolicina == "Količina rastući" && this.sortirajPoNaziv == "Proizvod opadajući") {
+        this.getSkladisteProizvod_k_rastuci_p_opadajuci();
+      }
     }
+
+    else if(this.proizvod_x==false && this.kolicina_x==true){
+      if(this.sortirajPoNaziv == "Proizvod opadajući")
+        this.getProizvodOpadajuci();
+      else if (this.sortirajPoNaziv=="Proizvod rastući")
+        this.getProizvodRastuci();
+    }
+    else if(this.proizvod_x==true && this.kolicina_x==false){
+      if(this.sortirajPoKolicina == "Količina opadajući")
+        this.getKolicinaOpadajuci();
+      else if (this.sortirajPoKolicina=="Količina rastući")
+        this.getKolicinaRastuci();
+    }
+
   }
 
   btnEdit(p: any) {
     this.kliknuoEdit=true;
     this.naslov="Modifikacija stavke: "+p.id;
     this.odabrana_stavka=p;
-
+    this.odabrana_stavka.evidentirao=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username;
 
     console.log(this.odabrana_stavka);
 
@@ -170,8 +268,15 @@ export class SkladisteComponent implements OnInit {
 
     if(confirm("Da li stvarno želite obrisati ovu stavku?")){
       this.httpKlijent.delete(MojConfig.adresa_servera+"/api/SkladisteProizvod?id="+
-        p.id).subscribe((x:any)=>{
+        p.id,MojConfig.http_opcije()).subscribe((x:any)=>{
         this.getSkladisteProizvod_k_p_opadajuci();
+        this.getSkladisteProizvod_k_opadajuci_p_rastuci();
+        this.getSkladisteProizvod_k_p_rastuci();
+        this.getSkladisteProizvod_k_p_opadajuci();
+        this.getProizvodRastuci();
+        this.getProizvodOpadajuci();
+        this.getKolicinaRastuci();
+        this.getKolicinaOpadajuci();
       })
     }
   }
@@ -179,13 +284,17 @@ export class SkladisteComponent implements OnInit {
   spasi() {
     this.kliknuoEdit=false;
     console.log(this.odabrana_stavka);
-    this.httpKlijent.post(MojConfig.adresa_servera+"/api/SkladisteProizvod", this.odabrana_stavka)
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/SkladisteProizvod", this.odabrana_stavka,MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.odabrana_stavka=null;
         this.getSkladisteProizvod_k_rastuci_p_opadajuci();
         this.getSkladisteProizvod_k_opadajuci_p_rastuci();
         this.getSkladisteProizvod_k_p_rastuci();
         this.getSkladisteProizvod_k_p_opadajuci();
+        this.getProizvodRastuci();
+        this.getProizvodOpadajuci();
+        this.getKolicinaRastuci();
+        this.getKolicinaOpadajuci();
     })
   }
 
@@ -202,11 +311,12 @@ export class SkladisteComponent implements OnInit {
       kolicina:0,
       proizvodId:0,
       skladisteId:0,
+      velicina:'XS',
+      odjel:"",
       evidentirao:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username
   }
     this.getProizvodi();
     this.getSkladista();
-
   }
 
 
@@ -215,17 +325,21 @@ export class SkladisteComponent implements OnInit {
   gradovi:any;
   prodavnice:any;
 
+
+  totalLength3:any;
+  page3:any;
   getProdavnice(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/Prodavnica/GetAllProdavnice/all")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Prodavnica/GetAllProdavnice/all",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.prodavnice=x;
         this.prodavnicaID=this.prodavnice[0]?.id;
         console.log("PRODAVNICE: ", this.prodavnice);
+        this.totalLength3=this.prodavnice?.length;
       })
   }
 
   getGradove(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/Grad/GetAll")
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Grad/GetAll",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.gradovi=x;
         this.gradID=this.gradovi[0]?.id;
@@ -244,7 +358,7 @@ export class SkladisteComponent implements OnInit {
 
     if(confirm("Brisanjem ovog zapisa brišete i sve stavke koje sadrže ovaj zapis. Da li ste sigurni da" +
       " želite izvršiti brisanje?")){
-      this.httpKlijent.delete(MojConfig.adresa_servera+"/api/Skladiste?id="+p.id)
+      this.httpKlijent.delete(MojConfig.adresa_servera+"/api/Skladiste?id="+p.id,MojConfig.http_opcije())
         .subscribe((x:any)=>{
           this.getSkladista();
         })
@@ -269,7 +383,7 @@ export class SkladisteComponent implements OnInit {
   }
 
   spasi_skladiste(){
-    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Skladiste",this.obj_skladiste)
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Skladiste",this.obj_skladiste,MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.getSkladista();
         this.obj_skladiste=null;
@@ -305,7 +419,7 @@ export class SkladisteComponent implements OnInit {
     if(confirm("Brisanjem prodavnice brišete sve zapise koji sadrže ovaj zapis. Jeste li" +
       "sigurni da želite obrisati prodavnicu?")){
         this.httpKlijent.delete(MojConfig.adresa_servera+"/Prodavnica/DeleteProdavnica/prodId?id="
-        +p.id).subscribe((x:any)=>{
+        +p.id,MojConfig.http_opcije()).subscribe((x:any)=>{
           this.getProdavnice();
           this.getSkladista();
           this.getSkladisteProizvod();
@@ -314,7 +428,7 @@ export class SkladisteComponent implements OnInit {
   }
 
   spasi_prodavnicu(){
-    this.httpKlijent.post(MojConfig.adresa_servera+"/Prodavnica/Snimi/Snimi",this.obj_prodavnica)
+    this.httpKlijent.post(MojConfig.adresa_servera+"/Prodavnica/Snimi/Snimi",this.obj_prodavnica,MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.getProdavnice();
         this.obj_prodavnica=null;
@@ -347,4 +461,37 @@ export class SkladisteComponent implements OnInit {
     return formatDate(datum,"dd/MM/yyyy","en-Us");
   }
 
+  postojiIstaVelicina(vel:any){
+    for(let i of this.k_p_opadajuci){
+    //  console.log(i.proizvodId==this.odabrana_stavka.proizvodId, i.velicina==vel, i.id!==this.odabrana_stavka?.id);
+    //  console.log("i.proizvodid",i.proizvodId,"this.odabrana_stavka.proizvodID,",this.odabrana_stavka.proizvodId);
+      if(i.proizvodId==this.odabrana_stavka.proizvodId && i.velicina==vel && i.id!==this.odabrana_stavka?.id){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  //za proizvod postoji samo jedno skladiste
+  postojiSkladisteZaProizvod(){
+    for(let i of this.k_p_opadajuci){
+      if(i.proizvodId===this.odabrana_stavka.proizvodId && i.id!=this.odabrana_stavka?.id){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  putanjaDoSlike() {
+    if(this.proizvod_x==false){
+      return "assets/slike/yes.png";
+    }
+    else return "assets/slike/no.png"
+  }
+  putanjaDoSlike2(){
+    if(this.kolicina_x==false){
+      return "assets/slike/yes.png";
+    }
+    else return "assets/slike/no.png"
+  }
 }

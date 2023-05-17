@@ -42,6 +42,13 @@ namespace OnlineShop.Data
             DbContextOptions options) : base(options)
         {
         }
+
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    builder.Entity<SpecijalnaPonudaProizvod>().Property(x => x.CijenaSaPopustom)
+        //        .HasComputedColumnSql("");
+        //    base.OnModelCreating(builder);
+        //}
     }
 }
 

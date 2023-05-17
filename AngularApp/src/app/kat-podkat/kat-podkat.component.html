@@ -47,7 +47,8 @@
 
     <div class="input-pretraga-div">
       <input type="text" class="input-pretraga" #pretraga placeholder="pretražite podkategoriju ili kategoriju"
-             [ngStyle]="{'text-align':'center'}">
+             [ngStyle]="{'text-align':'center'}" [(ngModel)]="naziv_filter"
+             (change)="trenutnaStr=1; getPodkategorijePaged()">
       <img class="img-search" src="assets/slike/search.svg" (click)="kliknuoPretrazi=true">
     </div>
 
@@ -60,29 +61,52 @@
         <th scope="col">Naziv podkategorije</th>
         <th scope="col">Naziv kategorije</th>
         <th></th>
-        <th></th>
       </tr>
       </thead>
-      <tbody>
-      <tr *ngFor="let p of getFilterPodkategorije(pretraga.value) | paginate:
+      <tbody>  <!--
+      getFilterPodkategorije(pretraga.value) | paginate:
    {
         itemsPerPage: 5,
         currentPage:page,
         totalItems:totalLength
-        }">
+        }
+      -->
+      <tr *ngFor="let p of podkatPaged?.podaci">
         <th scope="row">{{p.id}}</th>
         <td>{{p.naziv}}</td>
         <td>{{p.kategorijaOpis}}</td>
         <td> <img src="assets/slike/pencil-square.svg" (click)="urediPodkat(p)"></td>
-        <td> <img src="assets/slike/x-square.svg" (click)="obrisiPodkat(p)"> </td>
+     <!--   <td> <img src="assets/slike/x-square.svg" (click)="obrisiPodkat(p)"> </td>-->
       </tr>
 
       </tbody>
 
 
     </table>
-
+<!--
     <pagination-controls class="text-center my-pagination" (pageChange)="page=$event"></pagination-controls>
+-->
+    <!--
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" (click)="uslovPrethodnaPodkat();">Prethodna</a></li>
+        <li class="page-item"><a class="page-link" (click)="trenutnaStr=1; getPodkategorijePaged();">{{broj1p}}</a></li>
+        <li class="page-item"><a class="page-link" (click)="trenutnaStr=2; getPodkategorijePaged();">{{broj2p}}</a></li>
+        <li class="page-item"><a class="page-link" (click)="trenutnaStr=3; getPodkategorijePaged();">{{broj3p}}</a></li>
+        <li class="page-item"><a class="page-link" (click)="trenutnaStr=4; getPodkategorijePaged();">{{broj4p}}</a></li>
+        <li class="page-item"><a class="page-link" (click)="uslovSljedecaPodkat(); ">Sljedeća</a></li>
+      </ul>
+    </nav>
+--->
+    <div class="stranice">
+       <button class="pocetak-kraj" (click)="trenutnaStr=1; getPodkategorijePaged();"><<</button>
+          <button class="prethodna-sljedeca" (click)="uslovPrethodnaPodkat();"> < </button>
+             Stranica {{trenutnaStr}} od {{podkatPaged?.ukupnoStranica}}
+          <button class="prethodna-sljedeca" (click)="uslovSljedecaPodkat()"> > </button>
+      <button class="pocetak-kraj" (click)="trenutnaStr=podkatPaged?.ukupnoStranica; getPodkategorijePaged();"> >> </button>
+    </div>
+
+
 
   </div>
 
@@ -95,7 +119,8 @@
 
     <div class="input-pretraga-div">
       <input type="text" class="input-pretraga" #pretraga2 placeholder="pretražite kategoriju"
-             [ngStyle]="{'text-align':'center'}">
+             [ngStyle]="{'text-align':'center'}" [(ngModel)]="naziv_kat_filter"
+      (change)="trenutnaStr_kat=1; getKategorijePaged();">
       <img class="img-search" src="assets/slike/search.svg" (click)="kliknuoPretrazi=true">
     </div>
 
@@ -107,29 +132,51 @@
         <th scope="col">Id</th>
         <th scope="col">Naziv kategorije</th>
         <th></th>
-        <th></th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let p of getFilterKategorije(pretraga2.value)| paginate:
+      <!--
+      getFilterKategorije(pretraga2.value)| paginate:
    {
         id:'pagination2',
         itemsPerPage: 5,
         currentPage:page_2,
         totalItems:totalLenght2
-        }">
+        }
+      -->
+      <tr *ngFor="let p of katPaged?.podaci">
         <th scope="row">{{p.id}}</th>
         <td>{{p.naziv}}</td>
         <td> <img src="assets/slike/pencil-square.svg" (click)="uredi_kat(p)"></td>
-        <td> <img src="assets/slike/x-square.svg" (click)="obrisiKat(p)"> </td>
+   <!--     <td> <img src="assets/slike/x-square.svg" (click)="obrisiKat(p)"> </td>  -->
       </tr>
 
       </tbody>
 
     </table>
-
+<!--
     <pagination-controls id="pagination2" class="text-center my-pagination" (pageChange)="page_2=$event"></pagination-controls>
+-->
 
+    <!--
+    <nav id="kategorije" aria-label="Page navigation example">
+      <ul id="kategorije_pag" class="pagination justify-content-center" >
+        <li class="page-item"><a class="page-link" (click)="trenutnaStr_kat!=1 ? trenutnaStr_kat=trenutnaStr_kat-1 : trenutnaStr_kat=1; getKategorijePaged();">Prethodna</a></li>
+        <li class="page-item"><a class="page-link" (click)="trenutnaStr_kat=1; getKategorijePaged();">1</a></li>
+        <li class="page-item"><a class="page-link" (click)="trenutnaStr_kat=2; getKategorijePaged();">2</a></li>
+        <li class="page-item"><a class="page-link" (click)="trenutnaStr_kat=3; getKategorijePaged();">3</a></li>
+        <li class="page-item"><a class="page-link" (click)="trenutnaStr_kat==katPaged?.ukupnoStranica?trenutnaStr_kat=katPaged?.ukupnoStranica : trenutnaStr_kat=trenutnaStr_kat+1; getKategorijePaged();">Sljedeća</a></li>
+      </ul>
+    </nav>
+-->
+
+    <div class="stranice">
+      <button class="pocetak-kraj" (click)="trenutnaStr_kat=1; getKategorijePaged();"><<</button>
+        <button class="prethodna-sljedeca" (click)="uslovPrethodnaKat();"> < </button>
+          Stranica {{trenutnaStr_kat}} od {{katPaged?.ukupnoStranica}}
+        <button class="prethodna-sljedeca" (click)="uslovSljedecaKat()"> > </button>
+      <button class="pocetak-kraj" (click)="trenutnaStr_kat=katPaged?.ukupnoStranica; getKategorijePaged();"> >> </button>
+    </div>
 
 
 
@@ -181,7 +228,7 @@
       </div>
       <div class="modal-footer">
         <button [disabled]="!(nazivControll.valid && katIdControll.valid && !postojiPodkategorija(nazivControll.value))" type="button"
-                class="btn" (click)="spasi_podkat()">Spasi promjene</button>
+                class="btn" (click)="spasi_podkat();">Spasi promjene</button>
       </div>
     </div>
   </div>

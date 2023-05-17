@@ -16,6 +16,12 @@ namespace OnlineShop.Modul1.Models
         [ForeignKey("ProdavnicaId")]
         public Prodavnica Prodavnica { get; set; }
         public int? ProdavnicaId { get; set; }
-        public string? Evidentirao { get; set; }    
+        public string? Evidentirao { get; set; }
+        //nova tri atributa dodana  
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime? Deadline { get { return DatumKreiranja.AddDays(14); } private set { } }
+        public bool jel_promijenjen_status { get; set; } = false;
+        public bool jel_poslana_prouka { get; set; } = false;
+
     }
 }

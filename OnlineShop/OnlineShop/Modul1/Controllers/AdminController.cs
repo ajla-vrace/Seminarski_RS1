@@ -140,17 +140,32 @@ namespace OnlineShop.Modul1.Controllers
             public string datum_kreiranja { get; set; }
         }
 
+        public class ProizvodKolicina
+        {
+            public int proizvodId { get; set; }
+            public int kolicina { get; set; }
+        }
+
 
         [HttpGet("bestsellers")]
         public IEnumerable<Bestseller> GetBestellers()
         {
             var proizvodi_id = contex.Proizvod.Select(x => x.Id).ToList().Distinct();
-           
+            var kolicine = new List<ProizvodKolicina>();
             var proizvodi_kolicine = new List<Bestseller>();
 
             foreach (var p_id in proizvodi_id)
+            {            
+                var kolicine_proizvodaId = 
+                    contex.NarudzbaStavka.Where(x => x.ProizvodId == p_id).Sum(x => x.Kolicina);
+                kolicine.Add(new ProizvodKolicina { proizvodId=p_id, kolicina = kolicine_proizvodaId });
+            }
+
+            var odabrani = kolicine.OrderByDescending(x => x.kolicina).Take(3);
+
+            foreach (var p in odabrani)
             {
-                var _proizvod = contex.Proizvod.Where(x => x.Id == p_id).Select(x => new ProizvodVM
+                var _proizvod = contex.Proizvod.Where(x => x.Id == p.proizvodId).Select(x => new ProizvodVM
                 {
                     Id = x.Id,
                     Sifra = x.Sifra,
@@ -172,18 +187,13 @@ namespace OnlineShop.Modul1.Controllers
                     kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                     sezonaId = x.sezonaId,
                     sezonaOpis = x.sezona.Naziv,
-                    slika_postojeca=x.slika_postojeca
+                    slika_postojeca = x.slika_postojeca
                 }).ToList()[0];
 
-                var kolicine_proizvodaId = 
-                    contex.KorpaStavka.Where(x => x.ProizvodId == p_id).Sum(x => x.Kolicina);
-
-                proizvodi_kolicine.Add(new Bestseller { ProizvodId = p_id, proizvod=_proizvod, Kolicina = kolicine_proizvodaId, datum_kreiranja=_proizvod.datum_kreiranja.ToString("dd/MM/yyyy") });
+                proizvodi_kolicine.Add(new Bestseller { ProizvodId = p.proizvodId, proizvod = _proizvod, Kolicina = p.kolicina, datum_kreiranja = _proizvod.datum_kreiranja.ToString("dd/MM/yyyy") });
             }
-           
-            var top3=proizvodi_kolicine.OrderByDescending(x => x.Kolicina).Take(3);
 
-            return top3;
+            return proizvodi_kolicine;
 
         }
 
@@ -240,7 +250,7 @@ namespace OnlineShop.Modul1.Controllers
         [HttpGet("statistika")]
         public Statistika StatistikaPodaci()
         {
-            var brojRegistriranihOsoba = contex.KorisnickiNalog.Select(x=>x.Id).Distinct().Count();
+            var brojRegistriranihOsoba = contex.Kupac.Select(x=>x.Id).Distinct().Count();
             var brojPretplacenihKorisnika = contex.Kupac.Where(x => x.isPretplacen).Select(x => x.Id).Distinct().Count();
            
             var currentDate = DateTime.Now;

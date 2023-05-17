@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Data;
+using OnlineShop.Helper.AutentifikacijaAutorizacija;
 using OnlineShop.Modul1.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using static OnlineShop.Modul1.Controllers.SezonaController;
@@ -24,9 +25,11 @@ namespace OnlineShop.Modul1.Controllers
             public string Godina { get; set; }
             public int? sezonaId { get; set; }
             public string sezonaOpis { get; set; }
+            public bool? aktivna { get; set; }
         }
 
         [HttpGet("kolekcija")]
+        //[Autorizacija(Kupac:false,Zaposlenik:false, Admin:true)]
         public IQueryable<KolekcijaVM> GetAll()
         {
             return context.Kolekcija.Select(x => new KolekcijaVM
@@ -35,11 +38,31 @@ namespace OnlineShop.Modul1.Controllers
                 Naziv = x.Naziv,
                 Godina = x.Godina,
                 sezonaId=x.sezonaId,
-                sezonaOpis=x.sezona.Naziv
+                sezonaOpis=x.sezona.Naziv,
+                aktivna=x.Aktivna
             }).ToList().AsQueryable().OrderByDescending(x=>x.Id);
         }
 
+        [HttpGet("aktivna")]
+        //[Autorizacija(Kupac:false,Zaposlenik:false, Admin:true)]
+        public ActionResult GetAktivne()
+        {
+            var data= context.Kolekcija
+                .Where(k=>k.Aktivna!=false)
+                .Select(x => new 
+            {
+                Id = x.Id,
+                Naziv = x.Naziv,
+                Godina = x.Godina,
+                sezonaId = x.sezonaId,
+                sezonaOpis = x.sezona.Naziv,
+                aktivna = x.Aktivna
+            }).ToList().OrderByDescending(x => x.Id);
+            return Ok(data);
+        }
+
         [HttpGet("kolekcijaID")]
+      //  [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public IQueryable<KolekcijaVM> GetKolekcijaById(int kolekcija_id)
         {
             return context.Kolekcija.Where(x=>x.Id==kolekcija_id).Select(x => new KolekcijaVM
@@ -48,11 +71,13 @@ namespace OnlineShop.Modul1.Controllers
                 Naziv = x.Naziv,
                 Godina = x.Godina,
                 sezonaId = x.sezonaId,
-                sezonaOpis = x.sezona.Naziv
+                sezonaOpis = x.sezona.Naziv,
+                aktivna=x.Aktivna
             }).ToList().AsQueryable();
         }
         
         [HttpPost]
+        [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult Snimi(KolekcijaVM x)
         {
             Kolekcija? s;
@@ -71,6 +96,7 @@ namespace OnlineShop.Modul1.Controllers
             s.Naziv = x.Naziv;
             s.Godina = x.Godina;
             s.sezonaId = x.sezonaId;
+            s.Aktivna = x.aktivna;
 
             context.SaveChanges();
 
@@ -78,6 +104,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpDelete]
+        //[Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult ObrisiKolekciju(int id)
         {
             Kolekcija? s = context.Kolekcija.Find(id);

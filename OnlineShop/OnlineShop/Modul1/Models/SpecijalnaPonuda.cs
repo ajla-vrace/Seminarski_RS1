@@ -6,5 +6,6 @@
         public string Naziv { get; set; }
         public DateTime datum_pocetka { get; set; }
         public DateTime datum_zavrsetka { get; set; }
+        public bool? aktivna { get; set; }
     }
 }

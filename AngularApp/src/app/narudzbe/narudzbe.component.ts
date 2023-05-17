@@ -29,8 +29,10 @@ export class NarudzbeComponent implements OnInit {
     this.route.params.subscribe(s=>{
       this.zaposlenik_id=+s["id"];
     })
-    this.getNarudzbe();
+   // this.getNarudzbe();
+    this.getNarudzbePoStatusu();
     this.getStatistika();
+    this.getBrojeveStatusa();
   }
 
 
@@ -57,6 +59,14 @@ export class NarudzbeComponent implements OnInit {
       })
   }
 
+  getNarudzbePoStatusu(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Narudzba/SortByStatus?status="+this.statusFilter).subscribe((x:any)=>{
+      this.narudzbe=x;
+    //  this.totalLength=this.narudzbe?.length;
+      console.log("narudzbe status",this.narudzbe);
+    })
+  }
+
   formatDatum(datum:any){
     if(datum=="" || datum==null) return "-";
     return formatDate(datum,"dd/MM/yyyy","en-Us");
@@ -64,8 +74,20 @@ export class NarudzbeComponent implements OnInit {
 
   getFilterNarudzbe(){
     var rez:any;
-    if(this._filter=="" && this.statusFilter=="Sve")
+    /*
+    if(this._filter=="" && this.statusFilter=="Sve"){
+      this.totalLength=this.narudzbe?.length;
       return this.narudzbe;
+    }*/
+
+    rez=this.narudzbe?.filter((x:any)=>( (
+        x?.kupacNaziv.toLowerCase().includes(this._filter?.toLowerCase())
+        || x?.evidentirao.toLowerCase().includes(this._filter?.toLowerCase())
+        || x?.nazivProdavnice.toLowerCase().includes(this._filter?.toLowerCase())
+      )
+    ));
+
+    /*
     if(this.statusFilter=="Sve"){
       rez=this.narudzbe?.filter((x:any)=> (
           x?.kupacNaziv.toLowerCase().startsWith(this._filter?.toLowerCase()) || this._filter==""
@@ -81,9 +103,26 @@ export class NarudzbeComponent implements OnInit {
         && x.status===this.statusFilter
       ))
     }
-
-    console.log("rez:",rez);
+*/
+    this.totalLength=rez?.length;
+   // console.log("rez:",rez);
     return rez;
 
   }
+
+  obj_ukupnoNarudzbi:any;
+
+  getBrojeveStatusa(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Narudzba/BrojStatusa").subscribe((x:any)=>{
+      this.obj_ukupnoNarudzbi={
+        nova:x._nova,
+        spremna:x._spremna,
+        otkazana:x._otkazana,
+        preuzeta:x._preuzeta,
+        istekla:x._istekla,
+        odgodjena:x._odgodjena
+      }
+    })
+  }
+
 }

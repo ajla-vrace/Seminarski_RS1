@@ -14,13 +14,17 @@ namespace OnlineShop.Modul1.ViewModels
         public string BrojTelefona { get; set; }
         public DateTime DatumRegistracije { get; set; }
         public bool? isKupac { get; set; }
-        
+
         public int? SpolId { get; set; }
         public Spol? Spol { get; set; }
         public string? spolOpis { get; set; }
         public DateTime? DatumPrveNarudzbe { get; set; }
         public DateTime? DatumPretplate { get; set; }
-        public bool isPretplacen { get; set; }=false;
+        public bool isPretplacen { get; set; } = false;
         public string? AdresaIsporuke { get; set; }
+        public string? slika_kupca_nova_base64 { get; set; }  //za post-anje
+        public byte[]? slika_kupca_postojeca_DB { get; set; }  //za get-anje
+        public byte[]? slika_kupca_postojeca_FS { get; set; }  //za get-anje
+        
     }
 }
