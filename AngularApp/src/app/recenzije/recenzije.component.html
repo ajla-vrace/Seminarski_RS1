@@ -39,16 +39,29 @@
               <tbody>
               <tr *ngFor="let s of get_podaci_filtrirano()">
                 <td style="width: 20px;">{{s.id}}</td>
-                <td>{{s.opis}}</td>
+                <td style="width: 50%;">{{s.opis}}</td>
                 <td>{{s.kupac}}</td>
-                <td>{{s.prodavnica}}</td>
-                <td>{{s.datumKreiranja}}</td>
+               <td>{{s.prodavnica}}</td>
+                <td>{{s.datumKreiranja | date:"dd-MM-yyyy"}}</td>
                 <td>
                   <button (click)="brisi_komenatar(s)">Obrisi</button>
                 </td>
               </tr>
               </tbody>
             </table>
+
+
+
+            <div>
+              <button (click)="prevPage()" [disabled]="page === 1">Previous</button>
+              <ng-container *ngFor="let pageNumber of getPageNumbers()">
+                <button (click)="goToPage(pageNumber)" [ngClass]="{'clicked': page === pageNumber}" [disabled]="page === pageNumber">{{ pageNumber }}</button>
+              </ng-container>
+              <button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
+            </div>
+
+
+
           </div>
         </div>
 

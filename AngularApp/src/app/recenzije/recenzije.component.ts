@@ -16,19 +16,19 @@ export class RecenzijeComponent implements OnInit {
    ocjeneProizvodaPodaci: any;
   constructor(private httpKlijent: HttpClient, private router: Router, private route:ActivatedRoute) {
   }
-  fetchProdavnice() :void
+  fetchProdavnice()
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "Prodavnica/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Prodavnica/GetAll", MojConfig.http_opcije()).subscribe(x=>{
       this.prodavnice = x;
     });
   }
-  fetchKomentari() :void
+ /* fetchKomentari() :void
   {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Komentar/GetAll", MojConfig.http_opcije()).subscribe(x=>{
       this.komentariPodaci = x;
     });
   }
-
+*/
   fetchOcjene() :void
   {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Ocjena/GetAll", MojConfig.http_opcije()).subscribe(x=>{
@@ -53,13 +53,14 @@ export class RecenzijeComponent implements OnInit {
   pretragaOcjenaProizvoda: any;
   odabranikomentar: any;
   ngOnInit(): void {
-    this.fetchKomentari();
+   // this.fetchKomentari();
     this.fetchProdavnice();
     this.fetchOcjene();
     this.fetchOcjeneProizvoda();
     this.route.params.subscribe(s=>{
       this.admin_id=+s["id"];
     })
+    this.getKomentare();
   }
   get_podaci_filtrirano() {
     if (this.komentariPodaci == null)
@@ -85,15 +86,15 @@ export class RecenzijeComponent implements OnInit {
   }
 
   getBrojKom(){
-    return this.komentariPodaci.length;
+    return this.komentariPodaci?.length;
   }
 
 
   getBrojOcjena(){
-    return this.ocjenePodaci.length;
+    return this.ocjenePodaci?.length;
   }
   getBrojOcjenaProizvoda(){
-    return this.ocjeneProizvodaPodaci.length;
+    return this.ocjeneProizvodaPodaci?.length;
   }
 
 
@@ -153,4 +154,75 @@ export class RecenzijeComponent implements OnInit {
   modifikuj() {
 
   }
+
+
+
+
+
+
+
+
+  page = 1;
+  pageSize = 2;
+  totalCount: any;
+  totalPages: any;
+ // komentariPodaci: any[]=[];
+
+  getKomentare() {
+   // const url = `/api/Komentar/komentar?page=${this.page}&pageSize=${this.pageSize}`;
+    this.httpKlijent.get<any>(MojConfig.adresa_servera+`/Komentar/GetKomentare/komentar?page=${this.page}&pageSize=${this.pageSize}`)
+      .subscribe(data => {
+      this.totalCount = data.totalCount;
+      this.totalPages = data.totalPages;
+      this.komentariPodaci = data.komentari;
+    });
+    //return this.komentariPodaci;
+  }
+
+
+ /* fetchKomentari() :void
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Komentar/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+      this.komentariPodaci = x;
+    });
+  }*/
+  getPageNumbers(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+  goToPage(page: number) {
+    this.page = page;
+    this.getKomentare();
+  }
+
+  nextPage() {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.getKomentare();
+    }
+  }
+  /*getBoje() {
+    if (this.colors == null)
+      return [];
+
+    return this.colors;
+  }*/
+  prevPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.getKomentare();
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

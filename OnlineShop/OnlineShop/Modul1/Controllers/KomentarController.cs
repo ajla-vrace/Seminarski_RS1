@@ -179,7 +179,42 @@ namespace OnlineShop.Modul1.Controllers
              return Ok(komentar);
          }
         */
+        [HttpGet("komentar")]
 
+        public IActionResult GetKomentare(int page = 1, int pageSize = 2)
+        {
+            var totalCount = _dbContext.Komentar.Count();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+           
+                
+            var komentari = _dbContext.Komentar
+               .OrderByDescending(s => s.Id)
+                .Select(s => new
+                {
+                    Id = s.Id,
+                    Opis = s.Opis,
+                    Kupac = s.Kupac.Username,
+                    DatumKreiranja = s.DatumKreiranja,
+                    Prodavnica = s.Prodavnica.Naziv+" "+s.Prodavnica.Adresa,
+                    KupacId = s.KupacId,
+
+                })
+                
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var result = new
+            {
+                Page = page,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                Komentari = komentari
+            };
+
+            return Ok(result);
+        }
 
     }
 }

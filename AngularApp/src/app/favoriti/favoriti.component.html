@@ -1,4 +1,84 @@
 <app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div *ngFor="let color of colors">
+  <!-- Display color information here -->
+  <p>{{ color.id }}</p>
+  <p>{{ color.opis }}</p>
+</div>
+
+
+<div id="divTabela">
+  <table class="table table-warning">
+    <thead style="background-color: black;">
+    <tr style="background-color: black;">
+      <th style="width: 20px;">ID</th>
+      <th>Opis</th>
+      <th>Kupac</th>
+      <th>Prodavnica</th>
+      <th>Datum</th>
+      <th>Akcija</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let s of getBoje()">
+      <td style="width: 20px;">{{s.id}}</td>
+      <td>{{s.opis}}</td>
+      <td>{{s.kupac}}</td>
+      <td>{{s.prodavnica}}</td>
+      <td>{{s.datumKreiranja}}</td>
+      <td>
+       <!-- <button (click)="brisi_komenatar(s)">Obrisi</button>-->
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+<!--
+<div>
+  <button (click)="prevPage()" [disabled]="page === 1">Previous</button>
+  <button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
+</div>
+-->
+<div>
+  <button (click)="prevPage()" [disabled]="page === 1">Previous</button>
+  <ng-container *ngFor="let pageNumber of getPageNumbers()">
+    <button (click)="goToPage(pageNumber)" [class.current]="page === pageNumber" [disabled]="page === pageNumber">{{ pageNumber }}</button>
+  </ng-container>
+  <button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 <div class="tekst">
   <h2>Favoriti</h2>
   <h5>Pogledajte proizvode koje ste dodali u favorite</h5>

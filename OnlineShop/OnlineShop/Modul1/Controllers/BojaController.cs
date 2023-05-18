@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.Data;
 using OnlineShop.Modul1.Models;
+using OnlineShop.Modul2_TestniPodaci;
 
 namespace OnlineShop.Modul1.Controllers
 {
@@ -20,5 +22,6 @@ namespace OnlineShop.Modul1.Controllers
         {
             return context.Boja.ToList();
         }
+        
     }
 }
