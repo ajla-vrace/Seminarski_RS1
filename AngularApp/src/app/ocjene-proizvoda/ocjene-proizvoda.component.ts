@@ -35,7 +35,7 @@ export class OcjeneProizvodaComponent implements OnInit {
   }
   private fetchOcjeneProizvoda() {
 
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/Zvjezdica/GetAll/", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Zvjezdica/GetByProizvodId/"+this.proizvod_id, MojConfig.http_opcije()).subscribe(x=>{
       this.ocjeneProizvodaPodaci = x;
     });
   }

@@ -63,7 +63,7 @@ namespace OnlineShop.Modul1.Controllers
                     Ocjena = s.OcjenaBrojcano,
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.DatumKreiranja,
-                    Prodavnica = s.Prodavnica.Naziv,
+                    Prodavnica = s.Prodavnica.Naziv+" "+s.Prodavnica.Adresa,
                     KupacId = s.KupacId,
                 })
                 .AsQueryable();

@@ -133,10 +133,10 @@
 
 
   <div id="MuskarciProizvodi">
-    <div *ngFor="let p of getMProizvodi()" class="proizvodJedan" >
-      <div (click)="prikaziDetaljeProizvoda(p.id)" style="cursor: pointer;">
-        <div class="zaSliku" >
-          <img src="assets/slike/suit.png" style="width: 100%">
+    <div *ngFor="let p of getMProizvodi()" class="proizvodJedan" (click)="prikaziDetaljeProizvoda(p.id)" style="cursor: pointer;">
+
+        <div class="zaSliku">
+          <img class="slika" src="{{get_slika_base64_FS(p)}}" (click)="kliknuoGetSlika=true">
         </div>
 
         <div class="tekst" >
@@ -145,7 +145,7 @@
         </div>
 
 
-      </div>
+
 
     </div>
   </div>

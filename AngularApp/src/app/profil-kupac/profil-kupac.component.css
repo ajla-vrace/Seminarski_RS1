@@ -234,3 +234,11 @@ padding-top: 2%;
   opacity: 40%;
 }
 
+#odjavaButton{
+  background-color: #0913d3;
+  border: 1px solid #032b38;
+  margin: 2% 5% 2% 85%;
+  width: 10%;
+  padding: 10px 0px;
+color: white;
+}

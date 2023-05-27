@@ -92,6 +92,27 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(data.ToList());
         }
+        [HttpGet("{proizvodId}")]
+        public ActionResult GetByProizvodId(int proizvodId)
+        {
+            var data = _dbContext.Zvjezdica
+                .OrderByDescending(s => s.Id)
+                .Where(s => s.ProizvodId == proizvodId)
+                .Select(s => new
+                {
+                    Id = s.Id,
+                    Ocjena = s.OcjenaBrojcano,
+                    Kupac = s.Kupac.Username,
+                    DatumKreiranja = s.DatumKreiranja,
+                    Proizvod = s.Proizvod.Naziv,
+                    KupacId = s.KupacId,
+                    ProizvodId = s.ProizvodId
+                })
+                .AsQueryable();
+
+
+            return Ok(data.ToList());
+        }
         [HttpPost("{id}")]
         public ActionResult Delete(int id)
         {

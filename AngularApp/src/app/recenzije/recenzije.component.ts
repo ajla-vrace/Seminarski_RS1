@@ -14,6 +14,7 @@ export class RecenzijeComponent implements OnInit {
   pretraga: any;
   ocjenePodaci: any;
    ocjeneProizvodaPodaci: any;
+   komentariPodaci1: any;
   constructor(private httpKlijent: HttpClient, private router: Router, private route:ActivatedRoute) {
   }
   fetchProdavnice()
@@ -22,13 +23,13 @@ export class RecenzijeComponent implements OnInit {
       this.prodavnice = x;
     });
   }
- /* fetchKomentari() :void
+  fetchKomentari1() :void
   {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Komentar/GetAll", MojConfig.http_opcije()).subscribe(x=>{
-      this.komentariPodaci = x;
+      this.komentariPodaci1 = x;
     });
   }
-*/
+
   fetchOcjene() :void
   {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Ocjena/GetAll", MojConfig.http_opcije()).subscribe(x=>{
@@ -61,6 +62,7 @@ export class RecenzijeComponent implements OnInit {
       this.admin_id=+s["id"];
     })
     this.getKomentare();
+    this.fetchKomentari1();
   }
   get_podaci_filtrirano() {
     if (this.komentariPodaci == null)
@@ -86,7 +88,7 @@ export class RecenzijeComponent implements OnInit {
   }
 
   getBrojKom(){
-    return this.komentariPodaci?.length;
+    return this.komentariPodaci1?.length;
   }
 
 
@@ -163,7 +165,7 @@ export class RecenzijeComponent implements OnInit {
 
 
   page = 1;
-  pageSize = 2;
+  pageSize = 10;
   totalCount: any;
   totalPages: any;
  // komentariPodaci: any[]=[];

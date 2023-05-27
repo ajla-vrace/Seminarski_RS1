@@ -98,9 +98,18 @@ export class NarudzbaDetaljiComponent implements OnInit {
         this.httpKlijent.post(MojConfig.adresa_servera+"/Narudzba/PosaljiPoruku?narId="+this.narudzba_id,MojConfig.http_opcije())
           .subscribe((x:any)=>{
             this.getBoolVrijednosti();
+
+            if(this.obj_status=="Odgodjena")
+              this.update_stanje_na_skladistu();
           })
       })
+  }
 
+  update_stanje_na_skladistu(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/update_stanje?narudzbaId="+this.narudzba_id)
+      .subscribe((x:any)=>{
+        console.log("updateovano stanje");
+      })
   }
 
   obj_status:any;
@@ -120,6 +129,7 @@ export class NarudzbaDetaljiComponent implements OnInit {
           alert("Status je uspješno promijenjen!");
         this.obj_status=null;
       })
+
   }
   _jel_promijenjen_status:boolean=false;
   _jel_poslana_prouka:boolean=false;

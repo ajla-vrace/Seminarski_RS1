@@ -134,19 +134,18 @@
 
 
   <div id="zeneProizvodi">
-    <div *ngFor="let p of getZProizvodi()" class="proizvodJedan" >
-      <div (click)="prikaziDetaljeProizvoda(p.id)" style="cursor: pointer;">
-        <div class="zaSliku" >
-          <img src="assets/slike/suit.png" style="width: 100%">
-          </div>
+    <div *ngFor="let p of getZProizvodi()" class="proizvodJedan" (click)="prikaziDetaljeProizvoda(p.id)" style="cursor: pointer;">
 
+        <div class="zaSliku">
+          <img class="slika" src="{{get_slika_base64_FS(p)}}" (click)="kliknuoGetSlika=true">
+        </div>
         <div class="tekst" >
           <h5>{{p.naziv}}</h5>
           <h6>{{p.cijena}} KM</h6>
         </div>
 
 
-      </div>
+
 
     </div>
   </div>

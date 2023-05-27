@@ -20,14 +20,15 @@
 
 
 
-        <div style="margin: 2% 15%">
-          <label>Filter prodavnica: </label>
+        <div style="margin: 2% 5%">
+         <!-- <label>Filter prodavnica: </label>
           <input type="text" [(ngModel)]="pretraga" style="margin-left:1% ">
+          -->
           <div id="divTabela">
             <table class="table table-warning">
               <thead style="background-color: black;">
               <tr style="background-color: black;">
-                <th style="width: 20px;">ID</th>
+
                 <th>Opis</th>
                 <th>Kupac</th>
                 <th>Prodavnica</th>
@@ -38,8 +39,8 @@
 
               <tbody>
               <tr *ngFor="let s of get_podaci_filtrirano()">
-                <td style="width: 20px;">{{s.id}}</td>
-                <td style="width: 50%;">{{s.opis}}</td>
+
+                <td >{{s.opis}}</td>
                 <td>{{s.kupac}}</td>
                <td>{{s.prodavnica}}</td>
                 <td>{{s.datumKreiranja | date:"dd-MM-yyyy"}}</td>
@@ -52,12 +53,13 @@
 
 
 
-            <div>
-              <button (click)="prevPage()" [disabled]="page === 1">Previous</button>
+            <div id="paginacija" *ngIf="komentariPodaci?.length>0">
+              <button (click)="prevPage()" [disabled]="page === 1" class="lijevo_desno">Previous</button>
               <ng-container *ngFor="let pageNumber of getPageNumbers()">
-                <button (click)="goToPage(pageNumber)" [ngClass]="{'clicked': page === pageNumber}" [disabled]="page === pageNumber">{{ pageNumber }}</button>
+                <button (click)="goToPage(pageNumber)" [ngClass]="{'clicked': page === pageNumber}"
+                        [disabled]="page === pageNumber" class="brojevi_paginacija">{{ pageNumber }}</button>
               </ng-container>
-              <button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
+              <button (click)="nextPage()" [disabled]="page === totalPages" class="lijevo_desno" style="padding-left: 2%; padding-right: 2%">Next</button>
             </div>
 
 
@@ -91,11 +93,11 @@
 
         <label>Filter prodavnica: </label>
         <input type="text" [(ngModel)]="pretragaOcjena" style="margin-left:1% ">
-        <div id="divTabela2" style="margin:2% 15%;">
+        <div id="divTabela2" style="margin:2% 5%;">
           <table class="table table-warning">
             <thead style="background-color: black;">
             <tr style="background-color: black;">
-              <th style="width: 20px;">ID</th>
+
               <th>Ocjena</th>
               <th>Kupac</th>
               <th>Prodavnica</th>
@@ -106,11 +108,11 @@
 
             <tbody>
             <tr *ngFor="let s of getOcjene()">
-              <td style="width: 20px;">{{s.id}}</td>
+
               <td>{{s.ocjena}}</td>
               <td>{{s.kupac}}</td>
               <td>{{s.prodavnica}}</td>
-              <td>{{s.datumKreiranja}}</td>
+              <td>{{s.datumKreiranja | date:"dd-MM-yyyy"}}</td>
               <td>
                 <button (click)="brisi_ocjenu(s)">Obrisi</button>
               </td>
@@ -142,11 +144,11 @@
 
         <label>Filter proizvoda: </label>
         <input type="text" [(ngModel)]="pretragaOcjenaProizvoda" style="margin-left:1% ">
-        <div id="divTabela3" style="margin:2% 15%;">
+        <div id="divTabela3" style="margin:2% 5%;">
           <table class="table table-warning">
             <thead style="background-color: black;">
             <tr style="background-color: black;">
-              <th style="width: 20px;">ID</th>
+
               <th>Ocjena</th>
               <th>Kupac</th>
               <th>Proizvod</th>
@@ -157,11 +159,11 @@
 
             <tbody>
             <tr *ngFor="let s of getOcjeneProizvoda()">
-              <td style="width: 20px;">{{s.id}}</td>
+
               <td>{{s.ocjena}}</td>
               <td>{{s.kupac}}</td>
               <td>{{s.proizvod}}</td>
-              <td>{{s.datumKreiranja}}</td>
+              <td>{{s.datumKreiranja | date:"dd-MM-yyyy"}}</td>
               <td>
                 <button (click)="brisi_ocjenuProizvoda(s)">Obrisi</button>
               </td>
