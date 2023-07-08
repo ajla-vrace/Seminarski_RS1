@@ -25,12 +25,17 @@ width: 100%;
 #glavnidivfooter{
   display: flex;
   justify-content: space-between;
-  padding: 1%;
+  padding: 2%;
 }
 a.drustvenemreze{
   display: block;
 }
-
+h6.ufooteru{
+  cursor: pointer;
+}
+h6.informacije,h6.ufooteru{
+  padding-bottom: 5%;
+}
 .naziv-prod{
   cursor: pointer;
   display: inline;

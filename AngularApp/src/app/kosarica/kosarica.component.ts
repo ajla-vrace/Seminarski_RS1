@@ -14,10 +14,8 @@ export class KosaricaComponent implements OnInit {
 
   kupac_id:any;
   korpaStavkePodaci1: any;
-  novaKorpa: any;
   imeKorpe: any="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
   total:any;
-  jedan: any;
   odabranaStavka: any;
   korpaId:any;
   pogledajUkupno: any=false;
@@ -25,7 +23,6 @@ export class KosaricaComponent implements OnInit {
    korpaStavkePodaci: any;
    KorpePodaci: any;
    KorpePodaciIme: any;
-   sveUkupno: number=0;
    modifikovano: any=false;
 brisano:any=false;
    korpa: any;
@@ -159,9 +156,7 @@ this.brisano=true;
     this.router.navigate(['zene']);
   }
 
-  kolicinaVelicinaModifikacija(ks: any){
 
-  }
 
 
   ModifikacijaKorpaStavke(ks:any) {
@@ -221,13 +216,9 @@ this.korpa=this.KorpePodaciIme[0];
     this.odabranaStavka=ks;
   }
 
-  ukupnoStavki() {
-    return  this.korpaStavkePodaci1.length;
-  }
 
-  pogledajCijenu() {
-    this.pogledajUkupno=true;
-  }
+
+
 
   KreirajNarudzbu() {
 this.router.navigate(['kreiranje-narudzbe']);

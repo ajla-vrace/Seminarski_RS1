@@ -63,8 +63,11 @@ namespace OnlineShop.Modul1.Controllers
                     Ocjena = s.OcjenaBrojcano,
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.DatumKreiranja,
+                   ProdavnicaId=s.ProdavnicaId,
                     Prodavnica = s.Prodavnica.Naziv+" "+s.Prodavnica.Adresa,
                     KupacId = s.KupacId,
+                    
+                   
                 })
                 .AsQueryable();
 
@@ -72,6 +75,18 @@ namespace OnlineShop.Modul1.Controllers
             return Ok(data.ToList());
         }
         [HttpGet("{id}")]
+        public ActionResult GetProsjek(int id)
+        {
+            var data=_dbContext.Ocjena
+                .Where(o => o.ProdavnicaId == id)
+                .Average(S=>S.OcjenaBrojcano);
+
+
+
+            return Ok(data);
+        }
+
+            [HttpGet("{id}")]
         public ActionResult GetById(int id)
         {
             var data = _dbContext.Ocjena

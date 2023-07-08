@@ -71,6 +71,7 @@ export const firebaseConfig = {
 
 
 @NgModule({
+
   declarations: [
     AppComponent,
     FaqComponent,
@@ -187,6 +188,7 @@ export const firebaseConfig = {
     AutorizacijaLoginProvjera,
     DatePipe
   ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -33,7 +33,7 @@ export class FavoritiComponent implements OnInit {
   totalCount: any;
   totalPages: any;
   colors: any[]=[];
-
+/*
   getColors() {
     const url = `/api/Boja/boja?page=${this.page}&pageSize=${this.pageSize}`;
     this.httpKlijent.get<any>(MojConfig.adresa_servera+url).subscribe(data => {
@@ -41,7 +41,8 @@ export class FavoritiComponent implements OnInit {
       this.totalPages = data.totalPages;
       this.colors = data.colors;
     });
-  }
+  }*/
+  /*
   getPageNumbers(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
@@ -70,7 +71,7 @@ export class FavoritiComponent implements OnInit {
   }
 
 
-
+*/
 
 
 
@@ -94,7 +95,7 @@ export class FavoritiComponent implements OnInit {
     this.fetchFavoriti();
 
 
-    this.getColors();
+   // this.getColors();
   }
 
   getFavoriti() {

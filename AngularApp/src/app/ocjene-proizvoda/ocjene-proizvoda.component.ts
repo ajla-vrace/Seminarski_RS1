@@ -15,7 +15,7 @@ export class OcjeneProizvodaComponent implements OnInit {
    proizvod_id: any;
    novaZvjezdica: any;
    kupac_id:any=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
-   zvjezdicePodaci: any;
+
 
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();

@@ -409,4 +409,15 @@ export class SpecPonComponent implements OnInit {
     else return false;
   }
 
+  SaljiMailSpecijalnePonude() {
+    this.httpKlijent.post(MojConfig.adresa_servera + "/api/EmailPretplata/PosaljiSpecijalnePonude", {},
+      { responseType: 'text' })
+      .subscribe((povratnaVrijednost: any) => {
+        console.log("Uspješno poslani mailovi.", povratnaVrijednost);
+        // Handle success
+      }, error => {
+        console.error("Greška pri slanju mailova:", error);
+        // Handle error
+      });
+  }
 }

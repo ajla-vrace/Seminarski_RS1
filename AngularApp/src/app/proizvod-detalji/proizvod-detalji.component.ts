@@ -20,7 +20,6 @@ export class ProizvodDetaljiComponent implements OnInit {
    korpePodaci: any;
    korpaID: any;
    korpaStavkePodaci: any;
-   novaKorpa: any;
    korpastavkaId: any;
    korpaStavka: any;
    vecDodanFavorit: any=false;
@@ -28,13 +27,8 @@ export class ProizvodDetaljiComponent implements OnInit {
    dodanoUFavorite: any=false;
   odabranavelicina: any;
    zvjezdicePodaci: any;
-   novaZvjezdica: any;
    prikaziDiv:any=false;
-   SveKorpePodaci: any;
-   korpaPodatak: any;
-   korpaStavkePodaciSve: any;
    prikaziDivKorpa: any=false;
-   dodanFav:any=false;
    imeKorpe: any;
    KorpePodaciIme:any;
 
@@ -63,12 +57,7 @@ export class ProizvodDetaljiComponent implements OnInit {
       this.favoritiPodaci = x;
     });
   }
-  fetchZvjezdice() :void
-  {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/Ocjena/GetAll", MojConfig.http_opcije()).subscribe(x=>{
-      this.zvjezdicePodaci = x;
-    });
-  }
+
 
   fetchKorpe() :void
   {
@@ -129,7 +118,6 @@ this.fetchKorpaIme();
   }
 */
    dodanoUKorpu: any;
-  nadjen: any=false;
    nasaoKorpu: any=false;
   vecDodanUKorpu: any=false;
   isFavorit: any=false;
@@ -138,11 +126,6 @@ this.fetchKorpaIme();
 
 
 
-  getKorpe(){
-    if (this.korpePodaci == null)
-      return [];
-    return this.korpePodaci;
-  }
 
 
 
@@ -157,9 +140,7 @@ this.fetchKorpaIme();
   }
 
 
-  traziKorpu() {
 
-  }
   dodajUKorpu(p:number,velicina:any) {
 this.fetchKorpe();
     for (let k of this.korpePodaci) {
@@ -264,12 +245,7 @@ console.log("korpa stavka je : "+this.korpaStavka.id+" "+"za korpu "+this.korpaS
     this.vecDodanUKorpu=false;
   }
 
-  prikazDiva() {
-    this.prikaziDiv=true;
-  }
-  prikazDivakorpa() {
-    this.prikaziDivKorpa=true;
-  }
+
 
   vidiFavorite() {
     this.router.navigate(['favoriti']);

@@ -252,7 +252,69 @@ li{
   left: 0;
 }
 */
+#input-pretraga{
+  width: 100%;
+}
+#nemaProizvoda{
+  width: 100%;
+  /*background-color: red;*/
+  padding: 10% 20%;
+  text-align: center;
+}
 
+#slika-vjesalica{
+  width: 20%;
+
+}
+#SpecijalnePonudeDivVeliki{
+
+  width: 88%;
+  margin: 2% 6%;
+  display: grid;
+  grid-template-columns: 24% 24% 24% 24%;
+  padding: 1%;
+}
+#jednaSpecijalnaPonuda{
+  background-color: khaki;
+  width: 50%;
+  height: auto;
+
+  border: 2px solid red;
+
+}
+.slikaSpecijalnaPonuda{
+  width: 100%;
+
+
+}
+
+#popust{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.0);
+  color: white;
+  padding: 5px;
+  font-size: 14px;
+  color: red;
+}
+.tekstSpecijalnaPonuda{
+  width: 100%;
+  padding: 2%;
+  text-align: center;
+}
+
+.specijalnePonudeDugme{
+  background-color: white;
+  border: 1px solid black;
+  padding: 1%;
+  width: 24%;
+  margin: 1% 40%;
+}
+.specijalnePonudeDugme:hover{
+  background-color: black;
+  color: white;
+}
 
 
 

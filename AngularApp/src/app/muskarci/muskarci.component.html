@@ -2,6 +2,24 @@
 
 
 
+<button *ngIf="brojac%2!=0" (click)="specijalneMuskarci=true;brojacProvjera()" class="specijalnePonudeDugme">Pogledajte specijalne ponude muskarci</button>
+<button *ngIf="brojac%2==0;" (click)="specijalneMuskarci=false;brojacProvjera()" class="specijalnePonudeDugme">Skloni specijalne ponude muskarci</button>
+
+<div *ngIf="specijalneMuskarci==true;" id="SpecijalnePonudeDivVeliki">
+  <div *ngFor="let sp of prikaziSpecijalnePonude()" class="jednaSpecijalnaPonuda" (click)="prikaziDetaljeProizvoda(sp.proizvod.id)"
+       style="cursor: pointer;border:3px solid red;margin-right: 2%">
+    <div class="slikaSpecijalnaPonuda">
+      <img class="slika" src="{{get_slika_base64_FS(sp.proizvod)}}" (click)="kliknuoGetSlika=true"
+           style="border-bottom: 1px solid black;">
+      <!-- <div id="popust"> <h4 >{{sp.popust.opis*100}}%</h4></div>-->
+    </div>
+    <div class="tekstSpecijalnaPonuda" >
+      <h5>{{sp.proizvod.naziv}}</h5>
+      <h6 style="text-decoration: line-through;">{{sp.proizvod.cijena}} KM</h6>
+      <h6 style="color: red;">{{sp.proizvod.cijena-(sp.popust.opis*sp.proizvod.cijena)}} KM</h6>
+    </div>
+  </div>
+</div>
 
 
 
@@ -76,7 +94,10 @@
   <div id="filteriSvi">
     <button (click)="ponistiFiltere()" id="ponistiFiltere">Poništi filtere</button>
     <p>Pretraga po nazivu:</p>
-    <input type="text" [(ngModel)]="pretragaPoNazivu" (input)="getMProizvodi()" placeholder="Upisite naziv...">
+
+    <input type="text" [(ngModel)]="pretragaPoNazivu" (input)="getMProizvodi()" placeholder="Upisite naziv..."
+    id="input-pretraga">
+
 
     <div  id="divBojeFilter">
       <p>Odaberite boju:</p>
@@ -131,8 +152,14 @@
 
 
 
+  <div id="nemaProizvoda" *ngIf="proizvodiMPodaci?.length==0">
+    <img src="assets/slike/clothes-hanger.png" id="slika-vjesalica">
+    <h3>Nema proizvoda koji su zadovoljili postavljene filtere.</h3>
+  </div>
 
-  <div id="MuskarciProizvodi">
+
+  <div id="MuskarciProizvodi" *ngIf="proizvodiMPodaci.length>0">
+
     <div *ngFor="let p of getMProizvodi()" class="proizvodJedan" (click)="prikaziDetaljeProizvoda(p.id)" style="cursor: pointer;">
 
         <div class="zaSliku">

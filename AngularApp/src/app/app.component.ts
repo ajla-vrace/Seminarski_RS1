@@ -96,9 +96,48 @@ export class AppComponent implements OnInit{
 
 
 
+  email: string = '';
+  isSubscribed: boolean = false;
+  errorMessage: string = '';
+  successMessage:string='';
+  urlNewsletter='https://localhost:7043/api/EmailPretplata/Pretplata?email=';
+   encodedEmail = encodeURIComponent(this.email);
+  submit_newsletter() {
+    if (this.email) {
 
-  submit_newsletter() {}
+      this.httpKlijent.post(this.urlNewsletter+this.email, {}, { responseType: 'text' }).subscribe(
+        () => {
+          this.isSubscribed = true;
+          this.errorMessage = '';
+          this.successMessage = 'Uspješna pretplata.';
+console.log("Uspjesan jedan mail");
+        },
+        (error) => {
+          this.isSubscribed = false;
+          this.errorMessage = error.error?.message || 'Neuspješno.';
+console.log("nesupjesna pretplata.");
+        }
+      );
+    }
+    setTimeout( ()=>{
+     this.email='';
+    }, 400);
+  }
 
+  subscribe() {/*
+    if (this.email) {
+      this.httpKlijent.post<any>(this.urlNewsletter, { email: this.email }).subscribe(
+        response => {
+          this.isSubscribed = true;
+          this.errorMessage = '';
+        },
+        error => {
+          this.isSubscribed = false;
+          this.errorMessage = error.error;
+        }
+      );
+    }*/
+  }
 
 
     odjaviSe()
@@ -148,6 +187,34 @@ export class AppComponent implements OnInit{
 
       this.update_varijable();
     });
+  }
+
+
+  posalji_specijalne_ponude_mail() {
+    this.httpKlijent.post(MojConfig.adresa_servera + "/api/EmailPretplata/PosaljiSpecijalnePonude", {},
+      { responseType: 'text' })
+      .subscribe((povratnaVrijednost: any) => {
+        console.log("Uspješno poslani mailovi.", povratnaVrijednost);
+        // Handle success
+      }, error => {
+        console.error("Greška pri slanju mailova:", error);
+        // Handle error
+      });
+  }
+
+  posalji_Specijalne_ponude_mail() {
+    const url = 'https://localhost:7043/api/EmailPretplata/PosaljiSpecijalnePonude'; // Replace with your backend API endpoint
+
+    this.httpKlijent.post(url, {}).subscribe(
+      response => {
+        console.log('Newsletter sent successfully');
+        // Handle success, e.g., show a success message
+      },
+      error => {
+        console.error('Error sending newsletter:', error);
+        // Handle error, e.g., show an error message
+      }
+    );
   }
 
 

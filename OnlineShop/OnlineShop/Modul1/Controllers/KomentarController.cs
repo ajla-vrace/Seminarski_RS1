@@ -53,9 +53,12 @@ namespace OnlineShop.Modul1.Controllers
                     Id=s.Id,
                     Opis = s.Opis,
                     Kupac = s.Kupac.Username,
+
                     DatumKreiranja=s.DatumKreiranja,
+                    ProdavnicaId=s.ProdavnicaId,
                     Prodavnica=s.Prodavnica.Naziv,
-                    
+                    ProdavnicaAdresa=s.Prodavnica.Adresa
+
                 })
                 .AsQueryable();
 

@@ -1,57 +1,106 @@
 <app-nav-kupac></app-nav-kupac>
 <h3 style="margin: 2%">Prodavnice</h3>
-<h5>Pogledajte sve naše poslovnice.</h5>
 
-KUPAC ID: {{kupac_id}}
+
+<div id="recenzijeProdavnice" style="display: block;">
+  <h3>Dodajte komentar i/ili ocjenu prodavnice.</h3>
+  <h5>Odaberite prodavnicu: </h5>
+
+  <select class="custom-select mb-3" [(ngModel)]="prodavnicaId" (click)="ispisi()" value="prodavnicePodaci.length">
+    <option [value]="0" disabled selected>Odaberite</option>
+    <option *ngFor="let x of prodavnicePodaci" [value]="x.id" >{{x.adresa}}</option>
+  </select>
+
+  <br>
+
+<br>
+
+  <h5>Odaberite ocjenu:</h5>
+  <button class="ocjena" (click)="postavi_ocjenu(prodavnicaId,1)" [disabled]="prodavnicaId==0">1</button>
+  <button class="ocjena" (click)="postavi_ocjenu(prodavnicaId,2)" [disabled]="prodavnicaId==0">2</button>
+  <button class="ocjena" (click)="postavi_ocjenu(prodavnicaId,3)" [disabled]="prodavnicaId==0">3</button>
+  <button class="ocjena" (click)="postavi_ocjenu(prodavnicaId,4)" [disabled]="prodavnicaId==0">4</button>
+  <button class="ocjena" (click)="postavi_ocjenu(prodavnicaId,5)" [disabled]="prodavnicaId==0">5</button>
+  <h5 style="display: block;">Upišite komentar:</h5>
+  <textarea #opis_input id="textarea-komentar"  name="areaa" ng-minlenght="1" required ></textarea>
+  <button id="postavi-komentar" (click)="postavi_komentar(opis_input,prodavnicaId)" >Postavite komentar</button>
+
+</div>
+
 
 <div id="prodavnice">
   <div *ngFor="let p of getProdavnice()" class="mali_prod">
     <h3>{{p.naziv}}</h3>
     <h3>{{p.ocjena}}</h3>
     <h5>{{p.adresa}}</h5>
-    <h5>{{p.brojTelefona}}</h5>
+   <!-- <h5>{{p.brojTelefona}}</h5>-->
+    <h5><img src="assets/slike/star_yellow.png" style="width: 6%;margin-bottom: 1%;" alt="slika_zvjezda"> {{ getProsjekByProdavnicaId(p.id) | number:'1.2-2' }}</h5>
 
-  <br>
+  </div></div>
 
 
-    <div style="margin: 12%" >
-      <label style="text-align: center;" >Ocijenite prodavnicu</label>
-      <br>
 
-      <label class="ocjena" (click)="postavi_ocjenu(p.id,1)">1</label>
-      <label class="ocjena" (click)="postavi_ocjenu(p.id,2)">2</label>
-      <label class="ocjena" (click)="postavi_ocjenu(p.id,3)">3</label>
-      <label class="ocjena" (click)="postavi_ocjenu(p.id,4)">4</label>
-      <label class="ocjena" (click)="postavi_ocjenu(p.id,5)">5</label>
-</div>
-      <div style="background-color: red; width: 100%; margin:0 5%;">
-        <h6 style="text-align: center">Dodajte komentar</h6>
-        <form id="komm" style="width: 100%">
-          <textarea #opis_input   name="areaa" style="width: 100%" ng-minlenght="1" required ></textarea>
-          <br>
-          <button  id="postaviKomentar" (click)="postavi_komentar(opis_input,p.id)" >Postavi komentar</button>
+<br>
 
-        </form>
-      </div>
-  </div>
+    <h2>Pogledajte komentare naših korisnika.</h2>
+
+<div id="filterPoProdavnici">
+  <select id="filterPoProdavniciKomentari" class="custom-select mb-3" [(ngModel)]="prodavnicaIdFilter" (click)="ispisi()" value="prodavnicePodaci.length">
+    <option [value]="0"  selected>Sve</option>
+    <option *ngFor="let x of prodavnicePodaci" [value]="x.id" >{{x.naziv}}  - {{x.adresa}}</option>
+  </select>
 </div>
 
-<h2>Pogledajte komentare naših korisnika.</h2>
 
 
-<div id="zakomm">
+
+
+
+<div id="zakomm" *ngIf="komentariPodaci?.length>0">
   <div *ngFor="let s of pregledKomentara()" class="komentari">
-
     <label>Kupac: {{s.kupac}}</label>
     <br>
     <h5>{{s.opis}}</h5>
     <br>
-    <label>Prodavnica: {{s.prodavnica}}</label>
+    <label>Prodavnica: {{s.prodavnica}} - {{s.prodavnicaAdresa}}</label>
 
   </div>
 </div>
 
+<div id="zakomm1" *ngIf="komentariPodaci?.length==0">
+  <h4>Nema rezultata pretrage.</h4>
+</div>
 
 
+<div *ngIf="uspjesnaOcjena==true" id="probaDiva1" >
 
+  <div id="poruka1">
+    <img src="assets/slike/plavaTacnica.png" style="width: 65px;" alt="slika_plavaTacnica">
+    <h5 style="margin: 3% 0%">Uspješno dodana ocjena.</h5>
+    <button id="dugme1" (click)="skloniDiv()" class="dugmeDelete" >
+      <label style="font-size: larger;" class="labelDugme">Nazad</label></button>
 
+  </div>
+</div>
+
+<div *ngIf="uspjesanKomentar==true" id="probaDiva" >
+
+  <div id="poruka">
+    <img src="assets/slike/plavaTacnica.png" style="width: 65px;" alt="slika_plavaTacnica">
+    <h5 style="margin: 3% 0%">Uspjesno dodan komentar.</h5>
+    <button id="dugme11" (click)="skloniDiv()" class="dugmeDelete" >
+      <label style="font-size: larger;" class="labelDugme">Nazad</label></button>
+
+  </div>
+</div>
+
+<div *ngIf="faliPodataka==true" id="probaDiva3" >
+
+  <div id="poruka3">
+    <img src="assets/slike/warning.png" style="width: 65px;" alt="slika_warning">
+    <h5 style="margin: 3% 0%">Provjerite jeste li odabrali prodavnicu i popunili područje predviđeno za komentar.</h5>
+    <button id="dugme112" (click)="skloniDiv()" class="dugmeDelete" >
+      <label style="font-size: larger;" class="labelDugme">Nazad</label></button>
+
+  </div>
+</div>

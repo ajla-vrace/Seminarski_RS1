@@ -11,7 +11,6 @@ namespace OnlineShop.Data
         public DbSet<Odjel> Odjel { get; set; }
         public DbSet<Sezona> Sezona { get; set; }
         public DbSet<Kolekcija> Kolekcija { get; set; }
-
         public DbSet<Boja> Boja { get; set; }
         public DbSet<Proizvod> Proizvod { get; set; }
         public DbSet<SpecijalnaPonuda> SpecijalnaPonuda { get; set; }
@@ -37,7 +36,8 @@ namespace OnlineShop.Data
         public DbSet<ProizvodSlika> ProizvodSlika { get; set; }
 
         public DbSet<AutentifikacijaToken> AutentifikacijaToken { get; set; }
-
+        //public DbSet<EmailSubscription> EmailSubscriptions { get; set; }
+        
         public ApplicationDbContext(
             DbContextOptions options) : base(options)
         {

@@ -70,9 +70,9 @@ KUPAC ID: {{kupac_id}}
       <input value=" {{brojTelefona}}" disabled style="display: inline" class="kupacpodaci">
       <img src="assets/slike/edit1.png" id="AddNumber"
            (click)="brojTelPromjena()">
-      <h6>Datum registracije: </h6>
+     <!-- <h6>Datum registracije: </h6>
       <input value=" {{datumRegistracije | date:'dd-MM-yyyy'}}" disabled class="kupacpodaci">
-
+-->
       <h6 *ngIf="isPretplacen==false">Pretplata: Ne </h6>
       <h6 *ngIf="isPretplacen==true">Pretplata: Da</h6>
 

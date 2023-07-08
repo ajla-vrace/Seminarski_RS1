@@ -13,12 +13,10 @@ import {formatDate} from "@angular/common";
   styleUrls: ['./profil-kupac.component.css']
 })
 export class ProfilKupacComponent implements OnInit {
-komm:any=false;
   kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
 kupac_podaci:any;
    komentariPodaci1: any;
   odabranikomentar: any=null;
-   komentariPodaciMoji: any;
    ocjeneProdavnica: any;
    ocjene: any=false;
    ocjeneProdavnicaMoje: any;
@@ -27,8 +25,6 @@ kupac_podaci:any;
   ocjeneProizvodaBool:any=false;
    prikaziDiv: any=false;
   kupac: any;
-   brojTel: any;
-  promjena: any=false;
   promjeniIme: any=false;
   promjeniBroj: any=false;
   promjeniPrezime: any=false;
@@ -47,7 +43,6 @@ kupac_podaci:any;
    prikaziNarudzbe: any=false;
    narudzbeKupcaPodaci: any;
    jeLiPodaci:any=true;
-   jeLiNarudzbe:any=false;
    prikazPodataka: any=false;
   prikazKomentara: any=false;
   PrikazOcjena: any=false;
@@ -109,12 +104,7 @@ this.fetchNarudzbeKupca();
         this.kupciPodaci1=x;
       })
   }
-  fetchKomentari() :void
-  {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/Komentar/GetAll", MojConfig.http_opcije()).subscribe(x=>{
-      this.komentariPodaci1 = x;
-    });
-  }
+
 
   fetchKomentariMoji() :void
   {
@@ -270,9 +260,7 @@ this.odabranikomentar=null;
     alert("Odabrani ocjena je obrisana!");
   }
 
-  prikazDiva() {
-    this.prikaziDiv=true;
-  }
+
 
   skloniDiv() {
     this.prikaziDiv=false;
@@ -466,7 +454,7 @@ isPretplacen:any="";
         this.email=this.kupac_podaci.email;
         this.username=this.kupac_podaci.username;
         this.brojTelefona=this.kupac_podaci.brojTelefona;
-        this.datumRegistracije=formatDate(this.kupac_podaci.datumRegistracije,'dd-MM-yyyy','en-US');
+       /* this.datumRegistracije=formatDate(this.kupac_podaci.datumRegistracije,'dd-MM-yyyy','en-US');*/
         this.isPretplacen=this.kupac_podaci.isPretplacen;
         console.log("get kupca po id: ",this.kupac_podaci);
         //this.slika_kupca_postojeca_fs=x.slika_kupca_postojeca_FS;

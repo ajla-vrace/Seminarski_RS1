@@ -258,8 +258,7 @@ namespace OnlineShop.Modul1.Controllers
             if (x.Id == 0)
             {
                 spp = new SpecijalnaPonudaProizvod();
-                spp.CijenaSaPopustom = cijena - (cijena * popust);
-                spp.OriginalnaCijena = cijena;
+                spp.OriginalnaCijena = MathF.Round(cijena, 2);
                 context.Add(spp);           
             }
             else
@@ -272,7 +271,8 @@ namespace OnlineShop.Modul1.Controllers
             spp.specijalnaPonudaId = x.specijalnaPonudaId;
             spp.proizvodId = x.proizvodId;
             spp.popustId = x.popustId;
-        
+            spp.CijenaSaPopustom = MathF.Round((cijena - (cijena * popust)),2);
+           
             context.SaveChanges();
 
             return Ok();
