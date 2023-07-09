@@ -1,8 +1,7 @@
 using OnlineShop.Data;
 using Microsoft.EntityFrameworkCore;
-
-
-using Microsoft.Extensions.Configuration;
+using OnlineShop.Helper;
+using OnlineShop.Modul3_SignalR;
 using OnlineShop.Helper.AutentifikacijaAutorizacija;
 
 var config = new ConfigurationBuilder()
@@ -15,6 +14,21 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(config.GetConnectionString("db1")));
 
 builder.Services.AddControllers();
+
+
+
+
+
+//signal R
+builder.Services.AddSignalR();
+
+
+
+
+
+
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();   ///zakomentarisala ovu i dodala onu ispod
@@ -39,6 +53,24 @@ app.UseCors(
         .AllowAnyHeader()
         .AllowCredentials()
 ); //This needs to set everything allowed
+
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+
+    endpoints.MapControllers();
+
+
+    endpoints.MapHub<PorukeHub>("/poruka-hub-putanja");
+});
+
+
+
+
+
+
+
 
 
 app.UseHttpsRedirection();

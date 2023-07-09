@@ -242,3 +242,18 @@ padding-top: 2%;
   padding: 10px 0px;
 color: white;
 }
+
+
+
+
+.user-message {
+  color: #980909;
+  font-size: x-large;
+  font-weight: bold;
+  margin: 0% 30%;
+  background-color: #f6d0d4;
+  border-radius: 20px;
+
+  text-align: center;
+  width: 40%;
+}

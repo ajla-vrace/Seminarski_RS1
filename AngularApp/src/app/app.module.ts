@@ -59,6 +59,7 @@ import {MatSliderModule} from "@angular/material/slider";
 import { OtkljucajComponent } from './otkljucaj/otkljucaj.component';
 import {AutorizacijaLoginProvjera} from "./guards/autorizacija-login-provjera.service";
 
+
 export const firebaseConfig = {
   apiKey: "AIzaSyDfrQ_BHWj1HHt4wLaQDO9feLtEF3xKZwc",
   authDomain: "demo2-e3683.firebaseapp.com",
@@ -173,6 +174,8 @@ export const firebaseConfig = {
       {path:'kreiranje-narudzbe', component:KreiranjeNarudzbeComponent},
       {path:'postavke-poruke', component:PostavkePorukeComponent},
       {path:'pretraga', component:PretragaComponent},
+      {path:'specijalne-ponude', component:SpecijalnePonudeComponent},
+
 
       {path:'otkljucaj',component:OtkljucajComponent}
 
@@ -186,9 +189,9 @@ export const firebaseConfig = {
   ],
   providers: [
     AutorizacijaLoginProvjera,
-    DatePipe
+    DatePipe,
   ],
-  
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

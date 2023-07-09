@@ -6,6 +6,8 @@ import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 import {LoginInformacije} from "../helpers/login-informacije";
 import {NgModel} from "@angular/forms";
 import {formatDate} from "@angular/common";
+import {SignalRService} from "../_servisi/SignalRServis";
+
 
 @Component({
   selector: 'app-profil-kupac',
@@ -39,7 +41,7 @@ kupac_podaci:any;
   brojTelefona:any="";
   email:any="";
   username:any="";
-  pretplata:any="";
+
    prikaziNarudzbe: any=false;
    narudzbeKupcaPodaci: any;
    jeLiPodaci:any=true;
@@ -53,10 +55,20 @@ kupac_podaci:any;
 
   slika_objekat:any;
    kupciPodaci1: any;
+notification:any;
+poruka1:any;
+  primljenaPoruka: string = '';
+  receivedMessage: string = '';
+  constructor(private route: ActivatedRoute, private httpKlijent:HttpClient,private router:Router,
+              private signalRService: SignalRService ) {
+    //a.otvoriKanalWebSocket();
+    this.signalRService.porukaReceived$.subscribe((poruka: string) => {
+      this.primljenaPoruka = poruka;
+    });
+  }
 
 
 
-  constructor(private route: ActivatedRoute, private httpKlijent:HttpClient,private router:Router) { }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
   }

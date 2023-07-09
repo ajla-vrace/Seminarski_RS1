@@ -9,7 +9,7 @@
   <div *ngFor="let sp of prikaziSpecijalnePonude()" class="jednaSpecijalnaPonuda" (click)="prikaziDetaljeProizvoda(sp.proizvod.id)"
        style="cursor: pointer;border:3px solid red;margin-right: 2%">
     <div class="slikaSpecijalnaPonuda">
-      <img class="slika" src="{{get_slika_base64_FS(sp.proizvod)}}" (click)="kliknuoGetSlika=true"
+      <img class="slika" src="{{get_slika_base64_FS(sp.proizvod)}}" (click)="kliknuoGetSlika=true" alt="slika_proizvod"
            style="border-bottom: 1px solid black;">
       <!-- <div id="popust"> <h4 >{{sp.popust.opis*100}}%</h4></div>-->
     </div>
@@ -30,37 +30,6 @@
 </div>
 -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-<h4 id="ZenskiOdjelNaslov">Ženski odjel</h4>
-
-<h3 style="margin: 1%">Proizvodi</h3>
-<div *ngIf="loginInfo().isLogiran==true"><label >KUPAC ID: {{loginInfo().autentifikacijaToken.korisnickiNalogId}}</label></div>
--->
 
 <div style="background-color: #ffffff;" id="kategorijeMeni" *ngIf="odabranaKategorija==false;">
 
@@ -138,12 +107,12 @@
 
 
 
-      <!--<button (click)="getZProizvodi()">Osvjezi rezultate</button>-->
+
     </div>
     <div style="display: block">
       <p *ngIf="minPrice>0 && maxPrice==0" class="error_poruka">
         Molimo unesite gornju granicu.</p>
-      <p *ngIf="minPrice > 0 && maxPrice > 0 && minPrice > maxPrice"class="error_poruka">
+      <p *ngIf="minPrice > 0 && maxPrice > 0 && minPrice > maxPrice" class="error_poruka">
         Donja granica treba biti manja od gornje granice.</p>
 
     </div>
@@ -153,17 +122,17 @@
 
 
   <div id="nemaProizvoda" *ngIf="proizvodiMPodaci?.length==0">
-    <img src="assets/slike/clothes-hanger.png" id="slika-vjesalica">
+    <img src="assets/slike/clothes-hanger.png" id="slika-vjesalica" alt="slika_vjesalica">
     <h3>Nema proizvoda koji su zadovoljili postavljene filtere.</h3>
   </div>
 
 
-  <div id="MuskarciProizvodi" *ngIf="proizvodiMPodaci.length>0">
+  <div id="MuskarciProizvodi" *ngIf="proizvodiMPodaci?.length>0">
 
     <div *ngFor="let p of getMProizvodi()" class="proizvodJedan" (click)="prikaziDetaljeProizvoda(p.id)" style="cursor: pointer;">
 
         <div class="zaSliku">
-          <img class="slika" src="{{get_slika_base64_FS(p)}}" (click)="kliknuoGetSlika=true">
+          <img class="slika" src="{{get_slika_base64_FS(p)}}" (click)="kliknuoGetSlika=true" alt="slika_proizvoda">
         </div>
 
         <div class="tekst" >

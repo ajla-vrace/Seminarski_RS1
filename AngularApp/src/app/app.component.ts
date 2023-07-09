@@ -1,10 +1,13 @@
 ﻿import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "./moj-config";
 import {AutentifikacijaHelper} from "./helpers/autentifikacija-helper";
 import {LoginInformacije} from "./helpers/login-informacije";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
+import {SignalRService} from "./_servisi/SignalRServis";
+declare function porukaSuccess(a: string):any;
+declare function porukaError(a: string):any;
 
 @Component({
   selector: 'app-root',
@@ -16,10 +19,14 @@ export class AppComponent implements OnInit{
 
   title = 'AngularApp';
   potvrda: any = false;
-
-  constructor(private router: Router, private httpKlijent: HttpClient,  private afDB:AngularFireDatabase) {
+  primljenaPoruka: string = '';
+  constructor(private router: Router, private httpKlijent: HttpClient,  private afDB:AngularFireDatabase,
+              private signalRService: SignalRService  ) {
     //this.getBrojPosjeta();
+
   }
+
+
 
   reloadPage() {
     window.location.reload()
@@ -139,6 +146,12 @@ console.log("nesupjesna pretplata.");
     }*/
   }
 
+  funkcija(){
+    porukaSuccess("Uspjesno");
+  }
+
+
+
 
     odjaviSe()
 
@@ -216,6 +229,8 @@ console.log("nesupjesna pretplata.");
       }
     );
   }
+
+
 
 
 }

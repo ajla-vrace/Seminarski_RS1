@@ -4,6 +4,8 @@ import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
 import {NgModel} from "@angular/forms";
 import {DatePipe, formatDate} from "@angular/common";
+import {SignalRService} from "../_servisi/SignalRServis";
+
 
 @Component({
   selector: 'app-spec-pon',
@@ -11,8 +13,28 @@ import {DatePipe, formatDate} from "@angular/common";
   styleUrls: ['./spec-pon.component.css']
 })
 export class SpecPonComponent implements OnInit {
+  poruka: string = '';
 
-  constructor(private route:ActivatedRoute, private router:Router, private httpKlijent:HttpClient, private datePipe:DatePipe) { }
+  constructor(private route:ActivatedRoute, private router:Router, private httpKlijent:HttpClient, private datePipe:DatePipe,
+              private signalRService: SignalRService   ) {
+
+
+  }
+
+
+
+  posaljiPoruku(): void {
+    this.poruka="Dodana nova specijalna ponuda.";
+    this.signalRService.posaljiPoruku(this.poruka);
+  }
+
+
+
+
+
+
+
+
 
   trenutniDatum:any=this.datePipe.transform(new Date(),"yyyy-MM-dd");
 
@@ -420,4 +442,7 @@ export class SpecPonComponent implements OnInit {
         // Handle error
       });
   }
+
+
+
 }
