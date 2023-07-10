@@ -7,6 +7,21 @@ import {LoginInformacije} from "../helpers/login-informacije";
 import {NgModel} from "@angular/forms";
 import {formatDate} from "@angular/common";
 import {SignalRService} from "../_servisi/SignalRServis";
+import { Chart, CategoryScale, LinearScale, BarController, BarElement } from 'chart.js';
+
+
+
+
+interface IzvjestajKomentari {
+  mjesec: string;
+  ukupnoKomentara: number;
+}
+
+
+
+
+
+
 
 
 @Component({
@@ -15,6 +30,24 @@ import {SignalRService} from "../_servisi/SignalRServis";
   styleUrls: ['./profil-kupac.component.css']
 })
 export class ProfilKupacComponent implements OnInit {
+
+
+
+
+
+//mjeseci
+  months: string[] = [
+    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+  ];
+
+
+
+
+
+
+
+
+
   kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
 kupac_podaci:any;
    komentariPodaci1: any;
@@ -100,9 +133,44 @@ this.fetchKupci1();
     this.fetchOcjeneProizvodaMoje();
 this.fetchNarudzbeKupca();
 //this.getSlikuKupca();
+
+
+
+
+
+  //this.getPodatkeZaIzvjestaj();
+    //report
+   // this.getIzvjestajKomentari();
+  /*  this.httpKlijent.get<IzvjestajKomentari[]>(MojConfig.adresa_servera+"/Komentar/GetIzvjestajKomentari")
+      .subscribe(data => {
+        this.izvjestaj = data;
+        console.log("Izvjesta podaci: "+this.izvjestaj);
+        console.log(JSON.stringify(this.izvjestaj));
+
+       this.prikaziGrafikon();
+      });
+*/
   }
 
 
+  getPodatkeZaIzvjestaj(){
+    this.httpKlijent.get<IzvjestajKomentari[]>(MojConfig.adresa_servera+"/Komentar/GetIzvjestajKomentari")
+      .subscribe(data => {
+        this.izvjestaj = data;
+        console.log("Izvjesta podaci: "+this.izvjestaj);
+        console.log(JSON.stringify(this.izvjestaj));
+        /*setTimeout( ()=>{
+          this.prikaziGrafikon();
+        }, 5000);*/
+        this.prikaziGrafikon();
+      });
+
+  }
+
+
+
+
+//?odabraniMjesec=7
 
   fetchKupci(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/Kupac/GetAll")
@@ -634,6 +702,83 @@ this.getKupca1();
       });
     this.router.navigateByUrl("/pocetna");
   }
+
+
+
+
+
+  izvjestaj: IzvjestajKomentari[] = [];
+  izvjestajKomentari: IzvjestajKomentari[] = [];
+  isKiliknuto: any=false;
+  getIzvjestajKomentari() {
+    this.httpKlijent.get<IzvjestajKomentari[]>(MojConfig.adresa_servera+"/Komentar/GetIzvjestajKomentari")
+      .subscribe(data => {
+        this.izvjestaj = data;
+        this.prikaziGrafikon();
+      });
+  }
+  prikaziGrafikon() {
+    Chart.register(CategoryScale, LinearScale, BarController, BarElement);
+
+    const canvas = document.getElementById('myChart') as HTMLCanvasElement;
+
+    if (!canvas) {
+      console.error('Element canvas s identifikatorom "myChart" nije pronađen.');
+      return;
+    }
+
+    const ctx = canvas.getContext('2d');
+
+    if (!ctx) {
+      console.error('Kontekst za crtanje nije dostupan.');
+      return;
+    }
+
+    if (!this.izvjestaj || this.izvjestaj.length === 0) {
+      console.warn('Nema dostupnih podataka za prikaz grafikona.');
+      return;
+    }
+
+    const labels = this.izvjestaj.map(item => item.mjesec);
+    labels.sort((a, b) => {
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      return months.indexOf(a) - months.indexOf(b);
+    });
+
+    console.log("labels: ", labels);
+
+    const data = this.izvjestaj.map(item => item.ukupnoKomentara);
+    console.log("data: "+data);
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Broj komentara',
+            data: data,
+            backgroundColor: 'rgba(0,0,0,0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0
+            }
+          }
+        }
+      }
+    });
+  }
+
+
+
+
 
 
 

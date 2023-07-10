@@ -257,3 +257,22 @@ color: white;
   text-align: center;
   width: 40%;
 }
+
+
+
+
+
+
+#prikazIzvjestajaDiv{
+  width: 50%;
+  margin: auto;
+  background-color: #de8fa9;
+  text-align: center;
+  padding: 2%;
+}
+
+
+#myChart {
+  width: 100%;
+
+}

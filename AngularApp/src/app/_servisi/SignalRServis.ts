@@ -18,7 +18,7 @@ export class SignalRService {
 
     this.connection.start()
       .then(() => console.log('SignalR konekcija uspostavljena.'))
-      .catch(err => console.error('Greška prilikom SignalR konekcije: ', err));
+      .catch((err:any) => console.error('Greška prilikom SignalR konekcije: ', err));
 
     this.connection.on('PrimljenaPoruka', (poruka: string) => {
       this.porukaReceivedSubject.next(poruka);

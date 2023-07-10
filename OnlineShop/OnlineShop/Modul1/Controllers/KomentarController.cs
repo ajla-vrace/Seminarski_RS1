@@ -6,6 +6,8 @@ using OnlineShop.Data;
 using OnlineShop.Helper.AutentifikacijaAutorizacija;
 using OnlineShop.Modul1.Models;
 using OnlineShop.Modul1.ViewModels;
+using OnlineShop.Modul3_SignalR;
+using System.Globalization;
 
 namespace OnlineShop.Modul1.Controllers
 {
@@ -219,5 +221,38 @@ namespace OnlineShop.Modul1.Controllers
             return Ok(result);
         }
 
+
+        public class IzvjestajKomentari
+        {
+            public string Mjesec { get; set; }
+            public int UkupnoKomentara { get; set; }
+        }
+
+
+        [HttpGet]
+        public IActionResult GetIzvjestajKomentari()
+        {
+            var komentari = _dbContext.Komentar.ToList(); // Metoda koja dohvaca sve komentare
+
+            var izvjestajKomentari = komentari
+                //.Where(k => k.DatumKreiranja.Month==odabraniMjesec)
+                .GroupBy(k => k.DatumKreiranja.Month)
+                                             .Select(g => new IzvjestajKomentari
+                                             {
+                                                 Mjesec = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key),
+                                                 UkupnoKomentara = g.Count()
+                                             })
+                                             .OrderBy(i => i.Mjesec)
+                                             .ToList();
+
+            return Ok(izvjestajKomentari);
+        }
+
+
+
+
+
+
     }
+
 }
