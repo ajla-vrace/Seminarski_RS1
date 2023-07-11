@@ -7,10 +7,12 @@ import {LoginInformacije} from "../helpers/login-informacije";
 import {NgModel} from "@angular/forms";
 import {formatDate} from "@angular/common";
 import {SignalRService} from "../_servisi/SignalRServis";
-import { Chart, CategoryScale, LinearScale, BarController, BarElement } from 'chart.js';
+import { CategoryScale, LinearScale, BarController, BarElement } from 'chart.js';
+import {Chart} from 'chart.js'
 
 
-
+declare function porukaSuccess(a: string):any;
+declare function porukaError(a: string):any;
 
 interface IzvjestajKomentari {
   mjesec: string;
@@ -36,12 +38,24 @@ export class ProfilKupacComponent implements OnInit {
 
 
 //mjeseci
-  months: string[] = [
-    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+  public months = [
+    { value: "1", label: "January" },
+    { value: "2", label: "February" },
+    { value: "3", label: "Mart" },
+    { value: "4", label: "April" },
+    { value: "5", label: "May" },
+    { value: "6", label: "June" },
+    { value: "7", label: "July" },
+    { value: "8", label: "August" },
+    { value: "9", label: "September" },
+    { value: "10", label: "October" },
+    { value: "11", label: "November" },
+    { value: "12", label: "December" }
+    // Dodajte ostale mjesece
   ];
 
 
-
+  chartInstance!: Chart;
 
 
 
@@ -135,7 +149,7 @@ this.fetchNarudzbeKupca();
 //this.getSlikuKupca();
 
 
-
+//this.getPodatkeZaIzvjestajParametri();
 
 
   //this.getPodatkeZaIzvjestaj();
@@ -151,8 +165,48 @@ this.fetchNarudzbeKupca();
       });
 */
   }
+  mjesec:any='';
 
 
+  promjenaMjeseca1() {
+    if (this.mjesec) {
+      // Ako je odabran mjesec, pozovite API s parametrom
+      this.httpKlijent.get<IzvjestajKomentari[]>
+      (MojConfig.adresa_servera + '/GetIzvjestajKomentariParametar?mjesec=' + this.mjesec)
+        .subscribe(data => {
+          this.izvjestaj = data;
+          this.prikaziGrafikon();
+        });
+    } else {
+      // Ako nije odabran mjesec, pozovite API bez parametra
+      this.httpKlijent.get<IzvjestajKomentari[]>(MojConfig.adresa_servera + '/GetIzvjestajKomentari')
+        .subscribe(data => {
+          this.izvjestaj = data;
+          this.prikaziGrafikon();
+        });
+    }}
+
+
+
+getPodatkeZaIzvjestajParametri(){
+  this.httpKlijent.get<IzvjestajKomentari[]>
+  (MojConfig.adresa_servera+"/Komentar/GetIzvjestajKomentariParametar?mjesec="+this.mjesec)
+    .subscribe(data => {
+      this.izvjestaj = data;
+      console.log("izvjestaj",this.izvjestaj);
+      console.log("mjesec je : "+this.mjesec);
+      this.prikaziGrafikon();
+    });
+}
+  promjenaMjeseca() {
+    // Dohvat podataka iz API-ja nakon promjene mjeseca
+    this.httpKlijent.get<IzvjestajKomentari[]>
+    (MojConfig.adresa_servera+"Komentar/GetIzvjestajKomentariParametri?mjesec="+this.mjesec)
+      .subscribe(data => {
+        this.izvjestaj = data;
+        this.prikaziGrafikon();
+      });
+  }
   getPodatkeZaIzvjestaj(){
     this.httpKlijent.get<IzvjestajKomentari[]>(MojConfig.adresa_servera+"/Komentar/GetIzvjestajKomentari")
       .subscribe(data => {
@@ -717,6 +771,10 @@ this.getKupca1();
         this.prikaziGrafikon();
       });
   }
+
+
+
+
   prikaziGrafikon() {
     Chart.register(CategoryScale, LinearScale, BarController, BarElement);
 
@@ -734,11 +792,26 @@ this.getKupca1();
       return;
     }
 
-    if (!this.izvjestaj || this.izvjestaj.length === 0) {
-      console.warn('Nema dostupnih podataka za prikaz grafikona.');
-      return;
+
+
+
+
+    if (this.chartInstance) {
+      this.chartInstance.destroy();
     }
 
+
+
+
+
+
+
+    if (!this.izvjestaj || this.izvjestaj.length === 0) {
+      console.warn('Nema dostupnih podataka za prikaz grafikona.');
+      porukaError("Nema dostupnih podataka za prikaz grafikona.");
+      return;
+    }
+/*
     const labels = this.izvjestaj.map(item => item.mjesec);
     labels.sort((a, b) => {
       const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -749,7 +822,25 @@ this.getKupca1();
 
     const data = this.izvjestaj.map(item => item.ukupnoKomentara);
     console.log("data: "+data);
-    new Chart(ctx, {
+*/
+
+
+
+    const sortedData = this.izvjestaj.sort((a, b) => {
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      const indexA = months.indexOf(a.mjesec);
+      const indexB = months.indexOf(b.mjesec);
+
+      return indexA - indexB;
+    });
+
+    const labels = sortedData.map(item => item.mjesec);
+    const data = sortedData.map(item => item.ukupnoKomentara);
+
+
+
+
+   this.chartInstance= new Chart(ctx, {
       type: 'bar',
       data: {
         labels: labels,
@@ -772,7 +863,10 @@ this.getKupca1();
             }
           }
         }
+
       }
+
+
     });
   }
 

@@ -32,6 +32,7 @@ export class AdminPocetnaComponent implements OnInit {
     this.getProdavnice();
     this.getStatistika();
     this.getBrojPosjeta();
+    this.getKod();
   }
 
 
@@ -124,4 +125,16 @@ export class AdminPocetnaComponent implements OnInit {
   zaokruziNaDvijeDecimale(broj:any){
     return broj.toFixed(2);
   }
+
+
+  objOtkljucan:any;
+  getKod(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Autentifikacija/kod",MojConfig.http_opcije())
+      .subscribe((x:any)=>{
+        this.objOtkljucan=x;
+        console.log("admin pocetna:",this.objOtkljucan);
+      })
+  }
+
+
 }

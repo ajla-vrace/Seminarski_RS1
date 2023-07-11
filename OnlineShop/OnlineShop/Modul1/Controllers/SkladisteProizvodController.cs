@@ -299,7 +299,6 @@ namespace OnlineShop.Modul1.Controllers
                     velicina=x.velicina,
                     kolicina=x.kolicina
                 }).ToList();
-
             }
             //ako proizvoda nema na skladistu vratit cemo prazan niz
             //ako je kolicina 0 - to se ne prikaziva
@@ -311,7 +310,7 @@ namespace OnlineShop.Modul1.Controllers
         //ova metoda se poziva:
         ///nakon kreiranja narudzbe
         ///nakon otkazivanja narudzbe
-        ///nakon mijenjanja statusa na Odgodjena
+        ///nakon mijenjanja statusa na Ponistena
 
         [HttpGet("update_stanje")]
         public ActionResult UpdateStanjeNaSkladistu(int narudzbaId)
@@ -341,7 +340,7 @@ namespace OnlineShop.Modul1.Controllers
                         }
                     }
                 }
-                else if(nar.Status=="Otkazana" || nar.Status=="Odgodjena" )
+                else if(nar.Status=="Otkazana" || nar.Status=="Ponistena" )
                 {
                     //povecava se stanje na skladistu
                     if(nar.jel_poslana_prouka)

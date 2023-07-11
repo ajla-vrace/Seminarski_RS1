@@ -120,7 +120,7 @@ export class NarudzbeComponent implements OnInit {
         otkazana:x._otkazana,
         preuzeta:x._preuzeta,
         istekla:x._istekla,
-        odgodjena:x._odgodjena
+        ponistena:x._ponistena
       }
     })
   }

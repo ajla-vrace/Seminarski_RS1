@@ -36,15 +36,32 @@ export class AppComponent implements OnInit{
     return AutentifikacijaHelper.getLoginInfo();
   }
 
+  jel_otkljucan:any;
+
+  getKod(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Autentifikacija/kod",MojConfig.http_opcije())
+      .subscribe((x:any)=>{
+        this.jel_otkljucan=x?.jelOtkljucan;
+        console.log("jel otkljucan", this.jel_otkljucan);
+        console.log("app component: ",x);
+        this.pocetna();
+      })
+  }
+
   pocetna() {
     if(this.loginInfo().isLogiran==false)
        this.router.navigate(['/pocetna']);
-    else if(this.loginInfo().autentifikacijaToken.korisnickiNalog.isAdmin)
+    else if(this.loginInfo().autentifikacijaToken.korisnickiNalog.isAdmin && this.jel_otkljucan==false)
+      this.router.navigate(['/prijava']);
+    else if(this.loginInfo().autentifikacijaToken.korisnickiNalog.isAdmin && this.jel_otkljucan==true)
       this.router.navigate(['/admin-pocetna',this.loginInfo().autentifikacijaToken.korisnickiNalog.id]);
     else if(this.loginInfo().autentifikacijaToken.korisnickiNalog.isZaposlenik)
       this.router.navigate(['/zaposlenik-pocetna',this.loginInfo().autentifikacijaToken.korisnickiNalog.id]);
-    else
+    else if(this.loginInfo().autentifikacijaToken.korisnickiNalog.isKupac)
       this.router.navigate(['/kupac-pocetna',this.loginInfo().autentifikacijaToken.korisnickiNalog.id]);
+   // else this.router.navigate(['/prijava']);
+    else  //ovo promijeniti
+      this.router.navigate(['/admin-pocetna',this.loginInfo().autentifikacijaToken.korisnickiNalog.id]);
   }
 
   otvoriFaq() {
@@ -158,6 +175,7 @@ console.log("nesupjesna pretplata.");
     {
       let token=MojConfig.http_opcije();
       // @ts-ignore
+      // @ts-ignore
       AutentifikacijaHelper.setLoginInfo(null);
 
       this.httpKlijent.post(MojConfig.adresa_servera + "/api/Autentifikacija", null, token)
@@ -172,7 +190,8 @@ console.log("nesupjesna pretplata.");
 
 
   ngOnInit(): void {
-    this.pocetna();
+    this.getKod();
+   // this.pocetna();
    // this.getBrojPosjeta();
   }
 

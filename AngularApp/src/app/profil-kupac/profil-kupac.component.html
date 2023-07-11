@@ -13,14 +13,28 @@
 <button (click)="getPodatkeZaIzvjestaj();isKiliknuto=true;" *ngIf="isKiliknuto==false;">ovdje</button>
 
 <button (click)="isKiliknuto=false;" *ngIf="isKiliknuto==true;">ovdje</button>
-<div style="width: 50%;" *ngIf="isKiliknuto==true;" id="prikazIzvjestajaDiv">
+<div style="width: 50%;" *ngIf="isKiliknuto==true;" class="prikazIzvjestajaDiv">
   <h3>Izvještaj o komentarima</h3>
   <canvas id="myChart"></canvas>
 </div>
 
 -->
+<!--
+<div id="zaIzvjestajDiv">
+
+  <button (click)="getPodatkeZaIzvjestaj();isKiliknuto=true;" class="PrikazDugme" *ngIf="isKiliknuto==false">Prikaži izvještaj komentari</button>
+  <button (click)="isKiliknuto=false;mjesec=''" class="PrikazDugme" *ngIf="isKiliknuto==true">Skloni izvještaj komentari</button>
+</div>
 
 
+<div *ngIf="isKiliknuto==true;" class="prikazIzvjestajaDiv">
+  <select [(ngModel)]="mjesec" (change)="getPodatkeZaIzvjestajParametri()" id="selectMjeseci">
+    <option value="">Odaberi mjesec</option>
+    <option *ngFor="let month of months" [value]="month.value">{{ month.label }}</option>
+  </select>
+  <canvas id="myChart" ></canvas>
+</div>
+-->
 
 
 

@@ -7,6 +7,43 @@
   <label class="broj">Ukupno ocjena proizvoda: {{getBrojOcjenaProizvoda()}}</label>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="zaIzvjestajDiv">
+
+  <button (click)="getPodatkeZaIzvjestaj();isKiliknuto=true;" class="PrikazDugme" *ngIf="isKiliknuto==false">Prikaži izvještaj komentari</button>
+  <button (click)="isKiliknuto=false;mjesec=''" class="PrikazDugme" *ngIf="isKiliknuto==true">Skloni izvještaj komentari</button>
+</div>
+
+
+<div *ngIf="isKiliknuto==true;" class="prikazIzvjestajaDiv">
+  <select [(ngModel)]="mjesec" (change)="getPodatkeZaIzvjestajParametri()" id="selectMjeseci">
+    <option value="">Odaberi mjesec</option>
+    <option *ngFor="let month of months" [value]="month.value">{{ month.label }}</option>
+  </select>
+  <canvas id="myChart" ></canvas>
+</div>
+
+
+
+
+
+
+
+
+
+
 <div style="width: 80%; margin: 2% 10%;">
 
 

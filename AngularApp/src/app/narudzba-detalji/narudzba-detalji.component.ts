@@ -71,8 +71,8 @@ export class NarudzbaDetaljiComponent implements OnInit {
     else if(this.narudzbaDetalji?.narudzba?.status=="Istekla"){
       this._poruka=this.porukaIstekla;
     }
-    else if(this.narudzbaDetalji?.narudzba?.status=="Odgodjena"){
-      this._poruka=this.porukaOdgodjena;
+    else if(this.narudzbaDetalji?.narudzba?.status=="Ponistena"){
+      this._poruka=this.porukaPonistena;
     }
     else if(this.narudzbaDetalji?.narudzba?.status=="Preuzeta"){
       this._poruka=this.porukaPreuzeta;
@@ -83,7 +83,7 @@ export class NarudzbaDetaljiComponent implements OnInit {
   porukaNova:any="Poruka u statusu Nova";
   porukaIstekla: any="Vaša narudžba nije preuzeta u predefinisano vrijeme te je stoga istekla.";
   porukaSpremna:any="Vaša narudžba je spremna za preuzeti već od sutra. Rok za preuzimanje naružbe je do narednih 14 dana.";
-  porukaOdgodjena:any="Vaša narudžba je odgođena jer trenutno nemamo zaliha proizvoda kojeg naručujete";
+  porukaPonistena:any="Vaša narudžba je odgođena jer trenutno nemamo zaliha proizvoda kojeg naručujete.";
   porukaPreuzeta:any="Vaša narudžba je preuzeta!";
   _poruka:any="";
   _naslov:any="Obavještenje o narudžbi";
@@ -128,6 +128,7 @@ export class NarudzbaDetaljiComponent implements OnInit {
         this.getBoolVrijednosti();
           alert("Status je uspješno promijenjen!");
         this.obj_status=null;
+        this.getNarudzbaDetalji();
       })
 
   }

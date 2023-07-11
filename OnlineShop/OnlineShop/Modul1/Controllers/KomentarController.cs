@@ -247,11 +247,27 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(izvjestajKomentari);
         }
+        [HttpGet]
+        public IActionResult GetIzvjestajKomentariParametar(int? mjesec)
+        {
+            var komentari = _dbContext.Komentar.ToList();
 
+            if (mjesec.HasValue)
+            {
+                komentari = komentari.Where(k => k.DatumKreiranja.Month == mjesec).ToList();
+            }
 
+            var izvjestajKomentari = komentari
+                .GroupBy(k => k.DatumKreiranja.Month)
+                .Select(g => new IzvjestajKomentari
+                {
+                    Mjesec = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key),
+                    UkupnoKomentara = g.Count()
+                })
+                .ToList();
 
-
-
+            return Ok(izvjestajKomentari);
+        }
 
     }
 

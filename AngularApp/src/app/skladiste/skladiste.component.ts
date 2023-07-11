@@ -15,7 +15,7 @@ export class SkladisteComponent implements OnInit {
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient, private datePipe:DatePipe) { }
 
   zaposlenik_id:any;
-  kolicinaF: number=0;
+  kolicinaF: any;
   nazivProizvoda: string="";
   odabrana_stavka: any;
   s: any;

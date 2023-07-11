@@ -353,7 +353,7 @@ namespace OnlineShop.Modul1.Controllers
             var otkazana = narudzbe.Where(s => s.Status == "Otkazana").Count();
             var preuzeta = narudzbe.Where(s => s.Status == "Preuzeta").Count();
            // var istekla = narudzbe.Where(s => s.Status == "Istekla").Count();
-            var odgodjena = narudzbe.Where(s => s.Status == "Odgodjena").Count();
+            var ponistena = narudzbe.Where(s => s.Status == "Ponistena").Count();
             return Ok(new
             {
                 _nova = nova,
@@ -361,7 +361,7 @@ namespace OnlineShop.Modul1.Controllers
                 _otkazana = otkazana,
                 _preuzeta = preuzeta,
                // _istekla = istekla,
-                _odgodjena = odgodjena
+                _ponistena = ponistena
             });
         }
 

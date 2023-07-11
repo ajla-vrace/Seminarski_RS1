@@ -17,6 +17,7 @@ export class OtkljucajComponent implements OnInit {
 
   code:any="";
   ispravan_kod:any="";
+  jel_otkljucan:any;
   loginId:any=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.id;
 
   ngOnInit(): void {
@@ -27,6 +28,7 @@ export class OtkljucajComponent implements OnInit {
     this.httpClient.get(MojConfig.adresa_servera+"/api/Autentifikacija/kod",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.ispravan_kod=x?.code;
+        this.jel_otkljucan=x?.jelOtkljucan;
         console.log(this.ispravan_kod, " ", x);
       })
   }
@@ -35,7 +37,8 @@ export class OtkljucajComponent implements OnInit {
     if(this.ispravan_kod==this.code) {
       this.httpClient.get(MojConfig.adresa_servera + "/api/Autentifikacija/" + this.code, MojConfig.http_opcije())
         .subscribe((x: any) => {
-        this.route.navigateByUrl("/admin-pocetna/" + this.loginId);
+          this.getKod();
+          this.route.navigateByUrl("/admin-pocetna/" + this.loginId);
       })
     }
     else{
@@ -44,6 +47,7 @@ export class OtkljucajComponent implements OnInit {
       //this.route.navigate(["/otkljucaj"]);
     }
 
+    //treba i za jel_otkljucan=false
 
   }
 

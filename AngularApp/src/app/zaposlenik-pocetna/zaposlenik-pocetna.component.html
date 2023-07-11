@@ -148,7 +148,7 @@
   <br>
 
 
-  <div class="slike">
+  <div class="slike" *ngIf="proizvodi_bezkolicine?.length>0">
 
     <div class="proizvod-div" *ngFor="let p of proizvodi_bezkolicine | paginate:
    {
@@ -165,9 +165,14 @@
   </div>
 
   <br>
-  <pagination-controls id="pagination3" class="text-center my-pagination" (pageChange)="_page3=$event"></pagination-controls>
+  <pagination-controls *ngIf="proizvodi_bezkolicine?.length>0" id="pagination3" class="text-center my-pagination" (pageChange)="_page3=$event"></pagination-controls>
+
+  <div class="svi_dodani" *ngIf="proizvodi_bezkolicine?.length==0">
+    Svi proizvodi su dodani na skladište!
+  </div>
 
   <br><br>
+
 
 </div>
 

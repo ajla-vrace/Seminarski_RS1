@@ -14,7 +14,7 @@ img{
   height: 100%;
 }
 
-.h3-porukaNarudzbe, .h5-porukaNajmanjaKolicina, .h5-porukaPosljednjiProizvodi{
+.h3-porukaNarudzbe, .h5-porukaNajmanjaKolicina, .h5-porukaPosljednjiProizvodi, .svi_dodani{
   width:100%;
   text-align: center;
 }
