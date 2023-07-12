@@ -43,7 +43,7 @@ namespace OnlineShop.Helper.AutentifikacijaAutorizacija
 
                 if (loginInfo.korisnickiNalog.isAdmin!=null && _admin)
                 {
-                    if (loginInfo.autentifikacijaToken==null || !loginInfo.autentifikacijaToken.jel_otkljucan)
+                    if (loginInfo.korisnickiNalog.isAdmin==true && (loginInfo.autentifikacijaToken==null || !loginInfo.autentifikacijaToken.jel_otkljucan))
                     {
                         filterContext.Result = new UnauthorizedObjectResult("Korisnik nije otkljucan, provjerite email.");
                         return;

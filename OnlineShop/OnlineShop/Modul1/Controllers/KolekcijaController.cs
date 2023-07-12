@@ -43,6 +43,24 @@ namespace OnlineShop.Modul1.Controllers
             }).ToList().AsQueryable().OrderByDescending(x=>x.Id);
         }
 
+        [HttpGet("aktivna")]
+        //[Autorizacija(Kupac:false,Zaposlenik:false, Admin:true)]
+        public ActionResult GetAktivne()
+        {
+            var data= context.Kolekcija
+                .Where(k=>k.Aktivna!=false)
+                .Select(x => new 
+            {
+                Id = x.Id,
+                Naziv = x.Naziv,
+                Godina = x.Godina,
+                sezonaId = x.sezonaId,
+                sezonaOpis = x.sezona.Naziv,
+                aktivna = x.Aktivna
+            }).ToList().OrderByDescending(x => x.Id);
+            return Ok(data);
+        }
+
         [HttpGet("kolekcijaID")]
       //  [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public IQueryable<KolekcijaVM> GetKolekcijaById(int kolekcija_id)
@@ -100,25 +118,34 @@ namespace OnlineShop.Modul1.Controllers
                 foreach (var p in proizvodi)
                 {
 
-                    var skladisteProizvodi = context.SkladisteProizvod.Where(x => x.proizvodId == p.Id).ToList();
+                    //    var skladisteProizvodi = context.SkladisteProizvod.Where(x => x.proizvodId == p.Id).ToList();
 
-                    foreach (var sp in skladisteProizvodi)
+                    //    foreach (var sp in skladisteProizvodi)
+                    //    {
+                    //        context.Remove(sp);
+                    //        context.SaveChanges();
+                    //    }
+
+                    //    var specijalnaPonudaProizvodi = context.SpecijalnaPonudaProizvod.Where(x => x.proizvodId == p.Id).ToList();
+
+                    //    foreach (var spp in specijalnaPonudaProizvodi)
+                    //    {
+                    //        context.Remove(spp);
+                    //        context.SaveChanges();
+                    //    }
+
+
+                    //    context.Remove(p);
+                    //    context.SaveChanges();
+
+                    var proizvod = context.Proizvod.Find(p.Id);
+                    if (proizvod != null)
                     {
-                        context.Remove(sp);
+                        proizvod.kolekcijaId = null;
+                      
+                        context.Update(proizvod);
                         context.SaveChanges();
                     }
-
-                    var specijalnaPonudaProizvodi = context.SpecijalnaPonudaProizvod.Where(x => x.proizvodId == p.Id).ToList();
-
-                    foreach (var spp in specijalnaPonudaProizvodi)
-                    {
-                        context.Remove(spp);
-                        context.SaveChanges();
-                    }
-
-
-                    context.Remove(p);
-                    context.SaveChanges();
                 }
             }
 

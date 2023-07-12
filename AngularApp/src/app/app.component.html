@@ -1,7 +1,14 @@
+
+
+
+
+
+
 <div   style="display:inline;width: 100%">
   <h2 class="naziv-prod"  (click)="pocetna()">Luna</h2>
+
   <div  style="display: inline; float: right; padding-right: 1%;">
-    <p (click)="odjaviSe()"> ODJAVI SE</p>
+  <!--  <p (click)="odjaviSe()"> ODJAVI SE</p>-->
     <a href="https://www.facebook.com/mango.com/"><img src="assets/slike/fb___.png" class="gore"></a>
     <a href="https://www.instagram.com/mango/"><img src="assets/slike/ig.png" class="gore"></a>
     <img src="assets/slike/faq1.png" (click)="otvoriFaq()" class="gore" title="FAQ">
@@ -13,40 +20,43 @@
 
   <app-neregistrovan *ngIf="loginInfo().isLogiran==false"></app-neregistrovan>
 
+
+
+
 <router-outlet></router-outlet>
+
+
+
+
 <footer>
+
   <div id="glavnidivfooter" >
-    <div style="display: inline">
-      <h6>Adresa: Ulica 12</h6>
-      <h6>Email: info@luna.com</h6>
-      <h6>Broj telefona: 123 456 789 </h6>
+    <div style="display: inline;">
+      <h6 class="informacije">Adresa: Ulica 12</h6>
+      <h6 class="informacije">Email: info@luna.com</h6>
+      <h6 class="informacije">Broj telefona: 123 456 789 </h6>
     </div>
 
     <div style="display: inline">
-      <h6 (click)="prikaziKontakt()">O nama</h6>
-      <h6 (click)="prikaziPravila()">Pravila privatnosti</h6>
-      <h6 (click)="prikaziProdavnice()">Prodavnice</h6>
+      <h6  class="ufooteru" (click)="prikaziKontakt()">O nama</h6>
+      <h6 class="ufooteru" (click)="prikaziPravila()">Pravila privatnosti</h6>
+      <h6 class="ufooteru" (click)="prikaziProdavnice()">Prodavnice</h6>
     </div>
     <div>
       <h6>Pratitie nas na</h6>
       <a href="https://www.facebook.com/mango.com/" class="drustvenemreze">Facebook</a>
-
       <a href="https://www.instagram.com/mango/" class="drustvenemreze">Instagram</a>
-
       <a href="https://www.tiktok.com/@mango" class="drustvenemreze">Tik Tok</a>
     </div>
+
     <div>
       <h6>Pretplatite se na newsletter</h6>
-
-        <input type="text" id="newsletter"  style="width: 100%" placeholder="Unesite vasu email adresu"><br><br>
-        <input type="submit" value="Submit" style="background-color: darkslateblue; color: white" (click)="submit_newsletter()">
-
-
-
+      <input type="text" id="newsletter1"  style="width: 100%" placeholder="Unesite vasu email adresu" [(ngModel)]="email"><br><br>
+     <!-- <p *ngIf="isSubscribed">Uspjesno</p>
+      <p *ngIf="errorMessage">Neuspjesno.</p>-->
+      <input type="submit" value="Submit" style="background-color: darkslateblue; color: white" (click)="submit_newsletter()">
     </div>
-
   </div>
-
 
 </footer>
 

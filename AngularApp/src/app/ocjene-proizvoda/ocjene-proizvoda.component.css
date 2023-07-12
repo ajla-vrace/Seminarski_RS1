@@ -4,11 +4,12 @@
   padding: 2%;
   margin: 2% 17%;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 25% 25% 25% 25%;
 }
 #jednaOcjenaProizvoda{
  border: 1px solid grey;
- margin: 1% 2%;
+ margin: 2% 5%;
+  width: 100%;
 }
 #ocjeniProizvod{
   width: 65%;
@@ -82,4 +83,19 @@ a:checked{
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
   color: #c59b08;
+}
+#nemaZvjezdica{
+
+  width: 80%;
+  margin: 5% 10%;
+  padding: 5%;
+  background-color: #95e4ff;
+  text-align: center;
+  font-size: x-large;
+}
+#naslovOcjene{
+  font-size: medium;
+  display: block;
+  width: max-content;
+  margin: 2% 10%;
 }

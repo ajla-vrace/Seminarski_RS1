@@ -15,7 +15,7 @@ export class SkladisteComponent implements OnInit {
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient, private datePipe:DatePipe) { }
 
   zaposlenik_id:any;
-  kolicinaF: number=0;
+  kolicinaF: any;
   nazivProizvoda: string="";
   odabrana_stavka: any;
   s: any;
@@ -42,6 +42,7 @@ export class SkladisteComponent implements OnInit {
       this.zaposlenik_id=+s["id"];
 
       this.getProizvodi();
+      this.getProizvodRastuci();
       this.getSkladista();
      // this.getSkladisteProizvod();
       this.getSkladisteProizvod_k_p_opadajuci();
@@ -130,7 +131,7 @@ export class SkladisteComponent implements OnInit {
   }
 
   getProizvodi(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod",MojConfig.http_opcije())
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/naziv_asc",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.p=x;
         if(this.kliknuoEdit==false && this.odabrana_stavka!=null){

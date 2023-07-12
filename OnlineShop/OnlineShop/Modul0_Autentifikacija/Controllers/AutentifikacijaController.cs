@@ -55,6 +55,27 @@ namespace OnlineShop.Modul0_Autentifikacija.Controllers
             return BadRequest("token je null");
         }
 
+        //ova metoda mi ne treba
+        [HttpGet("zakljucaj")]
+        public ActionResult Zakljucaj()
+        {
+            //var korisnickiNalog = HttpContext.GetLoginInfo().korisnickiNalog;
+
+            //if (korisnickiNalog == null)
+            //{
+            //    return BadRequest("korisnik nije logiran.");
+            //}
+
+            var token = _dbContext.AutentifikacijaToken.FirstOrDefault(x => x.KorisnickiNalogId == 1);
+
+            if (token != null)
+            {
+                token.jel_otkljucan = false;
+                _dbContext.SaveChanges();
+                return Ok();
+            }
+            return BadRequest("token je null");
+        }
 
         [HttpPost("x")]
         public ActionResult<LoginInformacije> Login([FromBody] LoginVM x)

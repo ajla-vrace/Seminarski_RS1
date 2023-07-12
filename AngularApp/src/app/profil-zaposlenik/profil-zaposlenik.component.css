@@ -93,10 +93,13 @@ h5{
 }
 
 .odjava{
-  width: 90%;
+  width: 18%;
   margin:auto;
   display: flex;
   justify-content: flex-end;
+  position: absolute;
+  top:70%;
+  right:5%;
 }
 
 .btn-odjava{
@@ -104,6 +107,7 @@ h5{
   border: groove;
   background-color: rgba(255,128,99,0.68);
   border-radius: 10px;
+  width:100%;
 }
 
 .btn-odjava:hover{

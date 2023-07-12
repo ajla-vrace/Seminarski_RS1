@@ -67,6 +67,21 @@
 <br>
 
 <div class="tabela1">
+<button (click)="SaljiMailSpecijalnePonude()" class="dugmeSaljiMail" style="background: transparent; padding: 1%; border-radius: 20px; margin-right: 2%;">Obavijesti korisnike mailom</button>
+  <button (click)="posaljiPoruku()" class="dugmeSaljiPoruku" style="background: transparent; padding: 1%; border-radius: 20px;">Obavijesti korisnike porukom</button>
+<!--  <button (click)="SaljiObavijestSpecijalnePonude()" class="dugmeSaljiMail">Obavijesti korisnike</button>
+
+
+
+
+  <button (click)="sendNotification()">Send Notification</button>
+
+-->
+
+
+
+
+
 
   <h5>Specijalne ponude i proizvodi</h5>
   <hr class="tabela-hr">
@@ -84,6 +99,8 @@
       <th scope="col">Naziv specijalne ponude</th>
       <th scope="col">Naziv proizvoda</th>
       <th scope="col">Popust</th>
+      <th scope="col">Originalna cijena</th>
+      <th scope="col">Cijena sa popustom</th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -100,6 +117,8 @@
       <td>{{spp.specijalnaPonudaOpis}}</td>
       <td>{{spp.proizvodOpis}}</td>
       <td>{{spp.popustOpis}}</td>
+      <td>{{spp.originalnaCijena}} KM</td>
+      <td>{{spp.cijenaSaPopustom}} KM</td>
       <td><img src="assets/slike/pencil-square.svg" (click)="edit_spp(spp)"></td>
       <td><img src="assets/slike/x-square.svg" (click)="delete_spp(spp)"></td>
     </tr>
@@ -142,6 +161,7 @@
       <th scope="col">Naziv specijalne ponude</th>
       <th scope="col">Datum početka</th>
       <th scope="col">Datum završetka</th>
+      <th scope="col">Aktivna?</th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -158,6 +178,7 @@
       <td>{{sp.naziv}}</td>
       <td>{{formatDatum(sp.datum_pocetka)}}</td>
       <td>{{formatDatum(sp.datum_zavrsetka)}}</td>
+      <td><button (click)="promijeni_aktivnost_sp(sp)" class="dugmeAktivnost" style="background: transparent; padding: 2%; border-radius: 20px;">Promijeni aktivnost</button></td>
       <td><img src="assets/slike/pencil-square.svg" (click)="edit_sp(sp)"></td>
       <td><img src="assets/slike/x-square.svg" (click)="delete_sp(sp)"></td>
     </tr>
@@ -209,15 +230,18 @@
       <div class="modal-body">
         <div class="mb-3">
           <label class="form-label">Proizvod</label>
-          <select class="form-control" [(ngModel)]="obj_spp.proizvodId">
-            <option *ngFor="let o of proizvodi" [value]="o.id" > {{o.naziv}} </option>
+
+          <select class="form-select" size="5" [(ngModel)]="obj_spp.proizvodId">
+
+            <option *ngFor="let o of pr_rastuci" [value]="o.id" > {{o.naziv}} - {{o.sifra}} </option>
+
           </select>
         </div>
 
       <div class="mb-3">
         <label class="form-label">Specijalna ponuda</label>
-        <select class="form-control" [(ngModel)]="obj_spp.specijalnaPonudaId">
-          <option *ngFor="let o of specijalne_ponude" [value]="o.id" > {{o.naziv}} </option>
+        <select class="form-select" size="5" [(ngModel)]="obj_spp.specijalnaPonudaId">
+          <option *ngFor="let o of sp_rastuci" [value]="o.id" > {{o.naziv}} </option>
         </select>
       </div>
 
@@ -231,7 +255,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="snimi_spp()" >Snimi</button>
+        <button type="button" class="btn btn-primary" [disabled]="jel_disabled_spp()" (click)="snimi_spp()" >Snimi</button>
       </div>
     </div>
   </div>
@@ -284,6 +308,7 @@
 
       </div>
 
+
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary"
@@ -329,4 +354,37 @@
 </div>
 </div>
 
+
+<!--
+
+ <div class="mb-3">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="obj_sp.aktivna">
+        <label class="form-check-label" for="exampleCheck1" >Aktivna</label>
+      </div>
+
+-->
+
+
+<div *ngIf="promijeni_aktivnost==true" class="modal fade show" id="exampleModalLive3" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel3">Modifikuj zapis</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="promijeni_aktivnost=false"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="mb-3">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="obj_sp_aktivna.aktivna">
+          <label class="form-check-label" for="exampleCheck1"> Aktivna </label>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="spasi_aktivnost()">Snimi</button>
+      </div>
+    </div>
+  </div>
+</div>
 

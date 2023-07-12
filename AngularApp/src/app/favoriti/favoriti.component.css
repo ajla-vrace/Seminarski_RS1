@@ -53,6 +53,7 @@ h6{
 #nemaFavorita{
   text-align: center;
   padding: 5% 10%;
+  padding-top: 3%;
 }
 #getInspired
 {
@@ -62,4 +63,25 @@ h6{
   padding: 1%;
   display: block;
   margin: 1% 40%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+button.current {
+  background-color: #1c7cbb;
+  color: #000000;
+  font-weight: bold;
 }

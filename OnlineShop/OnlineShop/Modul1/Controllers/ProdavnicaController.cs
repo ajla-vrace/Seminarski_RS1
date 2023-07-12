@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using OnlineShop.Data;
 using OnlineShop.Modul1.Models;
 using OnlineShop.Modul1.ViewModels;
+using static OnlineShop.Modul1.Controllers.ProdavnicaController;
 
 namespace OnlineShop.Modul1.Controllers
 {
@@ -104,6 +105,50 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(data.ToList());
         }
+
+        public class ProsjekInfo
+        {
+            public int ProdavnicaId { get; set; }
+            public double Prosjek { get; set; }
+        }
+
+        
+
+
+        [HttpGet]
+        public ActionResult GetAllProsjek()
+        {
+            double suma = 0;
+            int brojac = 0;
+            var data = _dbContext.Ocjena.ToList();
+            var prodavnice = _dbContext.Prodavnica.ToList();
+            List<ProsjekInfo> prosjeci = new List<ProsjekInfo>();
+            for (int i = 0; i < prodavnice.Count; i++)
+            {
+                for (int j = 0; j < data.Count; j++)
+                {
+                    if (data[j].ProdavnicaId == prodavnice[i].Id)
+                    {
+                        suma = suma + data[j].OcjenaBrojcano;
+                        brojac++;
+                    }
+                }
+                if(brojac > 0)
+                {
+                    double prosjek = suma / brojac;
+                    prosjeci.Add(new ProsjekInfo { ProdavnicaId = prodavnice[i].Id, Prosjek = prosjek });     
+                }
+                else
+                {
+                    prosjeci.Add(new ProsjekInfo { ProdavnicaId = prodavnice[i].Id, Prosjek = 0.00 }); 
+                }
+                suma = 0;
+                brojac = 0;
+                
+            }
+            return Ok(prosjeci.ToList());
+        }
+
         public class ProdavnicaGetAllVM
         {
             public int id { get; set; }

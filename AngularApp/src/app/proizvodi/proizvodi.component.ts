@@ -169,8 +169,10 @@ export class ProizvodiComponent implements OnInit {
       this.obj_sezkol.sezonaId,MojConfig.http_opcije()).subscribe((x:any)=>{
       this.kolekcije=x;
       if(this.kliknuo_add_sezkol==true) {
-        if(this.kolekcije.length>0)
-          this.obj_sezkol.kolekcijaId=this.kolekcije[0].id;
+        if(this.kolekcije.length>0){
+          this.obj_sezkol.kolekcijaId=this.kolekcije[0]?.id;
+         // this.kolekcijaDefaultno=this.obj_sezkol.kolekcijaId;
+        }
         else
           this.kolekcije=[];
       }
@@ -225,11 +227,11 @@ export class ProizvodiComponent implements OnInit {
   }
 
   filtering(x:any, p:any):any{
-    return ( x.naziv.toLowerCase().includes(p.toLowerCase()) ||
-      x.opis.toLowerCase().includes(p.toLowerCase()) || x.bojaOpis.toLowerCase().includes(p.toLowerCase())
-      || x.podkategorijaOpis.toLowerCase().includes(p.toLowerCase()) || x.kategorijaOpis.toLowerCase().includes(p.toLowerCase())
-      || x.sezonaOpis.toLowerCase().includes(p.toLowerCase()) || x.kolekcijaOpis.toLowerCase().includes(p.toLowerCase())
-      || x.odjelOpis.toLowerCase().includes(p.toLowerCase()))
+    return ( x?.naziv?.toLowerCase().includes(p?.toLowerCase()) ||
+      x?.opis.toLowerCase().includes(p?.toLowerCase()) || x?.bojaOpis?.toLowerCase().includes(p?.toLowerCase())
+      || x?.podkategorijaOpis?.toLowerCase().includes(p?.toLowerCase()) || x?.kategorijaOpis?.toLowerCase().includes(p?.toLowerCase())
+      || x?.sezonaOpis?.toLowerCase().includes(p?.toLowerCase()) || x?.kolekcijaOpis?.toLowerCase().includes(p?.toLowerCase())
+      || x?.odjelOpis?.toLowerCase().includes(p?.toLowerCase()))
   }
 
   filterNiz(niz:any, p:any):any{
@@ -516,5 +518,11 @@ export class ProizvodiComponent implements OnInit {
         this.kliknuo_add_sezkol=false;
         this.getProizvodOpadajuci();
       });
+  }
+
+  jel_dozvoljen_save_sezkol(){
+    if(this.kolekcije?.length>0  && this.sezone?.length>0)
+      return true;
+    return false;
   }
 }

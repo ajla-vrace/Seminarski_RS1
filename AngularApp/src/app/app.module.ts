@@ -58,6 +58,12 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSliderModule} from "@angular/material/slider";
 import { OtkljucajComponent } from './otkljucaj/otkljucaj.component';
 import {AutorizacijaLoginProvjera} from "./guards/autorizacija-login-provjera.service";
+//import { ChartModule } from 'chart.js';
+
+
+
+
+
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDfrQ_BHWj1HHt4wLaQDO9feLtEF3xKZwc",
@@ -70,7 +76,9 @@ export const firebaseConfig = {
 };
 
 
+// @ts-ignore
 @NgModule({
+
   declarations: [
     AppComponent,
     FaqComponent,
@@ -110,7 +118,7 @@ export const firebaseConfig = {
    NarudzbaDetaljiComponent,
    ProizvodDetaljiComponent,
    ZaposlenikDetaljiComponent,
-   IzvjestajiComponent,
+    IzvjestajiComponent,
    OcjeneProizvodaComponent,
    SpecijalnePonudeComponent,
    PretragaComponent,
@@ -127,7 +135,7 @@ export const firebaseConfig = {
     AngularFireDatabaseModule,
     MatSliderModule,
     MatSlideToggleModule,
-
+//Module,
 
 
     RouterModule.forRoot([
@@ -171,7 +179,13 @@ export const firebaseConfig = {
       {path:'ocjene-proizvoda/:id', component:OcjeneProizvodaComponent},
       {path:'kreiranje-narudzbe', component:KreiranjeNarudzbeComponent},
       {path:'postavke-poruke', component:PostavkePorukeComponent},
-      {path:'otkljucaj',component:OtkljucajComponent}
+      {path:'pretraga', component:PretragaComponent},
+      {path:'specijalne-ponude', component:SpecijalnePonudeComponent},
+
+
+      {path:'otkljucaj',component:OtkljucajComponent},
+     // {path:'izvjestaji',component:IzvjestajiComponent}
+
   ]),
     FormsModule,
     HttpClientModule,
@@ -182,8 +196,10 @@ export const firebaseConfig = {
   ],
   providers: [
     AutorizacijaLoginProvjera,
-    DatePipe
+    DatePipe,
   ],
+
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

@@ -1,15 +1,25 @@
-table,tr,td,th{
+tr,td,th{
   border:1px black solid;
-  width: 100%;
+  /*width: 100%;*/
   margin-top: 1%;
+  background-color: #77b4b6;
+  width: fit-content;
 }
+table{
+  border:1px black solid;
+  /*width: 100%;*/
+  margin-top: 1%;
+  background-color: #77b4b6;
+  width: 100%;
+}
+
 #recenzijeNaslov{
   text-align: center;
   margin:2% 10%;
   padding: 1%;
 }
 thead,th {
-  background-color: black;
+  background-color: #3b5c5d;
 color: white;
   border-right: 0.3mm  solid grey;
 }
@@ -19,4 +29,61 @@ tbody{
 .broj{
   margin: 1%;
   color: #070a57;
+}
+
+
+
+
+.clicked {
+  background-color: #44c5ef;
+  color: #000000;
+  font-weight: bold;
+  border-radius: 10%;
+}
+#paginacija{
+  text-align: center;
+}
+.lijevo_desno{
+  background-color: lightblue;
+  border: 1px solid #9ed9ec;
+  padding: 1%;
+  margin-right: 1%;
+  border-radius: 10%;
+}
+.brojevi_paginacija{
+  padding: 1%;
+  /*background-color: white;*/
+  border: 0;
+  border-radius: 10%;
+  margin-right: 1%;
+}
+
+
+.prikazIzvjestajaDiv{
+  width: 80%;
+  margin: auto;
+  background-color: #dedddd;
+  text-align: center;
+  padding: 2%;
+}
+
+
+#myChart {
+  width: 100%;
+
+}
+.PrikazDugme{
+  background-color: #a9a8a8;
+  border-radius: 20px;
+  padding: 1%;
+  margin: 10px;
+}
+#zaIzvjestajDiv{
+  text-align: center;
+}
+#selectMjeseci{
+  width: 50%;
+  height: 40px;
+  margin-bottom: 20px;
+
 }

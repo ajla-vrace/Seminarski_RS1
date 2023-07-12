@@ -5,6 +5,7 @@ using OnlineShop.Helper.AutentifikacijaAutorizacija;
 using OnlineShop.Modul1.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
+using System.Security.Cryptography.Xml;
 using static OnlineShop.Modul1.Controllers.SkladisteController;
 
 namespace OnlineShop.Modul1.Controllers
@@ -279,6 +280,91 @@ namespace OnlineShop.Modul1.Controllers
         }
 
 
+        public class VelKol
+        {
+            public string velicina { get; set; }
+            public int kolicina { get; set; }
+        }
 
+        [HttpGet("provjeri_stanje")]
+        public ActionResult ProvjeriStanjeNaSkladistu(int proizvodId)
+        {
+            var skladiste = context.SkladisteProizvod.Where(x => x.proizvodId == proizvodId).ToList();
+            var sk = new List<VelKol>();
+            //ako ga ima na skladistu
+            if (skladiste.Count() > 0)
+            {
+                sk = skladiste.Where(x=>x.kolicina>0).Select(x => new VelKol
+                {
+                    velicina=x.velicina,
+                    kolicina=x.kolicina
+                }).ToList();
+            }
+            //ako proizvoda nema na skladistu vratit cemo prazan niz
+            //ako je kolicina 0 - to se ne prikaziva
+
+            return Ok(sk);
+        }
+
+
+        //ova metoda se poziva:
+        ///nakon kreiranja narudzbe
+        ///nakon otkazivanja narudzbe
+        ///nakon mijenjanja statusa na Ponistena
+
+        [HttpGet("update_stanje")]
+        public ActionResult UpdateStanjeNaSkladistu(int narudzbaId)
+        {
+            Narudzba? nar = context.Narudzba.Find(narudzbaId);
+            List<NarudzbaStavka>? stavke = context.NarudzbaStavka.Where(x => x.NarudzbaId == narudzbaId).ToList();
+      
+            if (nar != null)
+            {
+                if (nar.Status == "Nova")
+                {
+                    //smanjiva se stanje na skladistu
+                    //moramo paziti da je kolicina u stavci manja ili jednaka kolicini na skladistu (ne smije 
+                    //biti veca)
+
+                    for (int i = 0; i < stavke.Count(); i++)
+                    {
+                        //nece se pojaviti ista stavka u skladistu jer je ogranicenje da se ne moze dva puta dodati ista velicina za jedan proizvod
+                        var sk = context.SkladisteProizvod.Where(x => x.proizvodId == stavke[i].ProizvodId
+                        && x.velicina == stavke[i].Velicina && x.kolicina >= stavke[i].Kolicina).ToList()[0];
+
+                        if (sk != null)
+                        {
+                            sk.kolicina = sk.kolicina - stavke[i].Kolicina;
+                            context.Update(sk);
+                            context.SaveChanges();
+                        }
+                    }
+                }
+                else if(nar.Status=="Otkazana" || nar.Status=="Ponistena" )
+                {
+                    //povecava se stanje na skladistu
+                    if(nar.jel_poslana_prouka)
+                    {
+                        for (int i = 0; i < stavke.Count(); i++)
+                        {
+                            //nece se pojaviti ista stavka u skladistu jer je ogranicenje da se ne moze dva puta dodati ista velicina za jedan proizvod
+                            var sk = context.SkladisteProizvod.Where(x => x.proizvodId == stavke[i].ProizvodId
+                            && x.velicina == stavke[i].Velicina).ToList()[0];
+
+                            if (sk != null)
+                            {
+                                sk.kolicina = sk.kolicina + stavke[i].Kolicina;
+                                context.Update(sk);
+                                context.SaveChanges();
+                            }
+                        }
+                    }
+                }             
+            }
+
+            return Ok();
+        }
+
+     
     }
 }

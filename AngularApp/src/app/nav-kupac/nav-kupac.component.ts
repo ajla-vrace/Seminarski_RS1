@@ -106,4 +106,8 @@ prikazPodkat:any=false;
     console.log("id je :"+this.podkategorija);
     this.objekat_proslijedi=this.podkategorija;*/
   }
+
+  idiNaPretragu() {
+    this.router.navigate(['/pretraga']);
+  }
 }

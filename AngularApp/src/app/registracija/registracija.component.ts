@@ -11,20 +11,12 @@ import {HttpClient} from "@angular/common/http";
 export class RegistracijaComponent implements OnInit {
    korisniciPodaci: any;
   noviKorisnik:any ;
-/*ime:any;
-prezime:any;
-username:any;
-email:any;
-lozinka:any;*/
-datumregistracije:any;
-iskupac:boolean=true;
-   spolid: any;
+
+
   constructor(private httpKlijent: HttpClient, private router: Router) {
   }
-greska:any;
-   obavezna: any=false;
+
    postojiUserName: any=false;
-  txtjos: any;
   name: any;
   myForm: any;
   txtIme: any;

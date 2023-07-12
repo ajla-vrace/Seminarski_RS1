@@ -71,8 +71,8 @@ export class NarudzbaDetaljiComponent implements OnInit {
     else if(this.narudzbaDetalji?.narudzba?.status=="Istekla"){
       this._poruka=this.porukaIstekla;
     }
-    else if(this.narudzbaDetalji?.narudzba?.status=="Odgodjena"){
-      this._poruka=this.porukaOdgodjena;
+    else if(this.narudzbaDetalji?.narudzba?.status=="Ponistena"){
+      this._poruka=this.porukaPonistena;
     }
     else if(this.narudzbaDetalji?.narudzba?.status=="Preuzeta"){
       this._poruka=this.porukaPreuzeta;
@@ -83,7 +83,7 @@ export class NarudzbaDetaljiComponent implements OnInit {
   porukaNova:any="Poruka u statusu Nova";
   porukaIstekla: any="Vaša narudžba nije preuzeta u predefinisano vrijeme te je stoga istekla.";
   porukaSpremna:any="Vaša narudžba je spremna za preuzeti već od sutra. Rok za preuzimanje naružbe je do narednih 14 dana.";
-  porukaOdgodjena:any="Vaša narudžba je odgođena jer trenutno nemamo zaliha proizvoda kojeg naručujete";
+  porukaPonistena:any="Vaša narudžba je odgođena jer trenutno nemamo zaliha proizvoda kojeg naručujete.";
   porukaPreuzeta:any="Vaša narudžba je preuzeta!";
   _poruka:any="";
   _naslov:any="Obavještenje o narudžbi";
@@ -98,9 +98,18 @@ export class NarudzbaDetaljiComponent implements OnInit {
         this.httpKlijent.post(MojConfig.adresa_servera+"/Narudzba/PosaljiPoruku?narId="+this.narudzba_id,MojConfig.http_opcije())
           .subscribe((x:any)=>{
             this.getBoolVrijednosti();
+
+            if(this.obj_status=="Odgodjena")
+              this.update_stanje_na_skladistu();
           })
       })
+  }
 
+  update_stanje_na_skladistu(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/update_stanje?narudzbaId="+this.narudzba_id)
+      .subscribe((x:any)=>{
+        console.log("updateovano stanje");
+      })
   }
 
   obj_status:any;
@@ -119,7 +128,9 @@ export class NarudzbaDetaljiComponent implements OnInit {
         this.getBoolVrijednosti();
           alert("Status je uspješno promijenjen!");
         this.obj_status=null;
+        this.getNarudzbaDetalji();
       })
+
   }
   _jel_promijenjen_status:boolean=false;
   _jel_poslana_prouka:boolean=false;

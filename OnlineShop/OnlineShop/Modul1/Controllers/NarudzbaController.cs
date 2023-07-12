@@ -258,7 +258,8 @@ namespace OnlineShop.Modul1.Controllers
                     NarudzbaId=x.NarudzbaId,
                     ProizvodId=x.ProizvodId,
                     ProizvodNaziv=x.Proizvod.Naziv,
-                    SifraProizvoda=x.Proizvod.Sifra
+                    SifraProizvoda=x.Proizvod.Sifra,
+                    Velicina=x.Velicina
                 }).ToList();
 
             var objekat = new DetaljiKupacNarudzba { kupac = _kupac, narudzba = narudzba, narudzbaStavka = stavke };
@@ -351,16 +352,16 @@ namespace OnlineShop.Modul1.Controllers
             var spremna = narudzbe.Where(s => s.Status == "Spremna").Count();
             var otkazana = narudzbe.Where(s => s.Status == "Otkazana").Count();
             var preuzeta = narudzbe.Where(s => s.Status == "Preuzeta").Count();
-            var istekla = narudzbe.Where(s => s.Status == "Istekla").Count();
-            var odgodjena = narudzbe.Where(s => s.Status == "Odgodjena").Count();
+           // var istekla = narudzbe.Where(s => s.Status == "Istekla").Count();
+            var ponistena = narudzbe.Where(s => s.Status == "Ponistena").Count();
             return Ok(new
             {
                 _nova = nova,
                 _spremna = spremna,
                 _otkazana = otkazana,
                 _preuzeta = preuzeta,
-                _istekla = istekla,
-                _odgodjena = odgodjena
+               // _istekla = istekla,
+                _ponistena = ponistena
             });
         }
 

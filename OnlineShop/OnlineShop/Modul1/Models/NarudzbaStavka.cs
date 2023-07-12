@@ -7,6 +7,7 @@ namespace OnlineShop.Modul1.Models
         public int Id { get; set; }
         public float Cijena { get; set; }
         public int Kolicina { get; set; }
+        public string Velicina { get; set; }
         public float Total { get; set; }
         [ForeignKey("ProizvodId")]
         public Proizvod Proizvod { get; set; }

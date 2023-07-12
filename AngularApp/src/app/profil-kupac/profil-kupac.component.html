@@ -1,6 +1,58 @@
 <app-nav-kupac></app-nav-kupac>
 
 
+
+
+
+
+
+
+
+
+<!--
+<button (click)="getPodatkeZaIzvjestaj();isKiliknuto=true;" *ngIf="isKiliknuto==false;">ovdje</button>
+
+<button (click)="isKiliknuto=false;" *ngIf="isKiliknuto==true;">ovdje</button>
+<div style="width: 50%;" *ngIf="isKiliknuto==true;" class="prikazIzvjestajaDiv">
+  <h3>Izvještaj o komentarima</h3>
+  <canvas id="myChart"></canvas>
+</div>
+
+-->
+<!--
+<div id="zaIzvjestajDiv">
+
+  <button (click)="getPodatkeZaIzvjestaj();isKiliknuto=true;" class="PrikazDugme" *ngIf="isKiliknuto==false">Prikaži izvještaj komentari</button>
+  <button (click)="isKiliknuto=false;mjesec=''" class="PrikazDugme" *ngIf="isKiliknuto==true">Skloni izvještaj komentari</button>
+</div>
+
+
+<div *ngIf="isKiliknuto==true;" class="prikazIzvjestajaDiv">
+  <select [(ngModel)]="mjesec" (change)="getPodatkeZaIzvjestajParametri()" id="selectMjeseci">
+    <option value="">Odaberi mjesec</option>
+    <option *ngFor="let month of months" [value]="month.value">{{ month.label }}</option>
+  </select>
+  <canvas id="myChart" ></canvas>
+</div>
+-->
+
+
+
+
+
+
+<button (click)="odjaviSe()" id="odjavaButton"> ODJAVI SE</button>
+
+
+
+<div class="user-message">
+  {{primljenaPoruka}}
+</div>
+
+
+
+
+
 <!--
 
 KUPAC ID: {{kupac_id}}
@@ -70,9 +122,9 @@ KUPAC ID: {{kupac_id}}
       <input value=" {{brojTelefona}}" disabled style="display: inline" class="kupacpodaci">
       <img src="assets/slike/edit1.png" id="AddNumber"
            (click)="brojTelPromjena()">
-      <h6>Datum registracije: </h6>
+     <!-- <h6>Datum registracije: </h6>
       <input value=" {{datumRegistracije | date:'dd-MM-yyyy'}}" disabled class="kupacpodaci">
-
+-->
       <h6 *ngIf="isPretplacen==false">Pretplata: Ne </h6>
       <h6 *ngIf="isPretplacen==true">Pretplata: Da</h6>
 
@@ -441,7 +493,7 @@ KUPAC ID: {{kupac_id}}
 
 
 
-
+<!--
 
 
 <div *ngIf="kliknuoDodajSliku==true" class="modal fade show"  tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
@@ -473,3 +525,4 @@ KUPAC ID: {{kupac_id}}
 </div>
 
 
+-->

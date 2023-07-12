@@ -240,6 +240,40 @@ namespace OnlineShop.Modul1.Controllers
             return data.OrderByDescending(x=>x.Id).ToList();
         }
 
+
+        [HttpGet("naziv_asc")]
+        public List<ProizvodVM> GetRastuciNaziv()
+        {
+            var data = context.Proizvod.Select(x => new ProizvodVM
+            {
+                Id = x.Id,
+                Sifra = x.Sifra,
+                Naziv = x.Naziv,
+                Cijena = x.Cijena,
+                Opis = x.Opis,
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije,
+                Aktivan = x.Aktivan,
+                bojaId = x.bojaId,
+                bojaOpis = x.boja.Naziv,
+                odjelId = x.odjelId,
+                odjelOpis = x.odjel.Naziv,
+                kategorijaId = x.kategorijaId,
+                kategorijaOpis = x.kategorija.Naziv,
+                podkategorijaId = x.podkategorijaId,
+                podkategorijaOpis = x.podkategorija.Naziv,
+                kolekcijaId = x.kolekcijaId,
+                kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
+                sezonaId = x.sezonaId,
+                sezonaOpis = x.sezona.Naziv,
+                slika_postojeca = x.slika_postojeca,
+                evidentirao = x.evidentirao
+            });
+
+            return data.OrderBy(x => x.Naziv).ToList();
+        }
+
+
         [HttpGet("datumRastuci")]
         public List<ProizvodVM> GetProizvodeDatumRastuci()
         {
@@ -295,7 +329,7 @@ namespace OnlineShop.Modul1.Controllers
                 podkategorijaId = x.podkategorijaId,
                 podkategorijaOpis = x.podkategorija.Naziv,
                 kolekcijaId = x.kolekcijaId,
-                kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
+                kolekcijaOpis = x.kolekcija.Naziv,
                 sezonaId = x.sezonaId,
                 sezonaOpis = x.sezona.Naziv,
                 slika_postojeca = x.slika_postojeca,
@@ -304,6 +338,39 @@ namespace OnlineShop.Modul1.Controllers
 
             return data.OrderByDescending(x => x.datum_kreiranja).ToList();
         }
+        [HttpGet("byOdjel")]
+        public List<ProizvodVM> GetProizvodeByOdjel(int odjel)
+        {
+            var data = context.Proizvod.Where(s=>s.odjelId==odjel)
+                .Select(x => new ProizvodVM
+            {
+                Id = x.Id,
+                Sifra = x.Sifra,
+                Naziv = x.Naziv,
+                Cijena = x.Cijena,
+                Opis = x.Opis,
+                datum_kreiranja = x.datum_kreiranja,
+                datum_modifikacije = x.datum_modifikacije,
+                Aktivan = x.Aktivan,
+                bojaId = x.bojaId,
+                bojaOpis = x.boja.Naziv,
+                odjelId = x.odjelId,
+                odjelOpis = x.odjel.Naziv,
+                kategorijaId = x.kategorijaId,
+                kategorijaOpis = x.kategorija.Naziv,
+                podkategorijaId = x.podkategorijaId,
+                podkategorijaOpis = x.podkategorija.Naziv,
+                kolekcijaId = x.kolekcijaId,
+                kolekcijaOpis = x.kolekcija.Naziv,
+                sezonaId = x.sezonaId,
+                sezonaOpis = x.sezona.Naziv,
+                slika_postojeca = x.slika_postojeca,
+                evidentirao = x.evidentirao
+            });
+
+            return data.OrderByDescending(x => x.datum_kreiranja).ToList();
+        }
+        
 
 
         [HttpDelete]

@@ -73,5 +73,7 @@ export class NeregistrovanComponent implements OnInit {
   }
 
 
-
+  idiNaPretragu() {
+    this.router.navigate(['/pretraga']);
+  }
 }

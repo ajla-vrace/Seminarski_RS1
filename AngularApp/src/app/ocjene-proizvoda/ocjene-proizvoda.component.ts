@@ -15,7 +15,7 @@ export class OcjeneProizvodaComponent implements OnInit {
    proizvod_id: any;
    novaZvjezdica: any;
    kupac_id:any=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
-   zvjezdicePodaci: any;
+
 
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
@@ -35,7 +35,7 @@ export class OcjeneProizvodaComponent implements OnInit {
   }
   private fetchOcjeneProizvoda() {
 
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/Zvjezdica/GetAll/", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Zvjezdica/GetByProizvodId/"+this.proizvod_id, MojConfig.http_opcije()).subscribe(x=>{
       this.ocjeneProizvodaPodaci = x;
     });
   }

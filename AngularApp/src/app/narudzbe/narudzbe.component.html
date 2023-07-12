@@ -8,9 +8,9 @@
       <option>Nova</option>
       <option>Spremna</option>
       <option>Otkazana</option>
-      <option>Odgođena</option>
+      <option>Ponistena</option>
       <option>Preuzeta</option>
-      <option>Istekla</option>
+
     </select>
 
 
@@ -47,17 +47,17 @@
   <div class="otkazana">
     <h6 class="h6-detalji">Ukupno otkazanih:  {{obj_ukupnoNarudzbi?.otkazana}}</h6>
   </div>
-
+<!--
   <div class="istekla">
     <h6 class="h6-detalji">Ukupno isteklih:  {{obj_ukupnoNarudzbi?.istekla}}</h6>
   </div>
-
+-->
   <div class="preuzeta">
     <h6 class="h6-detalji">Ukupno preuzetih:  {{obj_ukupnoNarudzbi?.preuzeta}}</h6>
   </div>
 
   <div class="odgodjena">
-    <h6 class="h6-detalji">Ukupno odgođenih:  {{obj_ukupnoNarudzbi?.odgodjena}}</h6>
+    <h6 class="h6-detalji">Ukupno poništenih:  {{obj_ukupnoNarudzbi?.ponistena}}</h6>
   </div>
 
 </div>
@@ -73,7 +73,7 @@
         <th scope="col">Id</th>
         <th scope="col">Kupac</th>
         <th scope="col">Datum kreiranja</th>
-        <th scope="col">Datum preuzimanja</th>
+<!--        <th scope="col">Datum preuzimanja</th> -->
         <th scope="col">Suma</th>
         <th scope="col">Ukupno proizvoda</th>
         <th scope="col">Zaposlenik</th>
@@ -94,7 +94,7 @@
         <th scope="row">{{n.id}}</th>
         <td>{{n.kupacNaziv}}</td>
         <td>{{formatDatum(n.datumKreiranja)}}</td>
-        <td>{{formatDatum(n.datumPreuzimanja)}}</td>
+   <!--     <td>{{formatDatum(n.datumPreuzimanja)}}</td> -->
         <td>{{n.ukupno}}</td>
         <td>{{n.ukupnoProizvoda}}</td>
         <td>{{n.evidentirao}}</td>

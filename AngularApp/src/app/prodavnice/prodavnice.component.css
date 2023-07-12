@@ -2,34 +2,78 @@ div{
   display: inline;
 }
 #prodavnice{
-  display: flex;
-  margin: 2% 5%;
-  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  margin: 0% 5%;
+  width: 90%;
 }
 .mali_prod{
   border: 1px solid black;
-  padding: 1%;
+  border-radius: 10px;
+  padding: 3%;
   margin: 1%;
+  width: 98%;
+  background-color: palevioletred;
+
+
+}
+#recenzijeProdavnice{
+  width: 90%;
+  margin: 2% 5%;
+  margin-bottom: 3%;
+  padding: 2%;
+  background-color: #e7b9b9;
+  border: 2px solid black;
+  text-align: center;
+}
+#textarea-komentar{
+  width: 50%;
+}
+#postavi-komentar{
+  display: block;
   width: 20%;
+  margin: 1% 40%;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border-radius: 20px;
 }
 
 
+
+
+
+
+select,option{
+  width: 20%;
+}
 h2,h3,h4,h5,h6{
   text-align: center;
 }
 .komentari{
   display: inline;
   border: 1px solid deeppink;
-  padding: 2%;
-  margin:2%;
-  width:20%;
+  padding: 1%;
+  margin:1%;
+
+  width:98%;
 }
-#zakomm{
-  display: flex;
+
+#zakomm,zakomm1{
+
+  width: 90%;
+  margin: 2% 5%;
+  margin-top: 0;
+  display: grid;
+  grid-template-columns: auto auto;
+  background-color: #efe4ea;
 }
 .ocjena{
-  margin: 5%;
-  padding: 2%;
+  margin: 5px;
+  padding: 1%;
+  border-radius: 10px;
+  border:0;
+  background-color: #e0a8a8;
 }
 .ocjena1{
   margin: 5%;
@@ -39,11 +83,19 @@ h2,h3,h4,h5,h6{
 .ocjena:hover{
   color:white;
   background-color: black;
+  font-size: medium;
+}
+.ocjena:disabled{
+  background-color: #e0a8a8;
+  color: #d78f8f;
+}
+#textarea-komentar{
+  width: 50%;
 }
 #postaviKomentar{
   background-color: dodgerblue;
   color:white;
-border-radius: 10px;
+  border-radius: 10px;
   width:65%;
   margin: 0 17%;
 }
@@ -51,7 +103,53 @@ border-radius: 10px;
   background-color: darkblue;
   color:white;
 }
+#filterPoProdavniciKomentari{
+  width: 15%;
+  padding: 10px;
+}
+#filterPoProdavnici{
 
+  margin-left:80%;
+
+  width: 10%;
+  background-color: red;
+}
+
+
+#probaDiva,#probaDiva1,#probaDiva2,#probaDiva3 {
+  width: 100%;
+  height: available;
+  background: rgba(192, 192, 192, 0.8);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+}
+#poruka,#poruka1,#poruka2,#poruka3{
+  width:35%;
+  padding: 2%;
+  background-color:white;
+  /*opacity: 100%;*/
+  margin: 15% 35%;
+  position: absolute;
+  text-align: center;
+  border:1px solid black;
+  /* transform: translate(-50%,-50%);*/
+}
+.dugmeDelete{
+  margin: 1%;
+  padding: 1% 8%;
+  background-color: #b6b6b7;
+  cursor:pointer;
+}
+.labelDugme,#labelDugme,#labelDugme1{
+  cursor: pointer;
+}
+#dugme2,#dugme21,#dugme23,#dugme211{
+  background-color: black;
+  color:white;
+  border: none;
+  border-radius: 2px;
+}
 
 
 

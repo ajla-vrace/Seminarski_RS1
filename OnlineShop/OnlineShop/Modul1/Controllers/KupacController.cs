@@ -81,7 +81,7 @@ namespace OnlineShop.Modul1.Controllers
             return Ok();
         }
 
-        [HttpGet("slikaKorisnika")]
+        /*[HttpGet("slikaKorisnika")]
         public List<FileContentResult> Slika(int id)
         {
             var z = _dbContext.Kupac.Where(x => x.Id == id).ToList()[0];
@@ -101,7 +101,7 @@ namespace OnlineShop.Modul1.Controllers
                  }
 
              }*/
-            if (z != null)
+           /* if (z != null)
             {
                 byte[] bajtovi = z.SlikaKupca;
                 if (bajtovi != null)
@@ -112,7 +112,7 @@ namespace OnlineShop.Modul1.Controllers
             }
             return prikaz;
 
-        }
+        }*/
 
 
 

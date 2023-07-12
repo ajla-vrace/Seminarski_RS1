@@ -4,7 +4,8 @@ export class LoginInformacije {
   // @ts-ignore
   autentifikacijaToken: AutentifikacijaToken=null ;
   isLogiran:  boolean=false;
-
+//dodan
+ // isOtkljucan: boolean=false;
 }
 
 export interface AutentifikacijaToken {

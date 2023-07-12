@@ -407,7 +407,7 @@
       </div>
       <div class="modal-footer">
         <button  type="button"
-                class="btn btn-primary" (click)="spasi_sezkol()">Spasi promjene</button>
+                class="btn btn-primary" [disabled]="!jel_dozvoljen_save_sezkol()" (click)="spasi_sezkol()">Spasi promjene</button>
       </div>
     </div>
   </div>

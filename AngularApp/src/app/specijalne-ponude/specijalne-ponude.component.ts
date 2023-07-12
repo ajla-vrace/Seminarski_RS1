@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+//import {SignalRProba1Servis} from "../_servisi/SignalRProba1Servis";
+//import {SignalRProba2Servis} from "../_servisi/SignalRProba2Servis";
 
 @Component({
   selector: 'app-specijalne-ponude',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SpecijalnePonudeComponent implements OnInit {
 
-  constructor() { }
+
+
 
   ngOnInit(): void {
+
   }
 
 }

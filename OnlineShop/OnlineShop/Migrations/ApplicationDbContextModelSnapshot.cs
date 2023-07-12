@@ -352,10 +352,6 @@ namespace OnlineShop.Migrations
                     b.Property<DateTime?>("DatumPreuzimanja")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("Deadline")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Evidentirao")
                         .HasColumnType("nvarchar(max)");
 
@@ -416,6 +412,10 @@ namespace OnlineShop.Migrations
 
                     b.Property<float>("Total")
                         .HasColumnType("real");
+
+                    b.Property<string>("Velicina")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -760,6 +760,9 @@ namespace OnlineShop.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool?>("aktivna")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("datum_pocetka")
                         .HasColumnType("datetime2");
 
@@ -780,6 +783,9 @@ namespace OnlineShop.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<float?>("CijenaSaPopustom")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("OriginalnaCijena")
                         .HasColumnType("real");
 
                     b.Property<int?>("popustId")

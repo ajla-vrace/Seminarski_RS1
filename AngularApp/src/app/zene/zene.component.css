@@ -6,13 +6,27 @@
   display: grid;
   grid-template-columns: auto auto auto;
 }
+#filteriSvi{
+  width: 20%;
+  background-color: #ffffff;
+  border-right: 1px solid lightgray;
+  padding: 1%;
+  height: fit-content;
+  /* height: fit-content;*/
+}
+#ponistiFiltere{
+  border: 0;
+  background-color: white;
+  font-weight: bold;
+  margin-bottom: 5%;
+}
 .proizvodJedan{
-
   display: inline;
   width: 98%;
-border: 1px solid gray;
+  height: auto;
+  border: 1px solid gray;
   margin: 2%;
- }
+}
 #filteri{
 
 }
@@ -37,7 +51,7 @@ border: 1px solid gray;
   float: right;
 }
 .slikasrce{
-width: 20px;
+  width: 20px;
   padding: 1%;
 }
 li{
@@ -46,12 +60,11 @@ li{
 #sve{
   width: 90%;
   margin: 1% auto;
-  background-color: #f35858;
+  background-color: #ffffff;
   display: flex;
 }
 .zaSliku{
   width: 100%;
-
   border: 1px black solid;
   position: relative;
 }
@@ -62,17 +75,18 @@ li{
 
 }
 .tekst{
-text-align: center;
+  text-align: center;
 }
 .favorit{
   width: 50px;
   position: absolute;
-top:3%;
+  top:3%;
   right: 3%;
 }
 #zeneProizvodi{
-width: 100%;
-display: grid;
+  width: 100%;
+  height: fit-content;
+  display: grid;
   grid-template-columns: 25% 25% 25% 25%;
 }
 #mojDiv{
@@ -81,17 +95,7 @@ display: grid;
   display: grid;
   grid-template-columns: auto auto auto;
 }
-.slikaSpecijalne{
-  background-color: #28a745;
-}
-.opisSpecijalne{
-  background-color: lightpink;
-}
-.jednaSpecijalna{
-background-color: gold;
-  display: flex;
-  width: 80%;
-}
+
 #zaFilter{
   width: 5%;
   background-color: white;
@@ -99,7 +103,7 @@ background-color: gold;
   margin-left: 90%;
 }
 #filterSlika{
- width: 50%;
+  width: 50%;
 }
 #kategorijeMeni,#podKategorijeMeni{
   width: 90%;
@@ -107,7 +111,7 @@ background-color: gold;
   margin-left: 5%;
   display: flex;
   text-align: center;
-margin-top: 2%;
+  margin-top: 2%;
 }
 
 .divZaJednu{
@@ -120,13 +124,13 @@ margin-top: 2%;
 .kategorije{
   width: 15%;
   padding: 1%;
-border: 0;
-font-size: small;
+  border: 0;
+  font-size: small;
   background-color: white;
   border-bottom: 1px solid lightgray;
 }
 .kategorije:hover{
-  background-color: #bb727d;
+  background-color: #f5c8cf;
 }
 
 
@@ -145,12 +149,12 @@ font-size: small;
   /* opacity: 0.2;*/
 }#poruka,#poruka1,#poruka2,#poruka3{
    width:100%;
-  height: fit-content;
+   height: fit-content;
 
    padding: 2%;
    background-color:white;
    /*opacity: 100%;*/
-  /* margin: 5% 35%;*/
+   /* margin: 5% 35%;*/
    position: absolute;
    text-align: center;
    border:1px solid black;
@@ -181,22 +185,111 @@ font-size: small;
   font-size: smaller;
   display: block;
 }
-#divBojeFilter,#divSezoneFilter{
-  width: 20%;
+#divBojeFilter,#divSezoneFilter,#divCijeneFilter, #divCijeneFilter1,#divKolekcijeFilter{
+  width: 100%;
   text-align: left;
+  padding: 1%;
+  /*margin: 1%;*/
+  margin-top: 5%;
+}
+.od_do{
+  width: 100%;
+  align-items: center;
+}
+.error_poruka{
+  font-size: small;
+  color: #5d0606;
+}
+.dugmad_kolekcije{
+  border: 0;
+  background-color: #ffffff;
+  padding: 1%;
+  width: 90%;
+  text-align: left;
+}
+.dugmad_kolekcije:hover{
+
+  background-color: #fcf5e9;
+
+}
+.kategorije.active{
+  border:1px #a2a19f solid;
+}
+.clicked {
+  /* Add your custom styles for the clicked state */
+  /* For example, change the background color or add a border */
+  background-color: #fcf5e9;
+  border: 2px solid #fcf5e9;
+}
+.slika{
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+#input-pretraga{
+  width: 100%;
+}
+#nemaProizvoda{
+  width: 100%;
+  /*background-color: red;*/
+  padding: 10% 20%;
+  text-align: center;
+}
+
+#slika-vjesalica{
+  width: 20%;
+
 }
 
 
+#SpecijalnePonudeDivVeliki{
+
+  width: 88%;
+  margin: 2% 6%;
+  display: grid;
+  grid-template-columns: 24% 24% 24% 24%;
+  padding: 1%;
+}
+#jednaSpecijalnaPonuda{
+  background-color: khaki;
+  width: 50%;
+height: auto;
+
+border: 2px solid red;
+
+}
+.slikaSpecijalnaPonuda{
+  width: 100%;
 
 
+}
 
+#popust{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.0);
+  color: white;
+  padding: 5px;
+  font-size: 14px;
+  color: red;
+}
+.tekstSpecijalnaPonuda{
+  width: 100%;
+  padding: 2%;
+  text-align: center;
+}
 
-
-
-
-
-
-
-
-
+.specijalnePonudeDugme{
+  background-color: white;
+  border: 1px solid black;
+  padding: 1%;
+  width: 20%;
+  margin: 1% 40%;
+}
+.specijalnePonudeDugme:hover{
+  background-color: black;
+  color: white;
+}
 

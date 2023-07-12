@@ -97,6 +97,7 @@
         <th scope="col">#</th>
         <th scope="col">Proizvod</th>
         <th scope="col">Šifra proizvoda</th>
+        <th scope="col">Veličina</th>
         <th scope="col">Cijena</th>
         <th scope="col">Količina</th>
         <th scope="col">Total</th>
@@ -109,6 +110,7 @@
         <th scope="row"></th>
         <td>{{n?.proizvodNaziv}}</td>
         <td>{{n?.sifraProizvoda}}</td>
+        <td>{{n?.velicina}}</td>
         <td>{{n?.cijena}}</td>
         <td>{{n?.kolicina}}</td>
         <td>{{n?.total}}</td>
@@ -161,8 +163,7 @@
           <select class="form-control" [(ngModel)]="obj_status.status">
             <option>Nova</option>
             <option>Spremna</option>
-            <option>Odgodjena</option>
-            <option>Istekla</option>
+            <option>Ponistena</option>
             <option>Preuzeta</option>
           </select>
         </div>

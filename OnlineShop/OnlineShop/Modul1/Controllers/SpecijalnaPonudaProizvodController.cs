@@ -24,6 +24,7 @@ namespace OnlineShop.Modul1.Controllers
             public string Naziv { get; set; }
             public DateTime datum_pocetka { get; set; }
             public DateTime datum_zavrsetka { get; set; }
+            public bool? aktivna { get; set; }
         }
 
         public class SpecijalnePonudeVMGet
@@ -32,6 +33,7 @@ namespace OnlineShop.Modul1.Controllers
             public string Naziv { get; set; }
             public string datum_pocetka { get; set; }
             public string datum_zavrsetka { get; set; }
+            public bool? aktivna { get; set; }
         }
 
 
@@ -58,7 +60,8 @@ namespace OnlineShop.Modul1.Controllers
             public string popustOpis { get; set; }
             public Proizvod? proizvod { get; set; }
             public Popust? popust { get; set; }
-            public float? cijenaSaPopustom { get { return proizvod?.Cijena - (proizvod?.Cijena * popust?.Opis); } set { } }
+            public float? cijenaSaPopustom { get; set; }
+            public float? originalnaCijena { get; set; }
         }
 
         public class PopustVM
@@ -76,7 +79,8 @@ namespace OnlineShop.Modul1.Controllers
                 Id=x.Id,
                 Naziv=x.Naziv,
                 datum_pocetka=x.datum_pocetka,
-                datum_zavrsetka=x.datum_zavrsetka
+                datum_zavrsetka=x.datum_zavrsetka,
+                aktivna=x.aktivna
             }).ToList().AsQueryable().OrderByDescending(x => x.Id);
             return data;
         }
@@ -92,7 +96,8 @@ namespace OnlineShop.Modul1.Controllers
                 Id = x.Id,
                 Naziv = x.Naziv,
                 datum_pocetka = x.datum_pocetka.ToString("yyyy-MM-dd"),
-                datum_zavrsetka = x.datum_zavrsetka.ToString("yyyy-MM-dd")
+                datum_zavrsetka = x.datum_zavrsetka.ToString("yyyy-MM-dd"),
+                aktivna = x.aktivna
             }).ToList().AsQueryable().OrderByDescending(x => x.datum_pocetka).ThenByDescending(x=>x.datum_zavrsetka);
             return data;
         }
@@ -106,7 +111,8 @@ namespace OnlineShop.Modul1.Controllers
                 Id = x.Id,
                 Naziv = x.Naziv,
                 datum_pocetka = x.datum_pocetka.ToString("yyyy-MM-dd"),
-                datum_zavrsetka = x.datum_zavrsetka.ToString("yyyy-MM-dd")
+                datum_zavrsetka = x.datum_zavrsetka.ToString("yyyy-MM-dd"),
+                aktivna = x.aktivna
             }).ToList().AsQueryable().OrderBy(x => x.datum_pocetka).ThenBy(x => x.datum_zavrsetka);
             return data;
         }
@@ -123,7 +129,7 @@ namespace OnlineShop.Modul1.Controllers
                 specijalnaPonudaOpis=x.specijalnaPonuda.Naziv,
                 proizvodId=x.proizvodId,
                 //proizvod=x.proizvod,
-                proizvodOpis=x.proizvod.Naziv,
+                proizvodOpis=x.proizvod.Naziv +" - "+x.proizvod.Sifra,
                 popustId=x.popustId,
 
                 //popustOpis=x.popust.Opis
@@ -131,7 +137,8 @@ namespace OnlineShop.Modul1.Controllers
                 popustOpis=x.popust.Opis.ToString(),
                 proizvod=x.proizvod,
                 popust=x.popust,
-                cijenaSaPopustom=x.CijenaSaPopustom
+                cijenaSaPopustom=x.CijenaSaPopustom,
+                originalnaCijena=x.OriginalnaCijena
 
             }).ToList().AsQueryable().OrderByDescending(x => x.Id);
             return data;      
@@ -177,10 +184,29 @@ namespace OnlineShop.Modul1.Controllers
             sp.Naziv = x.Naziv;
             sp.datum_pocetka = x.datum_pocetka;
             sp.datum_zavrsetka = x.datum_zavrsetka;
-            
+            sp.aktivna = x.aktivna;
            
             context.SaveChanges();
 
+            return Ok();
+        }
+
+        public class SPAktivna
+        {
+            public int id { get; set; }
+            public bool? aktivna { get; set; }
+        }
+
+        [HttpPost("post_aktivna_sp")]
+        public ActionResult PostAktivna(SPAktivna s)
+        {
+            SpecijalnaPonuda? sp = context.SpecijalnaPonuda.Find(s.id);
+            if (sp != null)
+            {
+                sp.aktivna = s.aktivna;
+                context.Update(sp);
+                context.SaveChanges();
+            }
             return Ok();
         }
 
@@ -220,10 +246,20 @@ namespace OnlineShop.Modul1.Controllers
         {
             SpecijalnaPonudaProizvod? spp;
 
+            if(context.SpecijalnaPonudaProizvod.Where(s=>s.specijalnaPonudaId==x.specijalnaPonudaId)
+                .ToList().Count() >= 5)
+            {
+                return BadRequest("ne mozete dodavati vise od 5 proizvoda za jednu specijalnu ponudu.");
+            }
+
+            var cijena = context.Proizvod.Where(p => p.Id == x.proizvodId).Select(x => x.Cijena).ToList()[0];
+            var popust = context.Popust.Where(p => p.Id == x.popustId).Select(x => x.Opis).ToList()[0];
+
             if (x.Id == 0)
             {
                 spp = new SpecijalnaPonudaProizvod();
-                context.Add(spp);
+                spp.OriginalnaCijena = MathF.Round(cijena, 2);
+                context.Add(spp);           
             }
             else
             {
@@ -235,7 +271,8 @@ namespace OnlineShop.Modul1.Controllers
             spp.specijalnaPonudaId = x.specijalnaPonudaId;
             spp.proizvodId = x.proizvodId;
             spp.popustId = x.popustId;
-
+            spp.CijenaSaPopustom = MathF.Round((cijena - (cijena * popust)),2);
+           
             context.SaveChanges();
 
             return Ok();

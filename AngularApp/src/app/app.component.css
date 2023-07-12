@@ -19,24 +19,43 @@ footer {
   color:white;
 width: 100%;
   padding: 1%;
+
 }
 
 #glavnidivfooter{
   display: flex;
   justify-content: space-between;
-  padding: 1%;
+  padding: 2%;
 }
 a.drustvenemreze{
   display: block;
 }
-
+h6.ufooteru{
+  cursor: pointer;
+}
+h6.informacije,h6.ufooteru{
+  padding-bottom: 5%;
+}
 .naziv-prod{
   cursor: pointer;
   display: inline;
   padding-left: 2%;
   padding-top: 2%;
   font-family: 'Lucida Calligraphy';
+
 }
 .gore{
   cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+
+
+

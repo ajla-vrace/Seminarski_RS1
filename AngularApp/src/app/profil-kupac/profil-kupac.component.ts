@@ -6,6 +6,25 @@ import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 import {LoginInformacije} from "../helpers/login-informacije";
 import {NgModel} from "@angular/forms";
 import {formatDate} from "@angular/common";
+import {SignalRService} from "../_servisi/SignalRServis";
+import { CategoryScale, LinearScale, BarController, BarElement } from 'chart.js';
+import {Chart} from 'chart.js'
+
+
+declare function porukaSuccess(a: string):any;
+declare function porukaError(a: string):any;
+
+interface IzvjestajKomentari {
+  mjesec: string;
+  ukupnoKomentara: number;
+}
+
+
+
+
+
+
+
 
 @Component({
   selector: 'app-profil-kupac',
@@ -13,12 +32,40 @@ import {formatDate} from "@angular/common";
   styleUrls: ['./profil-kupac.component.css']
 })
 export class ProfilKupacComponent implements OnInit {
-komm:any=false;
+
+
+
+
+
+//mjeseci
+  public months = [
+    { value: "1", label: "January" },
+    { value: "2", label: "February" },
+    { value: "3", label: "Mart" },
+    { value: "4", label: "April" },
+    { value: "5", label: "May" },
+    { value: "6", label: "June" },
+    { value: "7", label: "July" },
+    { value: "8", label: "August" },
+    { value: "9", label: "September" },
+    { value: "10", label: "October" },
+    { value: "11", label: "November" },
+    { value: "12", label: "December" }
+    // Dodajte ostale mjesece
+  ];
+
+
+  chartInstance!: Chart;
+
+
+
+
+
+
   kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
 kupac_podaci:any;
    komentariPodaci1: any;
   odabranikomentar: any=null;
-   komentariPodaciMoji: any;
    ocjeneProdavnica: any;
    ocjene: any=false;
    ocjeneProdavnicaMoje: any;
@@ -27,8 +74,6 @@ kupac_podaci:any;
   ocjeneProizvodaBool:any=false;
    prikaziDiv: any=false;
   kupac: any;
-   brojTel: any;
-  promjena: any=false;
   promjeniIme: any=false;
   promjeniBroj: any=false;
   promjeniPrezime: any=false;
@@ -43,11 +88,10 @@ kupac_podaci:any;
   brojTelefona:any="";
   email:any="";
   username:any="";
-  pretplata:any="";
+
    prikaziNarudzbe: any=false;
    narudzbeKupcaPodaci: any;
    jeLiPodaci:any=true;
-   jeLiNarudzbe:any=false;
    prikazPodataka: any=false;
   prikazKomentara: any=false;
   PrikazOcjena: any=false;
@@ -58,10 +102,20 @@ kupac_podaci:any;
 
   slika_objekat:any;
    kupciPodaci1: any;
+notification:any;
+poruka1:any;
+  primljenaPoruka: string = '';
+  receivedMessage: string = '';
+  constructor(private route: ActivatedRoute, private httpKlijent:HttpClient,private router:Router,
+              private signalRService: SignalRService ) {
+    //a.otvoriKanalWebSocket();
+    this.signalRService.porukaReceived$.subscribe((poruka: string) => {
+      this.primljenaPoruka = poruka;
+    });
+  }
 
 
 
-  constructor(private route: ActivatedRoute, private httpKlijent:HttpClient) { }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
   }
@@ -92,10 +146,85 @@ this.fetchKupci1();
     this.fetchOcjeneProizvoda();
     this.fetchOcjeneProizvodaMoje();
 this.fetchNarudzbeKupca();
-this.getSlikuKupca();
+//this.getSlikuKupca();
+
+
+//this.getPodatkeZaIzvjestajParametri();
+
+
+  //this.getPodatkeZaIzvjestaj();
+    //report
+   // this.getIzvjestajKomentari();
+  /*  this.httpKlijent.get<IzvjestajKomentari[]>(MojConfig.adresa_servera+"/Komentar/GetIzvjestajKomentari")
+      .subscribe(data => {
+        this.izvjestaj = data;
+        console.log("Izvjesta podaci: "+this.izvjestaj);
+        console.log(JSON.stringify(this.izvjestaj));
+
+       this.prikaziGrafikon();
+      });
+*/
+  }
+  mjesec:any='';
+
+
+  promjenaMjeseca1() {
+    if (this.mjesec) {
+      // Ako je odabran mjesec, pozovite API s parametrom
+      this.httpKlijent.get<IzvjestajKomentari[]>
+      (MojConfig.adresa_servera + '/GetIzvjestajKomentariParametar?mjesec=' + this.mjesec)
+        .subscribe(data => {
+          this.izvjestaj = data;
+          this.prikaziGrafikon();
+        });
+    } else {
+      // Ako nije odabran mjesec, pozovite API bez parametra
+      this.httpKlijent.get<IzvjestajKomentari[]>(MojConfig.adresa_servera + '/GetIzvjestajKomentari')
+        .subscribe(data => {
+          this.izvjestaj = data;
+          this.prikaziGrafikon();
+        });
+    }}
+
+
+
+getPodatkeZaIzvjestajParametri(){
+  this.httpKlijent.get<IzvjestajKomentari[]>
+  (MojConfig.adresa_servera+"/Komentar/GetIzvjestajKomentariParametar?mjesec="+this.mjesec)
+    .subscribe(data => {
+      this.izvjestaj = data;
+      console.log("izvjestaj",this.izvjestaj);
+      console.log("mjesec je : "+this.mjesec);
+      this.prikaziGrafikon();
+    });
+}
+  promjenaMjeseca() {
+    // Dohvat podataka iz API-ja nakon promjene mjeseca
+    this.httpKlijent.get<IzvjestajKomentari[]>
+    (MojConfig.adresa_servera+"Komentar/GetIzvjestajKomentariParametri?mjesec="+this.mjesec)
+      .subscribe(data => {
+        this.izvjestaj = data;
+        this.prikaziGrafikon();
+      });
+  }
+  getPodatkeZaIzvjestaj(){
+    this.httpKlijent.get<IzvjestajKomentari[]>(MojConfig.adresa_servera+"/Komentar/GetIzvjestajKomentari")
+      .subscribe(data => {
+        this.izvjestaj = data;
+        console.log("Izvjesta podaci: "+this.izvjestaj);
+        console.log(JSON.stringify(this.izvjestaj));
+        /*setTimeout( ()=>{
+          this.prikaziGrafikon();
+        }, 5000);*/
+        this.prikaziGrafikon();
+      });
+
   }
 
 
+
+
+//?odabraniMjesec=7
 
   fetchKupci(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/Kupac/GetAll")
@@ -109,12 +238,7 @@ this.getSlikuKupca();
         this.kupciPodaci1=x;
       })
   }
-  fetchKomentari() :void
-  {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/Komentar/GetAll", MojConfig.http_opcije()).subscribe(x=>{
-      this.komentariPodaci1 = x;
-    });
-  }
+
 
   fetchKomentariMoji() :void
   {
@@ -270,9 +394,7 @@ this.odabranikomentar=null;
     alert("Odabrani ocjena je obrisana!");
   }
 
-  prikazDiva() {
-    this.prikaziDiv=true;
-  }
+
 
   skloniDiv() {
     this.prikaziDiv=false;
@@ -458,19 +580,19 @@ isPretplacen:any="";
     this.httpKlijent.get(MojConfig.adresa_servera+"/Kupac/GetById?id="+this.kupac_id)
       .subscribe((x:any)=>{
         this.kupac_podaci=x;
-        this.ime=this.kupac_podaci[0].ime;
+        this.ime=this.kupac_podaci.ime;
         console.log("ime je : "+this.ime);
-        this.prezime=this.kupac_podaci[0].prezime;
-        this.username=this.kupac_podaci[0].username;
-        this.lozinka=this.kupac_podaci[0].lozinka;
-        this.email=this.kupac_podaci[0].email;
-        this.username=this.kupac_podaci[0].username;
-        this.brojTelefona=this.kupac_podaci[0].brojTelefona;
-        this.datumRegistracije=formatDate(this.kupac_podaci[0].datumRegistracije,'dd-MM-yyyy','en-US');
-        this.isPretplacen=this.kupac_podaci[0].isPretplacen;
+        this.prezime=this.kupac_podaci.prezime;
+        this.username=this.kupac_podaci.username;
+        this.lozinka=this.kupac_podaci.lozinka;
+        this.email=this.kupac_podaci.email;
+        this.username=this.kupac_podaci.username;
+        this.brojTelefona=this.kupac_podaci.brojTelefona;
+       /* this.datumRegistracije=formatDate(this.kupac_podaci.datumRegistracije,'dd-MM-yyyy','en-US');*/
+        this.isPretplacen=this.kupac_podaci.isPretplacen;
         console.log("get kupca po id: ",this.kupac_podaci);
-        this.slika_kupca_postojeca_fs=x.slika_kupca_postojeca_FS;
-        this.slika_kupca_postojeca_db=x.slika_kupca_postojeca_DB;
+        //this.slika_kupca_postojeca_fs=x.slika_kupca_postojeca_FS;
+       // this.slika_kupca_postojeca_db=x.slika_kupca_postojeca_DB;
 
       })
 
@@ -484,6 +606,7 @@ isPretplacen:any="";
   slika_kupca_postojeca_db:any;
 
 slika_kupca:any;
+ /*
   getSlikuKupca(){
     //  /api/Zaposlenik/slikaKorisnika?id=5
     this.httpKlijent.get(MojConfig.adresa_servera+"/Kupac/Slika/slikaKorisnika?id="+this.kupac_id)
@@ -495,7 +618,7 @@ slika_kupca:any;
         }
       })
   }
-
+*/
 
   kliknuoDodajSliku:boolean=false;
   slika_obj:any;
@@ -618,6 +741,134 @@ this.getKupca1();
   }
 
   noimage:any="data:@file/jpeg;base64,/9j/4AAQSkZJRgABAQAAZABkAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/wgALCADIAN8BAREA/8QAGwABAAMBAQEBAAAAAAAAAAAAAAUGBwMBBAL/2gAIAQEAAAAA24AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAi/i8Ak/vAABXbEOf57eQFgAABXbE59M+idX8gLAAACu2Ks5bsEpxjZuAsAAAK7zyHn9mw55Wtd7WAAAFOy3ke+Ouv2QAAEPXgFpkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//EADoQAAEDAQMGCwgCAwEAAAAAAAECAwQFAAYREiEwMUDREBMWF1FUVmGRkrIHFCI1NkFzdCCBFTJScf/aAAgBAQABPwDazth2w7YdsO2HbDth2w6Ks1lNHRHxivSFyHOLQhrDEnDH725SzOzlT8qd9uUs3s5U/KnfblLN7OVPyp325SzezlT8qd9uUs3s5U/KnfblLN7OVPyp325SzezlT8qd9uUszs5U/Knfaj1RFYpyJjbS2kqUpOQvWCDhoTory/MqB+8PSf4vPNR2i684httOtSzgBaNMjTG+MjPtvIGbFtQI4DqNrl/TqPzO+s6E6K8vzKgfvD0nhS+yp9bCXUF1ABUgHOAdWI4PaeZXFQcnK90+LKw1Zf2x/q3s4965Qr4rK934o8d0d3948B1G1y/p1H5nfWdCdFeX5lQP3h6TwXsvY1QY5YYKXJ6x8KdYQOk7rRK3Ph1b/JNyFGSVYrUo45fSD3Wu9eGLeCCHmiEPJzOtE50ndZ5hqS0Wn20ONq1pWMQbNswaVFWptpmKwgZSylISB3m1EvVTq7Jfjx1FLjZOSlebjE/9Cx1G1y/p1H5nfWdCdFeX5lQP3h6Ta9l7GaFHLDBS5PWPhT9kDpO60iQ9KkLffcU46s4qUo5yeCmVOVSZyJcRwocSdX2UOg91qJeeDWKYqXxiWVNJxfQo/wCnf/5a917nK48YsVSkQEHMNRcPSe7utHkPRJCH2HFNuoOKVJOcG11b1tV6NxLxS3ObT8SPssdI3WuX9OI/M76zoTovaBMdp8Wmy2cONaklScRmxyTaRIelyFvvuKcdWcVKUcST/ALUkKCVEBQwIB1jhjyHYj6H2HFNuoOKVJOBBtcRZXdSOtWdSnHCfMdCdFeG77F4YrTD7zjQbXlgoAz5sPvbmxp/X5Pgm3NjT+vyfBNubGn9fk+Cbc2NP6/J8E25saf1+T4JtzY0/r8nwTbmxp/X5Pgm3NjT+vyfBNqLSm6LTG4LTinEIJIUrXnOOhO2HbDth2w7YdsO2HbDtht//9k=";
+
+
+  odjaviSe()
+
+  {
+    let token=MojConfig.http_opcije();
+    // @ts-ignore
+    AutentifikacijaHelper.setLoginInfo(null);
+
+    this.httpKlijent.post(MojConfig.adresa_servera + "/api/Autentifikacija", null, token)
+      .subscribe((x: any) => {
+        alert("Uspješno ste se odjavili.");
+      });
+    this.router.navigateByUrl("/pocetna");
+  }
+
+
+
+
+
+  izvjestaj: IzvjestajKomentari[] = [];
+  izvjestajKomentari: IzvjestajKomentari[] = [];
+  isKiliknuto: any=false;
+  getIzvjestajKomentari() {
+    this.httpKlijent.get<IzvjestajKomentari[]>(MojConfig.adresa_servera+"/Komentar/GetIzvjestajKomentari")
+      .subscribe(data => {
+        this.izvjestaj = data;
+        this.prikaziGrafikon();
+      });
+  }
+
+
+
+
+  prikaziGrafikon() {
+    Chart.register(CategoryScale, LinearScale, BarController, BarElement);
+
+    const canvas = document.getElementById('myChart') as HTMLCanvasElement;
+
+    if (!canvas) {
+      console.error('Element canvas s identifikatorom "myChart" nije pronađen.');
+      return;
+    }
+
+    const ctx = canvas.getContext('2d');
+
+    if (!ctx) {
+      console.error('Kontekst za crtanje nije dostupan.');
+      return;
+    }
+
+
+
+
+
+    if (this.chartInstance) {
+      this.chartInstance.destroy();
+    }
+
+
+
+
+
+
+
+    if (!this.izvjestaj || this.izvjestaj.length === 0) {
+      console.warn('Nema dostupnih podataka za prikaz grafikona.');
+      porukaError("Nema dostupnih podataka za prikaz grafikona.");
+      return;
+    }
+/*
+    const labels = this.izvjestaj.map(item => item.mjesec);
+    labels.sort((a, b) => {
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      return months.indexOf(a) - months.indexOf(b);
+    });
+
+    console.log("labels: ", labels);
+
+    const data = this.izvjestaj.map(item => item.ukupnoKomentara);
+    console.log("data: "+data);
+*/
+
+
+
+    const sortedData = this.izvjestaj.sort((a, b) => {
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      const indexA = months.indexOf(a.mjesec);
+      const indexB = months.indexOf(b.mjesec);
+
+      return indexA - indexB;
+    });
+
+    const labels = sortedData.map(item => item.mjesec);
+    const data = sortedData.map(item => item.ukupnoKomentara);
+
+
+
+
+   this.chartInstance= new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Broj komentara',
+            data: data,
+            backgroundColor: 'rgba(0,0,0,0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0
+            }
+          }
+        }
+
+      }
+
+
+    });
+  }
 
 
 

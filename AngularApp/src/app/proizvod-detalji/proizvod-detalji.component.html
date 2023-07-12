@@ -11,7 +11,7 @@
       </div>
       -->
       <div class="slikaDetalja" >
-        <img src="assets/slike/dress.png" style="width: 100%;">
+        <img class="slika" src="{{get_slika_base64_FS(d)}}">
       </div>
       <div class="detaljiTekst">
         <h4 style="text-align: center;">Proizvod detalji</h4>
@@ -26,9 +26,9 @@
         <div id="velicineBiraj">
           <h6>Veličine:</h6>
           <label (click)="this.odabranavelicina='XS'" class="velicina">XS</label>
-          <label (click)="this.odabranavelicina='S'" class="velicina">S</label>
-          <label (click)="this.odabranavelicina='M'" class="velicina">M</label>
-          <label (click)="this.odabranavelicina='L'" class="velicina">L</label>
+          <label (click)="this.odabranavelicina='S'"  class="velicina">S</label>
+          <label (click)="this.odabranavelicina='M'"  class="velicina">M</label>
+          <label (click)="this.odabranavelicina='L'"  class="velicina">L</label>
         </div>
         <div class="dugmad1" *ngIf="loginInfo().isLogiran==true">
           <button class="dodajUKorpu1" *ngIf="odabranavelicina!=undefined" (click)="dodajUKorpu(d.id,odabranavelicina)" >Dodaj u korpu</button>

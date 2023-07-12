@@ -235,4 +235,25 @@ export class ProfilAdminComponent implements OnInit {
     return false;
   }
 
+
+
+
+
+  zakljucavanje:any;
+  getKod(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Autentifikacija/kod",MojConfig.http_opcije())
+      .subscribe((x:any)=>{
+        this.zakljucavanje=x;
+        console.log("zakljucavanje",this.zakljucavanje);
+      })
+  }
+
+  zakljucaj(){
+    this.httpKlijent.get(MojConfig.adresa_servera + "/api/Autentifikacija/zakljucaj", MojConfig.http_opcije())
+      .subscribe((x: any) => {
+        this.getKod();
+        console.log("zakljucano");
+        console.log(x);
+      })
+  }
 }

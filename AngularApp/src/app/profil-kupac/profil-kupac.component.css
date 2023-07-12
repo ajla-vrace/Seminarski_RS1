@@ -234,3 +234,128 @@ padding-top: 2%;
   opacity: 40%;
 }
 
+#odjavaButton{
+  background-color: #0913d3;
+  border: 1px solid #032b38;
+  margin: 2% 5% 2% 85%;
+  width: 10%;
+  padding: 10px 0px;
+color: white;
+}
+
+
+
+
+.user-message {
+  color: #980909;
+  font-size: x-large;
+  font-weight: bold;
+  margin: 0% 30%;
+  background-color: #f6d0d4;
+  border-radius: 20px;
+
+  text-align: center;
+  width: 40%;
+}
+
+
+
+
+
+
+.prikazIzvjestajaDiv{
+  width: 50%;
+  margin: auto;
+  background-color: #de8fa9;
+  text-align: center;
+  padding: 2%;
+}
+
+
+#myChart {
+  width: 100%;
+
+}
+.PrikazDugme{
+  background-color: gray;
+  border-radius: 20px;
+  padding: 1%;
+  margin: 10px;
+}
+#zaIzvjestajDiv{
+  text-align: center;
+}
+#selectMjeseci{
+  width: 50%;
+  height: 40px;
+  margin-bottom: 20px;
+
+}
+/* Stilovi za kontejner charta */
+.chart-container {
+  width: 400px;
+  height: 300px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* Stilovi za naslov charta */
+.chart-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+/* Stilovi za legende charta */
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.chart-legend-item {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
+
+.chart-legend-color {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.chart-legend-label {
+  font-size: 14px;
+}
+
+/* Stilovi za osi charta */
+.chart-axis-label {
+  font-size: 12px;
+}
+
+.chart-axis-tick {
+  font-size: 10px;
+}
+
+/* Stilovi za trake charta */
+.chart-bar {
+  transition: height 0.3s ease;
+}
+
+/* Stilovi za tooltip charta */
+.chart-tooltip {
+  position: absolute;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 12px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.chart-tooltip.visible {
+  opacity: 1;
+}

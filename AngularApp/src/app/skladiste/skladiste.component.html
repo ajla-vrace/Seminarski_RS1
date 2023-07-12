@@ -237,7 +237,7 @@
         <div class="mb-3">
           <label class="form-label">Proizvod</label>
 
-          <select class="form-control" [(ngModel)]="odabrana_stavka.proizvodId" >
+          <select class="form-control" size="5" [(ngModel)]="odabrana_stavka.proizvodId" >
 
             <option *ngFor="let k of p " [value]="k.id">{{k.naziv}} - {{k.sifra}}</option>
 
@@ -432,11 +432,14 @@
         <div class="mb-3" [class.has-error]="tel.touched && tel.invalid">
           <label class="form-label">Broj telefona</label>
           <input class="form-control" type="text"
-                 #tel="ngModel" required pattern="^[0-9]{3}(\/|-|\s)[0-9]{3}(-|\s)[0-9]{3}$"
-                 placeholder="062/111-111 ili 062 111 111 ili 062-111-111..."
+                 #tel="ngModel" required pattern="^((062[0-9]{6})|(060[0-9]{7}))$"
+                 placeholder="062xxxxxx ili 060xxxxxxx"
                  [(ngModel)]="obj_prodavnica.brojTelefona">
 
           <span *ngIf="tel.touched && tel.invalid">Unos je obavezan</span>
+          <!-- "^[0-9]{3}(\/|-|\s)[0-9]{3}(-|\s)[0-9]{3}$"
+          "062/111-111 ili 062 111 111 ili 062-111-111..."
+          -->
 
         </div>
 
