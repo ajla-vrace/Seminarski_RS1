@@ -68,7 +68,11 @@
 
 <div class="tabela1">
 <button (click)="SaljiMailSpecijalnePonude()" class="dugmeSaljiMail" style="background: transparent; padding: 1%; border-radius: 20px; margin-right: 2%;">Obavijesti korisnike mailom</button>
+
   <button (click)="posaljiPoruku()" class="dugmeSaljiPoruku" style="background: transparent; padding: 1%; border-radius: 20px;">Obavijesti korisnike porukom</button>
+
+<!--  <button (click)="posaljiPoruku()" style="background: transparent; padding: 1%; border-radius: 20px;">Obavijesti korisnike porukom</button> -->
+
 <!--  <button (click)="SaljiObavijestSpecijalnePonude()" class="dugmeSaljiMail">Obavijesti korisnike</button>
 
 
@@ -178,7 +182,9 @@
       <td>{{sp.naziv}}</td>
       <td>{{formatDatum(sp.datum_pocetka)}}</td>
       <td>{{formatDatum(sp.datum_zavrsetka)}}</td>
+
       <td><button (click)="promijeni_aktivnost_sp(sp)" class="dugmeAktivnost" style="background: transparent; padding: 2%; border-radius: 20px;">Promijeni aktivnost</button></td>
+
       <td><img src="assets/slike/pencil-square.svg" (click)="edit_sp(sp)"></td>
       <td><img src="assets/slike/x-square.svg" (click)="delete_sp(sp)"></td>
     </tr>
@@ -233,7 +239,9 @@
 
           <select class="form-select" size="5" [(ngModel)]="obj_spp.proizvodId">
 
+
             <option *ngFor="let o of pr_rastuci" [value]="o.id" > {{o.naziv}} - {{o.sifra}} </option>
+
 
           </select>
         </div>
