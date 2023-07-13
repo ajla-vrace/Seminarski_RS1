@@ -11,8 +11,13 @@
       <h6 class="date"> Datum kreiranja narudžbe: </h6>  <br>
       <h4>{{_datumKreiranjaNarudzbe}}</h4>
     </div>
+
+    <div class="statP">
+      <h6 class="status">Prethodni status:</h6> <br>  <h4>{{narudzbaDetalji?.narudzba?.prethodniStatus!=null?narudzbaDetalji?.narudzba?.prethodniStatus:"-"}}</h4>
+    </div>
+
     <div class="stat">
-      <h6 class="status">Status:</h6> <br>  <h4>{{narudzbaDetalji?.narudzba?.status}}</h4>
+      <h6 class="status" style="color:rgba(16,105,155,0.7);">Trenutni status:</h6> <br>  <h4>{{narudzbaDetalji?.narudzba?.status}}</h4>
     </div>
   </div>
 
@@ -125,7 +130,7 @@
   <br>
 
   <div class="dugmad">
-    <div class="status-okvir">
+    <div class="status-okvir" *ngIf="narudzbaDetalji?.narudzba?.status!='Otkazana'" >
       <button class="btn-status" (click)="kliknuoPromijeniStatus=true; promijeniStatus();">Promijeni status</button>
     </div>
 
@@ -142,8 +147,8 @@
 </div>
 
 
-
-<div *ngIf="kliknuoPromijeniStatus==true" class="modal fade show" id="exampleModalLive2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+<!--zaposlenik ne moze mijenjati status narudzbe koja je Otkazana (jer je kupac postavio na taj status)-->
+<div *ngIf="kliknuoPromijeniStatus==true && narudzbaDetalji?.narudzba?.status!='Otkazana'" class="modal fade show" id="exampleModalLive2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg modal-dialog-scrollable" id="modal">
     <div class="modal-content">
       <div class="modal-header">

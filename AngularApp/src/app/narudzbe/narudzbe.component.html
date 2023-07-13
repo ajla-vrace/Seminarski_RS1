@@ -100,7 +100,7 @@
         <td>{{n.evidentirao}}</td>
         <td>{{n.nazivProdavnice}}</td>
         <td>{{n.status}}</td>
-        <td></td>
+        <td style="color: red"><h5>{{upozorenjeStatus(n)==true? "!":""}}</h5></td>
         <td> </td>
         <td><button (click)="btnDetalji(n.id)" class="btn-detalji">Vidi detalje</button></td>
       </tr>

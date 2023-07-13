@@ -380,7 +380,7 @@
         <div class="mb-3" [class.has-error]="(sezonaControll.invalid && sezonaControll.touched) || sezone?.length==0">
           <label class="form-label">Sezona</label>
 
-          <select required #sezonaControll="ngModel" class="form-control" [(ngModel)]="obj_sezkol.sezonaId" (click)="getKolekcijeBySezonaID();" >
+          <select required #sezonaControll="ngModel" class="form-control" [(ngModel)]="obj_sezkol.sezonaId" (click)="getKolekcijeBySezonaID(obj_sezkol.sezonaId);" >
             <option *ngFor="let s of sezone " [value]="s?.id"  >{{s.naziv}} - {{s.aktivna?"Aktivna":"Neaktivna"}}</option>
 
           </select>

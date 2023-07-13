@@ -19,6 +19,15 @@ img{
   text-align: center;
 }
 
+.oPorukama{
+  display: flex;
+  gap:2%;
+  align-items: center;
+  justify-content: center;
+  width:90%;
+  margin:auto;
+}
+
 div#carouselExampleIndicators,#carouselExampleIndicators1 {
   /*background-color: #28a745;*/
   width:90%;

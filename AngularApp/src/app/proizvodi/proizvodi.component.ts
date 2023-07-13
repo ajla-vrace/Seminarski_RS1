@@ -145,12 +145,20 @@ export class ProizvodiComponent implements OnInit {
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/sezone",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.sezone=x;
-        this.sezonaDefaultno=this.sezone[0]?.id;
+       // if(this.kliknuo_add_sezkol==true)
+        this.sezonaDefaultno=x[0]?.id;
+        if(this.obj_sezkol!=null && this.odabrani!=null)
+          this.obj_sezkol.sezonaId=this.sezonaDefaultno;
+        console.log("x",x);
+        if(this.kliknuo_add_sezkol==false){
+          if(this.obj_sezkol!=null && this.odabrani!=null)
+            this.obj_sezkol.sezonaId=this.odabrani.sezonaId;
+        }
       })
-
+    console.log("sezona defaultno",this.sezonaDefaultno);
   }
 
-  getKolekcijeBySezonaID(){  //+this.obj_sezkol.sezonaId
+  getKolekcijeBySezonaID(sezonaId:any){  //+this.obj_sezkol.sezonaId
     /*
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/getKolekcije?id="+
     this.odabrani_proizvod.sezonaId,MojConfig.http_opcije()).subscribe((x:any)=>{
@@ -166,16 +174,27 @@ export class ProizvodiComponent implements OnInit {
     */
 
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/getKolekcije?id="+
-      this.obj_sezkol.sezonaId,MojConfig.http_opcije()).subscribe((x:any)=>{
+      sezonaId,MojConfig.http_opcije()).subscribe((x:any)=>{
       this.kolekcije=x;
+      console.log("kolekcije",x);
+      console.log("sezonaId",sezonaId);
+
       if(this.kliknuo_add_sezkol==true) {
         if(this.kolekcije.length>0){
-          this.obj_sezkol.kolekcijaId=this.kolekcije[0]?.id;
+          this.obj_sezkol.kolekcijaId=x[0]?.id;
          // this.kolekcijaDefaultno=this.obj_sezkol.kolekcijaId;
+          this.kolekcijaDefaultno=x[0]?.id;
         }
         else
           this.kolekcije=[];
       }
+      else {
+       if(this.obj_sezkol!=null && this.odabrani!=null)
+         this.obj_sezkol.kolekcijaId=this.odabrani.kolekcijaId;
+       else
+         this.obj_sezkol.kolekcijaId=this.kolekcije[0]?.id;
+      }
+
     })
 
 
@@ -210,7 +229,7 @@ export class ProizvodiComponent implements OnInit {
     this.odabrani_proizvod=p;
     this.odabrani_proizvod.evidentirao=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username;
     this.getPodkategorijeByKatID();
-    this.getKolekcijeBySezonaID();
+    //this.getKolekcijeBySezonaID();
   }
 
   DeleteDugme(p: any) {
@@ -221,6 +240,7 @@ export class ProizvodiComponent implements OnInit {
       this.httpKlijent.delete(MojConfig.adresa_servera + "/api/Proizvod?id=" + p.id,MojConfig.http_opcije())
         .subscribe((x: any) => {
           this.getProizvodOpadajuci();
+          this.getProizvodRastuci();
           alert("Zapis uspješno obrisan");
         })
 
@@ -352,6 +372,7 @@ export class ProizvodiComponent implements OnInit {
     this.httpKlijent.post(MojConfig.adresa_servera+"/api/Proizvod",o,MojConfig.http_opcije()).subscribe(
       (x:any)=>{
         this.getProizvodOpadajuci();
+        this.getProizvodRastuci();
      //   this.getSkladistaProizvod();
         this.odabrani_proizvod=null;
         this.kliknuoEdit=false;
@@ -439,6 +460,7 @@ export class ProizvodiComponent implements OnInit {
     this.httpKlijent.post(MojConfig.adresa_servera+"/api/ProizvodSlika", this.slika_proizvod_objekat,MojConfig.http_opcije())
       .subscribe(x=>{
         this.getProizvodOpadajuci();
+        this.getProizvodRastuci();
         this.get_slika_novi_request_FS(this.slika_proizvod_objekat.proizvodId);
         this.slika_proizvod_objekat=null;
       });
@@ -484,11 +506,14 @@ export class ProizvodiComponent implements OnInit {
   obj_sezkol:any;
   odabrani:any;
   kliknuo_add_sezkol:boolean=false;
+
+  sezonaIdparametar:any;
+
   dodajSezonuIKolekcij(p_id:any, p:any){
     this.odabrani=p;
     console.log("odabrani:",this.odabrani);
 
-    this.getSezone();
+   // this.getSezone();
 
     this.obj_sezkol={
       proizvod_id:p_id,
@@ -497,17 +522,21 @@ export class ProizvodiComponent implements OnInit {
     if(this.odabrani?.sezonaId!=null && this.odabrani?.kolekcijaId!=null){
       this.naslov="Edituj sezonu i kolekciju za proizvod: "+p_id;
       this.obj_sezkol.sezonaId=this.odabrani?.sezonaId;
-      this.getKolekcijeBySezonaID();
+      this.getKolekcijeBySezonaID(this.odabrani?.sezonaId);
       this.obj_sezkol.kolekcijaId=this.odabrani?.kolekcijaId;
     }
     else{
       this.kliknuo_add_sezkol=true;
+      this.getSezone();
       this.naslov="Dodaj sezonu i kolekciju za proizvod: "+p_id;
-      this.obj_sezkol.sezonaId=this.sezonaDefaultno;
-      this.getKolekcijeBySezonaID();
-      this.obj_sezkol.kolekcijaId=this.kolekcijaDefaultno;
+     // this.obj_sezkol.sezonaId=this.sezonaDefaultno;
+      let sezId=this.sezonaDefaultno;
+      this.getKolekcijeBySezonaID(sezId);
+     // this.obj_sezkol.kolekcijaId=this.kolekcijaDefaultno;
     }
-    console.log("sezId:",this.obj_sezkol.sezonaId,"kolId:",this.obj_sezkol.kolekcijaId);
+    //console.log("sezId:",this.obj_sezkol.sezonaId,"kolId:",this.obj_sezkol.kolekcijaId);
+
+
   }
 
   spasi_sezkol(){
@@ -517,6 +546,7 @@ export class ProizvodiComponent implements OnInit {
         this.obj_sezkol=null;
         this.kliknuo_add_sezkol=false;
         this.getProizvodOpadajuci();
+        this.getProizvodRastuci();
       });
   }
 

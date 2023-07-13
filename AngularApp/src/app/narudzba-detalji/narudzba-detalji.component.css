@@ -89,7 +89,7 @@
   text-align: center;
 }
 
-.nar, .dat, .stat{
+.nar, .dat, .stat, .statP{
   display: flex;
   align-items: center;
   margin:1%;
@@ -103,7 +103,11 @@
 }
 
 .stat{
-  width: 13%;
+  width: 20%;
+}
+
+.statP{
+  width: 20%;
 }
 
 .dat{

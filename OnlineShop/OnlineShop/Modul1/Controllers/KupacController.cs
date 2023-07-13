@@ -19,6 +19,120 @@ namespace OnlineShop.Modul1.Controllers
         }
 
 
+        // Model za prijenos slike sa frontend-a
+        public class SlikaKupcaDTO
+        {
+            public int IdKupca { get; set; }
+            public string SlikaBase64 { get; set; }
+        }
+
+        [HttpPost("upload-slika")]
+        public ActionResult UploadSlikaKupca(SlikaKupcaDTO slikaDTO)
+        {
+            if (slikaDTO == null || string.IsNullOrEmpty(slikaDTO.SlikaBase64))
+            {
+                return BadRequest("Niste odabrali sliku.");
+            }
+
+            byte[] slikaBajtovi = Convert.FromBase64String(slikaDTO.SlikaBase64);
+
+            // Spremanje slike u bazu ili file sistem
+            // ... implementirajte kod za spremanje slike ...
+
+            var kupac = _dbContext.Kupac.FirstOrDefault(k => k.Id == slikaDTO.IdKupca);
+            if (kupac != null)
+            {
+                kupac.SlikaKupca = slikaBajtovi;
+                _dbContext.SaveChanges();
+            }
+
+            return Ok();
+        }
+
+
+        [HttpGet("slika")]
+        public ActionResult GetSlika(int id)
+        {
+            var kupac = _dbContext.Kupac.FirstOrDefault(k => k.Id == id);
+            if (kupac == null || kupac.SlikaKupca == null)
+            {
+                return NotFound(); // Vratite odgovarajući status ako nema slike ili korisnika
+            }
+
+            return File(kupac.SlikaKupca, "image/jpg"); // Pretpostavljam da je slika spremljena kao JPEG format
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public class SlikaKupca
         {
@@ -26,6 +140,93 @@ namespace OnlineShop.Modul1.Controllers
             public string? slika_nova { get; set; }
             public byte[]? slika_kupca_postojeca_DB { get; set; }  //za get-anje
         }
+
+
+
+
+
+
+
+
+
+        /*
+
+        [HttpPost("upload-slika")]
+        public ActionResult UploadSlikaKupca(IFormFile file, int idKupca)
+        {
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("Niste odabrali sliku.");
+            }
+
+            byte[] slikaBajtovi;
+            using (var memoryStream = new MemoryStream())
+            {
+                file.CopyTo(memoryStream);
+                slikaBajtovi = memoryStream.ToArray();
+            }
+
+            // Spremanje slike u bazu ili file sistem
+            // ... implementirajte kod za spremanje slike ...
+
+            var kupac = _dbContext.Kupac.FirstOrDefault(k => k.Id == idKupca);
+            if (kupac != null)
+            {
+                kupac.SlikaKupca = slikaBajtovi;
+                _dbContext.SaveChanges();
+            }
+
+            return Ok();
+        }
+
+        */
+
+
+        /*[HttpPost("upload-slika")]
+        public ActionResult UploadSlikaKupca(SlikaKupcaDTO slikaDTO, int idKupca)
+        {
+            if (slikaDTO == null || string.IsNullOrEmpty(slikaDTO.SlikaBase64))
+            {
+                return BadRequest("Niste odabrali sliku.");
+            }
+
+            byte[] slikaBajtovi = Convert.FromBase64String(slikaDTO.SlikaBase64);
+
+            // Spremanje slike u bazu ili file sistem
+            // ... implementirajte kod za spremanje slike ...
+
+            var kupac = _dbContext.Kupac.FirstOrDefault(k => k.Id == idKupca);
+            if (kupac != null)
+            {
+                kupac.SlikaKupca = slikaBajtovi;
+                _dbContext.SaveChanges();
+            }
+
+            return Ok();
+        }
+
+
+
+
+
+        [HttpGet("slika")]
+        public IActionResult GetSlika(int id)
+        {
+            var kupac = _dbContext.Kupac.FirstOrDefault(k => k.Id == id);
+            if (kupac == null || kupac.SlikaKupca == null)
+            {
+                return NotFound();
+            }
+
+            return File(kupac.SlikaKupca, "image/jpg"); // Promijenite tip slike ako je drugačiji
+        }
+        */
+
+
+
+
+
+
 
         [HttpGet("id_fs")]  //id korisnika trebamo poslati da bismo dobili njegovu sliku
         public FileContentResult GetSlikaFS(int id)
@@ -73,35 +274,25 @@ namespace OnlineShop.Modul1.Controllers
 
                 }
 
-                _dbContext.SaveChanges();
+               // _dbContext.SaveChanges();
 
 
             }
-
+            _dbContext.SaveChanges();
             return Ok();
         }
 
-        /*[HttpGet("slikaKorisnika")]
+        [HttpGet("slikaKorisnika")]
         public List<FileContentResult> Slika(int id)
         {
-            var z = _dbContext.Kupac.Where(x => x.Id == id).ToList()[0];
+            var z = _dbContext.Kupac.Where(k => k.Id == id).ToList()[0];
 
-            //if (z == null)
-            //    return BadRequest("ne postoji ovaj zaposlenik");
-
+            /*if (z == null)
+               return BadRequest("ne postoji ovaj kupac");
+            */
             List<FileContentResult> prikaz = new List<FileContentResult>();
-            /* foreach (var z_id in z)
-             {
-                 byte[] bajtovi_slike = Fajlovi.Ucitaj("slike_korisnika/" + z_id + ".jpg");
-
-                 if (bajtovi_slike != null)
-                 {
-                     var slika_prikaz = File(bajtovi_slike, "image/jpg");
-                     prikaz.Add(slika_prikaz);
-                 }
-
-             }*/
-           /* if (z != null)
+            
+           if (z != null)
             {
                 byte[] bajtovi = z.SlikaKupca;
                 if (bajtovi != null)
@@ -110,9 +301,10 @@ namespace OnlineShop.Modul1.Controllers
                     prikaz.Add(slika_prikaz);
                 }
             }
+           
             return prikaz;
 
-        }*/
+        }
 
 
 
@@ -281,8 +473,8 @@ namespace OnlineShop.Modul1.Controllers
             return Ok(objekat);
 
         }
-       /* [HttpGet]
-        public ActionResult GetById(int id)
+        [HttpGet]
+        public ActionResult GetByIdS(int id)
         {
             var data = _dbContext.Kupac
                  .OrderBy(s => s.Id)
@@ -306,15 +498,15 @@ namespace OnlineShop.Modul1.Controllers
                      datumRegistracije = s.DatumRegistracije,
                      //slikaKupca = s.SlikaKupca.ToBase64()
 
-                     slika_zaposlenika_postojeca_DB = s.SlikaKupca,
-                     slika_zaposlenika_postojeca_FS = s.SlikaKupca
+                     slika_kupca_postojeca_DB = s.SlikaKupca,
+                     slika_kupca_postojeca_FS = s.SlikaKupca
                  });
 
 
 
-            return Ok(data.ToList());
+            return Ok(data);
         }
-       */
+       
 
         [HttpGet]
         public ActionResult GetById(int id)
