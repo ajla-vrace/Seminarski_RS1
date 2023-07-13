@@ -16,5 +16,7 @@ namespace OnlineShop.Modul1.ViewModels
         public int? ProdavnicaId { get; set; }
         public string? nazivProdavnice { get; set; }
         public string? Evidentirao { get; set; }
+        public string? PrethodniStatus { get; set; }
+        public bool? jel_kliknuo_otkazana { get; set; }
     }
 }

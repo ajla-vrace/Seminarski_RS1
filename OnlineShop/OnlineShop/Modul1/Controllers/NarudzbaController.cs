@@ -245,7 +245,9 @@ namespace OnlineShop.Modul1.Controllers
                 KupacNaziv = x.Kupac.Ime + " " + x.Kupac.Prezime,
                 ProdavnicaId = x.ProdavnicaId,
                 nazivProdavnice = x.Prodavnica.Adresa,
-                Status = x.Status
+                Status = x.Status,
+                PrethodniStatus=x.PrethodniStatus,
+                jel_kliknuo_otkazana=x.jel_kliknuo_otkazana
             }).ToList()[0];
 
             var stavke = _dbContext.NarudzbaStavka.Where(x => x.NarudzbaId == narudzba_id)
@@ -295,6 +297,7 @@ namespace OnlineShop.Modul1.Controllers
            
             if (narudzba != null)
             {
+                narudzba.PrethodniStatus = narudzba.Status;
                 narudzba.Status = s.status;
                 narudzba.Evidentirao = s.evidentirao;
                 narudzba.jel_promijenjen_status = true;
@@ -340,9 +343,28 @@ namespace OnlineShop.Modul1.Controllers
         public ActionResult BrojNovihNarudzbi()
         {
             var broj = _dbContext.Narudzba.Where(x => x.Status == "Nova").ToList().Count();
-            string poruka = broj > 0 ? $"Imate {broj} novih narudžbi!" : "Trenutno nemate novih narudžbi";
-            return Ok(new { Broj = broj, Poruka = poruka });
+            var brojOtk = _dbContext.Narudzba.Where(x => x.jel_kliknuo_otkazana==false && x.Status=="Otkazana").ToList().Count();
+            string poruka = broj > 0 ? $"Imate {broj} novih narudžbi!" : "Trenutno nemate novih narudžbi.";
+            string poruka2 = brojOtk > 0 ? $"Imate {brojOtk} otkazanih narudžbi!" : "Trenutno nemate otkazanih narudžbi.";
+            return Ok(new { BrojNovih = broj, PorukaNove = poruka, BrojOtk=brojOtk, PorukaOtk=poruka2 });
         }
+
+
+        [HttpPut("otkazana")]
+        public ActionResult PostOtkazana(int narId)
+        {
+            var nar = _dbContext.Narudzba.Find(narId);
+            if (nar != null && nar.Status=="Otkazana" && nar.jel_kliknuo_otkazana!=true) 
+            {
+                nar.jel_kliknuo_otkazana = true;
+                _dbContext.Update(nar);
+                _dbContext.SaveChanges();
+            }
+            return Ok();
+        }
+
+
+
 
         [HttpGet]
         public ActionResult BrojStatusa()
@@ -382,7 +404,9 @@ namespace OnlineShop.Modul1.Controllers
                     KupacNaziv = x.Kupac.Ime + " " + x.Kupac.Prezime,
                     ProdavnicaId = x.ProdavnicaId,
                     nazivProdavnice = x.Prodavnica.Adresa,
-                    Status = x.Status
+                    Status = x.Status,
+                    PrethodniStatus=x.PrethodniStatus,
+                    jel_kliknuo_otkazana=x.jel_kliknuo_otkazana
                 }).ToList(); 
             else if (status !="Sve")
                 podaci = _dbContext.Narudzba.OrderByDescending(x => x.Id).Where(x => x.Status == status).Select(x => new NarudzbaVM
@@ -397,7 +421,9 @@ namespace OnlineShop.Modul1.Controllers
                     KupacNaziv = x.Kupac.Ime + " " + x.Kupac.Prezime,
                     ProdavnicaId = x.ProdavnicaId,
                     nazivProdavnice = x.Prodavnica.Adresa,
-                    Status = x.Status
+                    Status = x.Status,
+                    PrethodniStatus = x.PrethodniStatus,
+                    jel_kliknuo_otkazana = x.jel_kliknuo_otkazana
                 }).ToList();
             return Ok(podaci);
         }

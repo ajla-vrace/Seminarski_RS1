@@ -37,6 +37,8 @@ export class NarudzbeComponent implements OnInit {
 
 
   btnDetalji(narId:any) {
+    this.postOtkazana(narId)
+
     this.router.navigate(['narudzba-detalji',narId]);
   }
 
@@ -105,7 +107,7 @@ export class NarudzbeComponent implements OnInit {
     }
 */
     this.totalLength=rez?.length;
-   // console.log("rez:",rez);
+    console.log("filter narudzbe:",rez);
     return rez;
 
   }
@@ -123,6 +125,25 @@ export class NarudzbeComponent implements OnInit {
         ponistena:x._ponistena
       }
     })
+  }
+
+
+  upozorenjeStatus(n:any) {
+    console.log(n.status == "Otkazana", n.jel_kliknuo_otkazana==false)
+
+    if (n.status == "Otkazana" && n.jel_kliknuo_otkazana==false) {
+      return true; //<img src="assets/slike/warning.png" [ngStyle]="{'width':'40px','height':'40px'}">
+    }
+    else return false;
+  }
+
+  postOtkazana(narId:any){
+    {
+      this.httpKlijent.put(MojConfig.adresa_servera+"/Narudzba/PostOtkazana/otkazana?narId="+narId,narId).subscribe((x:any)=>{
+        this.getNarudzbePoStatusu();
+        console.log("otkazana");
+      })
+    }
   }
 
 }

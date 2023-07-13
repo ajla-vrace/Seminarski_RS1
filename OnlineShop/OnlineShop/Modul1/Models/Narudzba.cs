@@ -21,5 +21,10 @@ namespace OnlineShop.Modul1.Models
         public bool jel_promijenjen_status { get; set; } = false;
         public bool jel_poslana_prouka { get; set; } = false;
 
+        public string? PrethodniStatus { get; set; }
+        public bool? jel_kliknuo_otkazana { get; set; }
+        //public string? PromijenioStatus { get; set; }
+        //public string? PoslaoPoruku { get; set; }
+
     }
 }

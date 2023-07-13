@@ -14,7 +14,10 @@ export class ZaposlenikPocetnaComponent implements OnInit {
 
   zaposlenik_id:any;
   poruka:any="";
+  porukaN:any="";
+  porukaO:any="";
   brojNovihNarudzbi:any=0;
+  brojOtkazanihNarudzbi:any=0;
 
   totalLength:number=0;
   _page:any;
@@ -38,8 +41,10 @@ export class ZaposlenikPocetnaComponent implements OnInit {
   getBrojNovihNarudzbi(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/Narudzba/BrojNovihNarudzbi")
       .subscribe((x:any)=>{
-        this.poruka=x?.poruka;
-        this.brojNovihNarudzbi=x?.broj;
+        this.porukaN=x?.porukaNove;
+        this.brojNovihNarudzbi=x?.brojNovih;
+        this.porukaO=x?.porukaOtk;
+        this.brojOtkazanihNarudzbi=x?.brojOtk;
         console.log(x);
       })
   }
@@ -49,6 +54,13 @@ export class ZaposlenikPocetnaComponent implements OnInit {
       return "rgba(237,163,205,0.45)";
     else
       return "#ffc61c";
+  }
+
+  getBoja2(){
+    if(this.brojOtkazanihNarudzbi==0)
+      return "rgba(237,163,205,0.45)";
+    else
+      return "#f14d53";
   }
 
   proizvodi_datumi:any;
