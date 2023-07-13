@@ -113,8 +113,8 @@
       <h6>Datum kreiranja: <b>{{odabrani_proizvod?.datum_kreiranja}}</b></h6>
       <h6>Kategorija: <b>{{odabrani_proizvod?.proizvod?.kategorijaOpis}}</b></h6>
       <h6>Podkategorija: <b>{{odabrani_proizvod?.proizvod?.podkategorijaOpis}}</b></h6>
-      <h6>Sezona: <b>{{odabrani_proizvod?.proizvod?.sezonaOpis}}</b></h6>
-      <h6>Kolekcija: <b>{{odabrani_proizvod?.proizvod?.kolekcijaOpis}}</b></h6>
+      <h6>Sezona: <b>{{odabrani_proizvod?.proizvod?.sezonaOpis==null?"-":odabrani_proizvod?.proizvod?.sezonaOpis}}</b></h6>
+      <h6>Kolekcija: <b>{{odabrani_proizvod?.proizvod?.kolekcijaOpis==" "?"-":odabrani_proizvod?.proizvod?.kolekcijaOpis}}</b></h6>
       <h6>Aktivan: <b>{{odabrani_proizvod?.proizvod?.aktivan==true?"Da":"Ne"}}</b></h6>
       <h6>Prodata količina: <b>{{odabrani_proizvod?.kolicina}}</b></h6>
     </div>

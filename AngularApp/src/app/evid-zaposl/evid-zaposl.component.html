@@ -165,14 +165,14 @@
 
         <div class="mb-3" [class.has-error]="(tel.invalid && tel.touched) || postojiTel(tel.value)">
           <label class="form-label">Broj telefona</label>
-          <input class="form-control" placeholder="062333333"
-                 #tel="ngModel" required pattern="^[0-9]{9}$"
+          <input class="form-control" placeholder="062333333 ili 0601111111"
+                 #tel="ngModel" required pattern="^((062[0-9]{6})|(060[0-9]{7}))$"
                  [(ngModel)]="zaposlenik_obj.brojTelefona"/>
 
           <!--    required pattern="^[0-9]{3}(\/|-|\s)[0-9]{3}(-|\s)[0-9]{3}$"-->
 
           <span class="help-block" *ngIf="(tel.invalid && tel.touched) || postojiTel(tel.value)">
-             Unesite unikatnu vrijednost u ispravnom formatu (062xxxxxx).
+             Unesite unikatnu vrijednost u ispravnom formatu.
           </span>
 
         </div>

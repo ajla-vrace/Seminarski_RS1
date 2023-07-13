@@ -129,7 +129,7 @@ namespace OnlineShop.Modul1.Controllers
                 specijalnaPonudaOpis=x.specijalnaPonuda.Naziv,
                 proizvodId=x.proizvodId,
                 //proizvod=x.proizvod,
-                proizvodOpis=x.proizvod.Naziv,
+                proizvodOpis=x.proizvod.Naziv +" - "+x.proizvod.Sifra,
                 popustId=x.popustId,
 
                 //popustOpis=x.popust.Opis

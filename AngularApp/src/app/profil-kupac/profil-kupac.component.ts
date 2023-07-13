@@ -106,13 +106,159 @@ notification:any;
 poruka1:any;
   primljenaPoruka: string = '';
   receivedMessage: string = '';
+
+
+  selectedFile: File | null = null;
+  selectedFiles: FileList | null = null;
+
+  slikaUrl: string | null = null;
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient,private router:Router,
               private signalRService: SignalRService ) {
     //a.otvoriKanalWebSocket();
-    this.signalRService.porukaReceived$.subscribe((poruka: string) => {
+   /* this.signalRService.porukaReceived$.subscribe((poruka: string) => {
       this.primljenaPoruka = poruka;
-    });
+    });*/
+
+
+
   }
+
+
+/*
+  handleFileInput(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      this.selectedFile = inputElement.files[0];
+    }
+  }
+
+
+  handleFileInput2(event: any): void {
+    const files: FileList = event.target.files;
+    this.selectedFiles = files;
+  }
+  handleFileInput1(files: FileList): void {
+    const selectedFiles = files;
+  }
+
+  uploadSlika(): void {
+    if (!this.selectedFile) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+
+    this.httpKlijent.post(`${MojConfig.adresa_servera}/Kupac/UploadSlikaKupca/upload-slika?idKupca=`+this.kupac_id, formData)
+      .subscribe(() => {
+        console.log('Slika je uspješno spremljena.');
+        this.getSlika();
+      });
+  }
+
+  getSlika(): void {
+    const idKupca = this.kupac_id; // ID trenutno prijavljenog kupca
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Kupac/GetSlika/slika?id="+this.kupac_id, { responseType: 'blob' })
+      .subscribe((response) => {
+        this.slikaUrl = URL.createObjectURL(response);
+      });
+  }
+
+
+*/
+
+  /*selectedFile: File | null = null;
+  slikaUrl: string | null = null;
+*/
+
+  handleFileInput(input: HTMLInputElement): void {
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+  uploadSlika(): void {
+    if (!this.selectedFile) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+
+    this.httpKlijent.post(MojConfig.adresa_servera+"/Kupac/UploadSlikaKupca/upload-slika", formData)
+      .subscribe(() => {
+        console.log('Slika je uspješno spremljena.');
+        this.getSlika();
+      });
+  }
+
+  getSlika(): void {
+    const idKupca = this.kupac_id; // ID trenutno prijavljenog kupca
+    this.httpKlijent.get(`${MojConfig.adresa_servera}/Kupac/GetSlika/slika?id=${idKupca}`, { responseType: 'blob' })
+      .subscribe((response) => {
+        this.slikaUrl = URL.createObjectURL(response);
+      });
+  }
+
+
+
+
+kupacPodaciNovi:any;
+  slika_kupca_postojeca_fs:any;
+  slika_kupca_postojeca_db:any;
+
+  getKupcaNovi(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Kupac/GetByIdS?id="+this.kupac_id)
+      .subscribe((x:any)=>{
+        this.kupacPodaciNovi=x;
+
+
+        this.slika_kupca_postojeca_fs=x.slika_kupca_postojeca_FS;
+        this.slika_kupca_postojeca_db=x.slika_kupca_postojeca_DB;
+
+         console.log(this.slika_kupca_postojeca_fs,"\n",this.slika_kupca_postojeca_db);
+
+        console.log("PODACI: ",this.kupacPodaciNovi);
+      })
+  }
+
+
+
+  getSlikuKupca(){
+    //  /api/Zaposlenik/slikaKorisnika?id=5
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Kupac/Slika/slikaKorisnika?id="+this.kupac_id)
+      .subscribe((x:any)=>{
+        if(x!=null) {
+          this.slika_kupca = x;
+          console.log("Slika kupca: "+this.slika_kupca);
+
+        }
+      })
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -130,14 +276,14 @@ poruka1:any;
   }
   ngOnInit(): void {
     this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
-
+    this.getKupcaNovi();
    /* this.route.params.subscribe(s=>{
       this.kupac_id=+s["id"];
     })*/
-    this.fetchKupci();
-    this.getKupca1();
-this.fetchKupci1();
-    this.getKupca();
+   // this.fetchKupci();
+  //  this.getKupca1();
+//this.fetchKupci1();
+    //this.getKupca();
 
    // this.fetchKomentari();
     this.fetchKomentariMoji();
@@ -149,6 +295,9 @@ this.fetchNarudzbeKupca();
 //this.getSlikuKupca();
 
 
+
+//this.getKupcaNovi();
+this.getSlikuKupca();
 //this.getPodatkeZaIzvjestajParametri();
 
 
@@ -165,6 +314,124 @@ this.fetchNarudzbeKupca();
       });
 */
   }
+
+
+
+
+
+
+
+
+
+  kliknuoDodajSliku:boolean=false;
+  slika_obj:any;
+
+  dodajSliku() {
+    this.kliknuoDodajSliku=true;
+
+    this.slika_obj={
+      idKupac:this.kupac_id,
+      slika_nova:"",
+      slika_kupca_postojeca_DB:""
+    }
+  }
+
+  slika:any;
+
+  snimi_sliku() {
+    this.kliknuoDodajSliku=false;
+
+    this.httpKlijent.post(MojConfig.adresa_servera+"/Kupac/PromijeniSlikuKupca/promijeni_sliku", this.slika_obj)
+      .subscribe(x=>{
+        console.log("ovo je slika.obj: ",this.slika_obj);
+        console.log("podaci kupca------",this.kupacPodaciNovi);
+        this.slika=this.slika_obj.slika_nova;
+        console.log("Slika: "+this.slika);
+        console.log("Slika_obj.slika_nova",this.slika_obj.slika_nova);
+        this.getKupcaNovi();
+        console.log("Nakon pozivanja get: ",this.kupacPodaciNovi);
+        this.get_slika_novi_request_FS();
+        this.get_slika_base64_FS(this.kupacPodaciNovi);
+        console.log("get_slika_base64_FS:",this.kupacPodaciNovi);
+        // this.reloadPage();
+        // this.slika_obj=null;
+
+      });
+  }
+
+
+  ukloniSliku(){
+    if("data:@file/jpeg;base64,"+this.slika_kupca_postojeca_fs!=this.noimage ){
+      if (confirm("Da li stvarno želite ukloniti sliku?")) {
+        this.slika_obj = {
+          idKupac: this.kupac_id,
+          slika_nova: this.noimage,
+          slika_kupca_postojeca_DB: ""
+        }
+        this.httpKlijent.post(MojConfig.adresa_servera + "/Kupac/PromijeniSlikuKupca/promijeni_sliku", this.slika_obj)
+          .subscribe((x: any) => {
+            this.slika=this.noimage;
+            this.getKupcaNovi();
+          })
+      }
+    }
+  }
+
+
+
+  get_slika_base64_FS(s:any) {
+    console.log("s je ovdje",s);
+   // console.log("slika fs",this.slika_kupca_postojeca_fs);
+    console.log("Slika FS:",s.ime);
+    if(s!=null && s[0].slika_kupca_postojeca_FS!=null)
+      return "data:image/jpg;base64,"+ s[0]?.slika_kupca_postojeca_FS;
+    return this.noimage;
+    // return "data:image/jpg;base64,"+this.slika_zaposlenika_postojeca_fs;
+  }
+
+  get_slika_novi_request_FS() {
+    return `${MojConfig.adresa_servera}/Kupac/GetSlikaFS/id_fs?id=`+this.kupac_id;
+  }
+
+
+  get_slika_novi_request_DB(s: any) {
+    return `${MojConfig.adresa_servera}/Kupac/GetSlikaDB/id_db?id=`+s.id;
+  }
+
+  get_slika_base64_DB(s:any) {
+    return "data:image/jpg;base64,"+ s?.slika_kupca_postojeca_db;
+  }
+
+
+
+  generisi_preview() {
+    // @ts-ignore
+    var file = document.getElementById("slika-input").files[0];
+    if (file) {
+      var reader = new FileReader();
+      let this2 = this;
+      reader.onload = function () {
+        this2.slika_obj.slika_nova = reader.result?.toString();
+      }
+      console.log("file: ", file);
+      reader.readAsDataURL(file);
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   mjesec:any='';
 
 
@@ -602,8 +869,8 @@ isPretplacen:any="";
     console.log("PODACI: ",this.kupac_podaci);
   }
 
-  slika_kupca_postojeca_fs:any;
-  slika_kupca_postojeca_db:any;
+  //slika_kupca_postojeca_fs:any;
+ // slika_kupca_postojeca_db:any;
 
 slika_kupca:any;
  /*
@@ -620,7 +887,7 @@ slika_kupca:any;
   }
 */
 
-  kliknuoDodajSliku:boolean=false;
+  /*kliknuoDodajSliku:boolean=false;
   slika_obj:any;
 
   dodajSliku() {
@@ -632,9 +899,9 @@ console.log("u dodajSliku funkciji idkupca je: "+this.kupac_id);
       slika_kupca_postojeca_DB:""
     }
   }
-
-  slika:any;
-
+*/
+  //slika:any;
+/*
   snimi_sliku() {
     this.kliknuoDodajSliku=false;
 console.log("slika obj idkupac: "+this.slika_obj.idKupac+ " slika nova: "+this.slika_obj.slika_nova+
@@ -660,7 +927,8 @@ this.getKupca1();
     }, 500);
   }
 
-
+*/
+  /*
   ukloniSliku(){
     if("data:@file/jpeg;base64,"+this.slika_kupca_postojeca_fs!=this.noimage ){
       if (confirm("Da li stvarno želite ukloniti sliku?")) {
@@ -677,26 +945,28 @@ this.getKupca1();
       }
     }
   }
-
+*/
   /*
     get_slika_novi_request_FS() {
       var data=`${MojConfig.adresa_servera}/api/Zaposlenik/id_fs?id=${this.zaposlenik_id}"`;
       console.log(data);
       return data;
     }*/
-
+/*
   get_slika_FS(p: any) {
     // return "data:image/jpg;base64,"+p.fileContents;
     return p.fileContents;
 
     console.log("FILE CONTENTS: ",p.fileContents);
   }
-
+*/
+  /*
   get_slika_FS_2(){
     return this.slika_kupca?.fileContents;
   }
 
-
+*/
+  /*
   get_slika_base64_FS(s:any) {
     if(s!=null && s.slika_kupca_postojeca_FS!=null)
       return "data:image/jpg;base64,"+ s?.slika_kupca_postojeca_FS;
@@ -733,7 +1003,7 @@ this.getKupca1();
     }
   }
 
-
+*/
 
 
   reloadPage() {

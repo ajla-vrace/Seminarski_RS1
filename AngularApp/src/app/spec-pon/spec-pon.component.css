@@ -123,3 +123,7 @@ img{
   background-color: pink;
   border-radius: 30px;
 }
+
+.dugmeSaljiMail:hover, .dugmeSaljiPoruku:hover, .dugmeAktivnost:hover{
+  color:rgba(0,0,0,0.56);
+}

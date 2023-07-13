@@ -272,14 +272,15 @@
 
         <div class="mb-3" [class.has-error]="(telControll.invalid && telControll.touched) || postojiTel(telControll.value)">
           <label class="form-label">Broj telefona:</label>
-          <input type="text" required pattern="^[0-9]{3}(\/|-|\s)[0-9]{3}(-|\s)[0-9]{3}$"
+          <input type="text" required pattern="^((062[0-9]{6})|(060[0-9]{7}))$"
                  minlength="3" #telControll="ngModel"
-                 class="form-control" placeholder="062/111-111 ili 062 111 111 ili 062-111-111..." [(ngModel)]="admin_podaci[0].brojTelefona">
+                 class="form-control" placeholder="062xxxxxx ili 060xxxxxxx" [(ngModel)]="admin_podaci[0].brojTelefona">
 
           <span class="help-block" *ngIf="telControll.invalid && telControll.touched">
             Ovo polje je obavezno.
           </span>
 
+          <!--"^[0-9]{3}(\/|-|\s)[0-9]{3}(-|\s)[0-9]{3}$"-->
           <span class="help-block" *ngIf=" postojiTel(telControll.value)">
             Već postoji ovaj broj telefona.
           </span>

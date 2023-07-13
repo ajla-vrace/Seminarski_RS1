@@ -58,7 +58,7 @@ export class ProfilZaposlenikComponent implements OnInit {
       .subscribe((x:any)=>{
         if(x!=null) {
           this.slika_zaposlenika = x;
-          console.log(this.slika_zaposlenika);
+          console.log("slika zaposslenika "+this.slika_zaposlenika);
 
         }
       })
