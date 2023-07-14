@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
+import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 
 @Component({
   selector: 'app-admin-pocetna',
@@ -15,6 +16,7 @@ export class AdminPocetnaComponent implements OnInit {
               private httpKlijent:HttpClient, private afDB:AngularFireDatabase) { }
 
   admin_id:any;
+  adminIme:any=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.ime;
   brPreuzimanja: any;
   naslovKataloga: any="Neki naslov kataloga";
   brPosjeta: any;

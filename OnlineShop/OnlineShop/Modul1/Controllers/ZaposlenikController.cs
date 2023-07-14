@@ -446,7 +446,7 @@ namespace OnlineShop.Modul1.Controllers
         public ActionResult Detalji(int zap_id)
         {
             string? z = context.Zaposlenik.Find(zap_id)?.Username;
-            var proizvodi = context.Proizvod.Where(x => x.evidentirao == z).ToList();
+            var proizvodi = context.Proizvod.Where(x => x.evidentirao == z || x.modifikovao == z).ToList();
             var narudzbe = context.Narudzba.Where(x => x.Evidentirao == z).Select(x=>new
             {
                 kupac= x.Kupac.Ime+" "+x.Kupac.Prezime,
@@ -457,7 +457,7 @@ namespace OnlineShop.Modul1.Controllers
                 datum_kreiranja=x.DatumKreiranja,
                 datum_preuzimanja=x.DatumPreuzimanja
             }).ToList();
-            var skladisteProizvod = context.SkladisteProizvod.Where(x=>x.evidentirao==z).Select(x=>new
+            var skladisteProizvod = context.SkladisteProizvod.Where(x=>x.evidentirao==z || x.modifikovao == z).Select(x=>new
             {
                 skladiste=x.skladiste.Adresa,
                 proizvod=x.proizvod.Naziv+" - "+x.proizvod.Sifra,
@@ -465,7 +465,8 @@ namespace OnlineShop.Modul1.Controllers
                 kolicina=x.kolicina,
                 velicina=x.velicina,
                 odjel=x.proizvod.odjel.Naziv,
-                evidentirao=x.evidentirao
+                evidentirao=x.evidentirao,
+                modifikovao=x.modifikovao
             }).ToList();
 
             return Ok(new { _proizvodi = proizvodi, _narudzbe = narudzbe, _skladisteProizvod = skladisteProizvod });

@@ -99,10 +99,10 @@
         <td>{{n.ukupnoProizvoda}}</td>
         <td>{{n.evidentirao}}</td>
         <td>{{n.nazivProdavnice}}</td>
-        <td>{{n.status}}</td>
+        <td><h6><b *ngIf="n.status=='Nova'" style="color:#ffc61c"> {{n.status}}</b></h6> <h6 *ngIf="n.status!='Nova'">{{n.status}}</h6></td>
         <td style="color: red"><h5>{{upozorenjeStatus(n)==true? "!":""}}</h5></td>
         <td> </td>
-        <td><button (click)="btnDetalji(n.id)" class="btn-detalji">Vidi detalje</button></td>
+        <td><button (click)="btnDetalji(n)" class="btn-detalji">Vidi detalje</button></td>
       </tr>
       </tbody>
 

@@ -66,7 +66,7 @@ export class ProdavniceComponent implements OnInit {
     /*if(this.prosjeciPodaci==null)
       return 0;
     return this.prosjeciPodaci.filter((a:any)=>a.prodavnicaId==id).prosjek;*/
-    const prosjekData = this.prosjeciPodaci.find((a:any) => a.prodavnicaId === id);
+    const prosjekData = this.prosjeciPodaci?.find((a:any) => a.prodavnicaId === id);
     return prosjekData ? prosjekData.prosjek : 0;
   }
   ngOnInit(): void {
@@ -121,9 +121,9 @@ export class ProdavniceComponent implements OnInit {
         });
 
 
-      this.httpKlijent.post(`${MojConfig.adresa_servera}/Komentar/Add`, this.noviKomentar, MojConfig.http_opcije()).subscribe(x => {
-        this.fetchKomentari();
-      });
+     // this.httpKlijent.post(`${MojConfig.adresa_servera}/Komentar/Add`, this.noviKomentar, MojConfig.http_opcije()).subscribe(x => {
+       // this.fetchKomentari();
+     // });
 this.uspjesanKomentar=true;
       this.ocistiInput(opis_input);
       this.prodavnicaId=0;

@@ -46,8 +46,8 @@ namespace OnlineShop.Modul1.Controllers
                Povrsina=x.Povrsina,
                gradId=x.gradId,
                gradOpis=x.grad.Naziv,
-               prodavnicaId=x.prodavnicaId,
-               prodavnicaOpis=x.prodavnica.Naziv
+               //prodavnicaId=x.prodavnicaId,
+               //prodavnicaOpis=x.prodavnica.Naziv
             }).ToList().AsQueryable();
         }
 
@@ -75,7 +75,7 @@ namespace OnlineShop.Modul1.Controllers
             s.BrojTelefona = x.BrojTelefona;
             s.Povrsina = x.Povrsina;
             s.gradId = x.gradId;
-            s.prodavnicaId = x.prodavnicaId;
+            //s.prodavnicaId = x.prodavnicaId;
 
             context.SaveChanges();
 

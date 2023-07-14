@@ -82,7 +82,8 @@ namespace OnlineShop.Modul1.Controllers
                 sezonaId = x.sezonaId,
                 sezonaOpis = x.sezona.Naziv,
                 slika_postojeca = x.slika_postojeca,
-                evidentirao=x.evidentirao
+                evidentirao=x.evidentirao,
+                modifikovao=x.modifikovao
             }).ToList()[0];
 
             return data;
@@ -154,6 +155,7 @@ namespace OnlineShop.Modul1.Controllers
                 
                 p.datum_kreiranja = DateTime.Now;
                 p.Sifra = x.Sifra;
+                p.evidentirao = x.evidentirao;
 
                 context.Add(p);
             }
@@ -163,6 +165,7 @@ namespace OnlineShop.Modul1.Controllers
                 if (p == null)
                     return BadRequest("pogrešan ID");
                 p.datum_modifikacije = DateTime.Now;
+                p.modifikovao = x.modifikovao;
             }
 
             p.Naziv = x.Naziv;
@@ -175,7 +178,6 @@ namespace OnlineShop.Modul1.Controllers
             p.podkategorijaId = x.podkategorijaId;
             p.sezonaId = x.sezonaId;
             p.kolekcijaId = x.kolekcijaId;
-            p.evidentirao = x.evidentirao;
 
             context.SaveChanges();
 
@@ -234,7 +236,8 @@ namespace OnlineShop.Modul1.Controllers
                 sezonaId=x.sezonaId,
                 sezonaOpis=x.sezona.Naziv,          
                 slika_postojeca=x.slika_postojeca,
-                evidentirao = x.evidentirao
+                evidentirao = x.evidentirao,
+                modifikovao=x.modifikovao
             });
 
             return data.OrderByDescending(x=>x.Id).ToList();
@@ -267,7 +270,8 @@ namespace OnlineShop.Modul1.Controllers
                 sezonaId = x.sezonaId,
                 sezonaOpis = x.sezona.Naziv,
                 slika_postojeca = x.slika_postojeca,
-                evidentirao = x.evidentirao
+                evidentirao = x.evidentirao,
+                modifikovao = x.modifikovao
             });
 
             return data.OrderBy(x => x.Naziv).ToList();
@@ -300,7 +304,8 @@ namespace OnlineShop.Modul1.Controllers
                 sezonaId = x.sezonaId,
                 sezonaOpis = x.sezona.Naziv,
                 slika_postojeca = x.slika_postojeca,
-                evidentirao = x.evidentirao
+                evidentirao = x.evidentirao,
+                modifikovao = x.modifikovao
             });
 
             return data.OrderBy(x=>x.datum_kreiranja).ToList();
@@ -333,7 +338,8 @@ namespace OnlineShop.Modul1.Controllers
                 sezonaId = x.sezonaId,
                 sezonaOpis = x.sezona.Naziv,
                 slika_postojeca = x.slika_postojeca,
-                evidentirao = x.evidentirao
+                evidentirao = x.evidentirao,
+                modifikovao = x.modifikovao
             });
 
             return data.OrderByDescending(x => x.datum_kreiranja).ToList();
@@ -365,8 +371,9 @@ namespace OnlineShop.Modul1.Controllers
                 sezonaId = x.sezonaId,
                 sezonaOpis = x.sezona.Naziv,
                 slika_postojeca = x.slika_postojeca,
-                evidentirao = x.evidentirao
-            });
+                evidentirao = x.evidentirao,
+                modifikovao = x.modifikovao
+                });
 
             return data.OrderByDescending(x => x.datum_kreiranja).ToList();
         }
@@ -502,7 +509,8 @@ namespace OnlineShop.Modul1.Controllers
                     sezonaId = x.sezonaId,
                     sezonaOpis = x.sezona.Naziv,
                     slika_postojeca = x.slika_postojeca,
-                    evidentirao = x.evidentirao
+                    evidentirao = x.evidentirao,
+                    modifikovao = x.modifikovao
                 }).ToList()[0];
 
                 proizvodi_kolicine.Add(new ProizvodiKolicina
@@ -550,7 +558,8 @@ namespace OnlineShop.Modul1.Controllers
                 sezonaId = x.sezonaId,
                 sezonaOpis = x.sezona.Naziv,
                 slika_postojeca = x.slika_postojeca,
-                evidentirao = x.evidentirao
+                evidentirao = x.evidentirao,
+                modifikovao = x.modifikovao
             }).ToList();
 
             for (int i = 0; i < proizvodi.Count(); i++)
@@ -603,7 +612,8 @@ namespace OnlineShop.Modul1.Controllers
                     sezonaId = x.sezonaId,
                     sezonaOpis = x.sezona.Naziv,
                     slika_postojeca = x.slika_postojeca,
-                    evidentirao = x.evidentirao
+                    evidentirao = x.evidentirao,
+                    modifikovao = x.modifikovao
                 }).ToList()[0];
 
                 //var velkol = context.SkladisteProizvod.Where(x => x.proizvodId == proizvodVM.Id).Select(x => new VelicinaKolicina

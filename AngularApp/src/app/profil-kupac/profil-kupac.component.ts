@@ -5,7 +5,6 @@ import {HttpClient} from "@angular/common/http";
 import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 import {LoginInformacije} from "../helpers/login-informacije";
 import {NgModel} from "@angular/forms";
-import {formatDate} from "@angular/common";
 import {SignalRService} from "../_servisi/SignalRServis";
 import { CategoryScale, LinearScale, BarController, BarElement } from 'chart.js';
 import {Chart} from 'chart.js'
@@ -100,7 +99,7 @@ kupac_podaci:any;
 
 
 
-  slika_objekat:any;
+  //slika_objekat:any;
    kupciPodaci1: any;
 notification:any;
 poruka1:any;
@@ -115,57 +114,16 @@ poruka1:any;
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient,private router:Router,
               private signalRService: SignalRService ) {
     //a.otvoriKanalWebSocket();
-   /* this.signalRService.porukaReceived$.subscribe((poruka: string) => {
+    this.signalRService.porukaReceived$.subscribe((poruka: string) => {
       this.primljenaPoruka = poruka;
-    });*/
+    });
 
 
 
   }
 
 
-/*
-  handleFileInput(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files && inputElement.files.length > 0) {
-      this.selectedFile = inputElement.files[0];
-    }
-  }
 
-
-  handleFileInput2(event: any): void {
-    const files: FileList = event.target.files;
-    this.selectedFiles = files;
-  }
-  handleFileInput1(files: FileList): void {
-    const selectedFiles = files;
-  }
-
-  uploadSlika(): void {
-    if (!this.selectedFile) {
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('file', this.selectedFile);
-
-    this.httpKlijent.post(`${MojConfig.adresa_servera}/Kupac/UploadSlikaKupca/upload-slika?idKupca=`+this.kupac_id, formData)
-      .subscribe(() => {
-        console.log('Slika je uspješno spremljena.');
-        this.getSlika();
-      });
-  }
-
-  getSlika(): void {
-    const idKupca = this.kupac_id; // ID trenutno prijavljenog kupca
-    this.httpKlijent.get(MojConfig.adresa_servera+"/Kupac/GetSlika/slika?id="+this.kupac_id, { responseType: 'blob' })
-      .subscribe((response) => {
-        this.slikaUrl = URL.createObjectURL(response);
-      });
-  }
-
-
-*/
 
   /*selectedFile: File | null = null;
   slikaUrl: string | null = null;
@@ -280,10 +238,10 @@ kupacPodaciNovi:any;
    /* this.route.params.subscribe(s=>{
       this.kupac_id=+s["id"];
     })*/
-   // this.fetchKupci();
-  //  this.getKupca1();
-//this.fetchKupci1();
-    //this.getKupca();
+    this.fetchKupci();
+   this.getKupca1();
+this.fetchKupci1();
+    this.getKupca();
 
    // this.fetchKomentari();
     this.fetchKomentariMoji();
@@ -292,11 +250,7 @@ kupacPodaciNovi:any;
     this.fetchOcjeneProizvoda();
     this.fetchOcjeneProizvodaMoje();
 this.fetchNarudzbeKupca();
-//this.getSlikuKupca();
 
-
-
-//this.getKupcaNovi();
 this.getSlikuKupca();
 //this.getPodatkeZaIzvjestajParametri();
 
@@ -374,19 +328,18 @@ this.getSlikuKupca();
             this.getKupcaNovi();
           })
       }
+      porukaSuccess("Slika je uspjesno uklonjena.");
     }
+
   }
 
 
 
   get_slika_base64_FS(s:any) {
-    console.log("s je ovdje",s);
-   // console.log("slika fs",this.slika_kupca_postojeca_fs);
-    console.log("Slika FS:",s.ime);
     if(s!=null && s[0].slika_kupca_postojeca_FS!=null)
       return "data:image/jpg;base64,"+ s[0]?.slika_kupca_postojeca_FS;
     return this.noimage;
-    // return "data:image/jpg;base64,"+this.slika_zaposlenika_postojeca_fs;
+
   }
 
   get_slika_novi_request_FS() {

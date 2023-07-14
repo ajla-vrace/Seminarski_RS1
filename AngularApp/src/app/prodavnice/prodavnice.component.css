@@ -3,7 +3,7 @@ div{
 }
 #prodavnice{
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: 25% 25% 25% 25%;
   margin: 0% 5%;
   width: 90%;
 }
@@ -11,9 +11,9 @@ div{
   border: 1px solid black;
   border-radius: 10px;
   padding: 3%;
-  margin: 1%;
-  width: 98%;
-  background-color: palevioletred;
+  margin: 2%;
+  width: 90%;
+  background-color: #b1e2f8;
 
 
 }
@@ -22,7 +22,7 @@ div{
   margin: 2% 5%;
   margin-bottom: 3%;
   padding: 2%;
-  background-color: #e7b9b9;
+  background-color: #dcdada;
   border: 2px solid black;
   text-align: center;
 }
@@ -52,7 +52,7 @@ h2,h3,h4,h5,h6{
 }
 .komentari{
   display: inline;
-  border: 1px solid deeppink;
+  border: 1px solid #14c0ff;
   padding: 1%;
   margin:1%;
 
@@ -66,14 +66,14 @@ h2,h3,h4,h5,h6{
   margin-top: 0;
   display: grid;
   grid-template-columns: auto auto;
-  background-color: #efe4ea;
+  background-color: #e2f2f8;
 }
 .ocjena{
   margin: 5px;
   padding: 1%;
   border-radius: 10px;
   border:0;
-  background-color: #e0a8a8;
+  background-color: #c4c2c2;
 }
 .ocjena1{
   margin: 5%;
@@ -86,8 +86,8 @@ h2,h3,h4,h5,h6{
   font-size: medium;
 }
 .ocjena:disabled{
-  background-color: #e0a8a8;
-  color: #d78f8f;
+  background-color: #e3e2e2;
+  color: #d2d0d0;
 }
 #textarea-komentar{
   width: 50%;

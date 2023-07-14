@@ -47,21 +47,21 @@
 <table class="table table-hover">
   <thead>
   <tr>
-    <th scope="col">Id</th>
+ <!--   <th scope="col">Id</th> -->
     <th scope="col">Šifra</th>
     <th scope="col">Naziv</th>
     <th scope="col">Cijena</th>
 <!--    <th scope="col">Opis</th>-->
     <th scope="col">Datum kreiranja</th>
-    <!--    <th scope="col">Datum modifikacije</th> -->
+    <th scope="col">Datum modifikacije</th>
     <th scope="col">Aktivan</th>
-    <th scope="col">Boja</th>
     <th scope="col">Odjel</th>
     <th scope="col">Kategorija</th>
     <th scope="col">Podkategorija</th>
   <!--  <th scope="col">Kolekcija</th>
     <th scope="col">Sezona</th> -->
     <th scope="col">Evidentirao</th>
+    <th scope="col">Modifikovao</th>
     <th scope="col">Slika</th>
     <th></th>
     <th></th>
@@ -77,21 +77,21 @@
   currentPage:page,
   totalItems:totalLength
   }">
-    <th scope="row">{{p.id}}</th>
-    <td>{{p.sifra}}</td>
+<!--    <th scope="row">{{p.id}}</th> -->
+    <th scope="row">{{p.sifra}}</th>
     <td>{{p.naziv}}</td>
     <td>{{p.cijena}}</td>
   <!--  <td>{{p.opis}}</td>-->
     <td>{{formatDatum(p.datum_kreiranja)}}</td>
-    <!--  <td>{{p.datum_modifikacije}}</td> -->
+    <td>{{formatDatum(p.datum_modifikacije)}}</td>
     <td>{{p.aktivan ? "Aktivan" : "Neaktivan"}}</td>
-    <td>{{p.bojaOpis}}</td>
     <td>{{p.odjelOpis}}</td>
     <td>{{p.kategorijaOpis}}</td>
     <td>{{p.podkategorijaOpis}}</td>
  <!--   <td>{{p.kolekcijaOpis}}</td>
     <td>{{p.sezonaOpis}}</td> -->
     <td>{{p.evidentirao}}</td>
+    <td>{{p.modifikovao==null? "-" : p.modifikovao}}</td>
     <td> <img style="display:block; max-width: 100%; width:60%; height: 70px" src="{{get_slika_base64_FS(p)}}"></td>
     <td> <img style="display:block; max-width: 100%; height: 40px" src="assets/slike/pencil-square.svg" class="edit-btn" (click)="EditDugme(p)"></td>
     <td> <img style="display:block; max-width: 100%; height: 40px" src="assets/slike/x-square.svg" class="delete-btn" (click)="DeleteDugme(p)"></td>
@@ -322,8 +322,8 @@
 
 
         <div class="mb-3" >
-          <label class="form-label">Proizvod:</label>
-          <input disabled [value]="proizvod_id" [(ngModel)]="slika_proizvod_objekat.proizvodId">
+          <label class="form-label">Proizvod: </label>
+          <input disabled [value]="proizvod_sifra" class="input-kod-slike">  <!-- [(ngModel)]="slika_proizvod_objekat.proizvodId" -->
         </div>
 
         <div class="mb-3"  >
@@ -371,8 +371,8 @@
   <div class="modal-dialog modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel1" > {{naslov}} </h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="obj_sezkol=null; getProizvodOpadajuci();"></button>
+        <h5 class="modal-title" id="exampleModalLiveLabel1" [ngStyle]="{color:getColor()}"> {{naslov}} </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="obj_sezkol=null; getProizvodOpadajuci(); kliknuo_add_sezkol=false;"></button>
       </div>
       <div class="modal-body">
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.Data;
 
@@ -11,9 +12,11 @@ using OnlineShop.Data;
 namespace OnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230714095248_prodavnica_skladiste")]
+    partial class prodavnicaskladiste
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -605,9 +608,6 @@ namespace OnlineShop.Migrations
                     b.Property<int?>("kolekcijaId")
                         .HasColumnType("int");
 
-                    b.Property<string>("modifikovao")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("odjelId")
                         .HasColumnType("int");
 
@@ -738,9 +738,6 @@ namespace OnlineShop.Migrations
 
                     b.Property<int>("kolicina")
                         .HasColumnType("int");
-
-                    b.Property<string>("modifikovao")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("proizvodId")
                         .HasColumnType("int");

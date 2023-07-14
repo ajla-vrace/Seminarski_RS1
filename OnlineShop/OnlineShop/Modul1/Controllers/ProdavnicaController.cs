@@ -158,6 +158,8 @@ namespace OnlineShop.Modul1.Controllers
             public string povrsina { get; set; }
             public int? gradId { get; set; }
             public string gradOpis { get; set; }
+            public int? skladisteId { get; set; }
+            public string skladisteOpis { get; set; }
         }
 
         [HttpPost("Snimi")]
@@ -182,46 +184,47 @@ namespace OnlineShop.Modul1.Controllers
             p.BrojTelefona = x.brojTelefona;
             p.Povrsina = x.povrsina;
             p.gradId = x.gradId;
+            p.skladisteId = x.skladisteId;
 
             _dbContext.SaveChanges();
 
             return Ok(p);
         }
 
-        [HttpDelete("prodId")]
-        public ActionResult DeleteProdavnica(int id)
-        {
-            Prodavnica? p = _dbContext.Prodavnica.Find(id);
+        //[HttpDelete("prodId")]
+        //public ActionResult DeleteProdavnica(int id)
+        //{
+        //    Prodavnica? p = _dbContext.Prodavnica.Find(id);
 
-            List<Skladiste> lista_skladista = _dbContext.Skladiste.Where(x => x.prodavnicaId == id).ToList();
+        //    List<Skladiste> lista_skladista = _dbContext.Skladiste.Where(x => x.prodavnicaId == id).ToList();
 
-            if(lista_skladista.Count > 0){
-                foreach (var item in lista_skladista)
-                {
-                    List<SkladisteProizvod> lista_sp = _dbContext.SkladisteProizvod.Where(x => x.skladisteId == item.Id).ToList();
+        //    if(lista_skladista.Count > 0){
+        //        foreach (var item in lista_skladista)
+        //        {
+        //            List<SkladisteProizvod> lista_sp = _dbContext.SkladisteProizvod.Where(x => x.skladisteId == item.Id).ToList();
 
-                    foreach (var sp in lista_sp)
-                    {
-                        _dbContext.Remove(sp);
-                        _dbContext.SaveChanges();
-                    }
+        //            foreach (var sp in lista_sp)
+        //            {
+        //                _dbContext.Remove(sp);
+        //                _dbContext.SaveChanges();
+        //            }
 
-                    _dbContext.Remove(item);
-                    _dbContext.SaveChanges();
-                }
-            }
+        //            _dbContext.Remove(item);
+        //            _dbContext.SaveChanges();
+        //        }
+        //    }
 
-            if (id == 0)
-                return BadRequest("pogresan id=0");
+        //    if (id == 0)
+        //        return BadRequest("pogresan id=0");
 
-            if(p==null)
-                return BadRequest("pogresan id");
+        //    if(p==null)
+        //        return BadRequest("pogresan id");
 
-            _dbContext.Remove(p);
-            _dbContext.SaveChanges();
+        //    _dbContext.Remove(p);
+        //    _dbContext.SaveChanges();
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
 
         [HttpGet("all")]
@@ -235,7 +238,9 @@ namespace OnlineShop.Modul1.Controllers
                 brojTelefona = x.BrojTelefona,
                 povrsina = x.Povrsina,
                 gradId = x.gradId,
-                gradOpis = x.grad.Naziv
+                gradOpis = x.grad.Naziv,
+                skladisteId=x.skladisteId,
+                skladisteOpis=x.skladiste.Naziv +" - "+x.skladiste.Adresa
             }).AsQueryable().ToList();
         }
 

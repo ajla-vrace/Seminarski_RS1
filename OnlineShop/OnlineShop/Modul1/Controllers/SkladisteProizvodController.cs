@@ -37,6 +37,7 @@ namespace OnlineShop.Modul1.Controllers
             public string? evidentirao { get; set; }
             public string? velicina { get; set; }
             public string? odjel { get; set; }
+            public string? modifikovao { get; set; }
         }
 
         [HttpGet]
@@ -57,7 +58,8 @@ namespace OnlineShop.Modul1.Controllers
                 datum_modifikacije = x.datum_modifikacije,
                 evidentirao = x.evidentirao,
                 velicina = x.velicina,
-                odjel=x.proizvod.odjel.Naziv
+                odjel=x.proizvod.odjel.Naziv,
+                modifikovao = x.modifikovao
             }).ToList().AsQueryable();
             return data;
         }
@@ -78,7 +80,8 @@ namespace OnlineShop.Modul1.Controllers
                 datum_modifikacije = x.datum_modifikacije,
                 evidentirao=x.evidentirao,
                 velicina=x.velicina,
-                odjel = x.proizvod.odjel.Naziv
+                odjel = x.proizvod.odjel.Naziv,
+                modifikovao = x.modifikovao
             }).ToList().AsQueryable().OrderByDescending(x=>x.kolicina).ThenByDescending(x => x.proizvodOpis);
             return data;
         }
@@ -99,7 +102,8 @@ namespace OnlineShop.Modul1.Controllers
                 datum_modifikacije = x.datum_modifikacije,
                 evidentirao=x.evidentirao,
                 velicina=x.velicina,
-                odjel = x.proizvod.odjel.Naziv
+                odjel = x.proizvod.odjel.Naziv,
+                modifikovao = x.modifikovao
             }).ToList().AsQueryable().OrderBy(x => x.kolicina).ThenBy(x => x.proizvodOpis);
             return data;
         }
@@ -120,7 +124,8 @@ namespace OnlineShop.Modul1.Controllers
                 datum_modifikacije = x.datum_modifikacije,
                 evidentirao=x.evidentirao,
                 velicina=x.velicina,
-                odjel = x.proizvod.odjel.Naziv
+                odjel = x.proizvod.odjel.Naziv,
+                modifikovao = x.modifikovao
             }).ToList().AsQueryable().OrderBy(x => x.kolicina).ThenByDescending(x => x.proizvodOpis);
             return data;
         }
@@ -142,7 +147,8 @@ namespace OnlineShop.Modul1.Controllers
                 datum_modifikacije = x.datum_modifikacije,
                 evidentirao=x.evidentirao,
                 velicina=x.velicina,
-                odjel = x.proizvod.odjel.Naziv
+                odjel = x.proizvod.odjel.Naziv,
+                modifikovao = x.modifikovao
             }).ToList().AsQueryable().OrderByDescending(x => x.kolicina).ThenBy(x=>x.proizvodOpis);
             return data;
         }
@@ -164,7 +170,8 @@ namespace OnlineShop.Modul1.Controllers
                 datum_modifikacije = x.datum_modifikacije,
                 evidentirao = x.evidentirao,
                 velicina = x.velicina,
-                odjel = x.proizvod.odjel.Naziv
+                odjel = x.proizvod.odjel.Naziv,
+                modifikovao = x.modifikovao
             }).ToList().AsQueryable().OrderByDescending(x => x.kolicina);
             return data;
         }
@@ -185,7 +192,8 @@ namespace OnlineShop.Modul1.Controllers
                 datum_modifikacije = x.datum_modifikacije,
                 evidentirao = x.evidentirao,
                 velicina = x.velicina,
-                odjel = x.proizvod.odjel.Naziv
+                odjel = x.proizvod.odjel.Naziv,
+                modifikovao = x.modifikovao
             }).ToList().AsQueryable().OrderBy(x => x.kolicina);
             return data;
         }
@@ -206,7 +214,8 @@ namespace OnlineShop.Modul1.Controllers
                 datum_modifikacije = x.datum_modifikacije,
                 evidentirao = x.evidentirao,
                 velicina = x.velicina,
-                odjel = x.proizvod.odjel.Naziv
+                odjel = x.proizvod.odjel.Naziv,
+                modifikovao = x.modifikovao
             }).ToList().AsQueryable().OrderBy(x => x.proizvodOpis);
             return data;
         }
@@ -227,7 +236,8 @@ namespace OnlineShop.Modul1.Controllers
                 datum_modifikacije = x.datum_modifikacije,
                 evidentirao = x.evidentirao,
                 velicina = x.velicina,
-                odjel = x.proizvod.odjel.Naziv
+                odjel = x.proizvod.odjel.Naziv,
+                modifikovao = x.modifikovao
             }).ToList().AsQueryable().OrderByDescending(x => x.proizvodOpis);
             return data;
         }
@@ -241,6 +251,7 @@ namespace OnlineShop.Modul1.Controllers
             {
                 s = new SkladisteProizvod();
                 s.datum_kreiranja = DateTime.Now;
+                s.evidentirao = x.evidentirao;
                 context.Add(s);
             }
             else
@@ -249,12 +260,12 @@ namespace OnlineShop.Modul1.Controllers
                 if (s == null)
                     return BadRequest("pogrešan id.");
                 s.datum_modifikacije = DateTime.Now;
+                s.modifikovao = x.modifikovao;
             }
 
             s.proizvodId = x.proizvodId;
             s.skladisteId = x.skladisteId;
             s.kolicina = x.kolicina;
-            s.evidentirao = x.evidentirao;
             s.velicina = x.velicina;
 
             context.SaveChanges();

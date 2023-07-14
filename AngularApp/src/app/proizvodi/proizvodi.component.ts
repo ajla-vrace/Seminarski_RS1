@@ -189,10 +189,15 @@ export class ProizvodiComponent implements OnInit {
           this.kolekcije=[];
       }
       else {
+        /*
        if(this.obj_sezkol!=null && this.odabrani!=null)
          this.obj_sezkol.kolekcijaId=this.odabrani.kolekcijaId;
        else
          this.obj_sezkol.kolekcijaId=this.kolekcije[0]?.id;
+
+         */
+        console.log("obj_sezkol.kolekcijaId,",this.odabrani?.kolekcijaId);
+        this.obj_sezkol.kolekcijaId=this.odabrani?.kolekcijaId;
       }
 
     })
@@ -224,10 +229,10 @@ export class ProizvodiComponent implements OnInit {
 
 
   EditDugme(p: any) {
-    this.naslov="Edit proizvoda (ID: "+p.id+")";
+    this.naslov="Edit proizvoda (ID: "+p.sifra+")";
     this.kliknuoEdit=true;
     this.odabrani_proizvod=p;
-    this.odabrani_proizvod.evidentirao=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username;
+    this.odabrani_proizvod.modifikovao=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username;
     this.getPodkategorijeByKatID();
     //this.getKolekcijeBySezonaID();
   }
@@ -315,9 +320,11 @@ export class ProizvodiComponent implements OnInit {
       kategorijaOpis:"",
       sezonaOpis:"",
       kolekcijaOpis:"",
+     // modifikovao:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username,
      // skladisteId:1,
      // kolicina:1
-      evidentirao:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username
+      evidentirao:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username,
+
   }
 
     //mozda su viska getKategorije i getSezone, u objektu mozemo
@@ -419,6 +426,7 @@ export class ProizvodiComponent implements OnInit {
 
 
   proizvod_id:any;
+  proizvod_sifra:any;
   kliknuoDodajSliku:boolean=false;
   slika_proizvod_objekat:any;
 
@@ -428,6 +436,7 @@ export class ProizvodiComponent implements OnInit {
 
     this.kliknuoDodajSliku=true;
     this.proizvod_id=p.id;
+    this.proizvod_sifra=p.sifra;
 
     this.slika_proizvod_objekat={
       id:0,
@@ -520,15 +529,15 @@ export class ProizvodiComponent implements OnInit {
     }
 
     if(this.odabrani?.sezonaId!=null && this.odabrani?.kolekcijaId!=null){
-      this.naslov="Edituj sezonu i kolekciju za proizvod: "+p_id;
+      this.naslov="Edituj sezonu i kolekciju za proizvod: "+this.odabrani.sifra;
       this.obj_sezkol.sezonaId=this.odabrani?.sezonaId;
       this.getKolekcijeBySezonaID(this.odabrani?.sezonaId);
-      this.obj_sezkol.kolekcijaId=this.odabrani?.kolekcijaId;
+     // this.obj_sezkol.kolekcijaId=this.odabrani?.kolekcijaId;
     }
     else{
       this.kliknuo_add_sezkol=true;
       this.getSezone();
-      this.naslov="Dodaj sezonu i kolekciju za proizvod: "+p_id;
+      this.naslov="Dodaj sezonu i kolekciju za proizvod: "+this.odabrani.sifra;
      // this.obj_sezkol.sezonaId=this.sezonaDefaultno;
       let sezId=this.sezonaDefaultno;
       this.getKolekcijeBySezonaID(sezId);
@@ -537,6 +546,13 @@ export class ProizvodiComponent implements OnInit {
     //console.log("sezId:",this.obj_sezkol.sezonaId,"kolId:",this.obj_sezkol.kolekcijaId);
 
 
+  }
+
+
+  getColor(){
+    if(this.kliknuo_add_sezkol==true)
+      return "blue";
+    else return "green";
   }
 
   spasi_sezkol(){

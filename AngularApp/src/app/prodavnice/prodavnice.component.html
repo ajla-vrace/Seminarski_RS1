@@ -54,7 +54,7 @@
 
 
 
-
+<div *ngIf="komentariPodaci?.length==0"> nema nista</div>
 
 <div id="zakomm" *ngIf="komentariPodaci?.length>0">
   <div *ngFor="let s of pregledKomentara()" class="komentari">

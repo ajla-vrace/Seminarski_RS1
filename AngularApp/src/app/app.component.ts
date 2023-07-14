@@ -57,7 +57,6 @@ export class AppComponent implements OnInit{
       this.router.navigate(['/zaposlenik-pocetna',this.loginInfo().autentifikacijaToken.korisnickiNalog.id]);
     else if(this.loginInfo().autentifikacijaToken.korisnickiNalog.isKupac)
       this.router.navigate(['/kupac-pocetna',this.loginInfo().autentifikacijaToken.korisnickiNalog.id]);
-
   }
 
   otvoriFaq() {

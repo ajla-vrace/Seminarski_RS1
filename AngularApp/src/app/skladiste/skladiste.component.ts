@@ -150,10 +150,13 @@ export class SkladisteComponent implements OnInit {
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Skladiste",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.s=x;
+        this.skladisteID=this.s[0].id;
+      /*
         if(this.kliknuoEdit==false && this.odabrana_stavka!=null){
           this.skladisteID=this.s[0].id;
           this.odabrana_stavka.skladisteId=this.s[0].id; //defaultna vrijednost
         }
+       */
 
         this.totalLength2=this.s?.length;
         console.log("SKLADISTA: ", this.s);
@@ -255,7 +258,7 @@ export class SkladisteComponent implements OnInit {
     this.kliknuoEdit=true;
     this.naslov="Modifikacija stavke: "+p.id;
     this.odabrana_stavka=p;
-    this.odabrana_stavka.evidentirao=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username;
+    this.odabrana_stavka.modifikovao=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username;
 
     console.log(this.odabrana_stavka);
 
@@ -310,10 +313,12 @@ export class SkladisteComponent implements OnInit {
       skladisteOpis:"",
       kolicina:0,
       proizvodId:0,
-      skladisteId:0,
+      skladisteId:this.skladisteID,
       velicina:'XS',
       odjel:"",
-      evidentirao:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username
+     // modifikovao:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username,
+      evidentirao:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username,
+
   }
     this.getProizvodi();
     this.getSkladista();
@@ -404,7 +409,9 @@ export class SkladisteComponent implements OnInit {
       adresa:"",
       brojTelefona:"",
       gradId:this.gradID,
-      gradOpis:""
+      gradOpis:"",
+      skladisteId:this.skladisteID,
+      skladisteOpis:""
     }
   }
 
