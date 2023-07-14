@@ -15,8 +15,8 @@ namespace OnlineShop.Modul1.Models
         public Grad grad { get; set; }
 
 
-        [ForeignKey("prodavnicaId")]
-        public int? prodavnicaId { get; set; }
-        public Prodavnica prodavnica { get; set; }
+        //[ForeignKey("prodavnicaId")]
+        //public int? prodavnicaId { get; set; }
+        //public Prodavnica prodavnica { get; set; }
     }
 }

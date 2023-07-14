@@ -187,7 +187,8 @@ namespace OnlineShop.Modul1.Controllers
                     kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
                     sezonaId = x.sezonaId,
                     sezonaOpis = x.sezona.Naziv,
-                    slika_postojeca = x.slika_postojeca
+                    slika_postojeca = x.slika_postojeca,
+                    modifikovao=x.modifikovao
                 }).ToList()[0];
 
                 proizvodi_kolicine.Add(new Bestseller { ProizvodId = p.proizvodId, proizvod = _proizvod, Kolicina = p.kolicina, datum_kreiranja = _proizvod.datum_kreiranja.ToString("dd/MM/yyyy") });

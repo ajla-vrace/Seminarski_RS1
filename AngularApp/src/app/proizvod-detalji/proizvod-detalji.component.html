@@ -25,10 +25,10 @@
         <h6> Kolekcija: {{d.kolekcijaOpis}}</h6>
         <div id="velicineBiraj">
           <h6>Veličine:</h6>
-          <label (click)="this.odabranavelicina='XS'" class="velicina">XS</label>
-          <label (click)="this.odabranavelicina='S'"  class="velicina">S</label>
-          <label (click)="this.odabranavelicina='M'"  class="velicina">M</label>
-          <label (click)="this.odabranavelicina='L'"  class="velicina">L</label>
+          <label (click)="this.odabranavelicina='XS';napraviIliNadjiKorpu();" class="velicina">XS</label>
+          <label (click)="this.odabranavelicina='S';napraviIliNadjiKorpu();"  class="velicina">S</label>
+          <label (click)="this.odabranavelicina='M';napraviIliNadjiKorpu();"  class="velicina">M</label>
+          <label (click)="this.odabranavelicina='L';napraviIliNadjiKorpu();"  class="velicina">L</label>
         </div>
         <div class="dugmad1" *ngIf="loginInfo().isLogiran==true">
           <button class="dodajUKorpu1" *ngIf="odabranavelicina!=undefined" (click)="dodajUKorpu(d.id,odabranavelicina)" >Dodaj u korpu</button>

@@ -20,6 +20,24 @@ namespace OnlineShop.Modul1.Controllers
         public ActionResult Add([FromBody] KorpaStavkaVM x)
         {
             KorpaStavka objekat;
+            List<Korpa> korpa;
+            bool korpaPostoji=false;
+            korpa = _dbContext.Korpa.ToList();
+
+            for (int i = 0; i < korpa.Count; i++)
+            {
+                if (korpa[i].Id == x.KorpaId)
+                {
+                    korpaPostoji = true;
+                   // break;
+                }
+            }
+            if (!korpaPostoji)
+            {
+                return BadRequest("Korpa s tim id ne postoji.");
+            }
+
+
             List<KorpaStavka> sveStavke = _dbContext.KorpaStavka.ToList();
             for (int i = 0; i < sveStavke.Count; i++)
             {

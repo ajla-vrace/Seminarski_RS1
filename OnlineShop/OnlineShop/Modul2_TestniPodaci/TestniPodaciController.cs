@@ -201,7 +201,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                 BrojTelefona = "062333444",
                 grad = grad[0],
                 Povrsina = 2000,
-                prodavnica = prodavnice[0]
+                //prodavnica = prodavnice[0]
             });
 
             skladista.Add(new Skladiste
@@ -211,7 +211,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                 BrojTelefona = "062643245",
                 grad = grad[0],
                 Povrsina = 2000,
-                prodavnica = prodavnice[2]
+              //  prodavnica = prodavnice[2]
             });
 
             skladisteProizvod.Add(new SkladisteProizvod { proizvod = proizvod[0], skladiste = skladista[0], kolicina = 40, datum_kreiranja = DateTime.Now });

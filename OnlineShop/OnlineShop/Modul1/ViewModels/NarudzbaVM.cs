@@ -18,5 +18,7 @@ namespace OnlineShop.Modul1.ViewModels
         public string? Evidentirao { get; set; }
         public string? PrethodniStatus { get; set; }
         public bool? jel_kliknuo_otkazana { get; set; }
+        public bool jel_promijenjen_status { get; set; }
+       // public bool? modifikovao { get; set; }
     }
 }

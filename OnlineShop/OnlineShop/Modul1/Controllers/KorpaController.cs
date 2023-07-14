@@ -22,23 +22,28 @@ namespace OnlineShop.Modul1.Controllers
             Korpa objekat;
             float totalSvega=0;
             int brojProizvoda=0;
-            /*List<Korpa> sveKorpe = _dbContext.Korpa.ToList();
+            bool nadjenaKorpa = false;
+            List<Korpa> sveKorpe = _dbContext.Korpa.ToList();
             for (int i = 0; i < sveKorpe.Count; i++)
             {
-                if (sveKorpe[i].Name == x.Naziv)
+                if (sveKorpe[i].KupacId == x.KupacId)
                 {
-                    return BadRequest("vec postoji takva korpa");
+                    nadjenaKorpa = true;
                 }
-            }*/
-            if (x.Id == 0)
-            {
-                objekat = new Korpa();
-                // objekat.Id = x.Id;
-                _dbContext.Add(objekat);
-                objekat.Total = 0;
-                objekat.UkupnoProizvoda = 0;
             }
-            else
+
+            if (nadjenaKorpa == false)
+            {
+                if (x.Id == 0)
+                {
+                    objekat = new Korpa();
+                    // objekat.Id = x.Id;
+                    _dbContext.Add(objekat);
+                    objekat.Total = 0;
+                    objekat.UkupnoProizvoda = 0;
+                }
+            }
+            else if(nadjenaKorpa==true)
             {
                 objekat = _dbContext.Korpa.Find(x.Id);
                 List<KorpaStavka> stavkeKorpe=_dbContext.KorpaStavka
@@ -154,6 +159,13 @@ namespace OnlineShop.Modul1.Controllers
         {
             float totalSvega = default;
             int brojProizvoda = 0;
+            
+            bool nadjenaKorpa = false;
+            /*var korpa = _dbContext.Korpa.FirstOrDefault(k => k.KupacId == kupac_id);
+            if (korpa == null)
+            {
+                return NotFound("Korpa ne postoji za tog kupca.");
+            }*/
             List <KorpaStavka> stavkeTeKorpe = _dbContext.KorpaStavka
                 .Where(k => k.Korpa.KupacId == kupac_id).ToList();
             for (int i = 0; i < stavkeTeKorpe.Count; i++)
@@ -163,7 +175,6 @@ namespace OnlineShop.Modul1.Controllers
             }
             
             var data = _dbContext.Korpa
-                .OrderByDescending(s => s.Id)
                 .Where(s => s.KupacId == kupac_id)
                 .Select(s => new
                 {
@@ -176,11 +187,11 @@ namespace OnlineShop.Modul1.Controllers
                     Total = totalSvega,
                     UkupnoProizvoda = brojProizvoda,
 
-                })
-                .AsQueryable();
+                }).AsQueryable()
+                ;
 
 
-            return Ok(data.ToList());
+            return Ok(data);
         }
 
         [HttpGet("{naziv}")]

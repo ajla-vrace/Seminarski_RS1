@@ -229,3 +229,13 @@ hr{
   background-color: pink;
   border-radius: 30px;
 }
+
+.welcome{
+  width:17%;
+  margin:auto;
+  /*font-family: "Fira Code";*/
+  font-family: Cambria;
+  font-style: italic;
+  font-weight: 800;
+  color: rgba(255,0,46,0.56);
+}

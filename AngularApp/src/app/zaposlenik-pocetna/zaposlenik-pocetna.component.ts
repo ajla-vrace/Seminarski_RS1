@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Route, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
+import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 
 @Component({
   selector: 'app-zaposlenik-pocetna',
@@ -18,6 +19,8 @@ export class ZaposlenikPocetnaComponent implements OnInit {
   porukaO:any="";
   brojNovihNarudzbi:any=0;
   brojOtkazanihNarudzbi:any=0;
+
+  zaposlenikIme:any=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.ime;
 
   totalLength:number=0;
   _page:any;

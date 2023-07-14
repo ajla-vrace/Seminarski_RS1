@@ -53,17 +53,10 @@ export class AppComponent implements OnInit{
        this.router.navigate(['/pocetna']);
     else if(this.loginInfo().autentifikacijaToken.korisnickiNalog.isAdmin)
       this.router.navigate(['/admin-pocetna',this.loginInfo().autentifikacijaToken.korisnickiNalog.id]);
-
-  //  else if(this.loginInfo().autentifikacijaToken.korisnickiNalog.isAdmin && this.jel_otkljucan==false)
-    //  this.router.navigate(['/prijava']);
-
     else if(this.loginInfo().autentifikacijaToken.korisnickiNalog.isZaposlenik)
       this.router.navigate(['/zaposlenik-pocetna',this.loginInfo().autentifikacijaToken.korisnickiNalog.id]);
     else if(this.loginInfo().autentifikacijaToken.korisnickiNalog.isKupac)
       this.router.navigate(['/kupac-pocetna',this.loginInfo().autentifikacijaToken.korisnickiNalog.id]);
-   // else this.router.navigate(['/prijava']);
-   // else  //ovo promijeniti
-   //   this.router.navigate(['/admin-pocetna',this.loginInfo().autentifikacijaToken.korisnickiNalog.id]);
   }
 
   otvoriFaq() {
@@ -192,10 +185,6 @@ console.log("nesupjesna pretplata.");
 
 
   ngOnInit(): void {
-   /* if(this.loginInfo().isLogiran==true){
-      this.getKod();
-    }
-    */
     this.pocetna();
    // this.getBrojPosjeta();
   }

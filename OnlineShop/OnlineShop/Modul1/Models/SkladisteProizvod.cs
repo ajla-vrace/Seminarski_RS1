@@ -21,6 +21,7 @@ namespace OnlineShop.Modul1.Models
         public string? evidentirao { get; set; }
 
         public string? velicina { get; set; }
+        public string? modifikovao { get; set; }
 
     }
 }

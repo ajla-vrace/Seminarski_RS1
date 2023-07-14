@@ -406,7 +406,8 @@ namespace OnlineShop.Modul1.Controllers
                     nazivProdavnice = x.Prodavnica.Adresa,
                     Status = x.Status,
                     PrethodniStatus=x.PrethodniStatus,
-                    jel_kliknuo_otkazana=x.jel_kliknuo_otkazana
+                    jel_kliknuo_otkazana=x.jel_kliknuo_otkazana,
+                    jel_promijenjen_status=x.jel_promijenjen_status
                 }).ToList(); 
             else if (status !="Sve")
                 podaci = _dbContext.Narudzba.OrderByDescending(x => x.Id).Where(x => x.Status == status).Select(x => new NarudzbaVM
@@ -423,7 +424,8 @@ namespace OnlineShop.Modul1.Controllers
                     nazivProdavnice = x.Prodavnica.Adresa,
                     Status = x.Status,
                     PrethodniStatus = x.PrethodniStatus,
-                    jel_kliknuo_otkazana = x.jel_kliknuo_otkazana
+                    jel_kliknuo_otkazana = x.jel_kliknuo_otkazana,
+                    jel_promijenjen_status = x.jel_promijenjen_status
                 }).ToList();
             return Ok(podaci);
         }

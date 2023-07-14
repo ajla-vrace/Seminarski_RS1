@@ -5,16 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MojConfig} from "../moj-config";
 
-/*export class Color {
-  id: number;
-  name: string;
 
-  constructor(id: number, name: string) {
-    this.id = id;
-    this.name = name;
-  }
-}
-*/
 @Component({
   selector: 'app-zene',
   templateUrl: './zene.component.html',
@@ -270,7 +261,7 @@ this.dodanoUFavorite=true;
 
   prikaziDetaljeProizvoda(proizvod:any) {
     this.proizvod_id=proizvod;
-    this.napraviIliNadjiKorpu();
+   // this.napraviIliNadjiKorpu();
     this.router.navigate(['proizvod-detalji',this.proizvod_id]);
   }
 

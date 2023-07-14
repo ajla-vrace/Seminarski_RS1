@@ -14,5 +14,9 @@ namespace OnlineShop.Modul1.Models
         public int? gradId { get; set; }
         public Grad grad { get; set; }
 
+        [ForeignKey("skladisteId")]
+        public int? skladisteId { get; set; }
+        public Skladiste skladiste { get; set; }
+
     }
 }

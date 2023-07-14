@@ -36,10 +36,10 @@ export class NarudzbeComponent implements OnInit {
   }
 
 
-  btnDetalji(narId:any) {
-    this.postOtkazana(narId)
+  btnDetalji(n:any) {
+    this.postOtkazana(n)
 
-    this.router.navigate(['narudzba-detalji',narId]);
+    this.router.navigate(['narudzba-detalji',n.id]);
   }
 
   getStatistika(){
@@ -137,9 +137,9 @@ export class NarudzbeComponent implements OnInit {
     else return false;
   }
 
-  postOtkazana(narId:any){
-    {
-      this.httpKlijent.put(MojConfig.adresa_servera+"/Narudzba/PostOtkazana/otkazana?narId="+narId,narId).subscribe((x:any)=>{
+  postOtkazana(n:any){
+    if (n.status == "Otkazana" && n.jel_kliknuo_otkazana==false) {
+      this.httpKlijent.put(MojConfig.adresa_servera+"/Narudzba/PostOtkazana/otkazana?narId="+n.id,n.id).subscribe((x:any)=>{
         this.getNarudzbePoStatusu();
         console.log("otkazana");
       })
