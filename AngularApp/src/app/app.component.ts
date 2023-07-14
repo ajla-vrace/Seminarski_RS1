@@ -185,6 +185,10 @@ console.log("nesupjesna pretplata.");
 
 
   ngOnInit(): void {
+   /* if(this.loginInfo().isLogiran==true){
+      this.getKod();
+    }
+    */
     this.pocetna();
    // this.getBrojPosjeta();
   }
