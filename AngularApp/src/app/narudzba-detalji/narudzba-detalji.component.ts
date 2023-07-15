@@ -5,6 +5,9 @@ import {MojConfig} from "../moj-config";
 import {formatDate} from "@angular/common";
 import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 
+
+declare function porukaInfo(a: string):any;
+
 @Component({
   selector: 'app-narudzba-detalji',
   templateUrl: './narudzba-detalji.component.html',
@@ -92,7 +95,8 @@ export class NarudzbaDetaljiComponent implements OnInit {
     this.httpKlijent.post(MojConfig.adresa_servera+"/api/Poruke",this.obj_email,MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.kliknuoPosaljiMail=false;
-        alert("poruka je uspjesno poslana na email: "+this.narudzbaDetalji?.kupac?.email);
+       // alert("poruka je uspjesno poslana na email: "+this.narudzbaDetalji?.kupac?.email);
+        porukaInfo("Poruka je uspješno poslana na email: "+this.narudzbaDetalji?.kupac?.email);
         this.obj_email=null;
 
         this.httpKlijent.post(MojConfig.adresa_servera+"/Narudzba/PosaljiPoruku?narId="+this.narudzba_id,MojConfig.http_opcije())
@@ -105,10 +109,16 @@ export class NarudzbaDetaljiComponent implements OnInit {
       })
   }
 
+  //svaki put kad se promijeni status, nesto ce se desiti sa kolicinom.
   update_stanje_na_skladistu(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/update_stanje?narudzbaId="+this.narudzba_id)
       .subscribe((x:any)=>{
         console.log("updateovano stanje");
+
+      //  console.log("prethodni status:", this.narudzbaDetalji?.narudzba?.prethodniStatus);
+      //  console.log("trenutni status:", this.narudzbaDetalji?.narudzba?.status);
+      //  console.log("obj_status.status",this.obj_status?.status);
+
       })
   }
 
@@ -126,11 +136,20 @@ export class NarudzbaDetaljiComponent implements OnInit {
       .subscribe((x:any)=>{
         this.kliknuoPromijeniStatus=false;
         this.getBoolVrijednosti();
-          alert("Status je uspješno promijenjen!");
+       //   alert("Status je uspješno promijenjen!");
         this.obj_status=null;
         this.getNarudzbaDetalji();
       })
 
+    if(this.obj_status?.status=="Spremna"){
+      porukaInfo("Status je uspješno promijenjen! " + "\n"+
+        "Količina na skladištu se smanjila!")
+    }
+    else if(this.obj_status?.status=="Ponistena"){
+      porukaInfo("Status je uspješno promijenjen! " + "\n"+
+        "Količina na skladištu se povećala!")
+    }
+    this.update_stanje_na_skladistu();
   }
   _jel_promijenjen_status:boolean=false;
   _jel_poslana_prouka:boolean=false;
@@ -144,4 +163,5 @@ export class NarudzbaDetaljiComponent implements OnInit {
         console.log("poslana",this._jel_poslana_prouka,"status",this._jel_promijenjen_status);
       })
   }
+
 }

@@ -240,7 +240,7 @@
         <div class="mb-3">
           <label class="form-label">Proizvod</label>
 
-          <select class="form-control" size="5" [(ngModel)]="odabrana_stavka.proizvodId" >
+          <select class="form-select" size="5" [(ngModel)]="odabrana_stavka.proizvodId" >
 
             <option *ngFor="let k of p " [value]="k.id">{{k.naziv}} - {{k.sifra}}</option>
 

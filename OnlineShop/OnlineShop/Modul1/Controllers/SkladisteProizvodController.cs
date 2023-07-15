@@ -319,7 +319,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
         //ova metoda se poziva:
-        ///nakon kreiranja narudzbe
+        ///nakon promjene statusa na Spremna
         ///nakon otkazivanja narudzbe
         ///nakon mijenjanja statusa na Ponistena
 
@@ -328,46 +328,54 @@ namespace OnlineShop.Modul1.Controllers
         {
             Narudzba? nar = context.Narudzba.Find(narudzbaId);
             List<NarudzbaStavka>? stavke = context.NarudzbaStavka.Where(x => x.NarudzbaId == narudzbaId).ToList();
+            var skladiste = new SkladisteProizvod();
       
             if (nar != null)
             {
-                if (nar.Status == "Nova")
+                if (nar.Status == "Spremna")
                 {
                     //smanjiva se stanje na skladistu
                     //moramo paziti da je kolicina u stavci manja ili jednaka kolicini na skladistu (ne smije 
                     //biti veca)
 
-                    for (int i = 0; i < stavke.Count(); i++)
+                    foreach (var stavka in stavke)
                     {
                         //nece se pojaviti ista stavka u skladistu jer je ogranicenje da se ne moze dva puta dodati ista velicina za jedan proizvod
-                        var sk = context.SkladisteProizvod.Where(x => x.proizvodId == stavke[i].ProizvodId
-                        && x.velicina == stavke[i].Velicina && x.kolicina >= stavke[i].Kolicina).ToList()[0];
-
-                        if (sk != null)
+                        var sk = context.SkladisteProizvod.Where(x => x.proizvodId == stavka.ProizvodId
+                        && x.velicina == stavka.Velicina && x.kolicina >= stavka.Kolicina).ToList();
+                        skladiste = sk[0];
+                        if (skladiste != null)
                         {
-                            sk.kolicina = sk.kolicina - stavke[i].Kolicina;
-                            context.Update(sk);
+                            skladiste.kolicina = skladiste.kolicina - stavka.Kolicina;
+                            context.Update(skladiste);
                             context.SaveChanges();
+                            return Ok(); //kolicina je smanjena
                         }
+                        else
+                            return BadRequest ("uslov Spremna nije true");
                     }
                 }
                 else if(nar.Status=="Otkazana" || nar.Status=="Ponistena" )
                 {
                     //povecava se stanje na skladistu
-                    if(nar.jel_poslana_prouka)
+                  //  if(nar.jel_poslana_prouka)
                     {
                         for (int i = 0; i < stavke.Count(); i++)
                         {
                             //nece se pojaviti ista stavka u skladistu jer je ogranicenje da se ne moze dva puta dodati ista velicina za jedan proizvod
                             var sk = context.SkladisteProizvod.Where(x => x.proizvodId == stavke[i].ProizvodId
-                            && x.velicina == stavke[i].Velicina).ToList()[0];
+                            && x.velicina == stavke[i].Velicina).ToList();
+                            skladiste = sk[0];
 
-                            if (sk != null)
+                            if (skladiste!=null)
                             {
-                                sk.kolicina = sk.kolicina + stavke[i].Kolicina;
-                                context.Update(sk);
+                                skladiste.kolicina = skladiste.kolicina + stavke[i].Kolicina;
+                                context.Update(skladiste);
                                 context.SaveChanges();
+                                return Ok();//"kolicina je povecana"
                             }
+                            else
+                                return BadRequest("uslov Otkazana/Ponistena nije true");
                         }
                     }
                 }             
