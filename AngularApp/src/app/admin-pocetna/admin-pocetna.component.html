@@ -74,7 +74,7 @@
 
 -->
 
-    <div class="slike">
+    <div class="slike" *ngIf="bestsellers?.length>0">
 
       <div class="proizvod-div" *ngFor="let b of bestsellers">
         <img class="slika-okvir" src="{{get_slika_base64_FS(b?.proizvod)}}" (click)="detaljiBestsellera(b)">
@@ -82,6 +82,10 @@
         <button class="btn-proizvod-detalji" (click)="detaljiBestsellera(b)">Detalji</button>
       </div>
 
+    </div>
+
+    <div class="poruka-nema-bestsellera" *ngIf="bestsellers?.length==0">
+      <h6>Još uvijek nema prodatih proizvoda!</h6>
     </div>
 
   </div>

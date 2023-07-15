@@ -26,9 +26,9 @@ h6{
 }
 
 .add{
-  width:90%;
+  width:100%;
   display: flex;
-  gap:3%;
+  gap:1%;
   justify-content: space-between;
   margin: 0 auto 2% auto;
 }
@@ -54,7 +54,7 @@ h6{
 }
 
 .pretraga{
-  width:90%;
+  width:100%;
   margin:auto;
   padding:1%;
   border:groove;

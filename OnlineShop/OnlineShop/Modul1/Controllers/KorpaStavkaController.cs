@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.Data;
 using OnlineShop.Modul1.Models;
 using OnlineShop.Modul1.ViewModels;
@@ -73,9 +74,10 @@ namespace OnlineShop.Modul1.Controllers
                     samoCijena = proizvod.Cijena;
                     objekat.Total = samoCijena * x.Kolicina;
                 }
-
                 _dbContext.SaveChanges();
-                return Ok(objekat);
+                 AzurirajUkupniTotalIKolicinuKorpe((int)x.KorpaId);
+
+            return Ok(objekat);
             
         }
 
@@ -273,5 +275,33 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(dostupneVelicine);
         }
+        private void AzurirajUkupniTotalIKolicinuKorpe(int korpaId)
+        {
+            var korpa = _dbContext.Korpa.FirstOrDefault(k => k.Id == korpaId);
+            if (korpa != null)
+            {
+                var stavkeKorpe = _dbContext.KorpaStavka
+                    .Where(ks => ks.KorpaId == korpaId)
+                    .ToList();
+
+                // Izvršite izračune ukupnog totala i broja proizvoda
+                float totalSvega = 0;
+                int brojProizvoda = 0;
+                foreach (var stavka in stavkeKorpe)
+                {
+                    totalSvega += stavka.Total;
+                    brojProizvoda += stavka.Kolicina;
+                }
+
+                // Ažurirajte vrijednosti ukupnog totala i broja proizvoda u korpi
+                korpa.Total = totalSvega;
+                korpa.UkupnoProizvoda = brojProizvoda;
+
+                // Spremite promjene u bazu podataka
+                _dbContext.SaveChanges();
+            }
+
+        
+    }
     }
 }

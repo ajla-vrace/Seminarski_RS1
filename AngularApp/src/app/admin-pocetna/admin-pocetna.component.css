@@ -73,6 +73,12 @@ h4{
   text-align: center;
 }
 
+.poruka-nema-bestsellera{
+  text-align: center;
+  color:red;
+  margin-bottom: 3%;
+}
+
 .prodavnice h4, .karuzel h4{
   margin-top:5%;
 }
