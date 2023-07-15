@@ -22,64 +22,50 @@ namespace OnlineShop.Modul1.Controllers
         {
             KorpaStavka objekat;
             List<Korpa> korpa;
-           /* bool korpaPostoji=false;
-            korpa = _dbContext.Korpa.ToList();
 
-            for (int i = 0; i < korpa.Count; i++)
+            List<KorpaStavka> sveStavke = _dbContext.KorpaStavka.ToList();
+            for (int i = 0; i < sveStavke.Count; i++)
             {
-                if (korpa[i].Id == x.KorpaId)
+                if (sveStavke[i].KorpaId == x.KorpaId &&
+                    sveStavke[i].ProizvodId == x.ProizvodId &&
+                    sveStavke[i].Velicina == x.Velicina)
                 {
-                    korpaPostoji = true;
-                   // break;
+                    return BadRequest("Već postoji stavka korpe");
                 }
-            }*/
-            /*if (!korpaPostoji)
+            }
+
+            objekat = new KorpaStavka();
+            _dbContext.Add(objekat);
+
+            objekat.Kolicina = x.Kolicina;
+            objekat.ProizvodId = x.ProizvodId;
+            objekat.KorpaId = x.KorpaId;
+            objekat.Velicina = x.Velicina;
+            var proizvod = _dbContext.Proizvod.Find(x.ProizvodId);
+
+            if (proizvod != null)
             {
-                return BadRequest("Korpa s tim id ne postoji.");
-            }*/
+                //objekat.Cijena = proizvod.Cijena;
 
-            
+                // Provjerite da li proizvod ima popust i dobijte cijenu s popustom ako postoji
+                float cijenaSPopustom = ProvjeriPopustProizvoda(proizvod.Id);
 
-
-                List<KorpaStavka> sveStavke = _dbContext.KorpaStavka.ToList();
-                for (int i = 0; i < sveStavke.Count; i++)
+                if (cijenaSPopustom > 0)
                 {
-                    if (sveStavke[i].KorpaId == x.KorpaId &&
-                        sveStavke[i].ProizvodId == x.ProizvodId &&
-                        sveStavke[i].Velicina == x.Velicina)
-                    {
-                    return BadRequest("Vec postoji stavka korpe");
-                    }
+                    objekat.Cijena = cijenaSPopustom;
                 }
-                objekat = new KorpaStavka();
-                // objekat.Id = x.Id;
-                _dbContext.Add(objekat);
-
-                // objekat.Cijena = x.Cijena;
-                /* if (x.Kolicina == 0)
-                 {
-                     return BadRequest("Kolicina ne moze biti 0!");
-                 }*/
-
-                objekat.Kolicina = x.Kolicina;
-                objekat.ProizvodId = x.ProizvodId;
-                objekat.KorpaId = x.KorpaId;
-                objekat.Velicina = x.Velicina;
-                var proizvod = _dbContext.Proizvod.Find(x.ProizvodId);
-
-                float samoCijena;
-                if (proizvod != null)
+                else
                 {
                     objekat.Cijena = proizvod.Cijena;
-                    samoCijena = proizvod.Cijena;
-                    objekat.Total = samoCijena * x.Kolicina;
                 }
-                _dbContext.SaveChanges();
-                 AzurirajUkupniTotalIKolicinuKorpe((int)x.KorpaId);
+                objekat.Total = objekat.Cijena * x.Kolicina;
+            }
+            _dbContext.SaveChanges();
+            AzurirajUkupniTotalIKolicinuKorpe((int)x.KorpaId);
 
             return Ok(objekat);
-            
         }
+
 
 
 
@@ -91,7 +77,7 @@ namespace OnlineShop.Modul1.Controllers
                 .Select(s => new
                 {
                     Id = s.Id,
-                    Cijena = s.Proizvod.Cijena,
+                    Cijena = s.Cijena,
                     Kolicina = s.Kolicina,
                     Total=s.Total,
                    // Total = s.Proizvod.Cijena*s.Kolicina,
@@ -116,7 +102,7 @@ namespace OnlineShop.Modul1.Controllers
                  .Select(s => new
                  {
                      Id = s.Id,
-                     Cijena = s.Proizvod.Cijena,
+                     Cijena = s.Cijena,
                      Kolicina = s.Kolicina,
                      Total = s.Total,
                      ProizvodId = s.ProizvodId,
@@ -141,7 +127,7 @@ namespace OnlineShop.Modul1.Controllers
                 .Select(s => new
                 {
                     Id = s.Id,
-                    Cijena = s.Proizvod.Cijena,
+                    Cijena = s.Cijena,
                     Kolicina = s.Kolicina,
                     KorpaId=s.KorpaId,
                     Total = s.Total,
@@ -168,7 +154,7 @@ namespace OnlineShop.Modul1.Controllers
                 .Select(s => new
                 {
                     Id = s.Id,
-                    Cijena = s.Proizvod.Cijena,
+                    Cijena = s.Cijena,
                     Kolicina = s.Kolicina,
                     KorpaId = s.KorpaId,
                     Total = s.Total,
@@ -275,6 +261,27 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(dostupneVelicine);
         }
+        private float ProvjeriPopustProizvoda(int proizvod_id)
+        {
+            // Provjerite da li proizvod ima popust u tablici SpecijalnaPonudaProizvod
+            var specijalnaPonudaProizvod = _dbContext.SpecijalnaPonudaProizvod
+                .FirstOrDefault(sp => sp.proizvodId == proizvod_id &&
+                sp.specijalnaPonuda.aktivna==true);
+
+            if (specijalnaPonudaProizvod != null)
+            {
+                // Ako je pronađen popust za proizvod i ponuda je aktivna, vratite vrijednost popusta
+                return (float)specijalnaPonudaProizvod.CijenaSaPopustom;
+            }
+
+            // Ako proizvod nema popust ili ponuda nije aktivna, vratite 0
+            return 0;
+        }
+
+        
+
+
+
         private void AzurirajUkupniTotalIKolicinuKorpe(int korpaId)
         {
             var korpa = _dbContext.Korpa.FirstOrDefault(k => k.Id == korpaId);
@@ -287,9 +294,25 @@ namespace OnlineShop.Modul1.Controllers
                 // Izvršite izračune ukupnog totala i broja proizvoda
                 float totalSvega = 0;
                 int brojProizvoda = 0;
+                float totalStavke = 0;
+                float popust = 0;
                 foreach (var stavka in stavkeKorpe)
                 {
-                    totalSvega += stavka.Total;
+                    // Provjerite popust za proizvod
+                     popust = ProvjeriPopustProizvoda((int)stavka.ProizvodId);
+
+                    if (popust > 0)
+                    {
+                        // Ako proizvod ima popust, koristimo cijenu s popustom za izračun totala stavke
+                        totalStavke = popust * stavka.Kolicina;
+                    }
+                    else
+                    {
+                        // Ako proizvod nema popust, koristimo regularnu cijenu za izračun totala stavke
+                        totalStavke = stavka.Cijena * stavka.Kolicina;
+                    }
+
+                    totalSvega += totalStavke;
                     brojProizvoda += stavka.Kolicina;
                 }
 
@@ -300,8 +323,10 @@ namespace OnlineShop.Modul1.Controllers
                 // Spremite promjene u bazu podataka
                 _dbContext.SaveChanges();
             }
-
+        }
         
+
+
     }
-    }
+
 }
