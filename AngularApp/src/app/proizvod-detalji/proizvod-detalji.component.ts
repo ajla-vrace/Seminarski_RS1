@@ -47,6 +47,17 @@ export class ProizvodDetaljiComponent implements OnInit {
       this.proizvodiPodaciDetalji = x;
     });
   }
+
+
+  dostupneVelicine:any;
+  fetchDostupneVelicine()
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetDostupneVelicine?proizvodId="+this.proizvod_id, MojConfig.http_opcije()).subscribe(x=>{
+      this.dostupneVelicine = x;
+      console.log("proizvod id :"+this.proizvod_id);
+      console.log("dostupne velicine:",this.dostupneVelicine);
+    });
+  }
   fetchProizvodSlika(idSlika:any){
     this.httpKlijent.get(MojConfig.adresa_servera+ "/api/ProizvodSlika/slikaByProizvodId?id="+idSlika, MojConfig.http_opcije()).subscribe(x=>{
       this.proizvodiPodaciSlika = x;
@@ -68,7 +79,7 @@ export class ProizvodDetaljiComponent implements OnInit {
   }
   fetchStavkeKorpe() :void
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetAll", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetByKupacId/"+this.kupac_id, MojConfig.http_opcije()).subscribe(x=>{
       this.korpaStavkePodaci = x;
     });
   }
@@ -79,12 +90,15 @@ export class ProizvodDetaljiComponent implements OnInit {
     });
   }
 
+  novaKorpa:any;
+
   ngOnInit(): void {
 
    this.route.params.subscribe(s=>{
       this.proizvod_id=+s["id"];
     })
     //this.fetchFavoriti();
+    this.fetchDostupneVelicine();
     this.fetchKorpe();
     this.fetchProizvodiDetalji();
 this.fetchFavoriti();
@@ -139,15 +153,78 @@ this.fetchKorpaIme();
   postaviVelicinu(s: any) {
     this.odabranavelicina=s;
   }
+  korpaIme:any;
+  dodanaStavkaVec:any=false;
+provjeraStavkeKorpe(p:any,velicina:any){
+  console.log("ID KORPE JE NA POCETKU FUNKCIJE PROVJERASTAVKI :"+this.korpaID);
+  console.log("u korpestavkepodaci je",this.korpaStavkePodaci);
+  this.korpaIme="Korpa"+this.kupac_id;
+  for (let ks of this.korpaStavkePodaci) {
+console.log("USAO U PETLJU ZA PROVJERU");
+    console.log(" prije ifa: proizvodid: " + ks.proizvodId + " korpaid: " + this.korpaIme +
+      " ks.korpa id : " + ks.korpaIme + " velicina: " + velicina);
+/*
+    console.log(" prije ifa: proizvodid: " + ks.proizvodId + " korpaid: " + this.korpaID +
+      " ks.korpa id : " + ks.korpaId + " velicina: " + velicina);*/
+    if (ks.proizvodId == p.id && this.korpaIme== ks.korpaIme && ks.velicina == velicina) {
+      console.log("u ifu: proizvodid: " + ks.proizvodId + " korpaid: " + this.korpaIme +
+        " ks.korpa id : " + ks.korpaIme + " velicina: " + velicina);
+      this.vecDodanUKorpu = true;
+      this.dodanaStavkaVec=true;
+      return;
+    }
+    else{
+      console.log("petlja je u else, nije ispunjen uslov");
+      this.dodanaStavkaVec=false;
+    }
+  }
+  console.log("isao iz etlje za vec dodane");
+}
 
-  dodajUKorpu(p:number,velicina:any) {
+
+
+
+
+  dodajUKorpu(p:any,velicina:any) {
    /* this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByIdKupac/"+this.kupac_id, MojConfig.http_opcije()).subscribe(x=>{
       this.korpaPrijavljenogKupca = x;
       console.log("korpa prijavljenog kupca: (hvatamo korpe))",this.korpaPrijavljenogKupca);
     });
 */
     console.log("dodaj u korpu funkcija pocetak");
-    console.log("korpa prijavljenog korisnika id: "+this.korpaPrijavljenogKupca[0].id);
+this.provjeraStavkeKorpe(p,velicina);
+
+
+  setTimeout( ()=>{
+    if(this.dodanaStavkaVec==true) {
+      console.log("nece se dodati , jer vec postoji, u if sulovu smo dodoaj u korpu funkcije");
+    }
+    else{
+      this.korpaStavka = {
+        id: 0,
+        proizvodId: p.id,
+        korpaId: this.korpaID,
+        kolicina: 1,
+        //total:0,
+        cijena: p.cijena,
+        velicina: this.odabranavelicina,
+      }
+      this.httpKlijent.post(`${MojConfig.adresa_servera}/KorpaStavka/Add`, this.korpaStavka,
+        MojConfig.http_opcije()).subscribe((x: any) => {
+        this.fetchStavkeKorpe();
+        this.korpastavkaId = x.id;
+        this.prikaziDivKorpa = true;
+        console.log("ova stavka je dodana", this.korpaStavka);
+        console.log("korpa stavka dodano:" + this.korpastavkaId);
+      });
+    }
+  }, 2000);
+
+
+
+
+
+
     /*for (let ks of this.korpaStavkePodaci){
 
       if(ks.proizvodId==p && this.korpaID==ks.korpaId && ks.velicina==velicina){
@@ -178,6 +255,51 @@ this.fetchKorpaIme();
 
 
   }
+
+
+  napraviIliNadjiKorpu() {
+    console.log("odabrana velcina je "+this.odabranavelicina);
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByIdKupac/"+this.kupac_id, MojConfig.http_opcije()).subscribe(x=>{
+      this.korpaPrijavljenogKupca = x;
+      console.log("korpa prijavljenog kupca: ovdje ",this.korpaPrijavljenogKupca);
+    });
+
+    setTimeout( ()=>{
+      if(this.korpaPrijavljenogKupca?.length==0){
+        console.log("nema korpe, pravimo je sada");
+        console.log("u if pocetak: ");
+        this.novaKorpa = {
+          id: 0,
+          naziv: "Korpa" + this.loginInfo().autentifikacijaToken.korisnickiNalogId,
+          kupacId: this.loginInfo().autentifikacijaToken.korisnickiNalogId,
+          total: 0,
+          ukupnoProizvoda: 0
+        }
+        this.httpKlijent.post(`${MojConfig.adresa_servera}/Korpa/Add`, this.novaKorpa, MojConfig.http_opcije()).subscribe((x:any) => {
+          this.fetchKorpe();
+          this.korpaID=x.id;
+          //this.korpaID = this.novaKorpa.id;
+          console.log("ID NAPRAVLJENE KORPE JE "+this.korpaID);
+        });
+
+        // this.korpaID = this.novaKorpa.id;
+        //console.log("korpa id nove je : " + this.korpaID);
+        /* alert("napravljena korpa");*/
+      }
+
+      else{
+        console.log("u else ovdje bi trebala biti napravljena korpa : ",this.korpaPrijavljenogKupca);
+        this.korpaID=this.korpaPrijavljenogKupca[0].id;
+        console.log("korpa id u else u napraviilinadjikorpu: "+this.korpaID);
+      }
+
+    }, 900);
+
+  }
+
+
+
+
   dodajUFavorite(p:any) {
 
     this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
@@ -261,6 +383,7 @@ console.log("ptovjera favorita");
 
 
 
+
   stanje_na_skladistu:any;
   provjera_stanja_na_skladistu(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/provjeri_stanje?proizvodId="+this.proizvod_id)
@@ -279,51 +402,104 @@ console.log("ptovjera favorita");
     return false;
   }
 
-novaKorpa:any;
-  napraviIliNadjiKorpu() {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByIdKupac/"+this.kupac_id, MojConfig.http_opcije()).subscribe(x=>{
-      this.korpaPrijavljenogKupca = x;
-      console.log("korpa prijavljenog kupca: ovdje ",this.korpaPrijavljenogKupca);
+
+
+
+
+
+
+
+  dodajUKorpu2(p: any, velicina: any) {
+    console.log("dodaj u korpu funkcija pocetak");
+    this.provjeraStavkeKorpe(p, velicina);
+
+    const dodajStavkuUKorpu = new Promise<void>((resolve, reject) => {
+      setTimeout(() => {
+        if (this.vecDodanUKorpu) {
+          console.log("Neće se dodati jer već postoji.");
+          reject("VecDodanUKorpu");
+        } else {
+          this.korpaStavka = {
+            id: 0,
+            proizvodId: p.id,
+            korpaId: this.korpaID,
+            kolicina: 1,
+            cijena: p.cijena,
+            velicina: this.odabranavelicina,
+          };
+          this.httpKlijent.post(`${MojConfig.adresa_servera}/KorpaStavka/Add`, this.korpaStavka, MojConfig.http_opcije())
+            .subscribe((x: any) => {
+              this.fetchStavkeKorpe();
+              this.korpastavkaId = x.id;
+              this.prikaziDivKorpa = true;
+              console.log("Ova stavka je dodana", this.korpaStavka);
+              console.log("Korpa stavka dodano: " + this.korpastavkaId);
+              resolve();
+            });
+        }
+      }, 2000);
     });
 
-    setTimeout( ()=>{
-      if(this.korpaPrijavljenogKupca?.length==0){
-        console.log("nema korpe, pravimo je sada");
-        console.log("u if pocetak: ");
-        this.novaKorpa = {
-          id: 0,
-          naziv: "Korpa" + this.loginInfo().autentifikacijaToken.korisnickiNalogId,
-          kupacId: this.loginInfo().autentifikacijaToken.korisnickiNalogId,
-          total: 0,
-          ukupnoProizvoda: 0
-        }
-        this.httpKlijent.post(`${MojConfig.adresa_servera}/Korpa/Add`, this.novaKorpa, MojConfig.http_opcije()).subscribe(x => {
-          this.fetchKorpe();
-          this.korpaID = this.novaKorpa.id;
-        });
-        this.korpaID = this.novaKorpa.id;
-        //console.log("korpa id nove je : " + this.korpaID);
-        /* alert("napravljena korpa");*/
+    dodajStavkuUKorpu.catch((error) => {
+      if (error === "VecDodanUKorpu") {
+        console.log("Nije dodana stavka jer već postoji.");
+      } else {
+        console.error("Greška prilikom izvršavanja dodajUKorpu():", error);
       }
-
-      else{
-        console.log("u else ovdje bi trebala biti napravljena korpa : ",this.korpaPrijavljenogKupca);
-      }
-
-    }, 400);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    });
   }
+
+
+
+  napraviIliNadjiKorpu2() {
+    console.log("odabrana velcina je " + this.odabranavelicina);
+    this.httpKlijent.get(MojConfig.adresa_servera + "/Korpa/GetByIdKupac/" + this.kupac_id, MojConfig.http_opcije())
+      .toPromise()
+      .then((x: any) => {
+        this.korpaPrijavljenogKupca = x;
+        console.log("korpa prijavljenog kupca: ovdje ", this.korpaPrijavljenogKupca);
+      })
+      .then(() => {
+        return new Promise<void>((resolve) => {
+          setTimeout(() => {
+            if (this.korpaPrijavljenogKupca?.length == 0) {
+              console.log("nema korpe, pravimo je sada");
+              console.log("u if pocetak: ");
+              this.novaKorpa = {
+                id: 0,
+                naziv: "Korpa" + this.loginInfo().autentifikacijaToken.korisnickiNalogId,
+                kupacId: this.loginInfo().autentifikacijaToken.korisnickiNalogId,
+                total: 0,
+                ukupnoProizvoda: 0
+              };
+              this.httpKlijent.post(`${MojConfig.adresa_servera}/Korpa/Add`, this.novaKorpa, MojConfig.http_opcije())
+                .toPromise()
+                .then((x: any) => {
+                  this.fetchKorpe();
+                  this.korpaID = x.id;
+                  console.log("ID NAPRAVLJENE KORPE JE " + this.korpaID);
+                })
+                .finally(() => resolve());
+            } else {
+              console.log("u else ovdje bi trebala biti napravljena korpa: ", this.korpaPrijavljenogKupca);
+              this.korpaID = this.korpaPrijavljenogKupca[0].id;
+              console.log("korpa id u else u napraviilinadjikorpu: " + this.korpaID);
+              resolve();
+            }
+          }, 900);
+        });
+      })
+      .then(() => {
+        // Ovdje možete nastaviti s kodom koji ovisi o korpaID
+      })
+      .catch((error) => {
+        console.error("Greška prilikom izvršavanja napraviIliNadjiKorpu():", error);
+      });
+  }
+
+
+
+
+
+
 }

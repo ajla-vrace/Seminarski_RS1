@@ -21,7 +21,7 @@ namespace OnlineShop.Modul1.Controllers
         {
             KorpaStavka objekat;
             List<Korpa> korpa;
-            bool korpaPostoji=false;
+           /* bool korpaPostoji=false;
             korpa = _dbContext.Korpa.ToList();
 
             for (int i = 0; i < korpa.Count; i++)
@@ -31,49 +31,52 @@ namespace OnlineShop.Modul1.Controllers
                     korpaPostoji = true;
                    // break;
                 }
-            }
-            if (!korpaPostoji)
+            }*/
+            /*if (!korpaPostoji)
             {
                 return BadRequest("Korpa s tim id ne postoji.");
-            }
+            }*/
+
+            
 
 
-            List<KorpaStavka> sveStavke = _dbContext.KorpaStavka.ToList();
-            for (int i = 0; i < sveStavke.Count; i++)
-            {
-                if (sveStavke[i].KorpaId==x.KorpaId &&
-                    sveStavke[i].ProizvodId == x.ProizvodId && 
-                    sveStavke[i].Velicina==x.Velicina)
+                List<KorpaStavka> sveStavke = _dbContext.KorpaStavka.ToList();
+                for (int i = 0; i < sveStavke.Count; i++)
                 {
-                    return BadRequest("Ova stavka je vec dodana!");
+                    if (sveStavke[i].KorpaId == x.KorpaId &&
+                        sveStavke[i].ProizvodId == x.ProizvodId &&
+                        sveStavke[i].Velicina == x.Velicina)
+                    {
+                    return BadRequest("Vec postoji stavka korpe");
+                    }
                 }
-            }
-            objekat = new KorpaStavka();
-            // objekat.Id = x.Id;
-            _dbContext.Add(objekat);
+                objekat = new KorpaStavka();
+                // objekat.Id = x.Id;
+                _dbContext.Add(objekat);
 
-            // objekat.Cijena = x.Cijena;
-            /* if (x.Kolicina == 0)
-             {
-                 return BadRequest("Kolicina ne moze biti 0!");
-             }*/
+                // objekat.Cijena = x.Cijena;
+                /* if (x.Kolicina == 0)
+                 {
+                     return BadRequest("Kolicina ne moze biti 0!");
+                 }*/
+
+                objekat.Kolicina = x.Kolicina;
+                objekat.ProizvodId = x.ProizvodId;
+                objekat.KorpaId = x.KorpaId;
+                objekat.Velicina = x.Velicina;
+                var proizvod = _dbContext.Proizvod.Find(x.ProizvodId);
+
+                float samoCijena;
+                if (proizvod != null)
+                {
+                    objekat.Cijena = proizvod.Cijena;
+                    samoCijena = proizvod.Cijena;
+                    objekat.Total = samoCijena * x.Kolicina;
+                }
+
+                _dbContext.SaveChanges();
+                return Ok(objekat);
             
-            objekat.Kolicina = x.Kolicina;
-            objekat.ProizvodId = x.ProizvodId;
-            objekat.KorpaId = x.KorpaId;
-            objekat.Velicina = x.Velicina;
-            var proizvod = _dbContext.Proizvod.Find(x.ProizvodId);
-           
-            float samoCijena;
-            if (proizvod != null)
-            {
-                objekat.Cijena = proizvod.Cijena;
-                samoCijena =proizvod.Cijena;
-                objekat.Total = samoCijena * x.Kolicina;
-            }
-            
-            _dbContext.SaveChanges();
-            return Ok(objekat);
         }
 
 
@@ -143,6 +146,7 @@ namespace OnlineShop.Modul1.Controllers
                     KorpaIme = s.Korpa.Name,
                     ProizvodId = s.ProizvodId,
                     ProizvodIme = s.Proizvod.Naziv,
+                    Proizvod=s.Proizvod,
                     Boja = s.Proizvod.boja,
                     Velicina=s.Velicina,
                 })
@@ -171,6 +175,7 @@ namespace OnlineShop.Modul1.Controllers
                     ProizvodIme = s.Proizvod.Naziv,
                     Boja = s.Proizvod.boja,
                     Velicina = s.Velicina,
+
                 })
                 .AsQueryable();
 
@@ -251,6 +256,22 @@ namespace OnlineShop.Modul1.Controllers
             return Ok(korpa);
         }
 
+        [HttpGet]
+        public ActionResult GetDostupneVelicine(int proizvodId)
+        {
+            var proizvod = _dbContext.Proizvod.Find(proizvodId);
+            if (proizvod == null)
+            {
+                return NotFound("Proizvod ne postoji.");
+            }
 
+            var dostupneVelicine = _dbContext.SkladisteProizvod
+                .Where(s => s.proizvodId == proizvodId &&
+                s.kolicina>0)
+                .Select(s => s.velicina)
+                .ToList();
+
+            return Ok(dostupneVelicine);
+        }
     }
 }

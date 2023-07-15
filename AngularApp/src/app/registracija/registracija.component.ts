@@ -53,7 +53,7 @@ console.log(this.txtIme);
   btn_registracija() {
 
     for (let korisnik of this.korisniciPodaci) {
-      console.log(korisnik.username);
+      //console.log(korisnik.username);
       if (korisnik.username == this.txtUsername) {
         this.postojiUserName = true;
         return;

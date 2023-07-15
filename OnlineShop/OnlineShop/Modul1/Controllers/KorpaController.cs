@@ -32,8 +32,8 @@ namespace OnlineShop.Modul1.Controllers
                 }
             }
 
-            if (nadjenaKorpa == false)
-            {
+            /*if (nadjenaKorpa == false)
+            {*/
                 if (x.Id == 0)
                 {
                     objekat = new Korpa();
@@ -42,8 +42,8 @@ namespace OnlineShop.Modul1.Controllers
                     objekat.Total = 0;
                     objekat.UkupnoProizvoda = 0;
                 }
-            }
-            else if(nadjenaKorpa==true)
+           //}
+            else /*if(nadjenaKorpa==true)*/
             {
                 objekat = _dbContext.Korpa.Find(x.Id);
                 List<KorpaStavka> stavkeKorpe=_dbContext.KorpaStavka

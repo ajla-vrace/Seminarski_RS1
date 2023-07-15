@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.Data;
 using OnlineShop.Helper;
 using OnlineShop.Helper.AutentifikacijaAutorizacija;
@@ -654,6 +655,12 @@ namespace OnlineShop.Modul1.Controllers
 
             return File(bajtovi_slike, "image/jpg");
         }
+
+        
+
+
+           
+        
 
     }
 }

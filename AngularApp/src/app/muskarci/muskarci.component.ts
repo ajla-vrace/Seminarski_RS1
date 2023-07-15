@@ -252,7 +252,7 @@ this.dodanoUFavorite=true;
 
   prikaziDetaljeProizvoda(proizvod:any) {
     this.proizvod_id=proizvod;
-    this.napraviIliNadjiKorpu();
+    //this.napraviIliNadjiKorpu();
     this.router.navigate(['proizvod-detalji',this.proizvod_id]);
   }
 

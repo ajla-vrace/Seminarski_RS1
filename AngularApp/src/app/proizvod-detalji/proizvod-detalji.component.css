@@ -9,6 +9,8 @@
 .detaljiZaJednog{
   width: 100%;
   display: flex;
+  height: fit-content;
+  border: 1px solid gray;
 }
 .dugmad1{
   background-color: firebrick;
@@ -25,10 +27,14 @@
   background-color: black;
   color:white;
 padding: 3%;
+
 }
 
 .slikaDetalja{
 width: 40%;
+  /*height: fit-content;*/
+  flex: 1;
+
  }
 .slika{
   width: 100%;
@@ -37,8 +43,9 @@ width: 40%;
 .detaljiTekst{
 width: 50%;
   padding: 2%;
-  background-color: #f5eac4;
-  height: fit-content;
+  background-color: #fdf7e2;
+  /*height: fit-content;*/
+  flex: 1;
    }
 #velicineBiraj{
   padding: 1%;
@@ -116,5 +123,14 @@ cursor:pointer;
   border-radius: 2px;
 }
 
+#velicineBiraj{
 
+}
 
+.dugmeVelicine{
+width: 10%;
+  padding: 10px;
+  margin-right: 5px;
+  background-color: #f8e39b;
+  border: 1px solid gray;
+}

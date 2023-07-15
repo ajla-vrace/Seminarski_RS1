@@ -36,6 +36,16 @@ brisano:any=false;
     });
 
   }
+proizvodiPodaci:any;
+  private fetchProizvodi() {
+    //this.imeKorpe="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Proizvod", MojConfig.http_opcije()).subscribe(x=>{
+      this.proizvodiPodaci = x;
+    });
+
+  }
+
 
   private fetchKorpe() {
 this.imeKorpe="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
@@ -66,7 +76,7 @@ this.imeKorpe="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
     this.fetchKorpe();
     this.fetchKorpaIme();
     this.fetchKorpaStavke();
-
+this.fetchProizvodi();
 
 
   }
@@ -223,4 +233,38 @@ this.korpa=this.KorpePodaciIme[0];
   KreirajNarudzbu() {
 this.router.navigate(['kreiranje-narudzbe']);
   }
+
+  noimage:any="data:@file/jpeg;base64,/9j/4AAQSkZJRgABAQAAZABkAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/wgALCADIAN8BAREA/8QAGwABAAMBAQEBAAAAAAAAAAAAAAUGBwMBBAL/2gAIAQEAAAAA24AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAi/i8Ak/vAABXbEOf57eQFgAABXbE59M+idX8gLAAACu2Ks5bsEpxjZuAsAAAK7zyHn9mw55Wtd7WAAAFOy3ke+Ouv2QAAEPXgFpkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//EADoQAAEDAQMGCwgCAwEAAAAAAAECAwQFAAYREiEwMUDREBMWF1FUVmGRkrIHFCI1NkFzdCCBFTJScf/aAAgBAQABPwDazth2w7YdsO2HbDth2w6Ks1lNHRHxivSFyHOLQhrDEnDH725SzOzlT8qd9uUs3s5U/KnfblLN7OVPyp325SzezlT8qd9uUs3s5U/KnfblLN7OVPyp325SzezlT8qd9uUszs5U/Knfaj1RFYpyJjbS2kqUpOQvWCDhoTory/MqB+8PSf4vPNR2i684httOtSzgBaNMjTG+MjPtvIGbFtQI4DqNrl/TqPzO+s6E6K8vzKgfvD0nhS+yp9bCXUF1ABUgHOAdWI4PaeZXFQcnK90+LKw1Zf2x/q3s4965Qr4rK934o8d0d3948B1G1y/p1H5nfWdCdFeX5lQP3h6TwXsvY1QY5YYKXJ6x8KdYQOk7rRK3Ph1b/JNyFGSVYrUo45fSD3Wu9eGLeCCHmiEPJzOtE50ndZ5hqS0Wn20ONq1pWMQbNswaVFWptpmKwgZSylISB3m1EvVTq7Jfjx1FLjZOSlebjE/9Cx1G1y/p1H5nfWdCdFeX5lQP3h6Ta9l7GaFHLDBS5PWPhT9kDpO60iQ9KkLffcU46s4qUo5yeCmVOVSZyJcRwocSdX2UOg91qJeeDWKYqXxiWVNJxfQo/wCnf/5a917nK48YsVSkQEHMNRcPSe7utHkPRJCH2HFNuoOKVJOcG11b1tV6NxLxS3ObT8SPssdI3WuX9OI/M76zoTovaBMdp8Wmy2cONaklScRmxyTaRIelyFvvuKcdWcVKUcST/ALUkKCVEBQwIB1jhjyHYj6H2HFNuoOKVJOBBtcRZXdSOtWdSnHCfMdCdFeG77F4YrTD7zjQbXlgoAz5sPvbmxp/X5Pgm3NjT+vyfBNubGn9fk+Cbc2NP6/J8E25saf1+T4JtzY0/r8nwTbmxp/X5Pgm3NjT+vyfBNqLSm6LTG4LTinEIJIUrXnOOhO2HbDth2w7YdsO2HbDtht//9k=";
+
+getProzivodi1(s:any){
+  console.log("s je : ",s);
+
+  return this.proizvodiPodaci.filter((a:any)=> a.id==s);
+}
+  get_slika_base64_FS1(s:any) {
+   // console.log("s je : ",s );
+//this.getProzivodi(s);
+    setTimeout( ()=>{
+      console.log("proizvod podatak:",this.proizvodiPodaci);
+      return "data:image/jpg;base64,"+ this.proizvodiPodaci[0]?.slika_postojeca;
+    }, 9000);
+
+   /* if(s!=null && s[0]?.slika_postojeca!=null)
+      return "data:image/jpg;base64,"+ s?.slika_postojeca;
+    return this.noimage;*/
+    // return "data:image/jpg;base64,"+s.slika_postojeca;
+  }
+
+
+  /*getProzivodi(s: any): Promise<any[]> {
+    return Promise.resolve(this.proizvodiPodaci.filter((a: any) => a.id == s));
+  }
+
+  async get_slika_base64_FS(s: any) {
+    //console.log("s je: ", s);
+    await this.getProzivodi(s);
+   // console.log("proizvod podatak:", this.proizvodiPodaci);
+    return "data:image/jpg;base64," + this.proizvodiPodaci[0]?.slika_postojeca;
+  }
+*/
 }
