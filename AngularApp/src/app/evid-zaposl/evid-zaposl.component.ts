@@ -5,6 +5,8 @@ import {MojConfig} from "../moj-config";
 import {NgModel} from "@angular/forms";
 import {DatePipe, formatDate} from "@angular/common";
 
+declare function porukaInfo(a: string):any;
+
 @Component({
   selector: 'app-evid-zaposl',
   templateUrl: './evid-zaposl.component.html',
@@ -300,6 +302,23 @@ export class EvidZaposlComponent implements OnInit {
   formatDatum(datum:any){
     if(datum=="" || datum==null) return "-";
     return formatDate(datum,"dd/MM/yyyy","en-Us");
+  }
+
+
+  obj_email:any;
+
+  sendEmail(z:any){
+    this.obj_email={
+      to:z?.email,
+      subject:"Podaci za pristup aplikaciji",
+      body:"Poštovani, Vaši pristupni podaci su -> korisničko ime: "+z?.username+", lozinka: "+z?.lozinka+""
+    }
+
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Poruke",this.obj_email,MojConfig.http_opcije())
+      .subscribe((x:any)=>{
+        porukaInfo("Poruka je uspješno poslana na email: "+z?.email);
+        this.obj_email=null;
+      })
   }
 
 }

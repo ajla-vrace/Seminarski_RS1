@@ -103,8 +103,8 @@ export class NarudzbaDetaljiComponent implements OnInit {
           .subscribe((x:any)=>{
             this.getBoolVrijednosti();
 
-            if(this.obj_status=="Odgodjena")
-              this.update_stanje_na_skladistu();
+          //  if(this.obj_status=="Odgodjena")
+            //  this.update_stanje_na_skladistu();
           })
       })
   }
@@ -136,11 +136,13 @@ export class NarudzbaDetaljiComponent implements OnInit {
       .subscribe((x:any)=>{
         this.kliknuoPromijeniStatus=false;
         this.getBoolVrijednosti();
-       //   alert("Status je uspješno promijenjen!");
+        this.update_stanje_na_skladistu();
+        porukaInfo("Status je uspješno promijenjen! \n Provjerite stanje na skladištu!");
         this.obj_status=null;
         this.getNarudzbaDetalji();
       })
 
+    /*
     if(this.obj_status?.status=="Spremna"){
       porukaInfo("Status je uspješno promijenjen! " + "\n"+
         "Količina na skladištu se smanjila!")
@@ -149,7 +151,9 @@ export class NarudzbaDetaljiComponent implements OnInit {
       porukaInfo("Status je uspješno promijenjen! " + "\n"+
         "Količina na skladištu se povećala!")
     }
-    this.update_stanje_na_skladistu();
+
+     */
+
   }
   _jel_promijenjen_status:boolean=false;
   _jel_poslana_prouka:boolean=false;

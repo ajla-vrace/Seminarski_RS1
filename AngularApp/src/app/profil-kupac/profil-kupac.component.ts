@@ -111,6 +111,7 @@ poruka1:any;
   selectedFiles: FileList | null = null;
 
   slikaUrl: string | null = null;
+   stavkeJedneNarudzbePodaci: any;
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient,private router:Router,
               private signalRService: SignalRService ) {
     //a.otvoriKanalWebSocket();
@@ -128,6 +129,30 @@ poruka1:any;
   /*selectedFile: File | null = null;
   slikaUrl: string | null = null;
 */
+
+
+  izracunajTotal(id:any){
+    this.fetchNarudzbaStavkeByIdNarudzbe(id);
+    setTimeout( ()=>{
+      console.log("stavkejednenarudzbepodaci_:",this.stavkeJedneNarudzbePodaci);
+      for(let n of this.stavkeJedneNarudzbePodaci){
+        this.suma=this.suma+n.total;
+      }
+    }, 1000);
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
   handleFileInput(input: HTMLInputElement): void {
     if (input.files && input.files.length > 0) {
@@ -252,6 +277,9 @@ this.fetchKupci1();
 this.fetchNarudzbeKupca();
 
 this.getSlikuKupca();
+
+
+  //  this.fetchNarudzbaStavkeByIdNarudzbe();
 //this.getPodatkeZaIzvjestajParametri();
 
 
@@ -273,6 +301,15 @@ this.getSlikuKupca();
 
 
 
+  fetchNarudzbaStavkeByIdNarudzbe(id:any) {
+    //this.imeKorpe="Korpa"+this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/Narudzba/GetByIdNarudzbe?narudzbaId="+id, MojConfig.http_opcije()).subscribe(x=>{
+      this.stavkeJedneNarudzbePodaci = x;
+    });
+
+  }
+  suma:any;brojac:any=0;
 
 
 
@@ -1092,10 +1129,34 @@ this.getKupca1();
 
     });
   }
+  update_stanje_na_skladistu(id:any){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/update_stanje?narudzbaId="+id)
+      .subscribe((x:any)=>{
+        console.log("updateovano stanje");
 
+        //  console.log("prethodni status:", this.narudzbaDetalji?.narudzba?.prethodniStatus);
+        //  console.log("trenutni status:", this.narudzbaDetalji?.narudzba?.status);
+        //  console.log("obj_status.status",this.obj_status?.status);
 
+      })
+  }
+obj_status:any;
+  otkaziNarudzbu(id:any) {
 
+      this.obj_status={
+        narudzbaId:id,
+        status:"Otkazana",
+        evidentirao:"-",
+      }
+console.log("obj_status: ",this.obj_status)
+    this.httpKlijent.post(MojConfig.adresa_servera+"/Narudzba/PromijeniStatus",this.obj_status,MojConfig.http_opcije())
+      .subscribe((x:any)=>{
+        this.obj_status=null;
+        this.fetchNarudzbeKupca();
+      })
+    this.update_stanje_na_skladistu(id);
 
+  }
 
 
 

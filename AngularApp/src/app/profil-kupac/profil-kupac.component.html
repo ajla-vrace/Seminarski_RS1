@@ -205,6 +205,7 @@ KUPAC ID: {{kupac_id}}
             <th>Total</th>
             <th>Ukupno proizvoda</th>
             <th>Status</th>
+            <th>Otkaži</th>
           </tr>
           </thead>
 
@@ -216,6 +217,7 @@ KUPAC ID: {{kupac_id}}
             <td>{{s.total}}</td>
             <td>{{s.ukupnoProizvoda}}</td>
             <td>{{s.status}}</td>
+            <td><button (click)="otkaziNarudzbu(s.id)">Otkaži</button></td>
 
 
           </tr>

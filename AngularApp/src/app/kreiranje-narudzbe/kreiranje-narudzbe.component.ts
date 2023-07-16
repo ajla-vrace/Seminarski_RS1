@@ -80,6 +80,11 @@ kupac_id:any;
     });
 
   }
+  narudzba_id:any;
+  stavkeJedneNarudzbePodaci:any
+
+
+
   fetchKorpe() {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByIdKupac/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
       this.korpePodaci = x;

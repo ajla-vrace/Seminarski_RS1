@@ -134,7 +134,7 @@
       <button class="btn-status" (click)="kliknuoPromijeniStatus=true; promijeniStatus();">Promijeni status</button>
     </div>
 
-    <div class="email-okvir">
+    <div class="email-okvir" *ngIf="narudzbaDetalji?.narudzba?.status!='Otkazana'">
       <button class="btn-email"
               [disabled]="(_jel_poslana_prouka==true && _jel_promijenjen_status==false) ||
                            (_jel_promijenjen_status==false && _jel_poslana_prouka==false)"

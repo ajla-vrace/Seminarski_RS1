@@ -47,7 +47,7 @@ namespace OnlineShop.Modul1.Controllers
                 objekat.Ukupno = korpa[i].Total;
                 objekat.UkupnoProizvoda = korpa[i].UkupnoProizvoda;
             }*/
-            Korpa? korpa = _dbContext.Korpa.First(s => s.KupacId == kupacid);
+            Korpa? korpa = _dbContext.Korpa.FirstOrDefault(s => s.KupacId == kupacid);
             if (korpa != null)
             {
                 objekat.Ukupno = korpa.Total;
@@ -84,8 +84,8 @@ namespace OnlineShop.Modul1.Controllers
                     Prodavnica=s.Prodavnica.Naziv,
                     DatumKreiranja = s.DatumKreiranja,
                     DatumPreuzimanja = s.DatumPreuzimanja,
-                    Total = s.Ukupno,
-                    UkupnoProizvoda = s.UkupnoProizvoda,
+                   // Total = s.Ukupno,
+                    //UkupnoProizvoda = s.UkupnoProizvoda,
                     Evidentirao=s.Evidentirao,
                     Status=s.Status 
                 })
@@ -94,7 +94,7 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(data.ToList());
         }
-        [HttpGet("{NarudzbaId}")]
+        [HttpGet]
         public ActionResult GetByIdNarudzbe(int narudzbaId)
         {
             float totalSvega = default;
@@ -110,6 +110,7 @@ namespace OnlineShop.Modul1.Controllers
 
             var data = _dbContext.Narudzba
                 .OrderByDescending(s => s.Id)
+                .Where(s=>s.Id==narudzbaId)
                 .Select(s => new
                 {
                     Id = s.Id,
@@ -302,6 +303,8 @@ namespace OnlineShop.Modul1.Controllers
                 narudzba.Evidentirao = s.evidentirao;
                 narudzba.jel_promijenjen_status = true;
                 narudzba.jel_poslana_prouka = false;
+                if(s.status=="Otkazana")
+                  narudzba.jel_kliknuo_otkazana = false;
                 _dbContext.Update(narudzba);
                 _dbContext.SaveChanges();
             }

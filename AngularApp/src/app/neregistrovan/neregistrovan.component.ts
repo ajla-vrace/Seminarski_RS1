@@ -74,6 +74,7 @@ export class NeregistrovanComponent implements OnInit {
 
 
   idiNaPretragu() {
-    this.router.navigate(['/pretraga']);
+    this.potvrda = true;
+    this.router.navigate(['pretraga']);
   }
 }

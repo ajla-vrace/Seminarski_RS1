@@ -77,5 +77,28 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(data.ToList());
         }
+        [HttpGet]
+        public ActionResult GetByNarudzbaId(int narudzba_id)
+        {
+            var data = _dbContext.NarudzbaStavka
+                .OrderByDescending(s => s.Id)
+                .Where(s=>s.NarudzbaId==narudzba_id)
+                .Select(s => new
+                {
+                    Id = s.Id,
+                    Cijena = s.Proizvod.Cijena,
+                    Kolicina = s.Kolicina,
+                    Velicina = s.Velicina,
+                   // Total = s.Total,
+                    Total = s.Proizvod.Cijena*s.Kolicina,
+                    ProizvodId = s.ProizvodId,
+                    NarudzbaId = s.NarudzbaId,
+                    ProizvodIme = s.Proizvod.Naziv,
+                })
+                .AsQueryable();
+
+
+            return Ok(data.ToList());
+        }
     }
 }
