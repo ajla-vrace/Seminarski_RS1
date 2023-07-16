@@ -62,6 +62,7 @@ namespace OnlineShop.Modul1.Controllers
             public Popust? popust { get; set; }
             public float? cijenaSaPopustom { get; set; }
             public float? originalnaCijena { get; set; }
+            public bool? aktivna { get; set; }
         }
 
         public class PopustVM
@@ -74,7 +75,7 @@ namespace OnlineShop.Modul1.Controllers
         //[Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public IQueryable<SpecijalnePonudeVM> GetSpecijalnePonude()
         {
-            var data = context.SpecijalnaPonuda.Select(x => new SpecijalnePonudeVM
+            var data = context.SpecijalnaPonuda.Where(x=>x.aktivna==true).Select(x => new SpecijalnePonudeVM
             {
                 Id=x.Id,
                 Naziv=x.Naziv,
@@ -122,7 +123,8 @@ namespace OnlineShop.Modul1.Controllers
       //  [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public IQueryable<SpecijalnePonudeProizvodGetVM> GetSpecijalnePonudeProizvod()
         {
-            var data = context.SpecijalnaPonudaProizvod.Select(x => new SpecijalnePonudeProizvodGetVM
+            var data = context.SpecijalnaPonudaProizvod
+                .Select(x => new SpecijalnePonudeProizvodGetVM
             {
                 Id = x.Id,
                 specijalnaPonudaId=x.specijalnaPonudaId,
@@ -138,12 +140,44 @@ namespace OnlineShop.Modul1.Controllers
                 proizvod=x.proizvod,
                 popust=x.popust,
                 cijenaSaPopustom=x.CijenaSaPopustom,
-                originalnaCijena=x.OriginalnaCijena
+                originalnaCijena=x.OriginalnaCijena,
+                aktivna=x.specijalnaPonuda.aktivna
+                
 
             }).ToList().AsQueryable().OrderByDescending(x => x.Id);
             return data;      
         }
-        
+
+
+        [HttpGet("Specijalne_ponude_proizvod_aktivne")]
+        //  [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
+        public IQueryable<SpecijalnePonudeProizvodGetVM> GetSPPAktivne()
+        {
+            var data = context.SpecijalnaPonudaProizvod.Where(x => x.specijalnaPonuda.aktivna == true)
+                .Select(x => new SpecijalnePonudeProizvodGetVM
+                {
+                    Id = x.Id,
+                    specijalnaPonudaId = x.specijalnaPonudaId,
+                    specijalnaPonudaOpis = x.specijalnaPonuda.Naziv,
+                    proizvodId = x.proizvodId,
+                    //proizvod=x.proizvod,
+                    proizvodOpis = x.proizvod.Naziv + " - " + x.proizvod.Sifra,
+                    popustId = x.popustId,
+
+                    //popustOpis=x.popust.Opis
+
+                    popustOpis = x.popust.Opis.ToString(),
+                    proizvod = x.proizvod,
+                    popust = x.popust,
+                    cijenaSaPopustom = x.CijenaSaPopustom,
+                    originalnaCijena = x.OriginalnaCijena,
+                    aktivna = x.specijalnaPonuda.aktivna
+
+
+                }).ToList().AsQueryable().OrderByDescending(x => x.Id);
+            return data;
+        }
+
 
         [HttpGet("Popust")]
         public IQueryable<PopustVM> GetPopuste()

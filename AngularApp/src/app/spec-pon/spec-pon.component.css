@@ -23,7 +23,7 @@ h4{
 }
 
 .input-pretraga2{
-  width:30%;
+  width:34%;
   border: groove;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
@@ -68,7 +68,12 @@ select{
   width: 100%;
 }
 
-.sortiranje-select{
+.sortiranje{
+  width: 15%;
+}
+
+.select-aktivne{
+  width: 15%;
 }
 
 span{
@@ -112,6 +117,7 @@ img{
 .filtriranje{
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .help-block{
@@ -127,3 +133,11 @@ img{
 .dugmeSaljiMail:hover, .dugmeSaljiPoruku:hover, .dugmeAktivnost:hover{
   color:rgba(0,0,0,0.56);
 }
+
+.pretragaIselect{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
