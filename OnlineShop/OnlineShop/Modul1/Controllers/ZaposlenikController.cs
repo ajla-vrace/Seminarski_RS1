@@ -55,6 +55,7 @@ namespace OnlineShop.Modul1.Controllers
             public byte[]? slika_zaposlenika_postojeca_DB { get; set; }  //za get-anje
             public byte[]? slika_zaposlenika_postojeca_FS { get; set; }  //za get-anje
 
+            public bool? jelObavijesten { get; set; }
         }
 
 
@@ -298,7 +299,8 @@ namespace OnlineShop.Modul1.Controllers
                 ProdavnicaId = x.ProdavnicaId,
                 prodavnicaOpis = x.Prodavnica.Naziv,
                 slika_zaposlenika_postojeca_DB=x.slikaZaposlenikaBajtovi,
-                slika_zaposlenika_postojeca_FS=x.slikaZaposlenikaBajtovi
+                slika_zaposlenika_postojeca_FS=x.slikaZaposlenikaBajtovi,
+                jelObavijesten=x.jelObavijesten
             }).ToList().OrderByDescending(x=>x.Id).AsQueryable();
 
             return z;
@@ -470,6 +472,19 @@ namespace OnlineShop.Modul1.Controllers
             }).ToList();
 
             return Ok(new { _proizvodi = proizvodi, _narudzbe = narudzbe, _skladisteProizvod = skladisteProizvod });
+        }
+
+        [HttpPost("obavijesti")]
+        public ActionResult ObavijestiZapsolenika(int zapId)
+        {
+            Zaposlenik? z = context.Zaposlenik.Find(zapId);
+            if (z != null)
+            {
+                z.jelObavijesten = true;
+                context.Update(z);
+                context.SaveChanges();
+            }
+            return Ok();
         }
     }
 }

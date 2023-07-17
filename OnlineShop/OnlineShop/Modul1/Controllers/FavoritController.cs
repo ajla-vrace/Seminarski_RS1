@@ -53,11 +53,11 @@ namespace OnlineShop.Modul1.Controllers
                     Id = s.Id,
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.datum_kreiranja,
-                    Proizvod = s.Proizvod.Naziv,
+                    ProizvodNaziv = s.Proizvod.Naziv,
                     KupacId = s.KupacId,
                     ProizvodId=s.ProizvodId,
                     Cijena=s.Proizvod.Cijena,
-                    
+                    Proizvod=s.Proizvod
 
                 })
                 .AsQueryable();
@@ -80,11 +80,11 @@ namespace OnlineShop.Modul1.Controllers
                     Id = s.Id,
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.datum_kreiranja,
-                    Proizvod = s.Proizvod.Naziv,
+                    ProizvodNaziv = s.Proizvod.Naziv,
                     KupacId = s.KupacId,
                     ProizvodId = s.ProizvodId,
                     Cijena=s.Proizvod.Cijena,
-
+                    Proizvod=s.Proizvod
                 })
                 .AsQueryable();
 

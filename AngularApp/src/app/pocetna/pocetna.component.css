@@ -10,3 +10,18 @@ img{
   display: grid;
   grid-template-columns: auto auto;
 }
+.slikaNaPocetnoj{
+  width: 100%;
+  margin: auto;
+  /*height: 100%;*/
+}
+.velikiDiv{
+  display: flex;
+  width: 100%;
+}
+.jednaSlikaDiv{
+  width: 50%;
+  margin: auto;
+  text-align: center;
+  cursor: pointer;
+}

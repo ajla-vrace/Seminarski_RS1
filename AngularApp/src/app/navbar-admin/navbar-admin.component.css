@@ -38,3 +38,9 @@ a:hover{
 a:visited{
   color: black;
 }
+
+h6{
+  font-style: italic;
+  color: rgba(3, 121, 182, 0.7);
+  width: 15%;
+}

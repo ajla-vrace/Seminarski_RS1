@@ -1,26 +1,29 @@
 <app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
 <h1 *ngIf="loginInfo().isLogiran==false">Košarica</h1>
 <div id="naslovKosarice">
-  <h1>Košarica</h1>
-  <h4 *ngIf="korpaStavkePodaci!=0">Pogledajte proizvode koje ste dodali u košaricu.</h4>
+  <h2>Košarica</h2>
+  <h5>Pogledajte proizvode koje ste dodali u košaricu.</h5>
+ <!-- <h4 *ngIf="korpaStavkePodaci!=0">Pogledajte proizvode koje ste dodali u košaricu.</h4>-->
 <div *ngIf="korpaStavkePodaci==0">
   <div id="praznaKorpaDiv"><img src="assets/slike/emptycart.png" id="praznaKorpaSlika"> </div>
-  <h1  style="margin-top: 2%">Nemate nijedan proizvod u košarici.</h1>
-  <label style="font-style: italic">Inspirirajte se i obogatite svoju garderobu.</label>
-  <button (click)="vratiNaPocetnu()" id="getInspired"> Pogledaj proizvode</button>
+  <h1  style="margin-top: 3%;margin-bottom: 6%;">Nemate nijedan proizvod u košarici.</h1>
+<!--  <label style="font-style: italic">Inspirirajte se i obogatite svoju garderobu.</label>
+  <button (click)="vratiNaPocetnu()" id="getInspired"> Pogledaj proizvode</button>-->
 </div>
 
 </div>
 
 
-
+<!--
 kupac id:
 {{kupac_id}}
+-->
 <div id="KosaricacijelaDiv">
   <div id="kosaricaDiv">
     <div *ngFor="let kst of getKorpaStavke()" class="StavkaKosarice">
       <div class="SlikaStavkeKosarice">
-        <img src="assets/slike/dress.png" style="width: 100%;">
+       <!-- <img src="assets/slike/dress.png" style="width: 100%;">-->
+        <img src="{{get_slika_base64_FS(kst.proizvod)}}" style="width: 100%;" id="slikaProizvodaUKosarici">
       </div>
       <div id="tekstStavkeKorpe">
         <h3>{{kst.proizvodIme}}</h3>

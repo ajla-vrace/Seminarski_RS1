@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
+import {LoginInformacije} from "../helpers/login-informacije";
+import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 
 @Component({
   selector: 'app-neregistrovan',
@@ -31,10 +33,17 @@ export class NeregistrovanComponent implements OnInit {
   reloadPage() {
     window.location.reload()
   }
-
+  loginInfo():LoginInformacije {
+    return AutentifikacijaHelper.getLoginInfo();
+  }
   pocetna() {
     this.potvrda=false;
-    this.router.navigate(['/pocetna']);
+    if(this.loginInfo().isLogiran==false){
+      this.router.navigate(['/neregistrovan']);
+    }
+    else {
+      this.router.navigate(['/pocetna']);
+    }
   }
 
   otvoriFaq() {

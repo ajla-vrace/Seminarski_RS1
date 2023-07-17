@@ -372,7 +372,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLiveLabel1" [ngStyle]="{color:getColor()}"> {{naslov}} </h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="obj_sezkol=null; getProizvodOpadajuci(); kliknuo_add_sezkol=false;"></button>
+        <button type="button" class="btn-close" aria-label="Close" (click)="obj_sezkol=null; getProizvodOpadajuci(); getProizvodRastuci(); kliknuo_add_sezkol=false;"></button>
       </div>
       <div class="modal-body">
 
@@ -380,9 +380,9 @@
         <div class="mb-3" [class.has-error]="(sezonaControll.invalid && sezonaControll.touched) || sezone?.length==0">
           <label class="form-label">Sezona</label>
 
-          <select required #sezonaControll="ngModel" class="form-control" [(ngModel)]="obj_sezkol.sezonaId" (click)="getKolekcijeBySezonaID(obj_sezkol.sezonaId);" >
-            <option *ngFor="let s of sezone " [value]="s?.id"  >{{s.naziv}} - {{s.aktivna?"Aktivna":"Neaktivna"}}</option>
-
+          <select required #sezonaControll="ngModel" class="form-control" [(ngModel)]="obj_sezkol.sezonaId" (click)="getKolekcijeBySezonaIDaktivne(obj_sezkol.sezonaId);" >
+            <option *ngFor="let s of sezone_aktivne " [value]="s?.id"  >{{s.naziv}} </option>
+<!-- - {{s.aktivna?"Aktivna":"Neaktivna"}}--->
           </select>
 
           <span class="help-block" *ngIf="(sezonaControll.invalid && sezonaControll.touched) || sezone?.length==0">
@@ -396,8 +396,8 @@
 
           <select required #kolekcijaControll="ngModel" class="form-control" [(ngModel)]="obj_sezkol.kolekcijaId">
 
-            <option *ngFor="let kol of kolekcije " [value]="kol?.id" >{{kol.naziv}} - {{kol.aktivna?"Aktivna":"Neaktivna"}} </option>
-
+            <option *ngFor="let kol of kolekcije_aktivne " [value]="kol?.id" >{{kol.naziv}} </option>
+<!-- - {{kol.aktivna?"Aktivna":"Neaktivna"}} --->
           </select>
 
           <span class="help-block" *ngIf="(kolekcijaControll.invalid && kolekcijaControll.touched) || kolekcije?.length==0">
@@ -406,6 +406,8 @@
         </div>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" *ngIf="kliknuo_add_sezkol==false" (click)="ponistiSezKol()">Poništi sezonu i kolekciju</button>
+
         <button  type="button"
                 class="btn btn-primary" [disabled]="!jel_dozvoljen_save_sezkol()" (click)="spasi_sezkol()">Spasi promjene</button>
       </div>

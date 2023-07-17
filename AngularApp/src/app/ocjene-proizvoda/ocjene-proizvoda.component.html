@@ -30,13 +30,13 @@
   Proizvod trenutno nema nijednu ocjenu.
   <p style="font-size: medium;">Budite prvi koji ce ocjeniti proizvod.</p>
 </div>
-<p id="naslovOcjene" *ngIf="ocjeneProizvodaPodaci?.length>0">Ocjene proizvoda: </p>
+<!--<h3 id="naslovOcjene" *ngIf="ocjeneProizvodaPodaci?.length>0">Ocjene proizvoda: </h3>-->
 <div id="velikiZaOcjene" *ngIf="ocjeneProizvodaPodaci?.length>0">
 
-  <br>
+  <!--<br>-->
   <div *ngFor="let o of ocjeneProizvodaPodaci" id="jednaOcjenaProizvoda">
     <h6>  Korisnik: {{o.kupac}}</h6>
-    <h6>  Proizvod: {{o.proizvod}}</h6>
+   <!-- <h6>  Proizvod: {{o.proizvod}}</h6>-->
       <h6 style="display: inline">Ocjena: {{o.ocjena}} </h6>
     <span class="bi bi-star" ></span>
    <!-- <span class="bi bi-star"></span>

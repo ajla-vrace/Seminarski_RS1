@@ -23,6 +23,12 @@
   border: 1px solid gray;
   margin: 2%;
 }
+#proizvodJedan1{
+  width: 100%;
+display:flex;
+  flex-direction: column;
+  height: 400px;
+}
 #filteri{
 
 }
@@ -56,13 +62,13 @@ li{
 #sve{
   width: 90%;
   margin: 1% auto;
-  background-color: #f8cece;
+  background-color: #ffffff;
   display: flex;
   margin-bottom: 5%;
 }
 .zaSliku{
   width: 100%;
-
+height: 80%;
   border: 1px black solid;
   position: relative;
 }
@@ -74,6 +80,11 @@ li{
 }
 .tekst{
   text-align: center;
+  height: 20%;
+}
+#slika{
+  width: 100%;
+  height: 100%;
 }
 .favorit{
   width: 50px;
@@ -282,4 +293,9 @@ width: 79%;
 #inputPretraga:focus {
   outline: none;
   border-color: #145b94;
+}
+#nemaProizvoda{
+  width: 55%;
+  margin: auto;
+  font-size: xx-large;
 }

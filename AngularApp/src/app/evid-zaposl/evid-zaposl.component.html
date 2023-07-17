@@ -59,7 +59,8 @@
         <td>{{formatDatum(z.datumRegistracije)}}</td>
         <td>{{z.spolOpis}}</td>
         <td><img src="{{get_slika_base64_FS(z)}}" style="display:block;max-width: 100%; height: 70px"></td>
-        <td><button class="btn-posaljiPoruku" (click)="sendEmail(z)" title="Obavijesti zaposlenika o njegovim pristupnim podacima">Pošalji poruku</button></td>
+        <td><button class="btn-posaljiPoruku" (click)="sendEmail(z)" title="Obavijesti zaposlenika o njegovim pristupnim podacima">Pošalji poruku</button>
+        <br> {{z.jelObavijesten==true?"Obaviješten":""}} </td>
         <td><button class="btn-detalji" (click)="vidiDetaljeZaposlenika(z.id)">Detalji</button></td>
         <td><button class="btn-edit" (click)="urediZaposlenika(z)">Uredi</button> </td>
         <td><button class="btn-delete" (click)="obrisiZaposlenika(z)">Obriši</button> </td>

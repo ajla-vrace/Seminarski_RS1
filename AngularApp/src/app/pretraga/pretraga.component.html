@@ -43,7 +43,7 @@
 
 
 
-
+<div *ngIf="proizvodiPodaci?.length==0" id="nemaProizvoda">Nema proizvoda koji su zadovoljili rezultat pretrage.</div>
 
 
 
@@ -53,14 +53,15 @@
 
   <div id="Proizvodi" >
     <div *ngFor="let p of getProizvodi()" class="proizvodJedan" >
-      <div (click)="prikaziDetaljeProizvoda(p.id)" style="cursor: pointer;">
+      <div (click)="prikaziDetaljeProizvoda(p.id)" style="cursor: pointer;" id="proizvodJedan1">
         <div class="zaSliku" >
-          <img src="assets/slike/suit.png" style="width: 100%">
+          <img src="{{get_slika_base64_FS(p)}}" id="slika">
         </div>
 
         <div class="tekst" >
           <h5>{{p.naziv}}</h5>
-          <h6>{{p.cijena}} KM</h6>
+         <h6>{{p.cijena}} KM</h6>
+
         </div>
 
 

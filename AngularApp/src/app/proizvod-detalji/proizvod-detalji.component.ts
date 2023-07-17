@@ -374,6 +374,13 @@ console.log("ptovjera favorita");
     return this.noimage;
     // return "data:image/jpg;base64,"+s.slika_postojeca;
   }
+cijena:any;
+  getCijena(p:any){
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetCijena?id="+p.id, MojConfig.http_opcije()).subscribe(x=>{
+      this.cijena = x;
+    });
+    return this.cijena;
+  }
 
 
 

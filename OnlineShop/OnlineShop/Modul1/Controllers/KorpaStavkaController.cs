@@ -324,7 +324,33 @@ namespace OnlineShop.Modul1.Controllers
                 _dbContext.SaveChanges();
             }
         }
-        
+        [HttpGet]
+        public ActionResult GetCijena(int id)
+        {
+            var proizvod = _dbContext.Proizvod.Find(id);
+
+            if (proizvod == null)
+            {
+                return NotFound();
+            }
+
+            float cijena;//= proizvod.Cijena;
+
+            var specijalnaPonudaProizvod = _dbContext.SpecijalnaPonudaProizvod
+                .FirstOrDefault(sp => sp.proizvodId == id &&
+                sp.specijalnaPonuda.aktivna == true);
+
+            if (specijalnaPonudaProizvod != null)
+            {
+                cijena = (float)specijalnaPonudaProizvod.CijenaSaPopustom;
+            }
+            else
+            {
+                cijena = proizvod.Cijena;
+            }
+
+            return Ok(cijena);
+        }
 
 
     }

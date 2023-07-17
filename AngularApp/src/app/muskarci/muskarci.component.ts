@@ -51,7 +51,7 @@ export class MuskarciComponent implements OnInit {
 
   fetchProizvodi()
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Proizvod/byOdjel?odjel=2", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Proizvod/aktivnibezpopusta?odjel_id=2", MojConfig.http_opcije()).subscribe(x=>{
       this.proizvodiMPodaci = x;
       this.proizvodiSvi=x;
     });
@@ -143,7 +143,9 @@ export class MuskarciComponent implements OnInit {
     if (this.odabraneBoje.length > 0) {
       filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
         this.odabraneBoje.includes(a.bojaOpis)
+
       );
+      console.log("filter boje: ",this.odabraneBoje);
     }
 
 
@@ -172,6 +174,7 @@ export class MuskarciComponent implements OnInit {
       filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
         a.kolekcijaOpis === this.odabranaKolekcija
       );
+      console.log("odabran kolkecija:" ,this.odabranaKolekcija);
     }
     if (this.pretragaPoNazivu.trim() !== '') {
       filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
@@ -181,6 +184,7 @@ export class MuskarciComponent implements OnInit {
 
 
     this.proizvodiMPodaci = filtriraniProizvodi;
+    console.log("poroitvoM:",this.proizvodiMPodaci);
     return this.proizvodiMPodaci;
   }
   odabranaKategorija: any=false;
@@ -412,7 +416,7 @@ this.korpastavkaId=this.korpaStavka.id;
 
   updateSelectedCollection(collection: any) {
     this.odabranaKolekcija=collection;
-
+console.log("odabrana kolkeicja: "+this.odabranaKolekcija);
     this.getMProizvodi();
   }
 

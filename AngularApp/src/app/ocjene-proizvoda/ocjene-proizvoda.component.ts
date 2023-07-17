@@ -4,7 +4,8 @@ import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 import {MojConfig} from "../moj-config";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
-
+declare function porukaSuccess(a: string):any;
+declare function porukaError(a: string):any;
 @Component({
   selector: 'app-ocjene-proizvoda',
   templateUrl: './ocjene-proizvoda.component.html',
@@ -63,7 +64,8 @@ export class OcjeneProizvodaComponent implements OnInit {
     console.log("ocjena iz zvjzdice: "+this.novaZvjezdica.ocjenaBrojcano);
     console.log("ocjena: "+ocjena1);
     console.log("ocjena: "+typeof (ocjena1));
-    alert("Uspješno dodana zvjezdica");
+    /*alert("Uspješno dodana zvjezdica");*/
+    porukaSuccess("Uspješno dodana ocjena");
 
   }
 

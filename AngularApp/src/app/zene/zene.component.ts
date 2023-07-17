@@ -52,7 +52,7 @@ korpaID:any;
 
   fetchProizvodi()
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Proizvod/byOdjel?odjel=1", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Proizvod/aktivnibezpopusta?odjel_id=1", MojConfig.http_opcije()).subscribe(x=>{
       this.proizvodiZPodaci = x;
       this.proizvodiSvi=x;
     });

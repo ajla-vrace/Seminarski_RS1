@@ -21,4 +21,14 @@
 
 </nav>
 <hr style="margin-bottom: 0%" >
+<!--
 <img  *ngIf="potvrda==false;" src="assets/slike/copy.jpg" style="width: 100%;">
+-->
+
+
+
+<div class="velikiDiv" *ngIf="potvrda==false;">
+  <div class="jednaSlikaDiv" (click)="prikaziZene()"><img src="assets/slike/woman_clothes.jpg" class="slikaNaPocetnoj"></div>
+  <div class="jednaSlikaDiv" (click)="prikaziMuskarce()"><img src="assets/slike/man_clothes.jpg" class="slikaNaPocetnoj">
+  </div>
+</div>

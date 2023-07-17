@@ -3,6 +3,11 @@ margin: 1% 15%;
   display: flex;
 
 }
+#slikaProizvodaUKosarici{
+/*width: 200px;*/
+  /*height: auto;*/
+
+}
 #kosaricaDiv{
 
   width: 65%;
@@ -23,15 +28,32 @@ margin: 1% 15%;
   margin-top: 1%;
 }
 .StavkaKosarice{
-  border:1px solid gray;
-  width: 80%;
-display: flex;
+ /* border:1px solid gray;
+ /* width: 80%;*/
+/*display: flex;
 
   margin: 5%;
+  text-align: center;
+  height: fit-content;*/
+display: grid;
+  grid-template-columns: 50% 50%;
+  border: 1px solid gray;
+  margin: 5%;
+/*height: 250px;*/
   text-align: center;
 }
 .SlikaStavkeKosarice{
 
+width: 100%;
+width: fit-content;
+height: fit-content;
+  margin: auto;
+}
+#tekstStavkeKorpe{
+  width: 100%;
+  padding: 2%;
+  text-align: center;
+  border-left: 1px solid gray;
 }
 li{
   list-style: none;
@@ -67,10 +89,7 @@ li{
 #kreirajNarudzbu:hover{
  background-color: rgba(0,0,0,0.75);
 }
-#tekstStavkeKorpe{
-border-left: 1px solid grey;
-  width: 100%;
-}
+
 #upravljanjeStavkama{
 
   margin-top: 20%;
