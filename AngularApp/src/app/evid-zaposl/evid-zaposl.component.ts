@@ -318,7 +318,16 @@ export class EvidZaposlComponent implements OnInit {
       .subscribe((x:any)=>{
         porukaInfo("Poruka je uspješno poslana na email: "+z?.email);
         this.obj_email=null;
+        this.obavijestiZaposlenika(z?.id);
       })
   }
 
+
+  obavijestiZaposlenika(zapId:any){
+    this.httpKlijent.post(MojConfig.adresa_servera+"/api/Zaposlenik/obavijesti?zapId="+zapId,zapId,MojConfig.http_opcije())
+      .subscribe((x:any)=>{
+        console.log("obavijesten");
+        this.getZaposlenike();
+      })
+  }
 }

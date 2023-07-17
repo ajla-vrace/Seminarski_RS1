@@ -1014,7 +1014,8 @@ this.getKupca1();
       .subscribe((x: any) => {
         alert("Uspješno ste se odjavili.");
       });
-    this.router.navigateByUrl("/pocetna");
+    //this.router.navigateByUrl("/neregistrovan");
+    this.router.navigate(["/pocetna"]);
   }
 
 

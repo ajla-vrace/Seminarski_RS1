@@ -17,6 +17,9 @@ export class NavbarZaposlenikComponent implements OnInit {
 
   loginId:any=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.id;
 
+  ImePrezime:any=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.ime + " "+
+    AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.prezime;
+
   ngOnInit(): void {
     this.route.params.subscribe(s=>{
       this.zaposlenik_id=+s["id"];

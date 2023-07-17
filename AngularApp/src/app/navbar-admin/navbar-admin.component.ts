@@ -14,6 +14,9 @@ export class NavbarAdminComponent implements OnInit {
 
   count:any=1;
 
+  ImePrezime:any=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.ime + " "+
+    AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.prezime;
+
   admin_id:any;
 
   ngOnInit(): void {

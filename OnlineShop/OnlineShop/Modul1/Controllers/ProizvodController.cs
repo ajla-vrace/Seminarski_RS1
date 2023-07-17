@@ -191,6 +191,8 @@ namespace OnlineShop.Modul1.Controllers
             public int proizvod_id { get; set; }
             public int? kolekcijaId { get; set; }
             public int? sezonaId { get; set; }
+            public string? modifikovao { get; set; }
+         
         }
 
         [HttpPost("sezkol")]
@@ -204,6 +206,7 @@ namespace OnlineShop.Modul1.Controllers
 
             p.sezonaId = x.sezonaId;
             p.kolekcijaId = x.kolekcijaId;
+            p.modifikovao = x.modifikovao;
 
             context.Update(p);
             context.SaveChanges();
@@ -673,6 +676,26 @@ namespace OnlineShop.Modul1.Controllers
         }
 
 
+        public class PonistiSezKol
+        {
+            public int proizvod_id { get; set; }
+            public string modifikovao { get; set; }
+        }
+
+        [HttpPost("ponisti_sezkol")]
+        public ActionResult PonistiSezoneKolekcije (PonistiSezKol x)
+        {
+            Proizvod? p = context.Proizvod.Find(x.proizvod_id);
+            if (p != null)
+            {
+                p.sezonaId = null;
+                p.kolekcijaId = null;
+                p.modifikovao = x.modifikovao;
+                context.Update(p);
+                context.SaveChanges();
+            }
+            return Ok();
+        }
 
 
     }

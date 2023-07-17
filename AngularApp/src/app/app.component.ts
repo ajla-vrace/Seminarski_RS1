@@ -51,7 +51,7 @@ export class AppComponent implements OnInit{
   pocetna() {
     if(this.loginInfo().isLogiran==false)
        this.router.navigate(['/pocetna']);
-    else if(this.loginInfo().autentifikacijaToken.korisnickiNalog.isAdmin)
+    if(this.loginInfo().autentifikacijaToken.korisnickiNalog.isAdmin)
       this.router.navigate(['/admin-pocetna',this.loginInfo().autentifikacijaToken.korisnickiNalog.id]);
     else if(this.loginInfo().autentifikacijaToken.korisnickiNalog.isZaposlenik)
       this.router.navigate(['/zaposlenik-pocetna',this.loginInfo().autentifikacijaToken.korisnickiNalog.id]);

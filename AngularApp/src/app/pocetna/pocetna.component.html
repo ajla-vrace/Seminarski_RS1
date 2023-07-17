@@ -6,7 +6,10 @@
   <img src="assets/slike/muskarci.png">
 </div>
 -->
+<!--<app-nav-kupac *ngIf="loginInfo().isLogiran==true">
 
+</app-nav-kupac>-->
+<app-neregistrovan *ngIf="loginInfo().isLogiran==false"></app-neregistrovan>
 <div>
   <div class="velikiDiv" *ngIf="potvrda==false;">
     <div class="jednaSlikaDiv" (click)="prikaziZene()"><img src="assets/slike/woman_clothes.jpg" class="slikaNaPocetnoj"></div>

@@ -16,5 +16,7 @@ namespace OnlineShop.Modul1.Models
         public int? ProdavnicaId { get; set; }
         public byte[]? slikaZaposlenikaBajtovi { get; set; }
 
+        public bool? jelObavijesten { get; set; } = false;
+
     }
 }
