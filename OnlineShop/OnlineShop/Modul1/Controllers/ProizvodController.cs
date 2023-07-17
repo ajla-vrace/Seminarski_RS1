@@ -676,6 +676,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
 
+<<<<<<< HEAD
         public class PonistiSezKol
         {
             public int proizvod_id { get; set; }
@@ -696,6 +697,8 @@ namespace OnlineShop.Modul1.Controllers
             }
             return Ok();
         }
+=======
+>>>>>>> 335961477dff33bdcad432d96e640524e3201ef1
 
 
     }
