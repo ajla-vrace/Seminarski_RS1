@@ -1,15 +1,19 @@
 #velikiZaOcjene{
-
+background-color: #ffffff;
   width: 65%;
-  padding: 2%;
-  margin: 2% 17%;
+  /*padding: 2%;*/
+  margin: auto;
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-columns: 33% 33% 33%;
+  margin-bottom: 12%;
 }
 #jednaOcjenaProizvoda{
  border: 1px solid grey;
  margin: 2% 5%;
-  width: 100%;
+  width: 95%;
+  padding: 5%;
+  text-align: center;
+  background-color: #e3f9fd;
 }
 #ocjeniProizvod{
   width: 65%;
@@ -92,6 +96,7 @@ a:checked{
   background-color: #95e4ff;
   text-align: center;
   font-size: x-large;
+  margin-bottom: 10%;
 }
 #naslovOcjene{
   font-size: medium;

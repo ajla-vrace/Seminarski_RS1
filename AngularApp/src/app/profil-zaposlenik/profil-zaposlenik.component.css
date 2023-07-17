@@ -1,6 +1,6 @@
 .slika-glavni{
   width:90%;
-  margin:auto;
+  margin:0 auto 1% auto;
   display: flex;
   justify-content: space-between;
 }
@@ -22,6 +22,7 @@
  /* border: groove;*/
   width:80%;
   margin:3% auto;
+  border-radius: 10px;
 }
 
 .divslika{
@@ -30,7 +31,7 @@
 /*  margin:auto;
   border: groove;
   padding: 2%;*/
-  border: groove;
+/*  border: groove;*/
 }
 .slika{
   /*display: grid;
@@ -44,14 +45,16 @@ width:100%;
   color:deeppink;
   border:none;
   background-color: transparent;
-  width: 100%;
+  width: 80%;
+  margin-left: 10%;
 }
 
 .ukloni-sliku{
-  color:white;
+  color:red;
   border:none;
-  background-color: red;
-  width: 100%;
+  background-color: transparent;
+  width: 80%;
+  margin-left: 10%;
 }
 
 .dodaj-sliku:hover, .ukloni-sliku:hover{
@@ -98,7 +101,7 @@ h5{
   display: flex;
   justify-content: flex-end;
   position: absolute;
-  top:66%;
+  top:67%;
   right:5%;
 }
 
@@ -107,7 +110,8 @@ h5{
   border: groove;
   background-color: rgba(255,128,99,0.68);
   border-radius: 10px;
-  width:100%;
+  width:80%;
+  margin:auto;
 }
 
 .btn-odjava:hover{

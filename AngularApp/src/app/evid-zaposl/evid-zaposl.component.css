@@ -1,22 +1,22 @@
 
 .pretraga-div{
   display: flex;
-  width: 25%;
+  width: 40%;
 }
 
 .pretraga-div .pretrazi-zaposl{
   width:100%;
-  border-bottom-left-radius: 30px;
-  border-top-left-radius: 30px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
   border:groove;
-  padding:2%;
+  padding:1%;
 }
 
 .pretraga-div .img-search{
   border:groove;
   background-color: white;
-  border-bottom-right-radius: 30px;
-  border-top-right-radius: 30px;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
   border-left: none;
   padding:2%;
   cursor: pointer;
@@ -34,7 +34,7 @@
 .btn-dodajZaposl{
   width:100%;
   border:groove;
-  border-radius: 30px;
+  border-radius: 10px;
   padding:2%;
   background-color: #ffebcd;
   color:black;
@@ -45,7 +45,7 @@
   margin:2% auto 2% auto;
 }
 
-.btn-detalji{
+.btn-detalji, .btn-posaljiPoruku{
   width:90%;
   border:groove;
   border-radius: 20px;
@@ -67,11 +67,15 @@
   background-color: #2ecc71;
 }
 
-.btn-delete, .btn-edit, .btn-detalji{
+.btn-posaljiPoruku{
+  background-color: rgba(246, 175, 184, 0.7);
+}
+
+.btn-delete, .btn-edit, .btn-detalji, .btn-posaljiPoruku{
   align-items: center;
 }
 
-.btn-delete:hover, .btn-edit:hover, .btn-detalji:hover{
+.btn-delete:hover, .btn-edit:hover, .btn-detalji:hover, .btn-posaljiPoruku:hover{
   opacity: 40%;
 }
 
@@ -90,6 +94,7 @@
   justify-content: space-between;
   align-items: center;
   width:20%;
+  border-radius: 10px;
 }
 
 .help-block{

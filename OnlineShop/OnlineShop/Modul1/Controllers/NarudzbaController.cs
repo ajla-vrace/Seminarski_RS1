@@ -303,6 +303,8 @@ namespace OnlineShop.Modul1.Controllers
                 narudzba.Evidentirao = s.evidentirao;
                 narudzba.jel_promijenjen_status = true;
                 narudzba.jel_poslana_prouka = false;
+                if(s.status=="Otkazana")
+                  narudzba.jel_kliknuo_otkazana = false;
                 _dbContext.Update(narudzba);
                 _dbContext.SaveChanges();
             }

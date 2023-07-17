@@ -656,11 +656,24 @@ namespace OnlineShop.Modul1.Controllers
             return File(bajtovi_slike, "image/jpg");
         }
 
-        
 
 
-           
-        
+        [HttpGet("aktivnibezpopusta")]
+        public List<Proizvod> GetAktivniProizvodiBezPopusta(int odjel_id)
+        {
+            var sviProizvodi = context.Proizvod
+                .Where(o=>o.odjelId==odjel_id).ToList();
+            var specijalnePonude = context.SpecijalnaPonudaProizvod
+         .Where(sp => sp.specijalnaPonuda.aktivna==true)
+         .Select(sp => sp.proizvodId)
+         .ToList();
+            var aktivniProizvodiBezPopusta = sviProizvodi.Where(p => p.Aktivan && !specijalnePonude.Contains(p.Id)).ToList();
+
+            return aktivniProizvodiBezPopusta;
+        }
+
+
+
 
     }
 }

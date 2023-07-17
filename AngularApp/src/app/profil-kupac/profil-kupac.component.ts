@@ -1152,11 +1152,12 @@ console.log("obj_status: ",this.obj_status)
     this.httpKlijent.post(MojConfig.adresa_servera+"/Narudzba/PromijeniStatus",this.obj_status,MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.obj_status=null;
+        this.update_stanje_na_skladistu(id);
         this.fetchNarudzbeKupca();
       })
-    this.update_stanje_na_skladistu(id);
-
   }
+
+
 
 
 

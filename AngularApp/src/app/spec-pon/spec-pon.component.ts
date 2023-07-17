@@ -76,7 +76,7 @@ export class SpecPonComponent implements OnInit {
       this.getPopusti();
      // this.getProizvodPodaci();
       this.getProizvodRastuci();
-    //  this.getSpecijalnePonude();
+      this.getSpecijalnePonude();
       this.getSpecijalnePonudeProizvod();
       this.getSpecijalnePonudeOpadajuci();
       this.getSpecijalnePonudeRastuci();
@@ -114,13 +114,14 @@ export class SpecPonComponent implements OnInit {
   }
 
 
+  specijalna_ponuda_id2:any;
   getSpecijalnePonude(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/Specijalne_ponude", MojConfig.http_opcije())
       .subscribe((x:any)=>{
       this.specijalne_ponude=x;
-      this.specijalna_ponuda_id=this.specijalne_ponude[0].id;
-      this.duzinaSP=this.specijalne_ponude.length;
-      console.log("specijalna ponuda id: ",this.specijalna_ponuda_id);
+      this.specijalna_ponuda_id2=this.specijalne_ponude[0]?.id;
+      this.duzinaSP=this.specijalne_ponude?.length;
+      console.log("specijalna ponuda id: ",this.specijalna_ponuda_id2);
     })
   }
 
@@ -316,6 +317,8 @@ export class SpecPonComponent implements OnInit {
 
   //filteri
 
+  pretraga_sp:any="";
+
   get_filter(naziv:string, niz:any){
     if(this.jelKliknuoSearch){
       let filterPodaci=niz?.filter((x:any)=>(
@@ -329,29 +332,64 @@ export class SpecPonComponent implements OnInit {
     }
   }
 
+  get_filter2(naziv:string, niz:any){
+    let filterPodaci=niz?.filter((x:any)=>(
+      this.pretraga_sp!="" ? (x.naziv.toLowerCase().includes(this.pretraga_sp.toLowerCase())) : niz
+    ));
+    this.totalLength1=filterPodaci?.length;
+    return filterPodaci;
+  }
+
   getFilterPodatkeSP(naziv:string){
     if(this.izabranoSortiranje=="Mlađi datum"){
-      return this.get_filter(naziv,this.sp_opadajuci);
+      return this.get_filter2(naziv,this.sp_opadajuci);
     }
     else{
-      return this.get_filter(naziv,this.sp_rastuci);
+      return this.get_filter2(naziv,this.sp_rastuci);
     }
   }
 
-  getFilterPodatkeSPP(spp:string){
-    if(this.jelKliknuoSearch){
+  pretraga_spp:any="";
+  aktivne_spp:any="Aktivne";
+  getFilterPodatkeSPP(inputspp:string){
+    //if(this.jelKliknuoSearch)
+
+    if(this.aktivne_spp=="Aktivne"){
       let filterPodaci = this.specijalne_ponude_proizvodi?.filter((x:any)=>(
-        x.proizvodOpis.toLowerCase().includes(spp.toLowerCase())
-        || x.specijalnaPonudaOpis.toLowerCase().includes(spp.toLowerCase())
-        || x.popustOpis.includes(spp)
+        x.aktivna==true && ( this.pretraga_spp!=""? (
+        x.proizvodOpis.toLowerCase().includes(this.pretraga_spp.toLowerCase())
+        || x.specijalnaPonudaOpis.toLowerCase().includes(this.pretraga_spp.toLowerCase())
+        || x.popustOpis.includes(this.pretraga_spp) ) : this.specijalne_ponude_proizvodi)
+      ));
+      this.totalLength2=filterPodaci?.length;
+      return filterPodaci;
+    }
+    else if(this.aktivne_spp=="Neaktivne"){
+      let filterPodaci = this.specijalne_ponude_proizvodi?.filter((x:any)=>(
+        x.aktivna==false && ( this.pretraga_spp!=""? (
+          x.proizvodOpis.toLowerCase().includes(this.pretraga_spp.toLowerCase())
+          || x.specijalnaPonudaOpis.toLowerCase().includes(this.pretraga_spp.toLowerCase())
+          || x.popustOpis.includes(this.pretraga_spp) ) : this.specijalne_ponude_proizvodi)
       ));
       this.totalLength2=filterPodaci?.length;
       return filterPodaci;
     }
     else{
+      let filterPodaci = this.specijalne_ponude_proizvodi?.filter((x:any)=>(
+        (
+          this.pretraga_spp!=""?
+          x.proizvodOpis.toLowerCase().includes(this.pretraga_spp.toLowerCase())
+          || x.specijalnaPonudaOpis.toLowerCase().includes(this.pretraga_spp.toLowerCase())
+          || x.popustOpis.includes(this.pretraga_spp) : this.specijalne_ponude_proizvodi )
+      ));
+      this.totalLength2=filterPodaci?.length;
+      return filterPodaci;
+    }
+   /* else{
       this.totalLength2=this.specijalne_ponude_proizvodi?.length;
       return this.specijalne_ponude_proizvodi;
     }
+    */
   }
 
   naslov:any="";
@@ -395,7 +433,7 @@ export class SpecPonComponent implements OnInit {
     this.naslov="Dodaj specijalnu ponudu za određeni proizvod";
     this.obj_spp={
       id:0,
-      specijalnaPonudaId:this.specijalna_ponuda_id,
+      specijalnaPonudaId:this.specijalna_ponuda_id2,
       proizvodId:this.proizvod_id,
       popustId:this.popust_id,
       specijalnaPonudaOpis:"",

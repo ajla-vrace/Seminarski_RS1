@@ -86,19 +86,19 @@
 </div>
 <div *ngIf="favoritiPodaci==0" id="nemaFavorita">
   <img src="assets/slike/broken-heart.png" style="width: 20%; text-align: center;">
-  <h1 >Niste dodali nijedan proizvod u favorite!</h1>
-  <label style="font-style: italic">Inspirirajte se i obogatite svoju garderobu.</label>
-  <button (click)="vratiNaPocetnu()" id="getInspired"> Pogledaj proizvode</button>
+  <h1 style="margin-bottom: 6%;margin-top: 2%;">Niste dodali nijedan proizvod u favorite!</h1>
+ <!-- <label style="font-style: italic">Inspirirajte se i obogatite svoju garderobu.</label>
+  <button (click)="vratiNaPocetnu()" id="getInspired"> Pogledaj proizvode</button>-->
 </div>
 
 <div  class="velikiFavoriti" *ngIf="favoritiPodaci!=0">
   <div class="FavoritiDiv" *ngFor="let f of getFavoriti()">
     <div id="slikaFavorit" >
-      <img src="assets/slike/dress.png" class="FavoritSlikaSamo" >
+      <img src="{{get_slika_base64_FS(f.proizvod)}}" class="FavoritSlikaSamo" >
     </div>
     <div id="tekstFavorit">
-      <h5> {{f.proizvod}}</h5>  <h5 style="cursor:pointer;" (click)="UkloniFavorit(f)" id="favbrisanje"> Poništi </h5>
-      <h6>{{f.cijena}} KM</h6>
+      <h5> {{f.proizvodNaziv}}</h5>  <h5 style="cursor:pointer;" (click)="UkloniFavorit(f)" id="favbrisanje"> Poništi </h5>
+     <!-- <h6>{{f.cijena}} KM</h6>-->
     </div>
 
 

@@ -267,4 +267,11 @@ getProzivodi1(s:any){
     return "data:image/jpg;base64," + this.proizvodiPodaci[0]?.slika_postojeca;
   }
 */
+
+  get_slika_base64_FS(s:any) {
+    if(s!=null && s.slika_postojeca!=null)
+      return "data:image/jpg;base64,"+ s?.slika_postojeca;
+    return this.noimage;
+    // return "data:image/jpg;base64,"+s.slika_postojeca;
+  }
 }

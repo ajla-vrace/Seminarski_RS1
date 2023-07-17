@@ -44,9 +44,19 @@
   <h6>Kolekcije</h6>
   <br>
 
-  <div class="pretraga">
-    <input class="inp-pretraga" [(ngModel)]="filter_kolekcija"> <img src="assets/slike/search.svg" style="'width':'50px','height':'50px'"
-                                      class="img-pretraga">
+  <div class="pretragaIselect">
+    <div class="pretraga">
+      <input class="inp-pretraga" [(ngModel)]="filter_kolekcija"> <img src="assets/slike/search.svg" style="'width':'50px','height':'50px'"
+                                        class="img-pretraga">
+    </div>
+
+    <div class="aktivne-kolekcije">
+      <select [(ngModel)]="select_aktivne">
+        <option>Aktivne</option>
+        <option>Neaktivne</option>
+        <option>Sve</option>
+      </select>
+    </div>
   </div>
 
   <br>
@@ -63,7 +73,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let k of getFilterKolekcije() | paginate:
+    <tr *ngFor="let k of getFilterKolekcijeAktivnost() | paginate:
    {
         id:'pag1',
         itemsPerPage: 10,
@@ -249,9 +259,10 @@
         <div class="mb-3" [class.has-error]="sezonaIdControll.invalid && sezonaIdControll.touched">
           <label class="form-label">Sezona:</label>
           <select required #sezonaIdControll="ngModel" class="form-control" [(ngModel)]="obj_kolekcija.sezonaId">
-            <option *ngFor="let s of sezone" [value]="s.id">{{s.naziv}} - {{s.aktivna?"Aktivna":"Neaktivna"}}</option>
+            <option *ngFor="let s of sezone_aktivne" [value]="s.id">{{s.naziv}}</option>
           </select>
 
+          <!-- - {{s.aktivna?"Aktivna":"Neaktivna"}} -->
           <span class="help-block" *ngIf="sezonaIdControll.invalid && sezonaIdControll.touched">
            Ovo polje je obavezno.
           </span>

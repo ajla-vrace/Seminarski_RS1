@@ -45,3 +45,10 @@ a:hover{
 a:visited{
   color: black;
 }
+
+
+.navigacija{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

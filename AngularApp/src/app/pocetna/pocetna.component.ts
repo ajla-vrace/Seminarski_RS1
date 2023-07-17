@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AngularFireDatabase} from "@angular/fire/compat/database";
+import {ActivatedRoute, Router} from "@angular/router";
+import {LoginInformacije} from "../helpers/login-informacije";
+import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 
 @Component({
   selector: 'app-pocetna',
@@ -8,16 +11,19 @@ import {AngularFireDatabase} from "@angular/fire/compat/database";
 })
 export class PocetnaComponent implements OnInit {
 
-  constructor(private afDB:AngularFireDatabase) { }
+  constructor(private afDB:AngularFireDatabase, private router: Router) { }
 
   ngOnInit(): void {
     this.getBrojPosjeta();
   }
-
+  loginInfo():LoginInformacije {
+    return AutentifikacijaHelper.getLoginInfo();
+  }
   brojPosjetaUpdate:any;
   brojPregled:any;
   brojPosjetaRef?:any;
   counter:any=0;
+  potvrda: any=false;
 
   update_varijable(){
     console.log("update se desio");
@@ -38,4 +44,17 @@ export class PocetnaComponent implements OnInit {
       this.update_varijable();
     });
   }
+
+  prikaziZene() {
+    this.potvrda = true;
+    this.router.navigate(['zene']);
+  }
+
+  prikaziMuskarce() {
+    this.potvrda = true;
+    this.router.navigate(['muskarci']);
+  }
+
+
+
 }
