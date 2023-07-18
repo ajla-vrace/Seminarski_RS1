@@ -12,8 +12,8 @@
 
     <li (click)="idiNaPretragu()"><img src="assets/slike/lupa1.png" ></li>
     <li (click)="prikaziPrijava()"><img src="assets/slike/login.png" ></li>
-    <li ><img src="assets/slike/heart_f.png"a title="Favoriti" ></li>
-    <li ><img src="assets/slike/cartt.png" title="Košarica"></li>
+    <li ><img src="assets/slike/heart_f.png"a title="Trebate se prijaviti prvo." (click)="prikaziPoruku()"></li>
+    <li ><img src="assets/slike/cartt.png" title="Trebate se prijaviti prvo."(click)="prikaziPoruku()"></li>
    <!-- <li (click)="prikaziFavorite()"><img src="assets/slike/heart_f.png"a title="Favoriti" ></li>
     <li (click)="prikaziKosaricu()"><img src="assets/slike/cartt.png" title="Košarica"></li>-->
   </div>
@@ -26,9 +26,10 @@
 -->
 
 
-
+<!--
 <div class="velikiDiv" *ngIf="potvrda==false;">
   <div class="jednaSlikaDiv" (click)="prikaziZene()"><img src="assets/slike/woman_clothes.jpg" class="slikaNaPocetnoj"></div>
   <div class="jednaSlikaDiv" (click)="prikaziMuskarce()"><img src="assets/slike/man_clothes.jpg" class="slikaNaPocetnoj">
   </div>
 </div>
+-->

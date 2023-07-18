@@ -140,4 +140,11 @@ img{
   justify-content: space-between;
 }
 
+.modal-footer{
+  display: flex;
+  justify-content: flex-end;
+}
 
+span.d-inline-block{
+  width: 15%;
+}

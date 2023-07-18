@@ -6,6 +6,7 @@ div{
   grid-template-columns: 25% 25% 25% 25%;
   margin: 0% 5%;
   width: 90%;
+
 }
 .mali_prod{
   border: 1px solid black;
@@ -67,6 +68,7 @@ h2,h3,h4,h5,h6{
   display: grid;
   grid-template-columns: auto auto;
   background-color: #e2f2f8;
+  margin-bottom: 10%;
 }
 .ocjena{
   margin: 5px;

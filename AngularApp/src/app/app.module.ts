@@ -149,7 +149,7 @@ export const firebaseConfig = {
       {path: 'muskarci', component: MuskarciComponent},
       {path: 'pravila-privatnosti', component: PravilaPrivatnostiComponent},
       {path: 'kontakt', component: KontaktComponent},
-      {path: 'prodavnice/:id', component: ProdavniceComponent},
+      {path: 'prodavnice', component: ProdavniceComponent},
       {path: 'zaposlenik-pocetna/:id', component:ZaposlenikPocetnaComponent},
       {path: 'admin-pocetna/:id',component:AdminPocetnaComponent, canActivate: [AutorizacijaLoginProvjera]},
       {path: 'prijava', component:PrijavaComponent},

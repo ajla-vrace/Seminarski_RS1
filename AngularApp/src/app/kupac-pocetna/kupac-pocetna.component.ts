@@ -18,7 +18,7 @@ export class KupacPocetnaComponent implements OnInit {
     this.route.params.subscribe(s=>{
       this.kupac_id=+s["id"];
     })
-    //this.getBrojPosjeta();
+    this.getBrojPosjeta();
   }
 
   brojPosjetaUpdate:any;

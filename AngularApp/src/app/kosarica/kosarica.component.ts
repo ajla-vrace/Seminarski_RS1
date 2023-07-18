@@ -170,9 +170,10 @@ this.brisano=true;
 
 
   ModifikacijaKorpaStavke(ks:any) {
-    this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Update/" + ks.id, ks)
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Update", ks)
       .subscribe((povratnaVrijednost:any) =>{
-        this.ngOnInit();
+        this.fetchKorpaStavke();
+       /* this.ngOnInit();*/
       });
 
     this.odabranaStavka=null;
@@ -205,7 +206,7 @@ this.korpa=this.KorpePodaciIme[0];
     console.log("korpa: "+this.korpa.id+" korpa naziv:" +this.korpa.naziv+"total "+this.korpa.total+
       "ukupno proizvoda: "+this.korpa.ukupnoProizvoda);
 
-    this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Update/" + ks.id, ks)
+    this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Update", ks)
       .subscribe((a:any) =>{
         /*this.ngOnInit();*/
       });
@@ -224,6 +225,7 @@ this.korpa=this.KorpePodaciIme[0];
 
   Modifikacija(ks: any) {
     this.odabranaStavka=ks;
+    this.fetchDostupneVelicine(ks.proizvodId)
   }
 
 
@@ -273,5 +275,26 @@ getProzivodi1(s:any){
       return "data:image/jpg;base64,"+ s?.slika_postojeca;
     return this.noimage;
     // return "data:image/jpg;base64,"+s.slika_postojeca;
+  }
+
+  dostupneVelicine:any;
+  fetchDostupneVelicine(id:any)
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetDostupneVelicine?proizvodId="+id, MojConfig.http_opcije()).subscribe(x=>{
+      this.dostupneVelicine = x;
+      console.log("proizvod id :"+id);
+      console.log("dostupne velicine:",this.dostupneVelicine);
+    });
+  }
+
+dostupnaKolicina:any;
+  updateKolicina(id:any) {
+
+      this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetDostupnuKolicinu?proizvodId="+id+"&velicina="+this.odabranaStavka.velicina, MojConfig.http_opcije()).subscribe(x=>{
+        this.dostupnaKolicina = x;
+        console.log("proizvod id :"+id+" velicina"+this.odabranaStavka.velicina);
+        console.log("dostupne velicine:",this.dostupnaKolicina);
+      });
+      //return this.dostupnaKolicina;
   }
 }

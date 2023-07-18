@@ -51,15 +51,16 @@ export class MuskarciComponent implements OnInit {
 
   fetchProizvodi()
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Proizvod/aktivnibezpopusta?odjel_id=2", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Proizvod/byOdjel?odjel=2", MojConfig.http_opcije()).subscribe(x=>{
       this.proizvodiMPodaci = x;
       this.proizvodiSvi=x;
     });
   }
   fetchSpecijalnePonudeMuskarci() :void
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/SpecijalnaPonudaProizvod/Specijalne_ponude_proizvod", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/SpecijalnaPonudaProizvod/Specijalne_ponude_proizvod_aktivne", MojConfig.http_opcije()).subscribe(x=>{
       this.specijalnePonudeMuskarciPodaci = x;
+      console.log("specijale M",this.specijalnePonudeMuskarciPodaci);
     });
   }
   fetchBoje()
@@ -257,7 +258,7 @@ this.dodanoUFavorite=true;
   prikaziDetaljeProizvoda(proizvod:any) {
     this.proizvod_id=proizvod;
     //this.napraviIliNadjiKorpu();
-    this.router.navigate(['proizvod-detalji',this.proizvod_id]);
+    this.router.navigate(['/proizvod-detalji',this.proizvod_id]);
   }
 
 

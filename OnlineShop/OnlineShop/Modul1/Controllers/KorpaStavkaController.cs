@@ -173,7 +173,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
 
-        [HttpPost("{id}")]
+        [HttpPost]
         public ActionResult Update([FromBody] KorpaStavkaVM x)
         {
             KorpaStavka objekat = _dbContext.KorpaStavka.Find(x.Id);
@@ -189,7 +189,7 @@ namespace OnlineShop.Modul1.Controllers
                 objekat.Total = samoCijena * x.Kolicina;
             }
             objekat.Kolicina = x.Kolicina;
-            if(x.Velicina!="string")
+            if(x.Velicina!="")
                 objekat.Velicina = x.Velicina;
 
             _dbContext.SaveChanges();
@@ -260,6 +260,23 @@ namespace OnlineShop.Modul1.Controllers
                 .ToList();
 
             return Ok(dostupneVelicine);
+        }
+        [HttpGet]
+        public ActionResult GetDostupnuKolicinu(int proizvodId, string velicina)
+        {
+            var proizvod = _dbContext.Proizvod.Find(proizvodId);
+            if (proizvod == null)
+            {
+                return NotFound("Proizvod ne postoji.");
+            }
+
+            var dostupnaKolicina = _dbContext.SkladisteProizvod
+                .Where(s => s.proizvodId == proizvodId &&
+                s.velicina==velicina)
+                .Select(s => s.kolicina)
+                .ToList();
+
+            return Ok(dostupnaKolicina);
         }
         private float ProvjeriPopustProizvoda(int proizvod_id)
         {

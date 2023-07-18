@@ -18,6 +18,8 @@ namespace OnlineShop.Modul1.Models
         public string? evidentirao { get; set; }
         public string? modifikovao { get; set; }
 
+        public bool? isSpecijalna { get; set; } = false;
+
         [ForeignKey("bojaId")]
         public int bojaId { get; set; }
         public Boja boja { get; set; }

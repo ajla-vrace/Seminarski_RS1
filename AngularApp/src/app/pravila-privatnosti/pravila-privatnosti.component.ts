@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {LoginInformacije} from "../helpers/login-informacije";
+import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 
 @Component({
   selector: 'app-pravila-privatnosti',
@@ -11,5 +13,7 @@ export class PravilaPrivatnostiComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  loginInfo():LoginInformacije {
+    return AutentifikacijaHelper.getLoginInfo();
+  }
 }

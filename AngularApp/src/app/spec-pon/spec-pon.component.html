@@ -268,7 +268,10 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" [disabled]="jel_disabled_spp()" (click)="snimi_spp()" >Snimi</button>
+        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Možete dodati samo 4 proizvoda za jednu specijalnu ponudu">
+        <button type="button" class="btn btn-primary" [disabled]="jel_disabled_snimi_spp()"
+                (click)="snimi_spp()" >Snimi</button>
+        </span>
       </div>
     </div>
   </div>

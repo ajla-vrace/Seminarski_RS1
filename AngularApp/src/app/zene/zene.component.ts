@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ChangeDetectorRef, AfterContentInit} from '@angular/core';
+
+/*import {Component, OnInit} from '@angular/core';*/
 import {LoginInformacije} from "../helpers/login-informacije";
 import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 import {HttpClient} from "@angular/common/http";
@@ -6,12 +8,18 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MojConfig} from "../moj-config";
 
 
+
+
+
+
+
+
 @Component({
   selector: 'app-zene',
   templateUrl: './zene.component.html',
   styleUrls: ['./zene.component.css']
 })
-export class ZeneComponent implements OnInit {
+export class ZeneComponent implements OnInit{
   kupac_id: any;
   proizvodiZPodaci: any;
 
@@ -46,15 +54,26 @@ korpaID:any;
    proizvodiSvi: any;
    kolekcijePodaci: any;
    specijalnePonudeZenePodaci: any;
-
+odabranaKolekcija:any="";
   constructor(private httpKlijent: HttpClient, private router: Router,
-              private route: ActivatedRoute) {}
-
+              private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef) {
+   // this.odabranaKolekcija="";
+  }
+  /*ngAfterViewInit(): void {
+    this.changeDetectorRef.detectChanges();
+  }*/
+  ngAfterContentChecked(): void {
+    this.changeDetectorRef.detectChanges();
+  }
   fetchProizvodi()
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Proizvod/aktivnibezpopusta?odjel_id=1", MojConfig.http_opcije()).subscribe(x=>{
+   /* this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Proizvod/aktivnibezpopusta?odjel_id=1", MojConfig.http_opcije()).subscribe(x=>{
+      this.proizvodiZPodaci = x;
+      this.proizvodiSvi=x;*/
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Proizvod/byOdjel?odjel=1", MojConfig.http_opcije()).subscribe(x=>{
       this.proizvodiZPodaci = x;
       this.proizvodiSvi=x;
+
     });
   }
 
@@ -90,7 +109,7 @@ korpaID:any;
   }
   fetchSpecijalnePonudeZene() :void
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/SpecijalnaPonudaProizvod/Specijalne_ponude_proizvod", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/SpecijalnaPonudaProizvod/Specijalne_ponude_proizvod_aktivne", MojConfig.http_opcije()).subscribe(x=>{
       this.specijalnePonudeZenePodaci = x;
     });
   }
@@ -119,12 +138,16 @@ korpaID:any;
     this.fetchSezone();
     this.fetchKolekcije();
 this.fetchSpecijalnePonudeZene();
+//this.getZProizvodi();
    /* setTimeout( ()=>{
       this.selectedPriceRange = this.defaultPriceRange;
 
     }, 400);*/
 
+     setTimeout( ()=>{
 
+
+        }, 400);
 
   }
   /*ngAfterViewInit(){
@@ -140,45 +163,58 @@ this.fetchSpecijalnePonudeZene();
 
 
   getZProizvodi() {
-    let filtriraniProizvodi = this.proizvodiSvi;
-
-    if (this.odabraneBoje.length > 0) {
-      filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
-        this.odabraneBoje.includes(a.bojaOpis)
-      );
-    }
-    if (this.minPrice >= 0 && this.maxPrice > 0) {
-      filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
-        a.cijena >= this.minPrice && a.cijena <= this.maxPrice
-      );
-    }
-    if (this.idkategorije !== '') {
-      filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
-        a.kategorijaId === this.idkategorije
-      );
-    }
-    if (this.idPodkategorije !== '') {
-      filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
-        a.podkategorijaId === this.idPodkategorije
-      );
-    }
-    if (this.odabranaKolekcija !== '') {
-      filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
-        a.kolekcijaOpis === this.odabranaKolekcija
-      );
-    }
 
 
-    if (this.pretragaPoNazivu.trim() !== '') {
-      filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
-        a.naziv.toLowerCase().includes(this.pretragaPoNazivu.toLowerCase())
-      );
-    }
+      let filtriraniProizvodi = this.proizvodiSvi;
+      if (this.odabraneBoje.length > 0) {
+        filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
+          this.odabraneBoje.includes(a.bojaOpis)
+
+        );
+console.log("nakon boje: treba prikazati",filtriraniProizvodi);
+
+      }
+
+
+      if (this.minPrice >= 0 && this.maxPrice > 0) {
+        filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
+          a.cijena >= this.minPrice && a.cijena <= this.maxPrice
+        );
+      }
+      if (this.idkategorije !== '') {
+        filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
+          a.kategorijaId === this.idkategorije
+        );
+      }
+      if (this.idPodkategorije !== '') {
+        filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
+          a.podkategorijaId === this.idPodkategorije
+        );
+      }
+      if (this.odabranaKolekcija !== '') {
+        filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
+          a.kolekcijaOpis === this.odabranaKolekcija
+        );
+      }
+
+
+      if (this.pretragaPoNazivu.trim() !== '') {
+        filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
+          a.naziv.toLowerCase().includes(this.pretragaPoNazivu.toLowerCase())
+        );
+      }
 
 
 
-    this.proizvodiZPodaci = filtriraniProizvodi;
+      this.proizvodiZPodaci = filtriraniProizvodi;
+
+
+    //console.log("ovo se treba prikazati: ",this.proizvodiZPodaci);
     return this.proizvodiZPodaci;
+
+   // this.changeDetectorRef.detectChanges();
+   // console.log("proizvodiZPodaci",this.proizvodiZPodaci);
+
   }
   odabranaKategorija: any=false;
   idPodkategorije: any="";
@@ -369,16 +405,27 @@ this.prikaziDiv=false;
 
 
   updateSelectedColors(event: any, color: string) {
-    if (event.target.checked) {
-      this.odabraneBoje.push(color);
-    } else {
-      const index = this.odabraneBoje.indexOf(color);
-      if (index >= 0) {
-        this.odabraneBoje.splice(index, 1);
+   // setTimeout(()=>{
+      if (event.target.checked) {
+        this.odabraneBoje.push(color);
+      } else {
+        const index = this.odabraneBoje.indexOf(color);
+        if (index >= 0) {
+          this.odabraneBoje.splice(index, 1);
+        }
       }
-    }
-    console.log("boje: "+this.odabraneBoje);
-    this.filterByColor();
+      console.log("updateSelectedColors: BOJE------------------"+this.odabraneBoje);
+      this.filterByColor();
+  //  },200)
+
+    setTimeout(()=>{
+      console.log("updateSelectedColors: BOJE--u timeru----------------"+this.odabraneBoje);
+      this.filterByColor();
+    },400)
+
+
+
+
   }
 
   filterByColor() {
@@ -404,7 +451,7 @@ this.prikaziDiv=false;
 
 
   //selectedCollection: any = null;
-odabranaKolekcija:any="";
+
   isButtonActive: any;
   pretragaPoNazivu: any="";
   updateSelectedCollection(collection: any) {
@@ -431,6 +478,7 @@ this.odabranaKolekcija=collection;
 
 
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
     // @ts-ignore
     checkboxes.forEach((checkbox: HTMLInputElement) => {
       checkbox.checked = false;
@@ -466,6 +514,8 @@ brojacProvjera(){
     return this.noimage;
     // return "data:image/jpg;base64,"+s.slika_postojeca;
   }
+
+
 
 
 }

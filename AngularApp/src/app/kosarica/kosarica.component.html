@@ -1,4 +1,10 @@
 <app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
+<button (click)="fetchDostupneVelicine(2)">ovdje</button>
+
+
+
+
+
 <h1 *ngIf="loginInfo().isLogiran==false">Košarica</h1>
 <div id="naslovKosarice">
   <h2>Košarica</h2>
@@ -88,20 +94,28 @@ kupac id:
       <div class="modal-body">
         <div class="mb-3">
           <label class="form-label">Kolicina</label>
-          <select class="form-control" [(ngModel)]="odabranaStavka.kolicina" ngOnChanges>
+        <!--<select class="form-control" [(ngModel)]="odabranaStavka.kolicina" ngOnChanges>
             <option >1</option>
             <option >2</option>
             <option >3</option>
           </select>
+-->
+          <input type="number" min="1" max="3">
         </div>
         <div class="mb-3">
           <label class="form-label">Velicina</label>
-          <select class="form-control" [(ngModel)]="odabranaStavka.velicina">
+          <select class="custom-select mb-3" [(ngModel)]="odabranaStavka.velicina"
+                  (ngModelChange)="updateKolicina(odabranaStavka.proizvodId)">
+            <option *ngFor="let velicina of dostupneVelicine" [value]="velicina">
+              {{ velicina }}
+            </option>
+          </select>
+          <!--<select class="form-control" [(ngModel)]="odabranaStavka.velicina">
             <option >XS</option>
             <option >S</option>
             <option >M</option>
             <option >L</option>
-          </select>
+          </select>-->
         </div>
 
       </div>
