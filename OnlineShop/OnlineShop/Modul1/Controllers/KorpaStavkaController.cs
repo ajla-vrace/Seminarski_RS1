@@ -173,7 +173,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
 
-        [HttpPost("{id}")]
+        [HttpPost]
         public ActionResult Update([FromBody] KorpaStavkaVM x)
         {
             KorpaStavka objekat = _dbContext.KorpaStavka.Find(x.Id);
@@ -189,7 +189,7 @@ namespace OnlineShop.Modul1.Controllers
                 objekat.Total = samoCijena * x.Kolicina;
             }
             objekat.Kolicina = x.Kolicina;
-            if(x.Velicina!="string")
+            if(x.Velicina!="")
                 objekat.Velicina = x.Velicina;
 
             _dbContext.SaveChanges();
@@ -260,6 +260,23 @@ namespace OnlineShop.Modul1.Controllers
                 .ToList();
 
             return Ok(dostupneVelicine);
+        }
+        [HttpGet]
+        public ActionResult GetDostupnuKolicinu(int proizvodId, string velicina)
+        {
+            var proizvod = _dbContext.Proizvod.Find(proizvodId);
+            if (proizvod == null)
+            {
+                return NotFound("Proizvod ne postoji.");
+            }
+
+            var dostupnaKolicina = _dbContext.SkladisteProizvod
+                .Where(s => s.proizvodId == proizvodId &&
+                s.velicina==velicina)
+                .Select(s => s.kolicina)
+                .ToList();
+
+            return Ok(dostupnaKolicina);
         }
         private float ProvjeriPopustProizvoda(int proizvod_id)
         {
@@ -351,7 +368,36 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(cijena);
         }
-
+        [HttpGet]
+        
+        public ActionResult GetKategorijeByOdjel(int odjel_id)
+        {
+            var data = _dbContext.Proizvod.Where(x => x.odjelId == odjel_id)
+                .Select(x => new
+                {
+                    id = x.kategorijaId,
+                    naziv = x.kategorija.Naziv
+                }
+                )
+                .Distinct().ToList();
+            return Ok(data);
+        }
+        [HttpGet]
+        public ActionResult GetPodkategorijeByOdjel(int odjel_id, int kategorija_id)
+        {
+            var data = _dbContext.Proizvod
+                .Where(x => x.odjelId == odjel_id && x.kategorijaId==kategorija_id)
+                .Select(x => new
+                {
+                    id = x.podkategorijaId,
+                    naziv = x.podkategorija.Naziv,
+                    kategorijaId=x.kategorijaId,
+                    kategorijaNaziv=x.kategorija.Naziv
+                }
+                )
+                .Distinct().ToList();
+            return Ok(data);
+        }
 
     }
 

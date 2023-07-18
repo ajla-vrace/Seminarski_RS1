@@ -7,6 +7,7 @@ using OnlineShop.Helper.AutentifikacijaAutorizacija;
 using OnlineShop.Modul1.Models;
 using OnlineShop.Modul1.ViewModels;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace OnlineShop.Modul1.Controllers
 {
@@ -351,7 +352,8 @@ namespace OnlineShop.Modul1.Controllers
         [HttpGet("byOdjel")]
         public List<ProizvodVM> GetProizvodeByOdjel(int odjel)
         {
-            var data = context.Proizvod.Where(s=>s.odjelId==odjel)
+            var data = context.Proizvod.Where(s=>s.odjelId==odjel &&
+            s.isSpecijalna==false)
                 .Select(x => new ProizvodVM
             {
                 Id = x.Id,
@@ -582,12 +584,12 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpGet("posljednjeDodaniProizvodi")]
-        public List<ProizvodDatum> GetPosljednjeDodaneProizvode()
+        public ActionResult GetPosljednjeDodaneProizvode()
         {
             //DateTime.Compare(x.datum_kreiranja,posljednji_datum)==0
-            var posljednji_datum = context.Proizvod.OrderByDescending(x => x.datum_kreiranja).Select(x => x.datum_kreiranja).ToList()[0];
+           /* var posljednji_datum = context.Proizvod.OrderByDescending(x => x.datum_kreiranja).Select(x => x.datum_kreiranja).ToList()/*[0]*/;
 
-            var lista = context.Proizvod.Where(x => x.datum_kreiranja.Year == posljednji_datum.Year && x.datum_kreiranja.Month == posljednji_datum.Month && x.datum_kreiranja.Day == posljednji_datum.Day).Select(x=>x.Id).ToList();
+            /*var lista = context.Proizvod.Where(x => x.datum_kreiranja.Year == posljednji_datum.Year && x.datum_kreiranja.Month == posljednji_datum.Month && x.datum_kreiranja.Day == posljednji_datum.Day).Select(x=>x.Id).ToList();
 
             var proizvodi_datumi = new List<ProizvodDatum>();
 
@@ -637,7 +639,8 @@ namespace OnlineShop.Modul1.Controllers
 
             var rez = proizvodi_datumi;
 
-            return rez;
+            return rez;*/
+            return Ok();
         }
 
 
@@ -660,21 +663,66 @@ namespace OnlineShop.Modul1.Controllers
         }
 
 
-
+/*
         [HttpGet("aktivnibezpopusta")]
         public List<Proizvod> GetAktivniProizvodiBezPopusta(int odjel_id)
         {
             var sviProizvodi = context.Proizvod
-                .Where(o=>o.odjelId==odjel_id).ToList();
+                .Where(o => o.odjelId == odjel_id).ToList();
+
             var specijalnePonude = context.SpecijalnaPonudaProizvod
-         .Where(sp => sp.specijalnaPonuda.aktivna==true)
+         .Where(sp => sp.specijalnaPonuda.aktivna == true).ToList();
+
+            var proizvodi = specijalnePonude.Select(sp => sp.proizvodId)
+                  .ToList();
+            
+            var aktivniProizvodi = sviProizvodi.Where(p => p.Aktivan).ToList();
+            var aktivniProizvodiBezPopusta = aktivniProizvodi
+                .Where(p => !proizvodi.Contains(p.Id)).ToList();
+            var rezultat=aktivniProizvodiBezPopusta
+                .Select(x => new 
+                {
+                    Id = x.Id,
+                    Sifra = x.Sifra,
+                    Naziv = x.Naziv,
+                    Cijena = x.Cijena,
+                    Opis = x.Opis,
+                    datum_kreiranja = x.datum_kreiranja,
+                    datum_modifikacije = x.datum_modifikacije,
+                    Aktivan = x.Aktivan,
+                    bojaId = x.bojaId,
+                    bojaOpis = x.boja.Naziv,
+                    odjelId = x.odjelId,
+                    odjelOpis = x.odjel.Naziv,
+                    kategorijaId = x.kategorijaId,
+                    kategorijaOpis = x.kategorija.Naziv,
+                    podkategorijaId = x.podkategorijaId,
+                    podkategorijaOpis = x.podkategorija.Naziv,
+                    kolekcijaId = x.kolekcijaId,
+                    kolekcijaOpis = x.kolekcija.Naziv,
+                    sezonaId = x.sezonaId,
+                    sezonaOpis = x.sezona.Naziv,
+                    slika_postojeca = x.slika_postojeca,
+                    evidentirao = x.evidentirao,
+                    modifikovao = x.modifikovao
+                }).ToList(); 
+                  
+            return rezultat/*.AsQueryable().ToList();*/
+            //return aktivniProizvodiBezPopusta.OrderByDescending(x => x.datum_kreiranja).ToList();
+        //}
+    
+        private List<Proizvod> GetAktivniProizvodiBezPopusta1(int odjel_id)
+        {
+            var sviProizvodi = context.Proizvod
+                .Where(o => o.odjelId == odjel_id).ToList();
+            var specijalnePonude = context.SpecijalnaPonudaProizvod
+         .Where(sp => sp.specijalnaPonuda.aktivna == true)
          .Select(sp => sp.proizvodId)
          .ToList();
             var aktivniProizvodiBezPopusta = sviProizvodi.Where(p => p.Aktivan && !specijalnePonude.Contains(p.Id)).ToList();
 
             return aktivniProizvodiBezPopusta;
         }
-
 
 
         public class PonistiSezKol
@@ -697,6 +745,15 @@ namespace OnlineShop.Modul1.Controllers
             }
             return Ok();
         }
+
+
+
+
+
+       
+
+
+
 
 
 

@@ -51,15 +51,16 @@ export class MuskarciComponent implements OnInit {
 
   fetchProizvodi()
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Proizvod/aktivnibezpopusta?odjel_id=2", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Proizvod/byOdjel?odjel=2", MojConfig.http_opcije()).subscribe(x=>{
       this.proizvodiMPodaci = x;
       this.proizvodiSvi=x;
     });
   }
   fetchSpecijalnePonudeMuskarci() :void
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/SpecijalnaPonudaProizvod/Specijalne_ponude_proizvod", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/SpecijalnaPonudaProizvod/Specijalne_ponude_proizvod_aktivne", MojConfig.http_opcije()).subscribe(x=>{
       this.specijalnePonudeMuskarciPodaci = x;
+      console.log("specijale M",this.specijalnePonudeMuskarciPodaci);
     });
   }
   fetchBoje()
@@ -184,7 +185,7 @@ export class MuskarciComponent implements OnInit {
 
 
     this.proizvodiMPodaci = filtriraniProizvodi;
-    console.log("poroitvoM:",this.proizvodiMPodaci);
+    //console.log("poroitvoM:",this.proizvodiMPodaci);
     return this.proizvodiMPodaci;
   }
   odabranaKategorija: any=false;
@@ -197,7 +198,7 @@ export class MuskarciComponent implements OnInit {
 
   fetchKategorijeByOdjel(){
 
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Kategorija/2", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetKategorijeByOdjel?odjel_id="+2, MojConfig.http_opcije()).subscribe(x=>{
       this.kategorijePodaci = x;
     });
 
@@ -206,7 +207,7 @@ export class MuskarciComponent implements OnInit {
 
   fetchPodkategorijeByKategorija(){
 
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Kategorija/GetPodkategorije?katID="+this.idkategorije, MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetPodkategorijeByOdjel?odjel_id=2&kategorija_id="+this.idkategorije, MojConfig.http_opcije()).subscribe(x=>{
       this.PodkategorijePodaci = x;
     });
 
@@ -257,7 +258,7 @@ this.dodanoUFavorite=true;
   prikaziDetaljeProizvoda(proizvod:any) {
     this.proizvod_id=proizvod;
     //this.napraviIliNadjiKorpu();
-    this.router.navigate(['proizvod-detalji',this.proizvod_id]);
+    this.router.navigate(['/proizvod-detalji',this.proizvod_id]);
   }
 
 

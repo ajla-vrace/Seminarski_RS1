@@ -281,9 +281,9 @@ namespace OnlineShop.Modul1.Controllers
             SpecijalnaPonudaProizvod? spp;
 
             if(context.SpecijalnaPonudaProizvod.Where(s=>s.specijalnaPonudaId==x.specijalnaPonudaId)
-                .ToList().Count() >= 5)
+                .ToList().Count() > 4)
             {
-                return BadRequest("ne mozete dodavati vise od 5 proizvoda za jednu specijalnu ponudu.");
+                return BadRequest("ne mozete dodavati vise od 4 proizvoda za jednu specijalnu ponudu.");
             }
 
             var cijena = context.Proizvod.Where(p => p.Id == x.proizvodId).Select(x => x.Cijena).ToList()[0];
@@ -308,6 +308,14 @@ namespace OnlineShop.Modul1.Controllers
             spp.CijenaSaPopustom = MathF.Round((cijena - (cijena * popust)),2);
            
             context.SaveChanges();
+
+            var proizvod = context.Proizvod.Find(spp.proizvodId);
+            if (proizvod != null)
+            {
+                proizvod.isSpecijalna = true;
+                context.Update(proizvod);
+                context.SaveChanges();
+            }
 
             return Ok();
         }
@@ -395,11 +403,20 @@ namespace OnlineShop.Modul1.Controllers
         public ActionResult DeleteSPP(int id)
         {
             SpecijalnaPonudaProizvod? p = context.SpecijalnaPonudaProizvod.Find(id);
+            Proizvod? pr = context.Proizvod.Find(p.proizvodId);
+
             if (p != null)
             {
                 context.Remove(p);
                 context.SaveChanges();
             }
+
+            if (pr != null)
+            {
+                pr.isSpecijalna = false;
+                context.SaveChanges();
+            }
+
             return Ok(p);
         }
 

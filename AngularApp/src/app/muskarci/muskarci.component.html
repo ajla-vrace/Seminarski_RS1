@@ -2,10 +2,10 @@
 <app-neregistrovan *ngIf="loginInfo().isLogiran==false"></app-neregistrovan>
 
 
-<button *ngIf="brojac%2!=0" (click)="specijalneMuskarci=true;brojacProvjera()" class="specijalnePonudeDugme">Pogledajte specijalne ponude muskarci</button>
+<button *ngIf="brojac%2!=0 && specijalnePonudeMuskarciPodaci?.length>0;" (click)="specijalneMuskarci=true;brojacProvjera()" class="specijalnePonudeDugme">Pogledajte specijalne ponude muskarci</button>
 <button *ngIf="brojac%2==0;" (click)="specijalneMuskarci=false;brojacProvjera()" class="specijalnePonudeDugme">Skloni specijalne ponude muskarci</button>
 
-<div *ngIf="specijalneMuskarci==true;" id="SpecijalnePonudeDivVeliki">
+<div *ngIf="specijalneMuskarci==true " id="SpecijalnePonudeDivVeliki">
   <div *ngFor="let sp of prikaziSpecijalnePonude()" class="jednaSpecijalnaPonuda" (click)="prikaziDetaljeProizvoda(sp.proizvod.id)"
        style="cursor: pointer;border:3px solid red;margin-right: 2%">
     <div class="slikaSpecijalnaPonuda">
@@ -121,11 +121,11 @@
 
 
 
-  <!--<div id="nemaProizvoda" *ngIf="proizvodiMPodaci?.length==0">
+  <div id="nemaProizvoda" *ngIf="proizvodiMPodaci?.length==0">
     <img src="assets/slike/clothes-hanger.png" id="slika-vjesalica" alt="slika_vjesalica">
     <h3>Nema proizvoda koji su zadovoljili postavljene filtere.</h3>
   </div>
--->
+
 
   <div id="MuskarciProizvodi" *ngIf="proizvodiMPodaci?.length>0">
 

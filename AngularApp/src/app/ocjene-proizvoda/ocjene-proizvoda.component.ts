@@ -15,7 +15,7 @@ export class OcjeneProizvodaComponent implements OnInit {
    ocjeneProizvodaPodaci: any;
    proizvod_id: any;
    novaZvjezdica: any;
-   kupac_id:any=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
+   kupac_id:any;
 
 
   loginInfo():LoginInformacije {
@@ -29,6 +29,8 @@ export class OcjeneProizvodaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.kupac_id = this.loginInfo().isLogiran ? this.loginInfo().autentifikacijaToken.korisnickiNalogId : 0;
+
     this.route.params.subscribe(s=>{
       this.proizvod_id=+s["id"];
     })

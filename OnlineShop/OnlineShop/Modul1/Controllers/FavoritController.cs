@@ -125,5 +125,60 @@ namespace OnlineShop.Modul1.Controllers
             _dbContext.SaveChanges();
             return Ok(favorit);
         }
+        private List<Proizvod> GetAktivniProizvodiBezPopusta1(int odjel_id)
+        {
+            var sviProizvodi = _dbContext.Proizvod
+                .Where(o => o.odjelId == odjel_id).ToList();
+            var specijalnePonude = _dbContext.SpecijalnaPonudaProizvod
+         .Where(sp => sp.specijalnaPonuda.aktivna == true)
+         .Select(sp => sp.proizvodId)
+         .ToList();
+            var aktivniProizvodiBezPopusta = sviProizvodi.Where(p => p.Aktivan && !specijalnePonude.Contains(p.Id)).ToList();
+
+            return aktivniProizvodiBezPopusta;
+        }
+
+        [HttpGet]
+        public ActionResult<List<Proizvod>> GetFilteredProizvodi(int odjel_id, /*string[] odabraneBoje,*/ float minPrice, float maxPrice, int idkategorije, int idPodkategorije, int odabranaKolekcija)
+        {
+            var filtriraniProizvodi = GetAktivniProizvodiBezPopusta1(odjel_id);
+           // filtriraniProizvodi = filtriraniProizvodi.Where(a => odabraneBoje.Contains(a.boja.Naziv));
+            filtriraniProizvodi = filtriraniProizvodi.Where(a => a.Cijena >= minPrice && a.Cijena <= maxPrice).ToList();
+            filtriraniProizvodi = filtriraniProizvodi.Where(a => a.kategorijaId == idkategorije).ToList();
+            filtriraniProizvodi = filtriraniProizvodi.Where(a => a.podkategorijaId == idPodkategorije).ToList();
+            filtriraniProizvodi = filtriraniProizvodi.Where(a => a.kolekcijaId == odabranaKolekcija).ToList();
+
+            /*
+            if (odabraneBoje.Length > 0)
+            {
+                filtriraniProizvodi = (List<Proizvod>)filtriraniProizvodi.Where(a => odabraneBoje.Contains(a.boja.Naziv));
+            }
+
+            if (minPrice >= 0 && maxPrice > 0)
+            {
+                filtriraniProizvodi = (List<Proizvod>)filtriraniProizvodi.Where(a => a.Cijena >= minPrice && a.Cijena <= maxPrice);
+            }
+
+            if (idkategorije != 0)
+            {
+                filtriraniProizvodi = (List<Proizvod>)filtriraniProizvodi.Where(a => a.kategorijaId == idkategorije);
+            }
+
+            if (idPodkategorije != 0)
+            {
+                filtriraniProizvodi = (List<Proizvod>)filtriraniProizvodi.Where(a => a.podkategorijaId == idPodkategorije);
+            }
+
+            if (odabranaKolekcija != 0)
+            {
+                filtriraniProizvodi = (List<Proizvod>)filtriraniProizvodi.Where(a => a.kolekcijaId == odabranaKolekcija);
+            }
+            */
+            var rezultat = filtriraniProizvodi.ToList();
+            return Ok(rezultat);
+        }
+
+
+
     }
 }

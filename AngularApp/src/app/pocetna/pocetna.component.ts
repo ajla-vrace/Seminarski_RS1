@@ -14,7 +14,7 @@ export class PocetnaComponent implements OnInit {
   constructor(private afDB:AngularFireDatabase, private router: Router) { }
 
   ngOnInit(): void {
-    this.getBrojPosjeta();
+    //this.getBrojPosjeta();
   }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();

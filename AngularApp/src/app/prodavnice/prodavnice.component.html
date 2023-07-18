@@ -1,8 +1,10 @@
-<app-nav-kupac></app-nav-kupac>
+<app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
+<app-neregistrovan *ngIf="loginInfo().isLogiran==false"></app-neregistrovan>
 <h3 style="margin: 2%">Prodavnice</h3>
 
 
-<div id="recenzijeProdavnice" style="display: block;">
+<div id="recenzijeProdavnice" style="display: block;"
+    *ngIf="loginInfo().isLogiran==true && loginInfo().autentifikacijaToken.korisnickiNalog?.isKupac==true">
   <h3>Dodajte komentar i/ili ocjenu prodavnice.</h3>
   <h5>Odaberite prodavnicu: </h5>
 

@@ -20,7 +20,7 @@ export class NavbarAdminComponent implements OnInit {
   admin_id:any;
 
   ngOnInit(): void {
-    this.count++;
+   // this.count++;
     this.route.params.subscribe(s=>{
       this.admin_id=+s["id"];
     })

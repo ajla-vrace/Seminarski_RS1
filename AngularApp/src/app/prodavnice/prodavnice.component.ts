@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MojConfig} from "../moj-config";
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {LoginInformacije} from "../helpers/login-informacije";
+import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 @Component({
   selector: 'app-prodavnice',
   templateUrl: './prodavnice.component.html',
@@ -16,7 +18,7 @@ export class ProdavniceComponent implements OnInit {
   kupac: any;
   prod: any;
   noviKomentar: any;
-  kupac_id: any;
+  kupac_id: any/*=this.loginInfo().autentifikacijaToken.korisnickiNalogId*/;
   ocjena: any;
   novaOcjena: any;
   ocjenePodaci: any;
@@ -37,7 +39,9 @@ export class ProdavniceComponent implements OnInit {
   constructor(private httpKlijent: HttpClient, private router: Router,
               private route: ActivatedRoute) {
   }
-
+  loginInfo():LoginInformacije {
+    return AutentifikacijaHelper.getLoginInfo();
+  }
   fetchKomentari(): void {
     this.httpKlijent.get(MojConfig.adresa_servera + "/Komentar/GetAll", MojConfig.http_opcije()).subscribe(x => {
       this.komentariPodaci = x;

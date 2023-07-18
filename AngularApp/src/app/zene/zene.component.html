@@ -1,7 +1,18 @@
 <app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
 <app-neregistrovan *ngIf="loginInfo().isLogiran==false"></app-neregistrovan>
 
-<button *ngIf="brojac%2!=0" (click)="specijalneZene=true;brojacProvjera()" class="specijalnePonudeDugme">Pogledajte specijalne ponude zene</button>
+
+
+
+
+<!--
+<select [(ngModel)]="odabranaKolekcija" (change)="getZProizvodi()" class="select-kolekcija">
+  <option value="">Odaberite kolekciju</option>
+  <option *ngFor="let kolekcija of kolekcijePodaci" [value]="kolekcija.naziv">{{ kolekcija.naziv }}</option>
+</select>
+-->
+
+<button *ngIf="brojac%2!=0 && specijalnePonudeZenePodaci?.length>0" (click)="specijalneZene=true;brojacProvjera()" class="specijalnePonudeDugme">Pogledajte specijalne ponude zene</button>
 <button *ngIf="brojac%2==0;" (click)="specijalneZene=false;brojacProvjera()" class="specijalnePonudeDugme">Skloni specijalne ponude zene</button>
 
 <div *ngIf="specijalneZene==true;" id="SpecijalnePonudeDivVeliki">
@@ -165,7 +176,7 @@
 
 </div>
 
-
+<!--
 
 <div *ngIf="prikaziDiv==true" id="probaDiva" >
 
@@ -188,7 +199,7 @@
 
       </div>
 
-     <!-- <div style="background-color: violet;" id="divCijeneFilter">
+     ovdje <div style="background-color: violet;" id="divCijeneFilter">
         <label for="price-range1">Raspon cijena: </label>
        <span> {{minPrice}}</span> <span> - {{maxPrice}}</span>
         <br>
@@ -204,13 +215,14 @@
       </div>
 
 -->
+<!--
     </div>
     <button id="dugme1" (click)="skloniDiv()" class="dugmeDelete" >
       <label style="font-size: larger;" class="labelDugme">Nazad</label></button>
 
   </div>
 </div>
-
+-->
 
 
 

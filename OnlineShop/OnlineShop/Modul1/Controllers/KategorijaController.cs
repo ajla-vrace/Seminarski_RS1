@@ -54,20 +54,7 @@ namespace OnlineShop.Modul1.Controllers
         {
             return context.Kategorija.ToList();
         }
-        [HttpGet("{odjelid}")]
-        // [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
-        public ActionResult GetByOdjel()
-        {
-            var data=context.Proizvod.Where(x => x.odjelId == 1)
-                .Select(x => new
-                {
-                    id=x.kategorijaId,
-                    naziv=x.kategorija.Naziv
-                }
-                )
-                .Distinct().ToList();
-            return Ok(data);
-        }
+        
        
 
         [HttpGet("GetPodkategorije")]

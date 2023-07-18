@@ -4,7 +4,8 @@ import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
 import {LoginInformacije} from "../helpers/login-informacije";
 import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
-
+declare function porukaSuccess(a: string):any;
+declare function porukaError(a: string):any;
 @Component({
   selector: 'app-neregistrovan',
   templateUrl: './neregistrovan.component.html',
@@ -45,7 +46,9 @@ export class NeregistrovanComponent implements OnInit {
       this.router.navigate(['/pocetna']);
     }
   }
-
+prikaziPoruku(){
+  porukaError("Trebate se prijaviti prvo.")
+}
   otvoriFaq() {
     this.potvrda = true;
     this.router.navigate(['/faq']);

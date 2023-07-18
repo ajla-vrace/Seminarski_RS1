@@ -1,5 +1,5 @@
 <app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
-
+<app-neregistrovan *ngIf="loginInfo().isLogiran==false"></app-neregistrovan>
 
 
 <div class="veliki">
@@ -24,7 +24,7 @@
         <h5> Podkategorija:  {{d.podkategorijaOpis}}</h5>
         <h5> Sezona: {{d.sezonaOpis}}</h5>
         <h5> Kolekcija: {{d.kolekcijaOpis}}</h5>
-        <div id="velicineBiraj">
+        <div id="velicineBiraj" *ngIf="loginInfo().isLogiran==true;">
           <br>
           <h5>Veličine:</h5>
 
@@ -37,7 +37,7 @@
           <label (click)="this.odabranavelicina='L';napraviIliNadjiKorpu();"  class="velicina">L</label>-->
         </div>
         <br>
-        <div class="dugmad1" *ngIf="loginInfo().isLogiran==true">
+        <div class="dugmad1" *ngIf="loginInfo().isLogiran==true" >
           <button class="dodajUKorpu1" *ngIf="odabranavelicina!=undefined" (click)="dodajUKorpu(d,odabranavelicina)" >Dodaj u korpu</button>
           <button class="dodajUKorpu1" *ngIf="odabranavelicina==undefined" disabled style="background-color: rgb(61,61,61)">Dodaj u korpu</button>
           <button class="dodajUFavorite1" (click)="dodajUFavorite(d.id)" *ngIf="isFavorit==false;">

@@ -1,12 +1,13 @@
 <app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
+<app-neregistrovan *ngIf="loginInfo().isLogiran==false"></app-neregistrovan>
 <h3>Ocjene proizvoda</h3>
 
 
 
 
 
-
-<div id="goreDiv">
+<div *ngIf="loginInfo().isLogiran==false;" id="nijePrijavljenOcjene">Ukoliko želite da ocjenite proizvod, trebate se prvo prijaviti.</div>
+<div id="goreDiv" *ngIf="loginInfo().isLogiran==true">
   <div >
     <h3 style="text-align: center">Ocijeni proizvod</h3>
   </div>

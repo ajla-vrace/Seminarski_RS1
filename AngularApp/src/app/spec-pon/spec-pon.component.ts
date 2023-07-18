@@ -204,6 +204,7 @@ export class SpecPonComponent implements OnInit {
           {
             console.log(this.obj_sp);
 
+            this.getSpecijalnePonude();
             this.getSpecijalnePonudeOpadajuci();
             this.getSpecijalnePonudeRastuci();
             this.getSpecijalnePonudeProizvod();
@@ -268,6 +269,7 @@ export class SpecPonComponent implements OnInit {
       this.httpKlijent.delete(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/del_sp?id="
       +sp.id, MojConfig.http_opcije())
         .subscribe((x:any)=>{
+          this.getSpecijalnePonude();
           this.getSpecijalnePonudeOpadajuci();
           this.getSpecijalnePonudeRastuci();
           this.getSpecijalnePonudeProizvod();;
@@ -284,6 +286,7 @@ export class SpecPonComponent implements OnInit {
       this.httpKlijent.delete(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/del_spp?id="
       +spp.id,MojConfig.http_opcije())
         .subscribe((x:any)=>{
+          this.getSpecijalnePonude();
           this.getSpecijalnePonudeProizvod();
           this.getSpecijalnePonudeOpadajuci();
           this.getSpecijalnePonudeRastuci();
@@ -423,6 +426,7 @@ export class SpecPonComponent implements OnInit {
         console.log("uspjesno spasena aktivnost");
         this.promijeni_aktivnost=false;
         this.obj_sp_aktivna=null;
+        this.getSpecijalnePonude();
         this.getSpecijalnePonudeOpadajuci();
         this.getSpecijalnePonudeRastuci();
         this.getSpecijalnePonudeProizvod();
@@ -464,7 +468,18 @@ export class SpecPonComponent implements OnInit {
       if(i.specijalnaPonudaId==this.obj_spp.specijalnaPonudaId && i.id!=this.obj_spp.id)
         brojac++;
     }
-    if(brojac>=5)
+    if(brojac>=4)
+      return true;
+    else return false;
+  }
+
+  jel_disabled_snimi_spp(){
+    let brojac=0;
+    for (let i of this.specijalne_ponude_proizvodi){
+      if(i.specijalnaPonudaId==this.obj_spp.specijalnaPonudaId)
+        brojac++;
+    }
+    if(brojac>=4)
       return true;
     else return false;
   }
