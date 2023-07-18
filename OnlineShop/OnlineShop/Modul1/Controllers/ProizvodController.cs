@@ -723,6 +723,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
 
+
         public class PonistiSezKol
         {
             public int proizvod_id { get; set; }
@@ -749,7 +750,6 @@ namespace OnlineShop.Modul1.Controllers
 
 
        
-
 
 
 
