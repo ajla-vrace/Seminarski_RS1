@@ -171,11 +171,13 @@ this.brisano=true;
 
   ModifikacijaKorpaStavke(ks:any) {
 
+
     console.log("ks: ",ks);
     this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Update", ks)
       .subscribe((povratnaVrijednost:any) =>{
         this.fetchKorpaStavke();
         console.log("ks: ",ks);
+
 
        /* this.ngOnInit();*/
       });
