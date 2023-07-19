@@ -50,12 +50,12 @@ export class ProfilAdminComponent implements OnInit {
       .subscribe((x:any)=>{
         this.admin_podaci=x;
         console.log(this.admin_podaci);
-        this._ime=this.admin_podaci[0].ime;
-        this._prezime=this.admin_podaci[0].prezime;
-        this._spol=this.admin_podaci[0].spolOpis;
-        this._email=this.admin_podaci[0].email;
-        this._brojtel=this.admin_podaci[0].brojTelefona;
-        this._datumReg=this.admin_podaci[0].datumRegistracije;
+        this._ime=this.admin_podaci[0]?.ime;
+        this._prezime=this.admin_podaci[0]?.prezime;
+        this._spol=this.admin_podaci[0]?.spolOpis;
+        this._email=this.admin_podaci[0]?.email;
+        this._brojtel=this.admin_podaci[0]?.brojTelefona;
+        this._datumReg=this.admin_podaci[0]?.datumRegistracije;
       })
   }
 
@@ -144,7 +144,7 @@ export class ProfilAdminComponent implements OnInit {
 
   jelOmogucenSaveLozinka(sadasnjaLoz: NgModel, novaLoz: NgModel, ponovoNovaLoz: NgModel){
 
-    if(this.sadasnja_lozinka==this.admin_podaci[0].lozinka && this.nova_lozinka==this.ponovo_nova_lozinka
+    if(this.sadasnja_lozinka==this.admin_podaci[0]?.lozinka && this.nova_lozinka==this.ponovo_nova_lozinka
     && this.sadasnja_lozinka!=="" && this.nova_lozinka!=="" &&
     sadasnjaLoz.valid && novaLoz.valid && ponovoNovaLoz.valid) {
       return true;
@@ -157,7 +157,7 @@ export class ProfilAdminComponent implements OnInit {
 
   jelOmogucenSaveKorIme(novoKorIme: NgModel, ponovoNovoKorIme: NgModel){
 
-    if(this.novo_korIme==this.ponovo_korIme && this.novo_korIme!==this.admin_podaci[0].username
+    if(this.novo_korIme==this.ponovo_korIme && this.novo_korIme!==this.admin_podaci[0]?.username
     && this.novo_korIme!=="" && novoKorIme.valid && ponovoNovoKorIme.valid){
       for (let x of this.korisnicka_imena){
         if(x===this.novo_korIme)
@@ -172,7 +172,7 @@ export class ProfilAdminComponent implements OnInit {
   jelOmogucenSave(imeControll: NgModel, prezimeControll: NgModel, spolControll: NgModel, emailControll: NgModel, telControll: NgModel) {
 
     if(imeControll.valid && prezimeControll.valid && spolControll.valid && emailControll.valid
-    && telControll.valid && !this.postojiMail(emailControll.value) && !this.postojiTel(telControll.value)){
+    && telControll.valid && !this.postojiMail(emailControll.value) && !this.postojiTel(telControll.value) && this.spolovi?.length>0){
       return true;
     }
     return false;

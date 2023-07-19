@@ -238,7 +238,7 @@ fetchKategorije(){
 }
   fetchKategorijeByOdjel(){
 
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Kategorija/1", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetKategorijeByOdjel?odjel_id="+1, MojConfig.http_opcije()).subscribe(x=>{
       this.kategorijePodaci = x;
     });
 
@@ -247,7 +247,7 @@ fetchKategorije(){
 
   fetchPodkategorijeByKategorija(){
 
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Kategorija/GetPodkategorije?katID="+this.idkategorije, MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetPodkategorijeByOdjel?odjel_id=1&kategorija_id="+this.idkategorije, MojConfig.http_opcije()).subscribe(x=>{
       this.PodkategorijePodaci = x;
     });
 

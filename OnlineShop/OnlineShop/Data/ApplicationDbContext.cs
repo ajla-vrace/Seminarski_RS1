@@ -4,7 +4,7 @@ using OnlineShop.Modul1.Models;
 
 namespace OnlineShop.Data
 {
-    public class ApplicationDbContext:DbContext
+    public class ApplicationDbContext : DbContext
     {
         public DbSet<Kategorija> Kategorija { get; set; }
         public DbSet<Podkategorija> Podkategorija { get; set; }
@@ -37,7 +37,7 @@ namespace OnlineShop.Data
 
         public DbSet<AutentifikacijaToken> AutentifikacijaToken { get; set; }
         //public DbSet<EmailSubscription> EmailSubscriptions { get; set; }
-        
+
         public ApplicationDbContext(
             DbContextOptions options) : base(options)
         {

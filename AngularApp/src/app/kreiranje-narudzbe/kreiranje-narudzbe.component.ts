@@ -49,7 +49,7 @@ kupac_id:any;
      this.pretvoriStavkeKorpeUStavkeNarudzbe();
     }, 300)*/
     setTimeout( ()=>{
-      this.prodId=this.prodavnicePodaci[0].id;
+      this.prodId=this.prodavnicePodaci[0]?.id;
     }, 400);
   }
    fetchKorpaStavke() {
@@ -193,6 +193,6 @@ this.kreiranaNarudzba=true;
 
   ispisi() {
     console.log("Vrijednost proId: "+this.prodId);
-    console.log("lenght: "+this.prodavnicePodaci.length);
+    console.log("lenght: "+this.prodavnicePodaci?.length);
   }
 }

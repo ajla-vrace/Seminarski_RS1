@@ -165,7 +165,7 @@
 
         <div class="mb-3" [class.has-error]="(nazivControll.invalid && nazivControll.touched) || postojiIstaSezona(nazivControll.value)">
           <label class="form-label">Naziv:</label>
-          <input type="text" required pattern="^[a-zA-Z\d\s\\/]{3,}$"
+          <input type="text" required pattern="^[a-zA-Z\d\s/]{3,}$"
                  minlength="3" #nazivControll="ngModel" class="form-control" placeholder="naziv" [(ngModel)]="obj_sezona.naziv" >
 
           <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">
@@ -230,7 +230,7 @@
 
         <div class="mb-3" [class.has-error]="(nazivControll.invalid && nazivControll.touched) || postojiIstaKolekcija(nazivControll.value)">
           <label class="form-label">Naziv:</label>
-          <input type="text" required pattern="^[a-zA-Z\d\s\\/]{3,}$"
+          <input type="text" required pattern="^[a-zA-Z\d\s/]{3,}$"
                  minlength="3" #nazivControll="ngModel" class="form-control" placeholder="naziv" [(ngModel)]="obj_kolekcija.naziv" >
 
           <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">

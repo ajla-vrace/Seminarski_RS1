@@ -233,7 +233,7 @@ namespace OnlineShop.Modul1.Controllers
                 prodavnice_ocjene.Add(new BestProdavnice { ProdavnicaId = prod, prodavnica = _prodavnica, Ocjena = ocjena });
             }
 
-            var top3 = prodavnice_ocjene.OrderByDescending(x => x.Ocjena).Take(3);
+            var top3 = prodavnice_ocjene.Count()>0 ? prodavnice_ocjene.OrderByDescending(x => x.Ocjena).Take(3) : prodavnice_ocjene;
 
             return top3;
         }

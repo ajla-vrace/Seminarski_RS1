@@ -104,3 +104,11 @@ a:checked{
   width: max-content;
   margin: 2% 10%;
 }
+#nijePrijavljenOcjene{
+  width: 80%;
+  margin: auto;
+  background-color: #f5919c;
+  padding: 1%;
+  text-align: center;
+  font-size: larger;
+}

@@ -368,7 +368,36 @@ namespace OnlineShop.Modul1.Controllers
 
             return Ok(cijena);
         }
-
+        [HttpGet]
+        
+        public ActionResult GetKategorijeByOdjel(int odjel_id)
+        {
+            var data = _dbContext.Proizvod.Where(x => x.odjelId == odjel_id)
+                .Select(x => new
+                {
+                    id = x.kategorijaId,
+                    naziv = x.kategorija.Naziv
+                }
+                )
+                .Distinct().ToList();
+            return Ok(data);
+        }
+        [HttpGet]
+        public ActionResult GetPodkategorijeByOdjel(int odjel_id, int kategorija_id)
+        {
+            var data = _dbContext.Proizvod
+                .Where(x => x.odjelId == odjel_id && x.kategorijaId==kategorija_id)
+                .Select(x => new
+                {
+                    id = x.podkategorijaId,
+                    naziv = x.podkategorija.Naziv,
+                    kategorijaId=x.kategorijaId,
+                    kategorijaNaziv=x.kategorija.Naziv
+                }
+                )
+                .Distinct().ToList();
+            return Ok(data);
+        }
 
     }
 

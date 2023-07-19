@@ -61,6 +61,7 @@
         <th scope="col">Naziv podkategorije</th>
         <th scope="col">Naziv kategorije</th>
         <th></th>
+        <th></th>
       </tr>
       </thead>
       <tbody>  <!--
@@ -76,7 +77,7 @@
         <td>{{p.naziv}}</td>
         <td>{{p.kategorijaOpis}}</td>
         <td> <img src="assets/slike/pencil-square.svg" (click)="urediPodkat(p)"></td>
-     <!--   <td> <img src="assets/slike/x-square.svg" (click)="obrisiPodkat(p)"> </td>-->
+        <td> <img src="assets/slike/x-square.svg" (click)="obrisiPodkat(p)"> </td>
       </tr>
 
       </tbody>
@@ -132,6 +133,7 @@
         <th scope="col">Id</th>
         <th scope="col">Naziv kategorije</th>
         <th></th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -148,7 +150,7 @@
         <th scope="row">{{p.id}}</th>
         <td>{{p.naziv}}</td>
         <td> <img src="assets/slike/pencil-square.svg" (click)="uredi_kat(p)"></td>
-   <!--     <td> <img src="assets/slike/x-square.svg" (click)="obrisiKat(p)"> </td>  -->
+        <td> <img src="assets/slike/x-square.svg" (click)="obrisiKat(p)"> </td>
       </tr>
 
       </tbody>
@@ -275,6 +277,25 @@
 </div>
 
 
+<!--
+
+<div class="warning-kat" >
+
+  <img src="assets/slike/warning.png" style="width: 70px; height: 70px;">
+  <h5 class="poruka-kat">
+    Brisanjem ovog podatka brišete i sve proizvode koji sadrže ovaj podatak."
+    <br>
+    Da li želite izvršiti brisanje?
+  </h5>
+  <div class="dugmad-warning">
+    <button>Da</button>
+    <button>Ne</button>
+  </div>
+
+</div>
 
 
+<div class="warning-podkat">
 
+</div>
+-->

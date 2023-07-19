@@ -106,8 +106,8 @@ export class SpecPonComponent implements OnInit {
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Proizvod/naziv_asc",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.pr_rastuci=x;
-        this.proizvod_id=this.pr_rastuci[0].id;
-        this.duzinaProizvod=this.pr_rastuci.length;
+        this.proizvod_id=this.pr_rastuci[0]?.id;
+        this.duzinaProizvod=this.pr_rastuci?.length;
         console.log("proizvod id: ",this.proizvod_id);
         console.log(this.pr_rastuci);
       })
@@ -160,8 +160,8 @@ export class SpecPonComponent implements OnInit {
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/Popust",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.popusti=x;
-        this.popust_id=this.popusti[0].id;
-        this.duzinaPopust=this.popusti.length;
+        this.popust_id=this.popusti[0]?.id;
+        this.duzinaPopust=this.popusti?.length;
         console.log("popust id: ",this.popust_id);
       })
   }
@@ -479,7 +479,7 @@ export class SpecPonComponent implements OnInit {
       if(i.specijalnaPonudaId==this.obj_spp.specijalnaPonudaId)
         brojac++;
     }
-    if(brojac>=4)
+    if(brojac>=4 || (this.pr_rastuci?.length==0 && this.specijalne_ponude?.length==0 && this.popusti?.length==0))
       return true;
     else return false;
   }
@@ -495,6 +495,8 @@ export class SpecPonComponent implements OnInit {
         // Handle error
       });
   }
+
+
 
 
 

@@ -279,7 +279,8 @@ export class KatPodkatComponent implements OnInit {
 
   obrisiPodkat(p:any) {
     this.jel_edit=false;
-    if (confirm("Da li želite obrisati ovaj podatak?")){
+    if (confirm("Brisanjem ovog podatka brišete i sve proizvode koji sadrže ovaj podatak." +
+      "Da li želite izvršiti brisanje?")){
       this.httpKlijent.delete(MojConfig.adresa_servera+"/api/Podkategorija?id="+p.id)
         .subscribe((x:any)=>{
           this.getPodkategorije();
@@ -306,7 +307,8 @@ export class KatPodkatComponent implements OnInit {
 
   obrisiKat(p: any) {
     this.jel_edit_kat=false;
-    if (confirm("Da li želite obrisati ovaj podatak?")){
+    if (confirm("Brisanjem ovog podatka brišete sve proizvode i podkategorije koje sadrže ovaj podatak." +
+      "Da li želite izvršiti brisanje?")){
       this.httpKlijent.delete(MojConfig.adresa_servera+"/api/Kategorija?id="+p.id)
         .subscribe((x:any)=>{
           this.getKategorije();
