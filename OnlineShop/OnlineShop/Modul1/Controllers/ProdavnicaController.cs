@@ -241,7 +241,7 @@ namespace OnlineShop.Modul1.Controllers
                 gradOpis = x.grad.Naziv,
                 skladisteId=x.skladisteId,
                 skladisteOpis=x.skladiste.Naziv +" - "+x.skladiste.Adresa
-            }).AsQueryable().ToList();
+            }).AsQueryable().OrderByDescending(x=>x.id).ToList();
         }
 
 

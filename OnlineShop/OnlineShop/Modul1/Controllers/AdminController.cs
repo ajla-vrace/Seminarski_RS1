@@ -46,6 +46,13 @@ namespace OnlineShop.Modul1.Controllers
                 contex.Update(a);
                 contex.SaveChanges();
 
+                if (a.isZaposlenik == true)
+                {
+                    var zaposlenik = contex.Zaposlenik.Find(id);
+                    zaposlenik.jelObavijesten = false;
+                    contex.Update(zaposlenik);
+                    contex.SaveChanges();
+                }
             }
 
             return Ok(a);

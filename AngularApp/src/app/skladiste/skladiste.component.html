@@ -80,8 +80,8 @@
       <th scope="col">Proizvod - Šifra</th>
       <th scope="col">Odjel</th>
       <th scope="col">Veličina</th>
-      <th scope="col">Kolicina</th>
-      <th scope="col">Skladiste</th>
+      <th scope="col">Količina</th>
+      <th scope="col">Skladište</th>
       <th scope="col">Datum kreiranja</th>
       <th scope="col">Datum modifikacije</th>
       <th scope="col">Evidentirao
@@ -425,7 +425,7 @@
         <div class="mb-3" [class.has-error]="adresa.touched && adresa.invalid">
           <label class="form-label">Adresa</label>
           <input class="form-control" type="text"
-                 #adresa="ngModel" required pattern="[a-zA-Z\s\d]*"
+                 #adresa="ngModel" required pattern="[a-zA-Z\s\d.]*"
                  [(ngModel)]="obj_prodavnica.adresa">
 
           <span *ngIf="adresa.touched && adresa.invalid">Unos je obavezan</span>

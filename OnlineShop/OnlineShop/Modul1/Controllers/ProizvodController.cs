@@ -584,10 +584,9 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpGet("posljednjeDodaniProizvodi")]
-        public ActionResult GetPosljednjeDodaneProizvode()
+        public List<ProizvodDatum> GetPosljednjeDodaneProizvode()
         {
             //DateTime.Compare(x.datum_kreiranja,posljednji_datum)==0
-
 
             var datumi = context.Proizvod.OrderByDescending(x => x.datum_kreiranja).ToList();
             var posljednji_datum = new DateTime();
@@ -596,10 +595,6 @@ namespace OnlineShop.Modul1.Controllers
 
            // var lista = context.Proizvod.Where(x => x.datum_kreiranja.Year == posljednji_datum.Year && x.datum_kreiranja.Month == posljednji_datum.Month && x.datum_kreiranja.Day == posljednji_datum.Day).Select(x=>x.Id).ToList();
 
-
-           /* var posljednji_datum = context.Proizvod.OrderByDescending(x => x.datum_kreiranja).Select(x => x.datum_kreiranja).ToList()/*[0]*/;
-
-            /*var lista = context.Proizvod.Where(x => x.datum_kreiranja.Year == posljednji_datum.Year && x.datum_kreiranja.Month == posljednji_datum.Month && x.datum_kreiranja.Day == posljednji_datum.Day).Select(x=>x.Id).ToList();
 
             var proizvodi_datumi = new List<ProizvodDatum>();
 
@@ -667,7 +662,6 @@ namespace OnlineShop.Modul1.Controllers
 
             //return rez;
           //  return Ok();
-
 
         }
 

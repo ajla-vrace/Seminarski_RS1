@@ -203,7 +203,7 @@
         <div class="mb-3" [class.has-error]="(nazivControll.invalid && nazivControll.touched) || postojiPodkategorija(nazivControll.value)">
           <label class="form-label">Naziv podkategorije:</label>
           <input type="text" required pattern="^[A-Z][a-zA-Z\d\s]*$" [(ngModel)]="nova_podkategorija.naziv"
-                 minlength="3" #nazivControll="ngModel" class="form-control" placeholder="naziv" >
+                 minlength="3" #nazivControll="ngModel" class="form-control" placeholder="Naziv" >
 
           <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">
             Ovo polje je obavezno. Prvo slovo mora biti veliko. Najmanje 3 karaktera.
@@ -254,7 +254,7 @@
         <div class="mb-3" [class.has-error]="(nazivControll.invalid && nazivControll.touched) || postojiKategorija(nazivControll.value)">
           <label class="form-label">Naziv kategorije:</label>
           <input type="text" required pattern="^[A-Z][a-zA-Z\d\s]*$" [(ngModel)]="nova_kategorija.naziv"
-                 minlength="3" #nazivControll="ngModel" class="form-control" placeholder="naziv" >
+                 minlength="3" #nazivControll="ngModel" class="form-control" placeholder="Naziv" >
 
           <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">
             Ovo polje je obavezno. Prvo slovo mora biti veliko. Najmanje 3 karaktera.

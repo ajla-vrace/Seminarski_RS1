@@ -104,7 +104,7 @@
         <div class="mb-3" [class.has-error]="sadasnjaLoz.invalid && sadasnjaLoz.touched">
           <label class="form-label">Sadašnja lozinka:</label>
           <input type="password" #sadasnjaLoz="ngModel" [(ngModel)]="sadasnja_lozinka"
-                 required pattern="^[a-zA-Z\d\s+*!#$%&()=?-_{}@><^ˇ]{3,}$">
+                 required pattern="^[a-zA-Z\d\s!#$%&=@]{3,}$">
 
 
           <span class="poruka-validacija" *ngIf="sadasnjaLoz.invalid && sadasnjaLoz.touched">
@@ -117,7 +117,7 @@
         <div class="mb-3" [class.has-error]="novaLoz.invalid && novaLoz.touched">
           <label class="form-label">Nova lozinka:</label>
           <input type="password" #novaLoz="ngModel" [(ngModel)]="nova_lozinka"
-                 required pattern="^[a-zA-Z\d\s+*!#$%&()=?-_{}@><^ˇ]{3,}$">
+                 required pattern="^[a-zA-Z\d\s!#$%&=@]{3,}$">
 
           <span class="poruka-validacija" *ngIf="novaLoz.invalid && novaLoz.touched">
              <p>Lozinka nije validna</p>
@@ -129,7 +129,7 @@
         <div class="mb-3"  [class.has-error]="ponovoNovaLoz.invalid && ponovoNovaLoz.touched">
           <label class="form-label">Ponovite unos:</label>
           <input type="password" #ponovoNovaLoz="ngModel" [(ngModel)]="ponovo_nova_lozinka"
-                 required pattern="^[a-zA-Z\d\s+*!#$%&()=?-_{}@><^ˇ]{3,}$">
+                 required pattern="^[a-zA-Z\d\s!#$%&=@]{3,}$">
 
           <span class="poruka-validacija" *ngIf="ponovoNovaLoz.invalid && ponovoNovaLoz.touched">
              <p>Lozinka nije validna</p>
@@ -218,7 +218,7 @@
 
         <div class="mb-3" [class.has-error]="imeControll.invalid && imeControll.touched">
           <label class="form-label">Ime:</label>
-          <input type="text" required pattern="^[A-Z][a-zA-Z]*(\s|\\-)?[a-zA-Z]*$"
+          <input type="text" required pattern="^[A-Z][a-zA-Z]*(\s|-)?[a-zA-Z]*$"
                  minlength="3" #imeControll="ngModel" class="form-control" placeholder="ime" [(ngModel)]="admin_podaci[0].ime" >
 
           <span class="help-block" *ngIf="imeControll.invalid && imeControll.touched">
@@ -229,7 +229,7 @@
 
         <div class="mb-3" [class.has-error]="prezimeControll.invalid && prezimeControll.touched">
           <label class="form-label">Prezime:</label>
-          <input type="text" required pattern="^[A-Z][a-zA-Z]*(\s|\\-)?[a-zA-Z]*$"
+          <input type="text" required pattern="^[A-Z][a-zA-Z]*(\s|-)?[a-zA-Z]*$"
                  minlength="3" #prezimeControll="ngModel" class="form-control" placeholder="prezime" [(ngModel)]="admin_podaci[0].prezime" >
 
           <span class="help-block" *ngIf="prezimeControll.invalid && prezimeControll.touched">
@@ -255,7 +255,7 @@
 
         <div class="mb-3" [class.has-error]="(emailControll.invalid && emailControll.touched) || postojiMail(emailControll.value)">
           <label class="form-label">Email:</label>
-          <input type="text" required pattern="^[a-z]{1,15}\.?[a-z]*?[0-9]*?@(edu\.fit|gmail)\.(com|ba)$"
+          <input type="text" required pattern="^[a-z]{1,15}\.?[a-z]*?[0-9]*?@(edu.fit|gmail).(com|ba)$"
                  minlength="3" #emailControll="ngModel"
                  class="form-control" placeholder="ime@domena" [(ngModel)]="admin_podaci[0].email" >
 
