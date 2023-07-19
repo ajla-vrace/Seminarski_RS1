@@ -37,7 +37,7 @@
     <div id="SveStavke">
       <div *ngFor="let x of korpaStavkePodaci" class="jednaStavka">
 
-        <div class="slikaStavka"><img src="{{get_slika_base64_FS(x.proizvod)}}" class="slikaStavkeSama"> </div>
+        <div class="slikaStavka"><img src="{{get_slika_base64_FS(x.slika)}}" class="slikaStavkeSama"> </div>
         <div class="tekstStavke">
           <p><b>{{x.proizvodIme}}</b> </p>
           <p>Cijena: {{x.cijena}}</p>

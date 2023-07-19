@@ -112,7 +112,7 @@ export class EvidZaposlComponent implements OnInit {
     this.httpKlijent.get(MojConfig.adresa_servera+"/Prodavnica/GetAll")
       .subscribe((x:any)=>{
         this.prodavnice=x;
-        this.prodavnica_id=this.prodavnice[0].id;
+        this.prodavnica_id=this.prodavnice[0]?.id;
       })
   }
 
@@ -120,7 +120,7 @@ export class EvidZaposlComponent implements OnInit {
     this.httpKlijent.get(MojConfig.adresa_servera+"/Spol/GetAll")
       .subscribe((x:any)=>{
         this.spolovi=x;
-        this.spol_id=this.spolovi[0].id;
+        this.spol_id=this.spolovi[0]?.id;
       })
   }
 
@@ -241,14 +241,15 @@ export class EvidZaposlComponent implements OnInit {
 
     if(this.jel_edit==false){
       if(ime.valid && prezime.valid && jmbg.valid && !this.postojiJMBG(jmbg.value) && dtmRod.valid && adresa.valid && email.valid && !this.postojiMail(email.value)
-        && tel.valid && !(this.postojiTel(tel.value)) && dtmZaposl.valid && korIme.valid && loz.valid && lozPonovo.valid && !this.postojiKorIme(korIme.value)){
+        && tel.valid && !(this.postojiTel(tel.value)) && dtmZaposl.valid && korIme.valid && loz.valid && lozPonovo.valid && !this.postojiKorIme(korIme.value)
+      && this.prodavnice?.length>0 && this.spolovi?.length>0){
         return true;
       }
       return false;
     }
     else{
       if(ime.valid && prezime.valid && jmbg.valid && !this.postojiJMBG(jmbg.value) && dtmRod.valid && adresa.valid && email.valid && !this.postojiMail(email.value)
-        && tel.valid && !(this.postojiTel(tel.value)) && dtmZaposl.valid){
+        && tel.valid && !(this.postojiTel(tel.value)) && dtmZaposl.valid && this.prodavnice?.length>0 && this.spolovi?.length>0){
         return true;
       }
       return false;

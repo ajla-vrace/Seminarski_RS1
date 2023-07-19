@@ -24,9 +24,10 @@ namespace OnlineShop.Modul0_Autentifikacija.Controllers
         public ActionResult GetCode()
         {
             var korisnickiNalog = HttpContext.GetLoginInfo()?.korisnickiNalog;
-            if (korisnickiNalog != null)
+            var nalozi = _dbContext.KorisnickiNalog.ToList().Where(x=>x.isAdmin==true).ToList();
+            if (korisnickiNalog != null && nalozi!=null)
             {
-                var tokenLista = _dbContext.AutentifikacijaToken.Where(x=>x.KorisnickiNalogId==1).AsQueryable().OrderBy(x=>x.KorisnickiNalogId).ToList();
+                var tokenLista = _dbContext.AutentifikacijaToken.Where(x => x.KorisnickiNalogId == nalozi[0].Id).AsQueryable().OrderBy(x=>x.KorisnickiNalogId).ToList();
                 var token = tokenLista.Count()>0 ? tokenLista[tokenLista.Count() - 1] : null;
                 return Ok(token != null ? new { code=token?.twoFcode,jelOtkljucan=token?.jel_otkljucan }  : "");
             }

@@ -3,6 +3,8 @@
 
 
 
+
+
 <!--
 <select [(ngModel)]="odabranaKolekcija" (change)="getZProizvodi()" class="select-kolekcija">
   <option value="">Odaberite kolekciju</option>
@@ -10,10 +12,7 @@
 </select>
 -->
 
-
 <button *ngIf="brojac%2!=0 && specijalnePonudeZenePodaci?.length>0" (click)="specijalneZene=true;brojacProvjera()" class="specijalnePonudeDugme">Pogledajte specijalne ponude zene</button>
-
-
 <button *ngIf="brojac%2==0;" (click)="specijalneZene=false;brojacProvjera()" class="specijalnePonudeDugme">Skloni specijalne ponude zene</button>
 
 <div *ngIf="specijalneZene==true;" id="SpecijalnePonudeDivVeliki">
@@ -157,12 +156,12 @@
   </div>
 
 
-<!--
+
   <div id="nemaProizvoda" *ngIf="proizvodiZPodaci?.length==0">
     <img src="assets/slike/clothes-hanger.png" id="slika-vjesalica">
     <h3>Nema proizvoda koji su zadovoljili postavljene filtere.</h3>
   </div>
--->
+
   <div id="zeneProizvodi" *ngIf="proizvodiZPodaci?.length>0">
     <div *ngFor="let p of getZProizvodi()" class="proizvodJedan" (click)="prikaziDetaljeProizvoda(p.id)" style="cursor: pointer;">
         <div class="zaSliku">

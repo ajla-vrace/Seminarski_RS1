@@ -1,5 +1,5 @@
 <app-nav-kupac *ngIf="loginInfo().isLogiran==true"></app-nav-kupac>
-<button (click)="fetchDostupneVelicine(2)">ovdje</button>
+<!--<button (click)="fetchDostupneVelicine(2)">ovdje</button>-->
 
 
 
@@ -29,7 +29,7 @@ kupac id:
     <div *ngFor="let kst of getKorpaStavke()" class="StavkaKosarice">
       <div class="SlikaStavkeKosarice">
        <!-- <img src="assets/slike/dress.png" style="width: 100%;">-->
-        <img src="{{get_slika_base64_FS(kst.proizvod)}}" style="width: 100%;" id="slikaProizvodaUKosarici">
+        <img src="{{get_slika_base64_FS(kst.slika)}}" style="width: 100%;" id="slikaProizvodaUKosarici">
       </div>
       <div id="tekstStavkeKorpe">
         <h3>{{kst.proizvodIme}}</h3>
@@ -92,16 +92,35 @@ kupac id:
         <button type="button" class="btn-close" aria-label="Close" (click)="odabranaStavka=null"></button>
       </div>
       <div class="modal-body">
-        <div class="mb-3">
-          <label class="form-label">Kolicina</label>
-        <!--<select class="form-control" [(ngModel)]="odabranaStavka.kolicina" ngOnChanges>
+       <!-- <div class="mb-3">-->
+        <!--  <label class="form-label">Kolicina</label>
+        <select class="form-control" [(ngModel)]="odabranaStavka.kolicina" ngOnChanges>
             <option >1</option>
             <option >2</option>
             <option >3</option>
           </select>
 -->
-          <input type="number" min="1" max="3">
-        </div>
+        <!--  <input type="number" min="1" max="{{dostupnaKolicina}}" [(ngModel)]="odabranaStavka.kolicina" step="1"
+                 pattern="^-?\d+$">
+          <p *ngIf="odabranaStavka.kolicina>dostupnaKolicina" style="color: red;">
+            Trenutno nije dostupno toliko komada. Molimo smanjite količinu.</p>
+        </div>-->
+          <div class="mb-3" [class.has-error]="kolicina.invalid && kolicina.touched">
+            <label>Količina</label>
+            <input  type="number"  min="1" max="{{dostupnaKolicina}}" id="idKolicina" [(ngModel)]="odabranaStavka.kolicina"
+                   #kolicina="ngModel" required pattern="^(?!0)\d+$" (keypress)="onKeyPress($event)">
+
+
+            <span class="poruka-validacija" *ngIf="kolicina.invalid && kolicina.touched">
+         <p> Neispravan unos (ili prevelika kolicina).</p>
+      </span>
+           <!-- <span class="poruka-validacija" *ngIf="odabranaStavka.kolicina>dostupnaKolicina">
+
+         <p> Trenutno nije dostupno toliko komada. Molimo smanjite količinu.</p>
+      </span>
+-->
+
+          </div>
         <div class="mb-3">
           <label class="form-label">Velicina</label>
           <select class="custom-select mb-3" [(ngModel)]="odabranaStavka.velicina"
@@ -121,7 +140,7 @@ kupac id:
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="odabranaStavka=null">Close</button>
-        <button type="button" class="btn btn-primary"  (click)="ModifikacijaKorpaStavke(odabranaStavka)">Save changes</button>
+        <button type="button" class="btn btn-primary"  (click)="ModifikacijaKorpaStavke(odabranaStavka)" [disabled]="odabranaStavka.kolicina>dostupnaKolicina || !kolicina.valid">Save changes</button>
       </div>
     </div>
   </div>

@@ -74,13 +74,13 @@ export class ProdavniceComponent implements OnInit {
     return prosjekData ? prosjekData.prosjek : 0;
   }
   ngOnInit(): void {
-
+this.kupac_id=this.loginInfo().isLogiran?this.loginInfo().autentifikacijaToken.korisnickiNalogId:0;
     this.fetchProdavnice();
     this.fetchKomentari();
 
-    this.route.params.subscribe(s => {
+   /* this.route.params.subscribe(s => {
       this.kupac_id = +s["id"];
-    })
+    })*/
     this.fetchProsjekProdavnica();
   }
 

@@ -165,8 +165,8 @@
 
         <div class="mb-3" [class.has-error]="(nazivControll.invalid && nazivControll.touched) || postojiIstaSezona(nazivControll.value)">
           <label class="form-label">Naziv:</label>
-          <input type="text" required pattern="^[a-zA-Z\d\s\\/]{3,}$"
-                 minlength="3" #nazivControll="ngModel" class="form-control" placeholder="naziv" [(ngModel)]="obj_sezona.naziv" >
+          <input type="text" required pattern="^[a-zA-Z\d\s/]{3,}$"
+                 minlength="3" #nazivControll="ngModel" class="form-control" placeholder="Naziv" [(ngModel)]="obj_sezona.naziv" >
 
           <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">
             Ovo polje je obavezno. Prvo slovo mora biti veliko. Najmanje 3 karaktera. Bez dijakritičkih znakova.
@@ -181,7 +181,7 @@
         <div class="mb-3" [class.has-error]="dobaControll.invalid && dobaControll.touched">
           <label class="form-label">Doba:</label>
           <input type="text" required pattern="^[A-Z][a-zA-Z\s]*-?[a-zA-Z\s]*$"
-                 minlength="3" #dobaControll="ngModel" class="form-control" placeholder="ljeto" [(ngModel)]="obj_sezona.doba">
+                 minlength="3" #dobaControll="ngModel" class="form-control" placeholder="Ljeto" [(ngModel)]="obj_sezona.doba">
 
           <span class="help-block" *ngIf="dobaControll.invalid && dobaControll.touched">
              Ovo polje je obavezno i mora imati najmanje 3 karaktera (ne uključujući brojeve). Prvo slovo mora biti veliko. Bez dijakritičkih znakova.
@@ -190,7 +190,7 @@
 
         <div class="mb-3" [class.has-error]="godinaControll.invalid && godinaControll.touched">
           <label class="form-label">Godina:</label>
-          <input type="text" required pattern="^\d*$"
+          <input type="text" required pattern="^\d{4}$"
                  minlength="4" #godinaControll="ngModel"
                  class="form-control" placeholder="2020" [(ngModel)]="obj_sezona.godina" >
 
@@ -230,8 +230,8 @@
 
         <div class="mb-3" [class.has-error]="(nazivControll.invalid && nazivControll.touched) || postojiIstaKolekcija(nazivControll.value)">
           <label class="form-label">Naziv:</label>
-          <input type="text" required pattern="^[a-zA-Z\d\s\\/]{3,}$"
-                 minlength="3" #nazivControll="ngModel" class="form-control" placeholder="naziv" [(ngModel)]="obj_kolekcija.naziv" >
+          <input type="text" required pattern="^[a-zA-Z\d\s/]{3,}$"
+                 minlength="3" #nazivControll="ngModel" class="form-control" placeholder="Naziv" [(ngModel)]="obj_kolekcija.naziv" >
 
           <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">
             Ovo polje je obavezno. Prvo slovo mora biti veliko. Najmanje 3 karaktera.
@@ -246,7 +246,7 @@
 
         <div class="mb-3" [class.has-error]="godinaControll.invalid && godinaControll.touched">
           <label class="form-label">Godina:</label>
-          <input type="text" required pattern="^\d*$"
+          <input type="text" required pattern="^\d{4}$"
                  minlength="4" #godinaControll="ngModel"
                  class="form-control" placeholder="2020" [(ngModel)]="obj_kolekcija.godina" >
 

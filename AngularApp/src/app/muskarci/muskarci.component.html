@@ -3,7 +3,6 @@
 
 
 <button *ngIf="brojac%2!=0 && specijalnePonudeMuskarciPodaci?.length>0;" (click)="specijalneMuskarci=true;brojacProvjera()" class="specijalnePonudeDugme">Pogledajte specijalne ponude muskarci</button>
-
 <button *ngIf="brojac%2==0;" (click)="specijalneMuskarci=false;brojacProvjera()" class="specijalnePonudeDugme">Skloni specijalne ponude muskarci</button>
 
 <div *ngIf="specijalneMuskarci==true " id="SpecijalnePonudeDivVeliki">

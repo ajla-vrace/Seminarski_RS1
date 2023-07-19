@@ -46,6 +46,13 @@ namespace OnlineShop.Modul1.Controllers
                 contex.Update(a);
                 contex.SaveChanges();
 
+                if (a.isZaposlenik == true)
+                {
+                    var zaposlenik = contex.Zaposlenik.Find(id);
+                    zaposlenik.jelObavijesten = false;
+                    contex.Update(zaposlenik);
+                    contex.SaveChanges();
+                }
             }
 
             return Ok(a);
@@ -233,7 +240,7 @@ namespace OnlineShop.Modul1.Controllers
                 prodavnice_ocjene.Add(new BestProdavnice { ProdavnicaId = prod, prodavnica = _prodavnica, Ocjena = ocjena });
             }
 
-            var top3 = prodavnice_ocjene.OrderByDescending(x => x.Ocjena).Take(3);
+            var top3 = prodavnice_ocjene.Count()>0 ? prodavnice_ocjene.OrderByDescending(x => x.Ocjena).Take(3) : prodavnice_ocjene;
 
             return top3;
         }

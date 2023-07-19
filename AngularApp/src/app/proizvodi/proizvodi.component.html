@@ -380,8 +380,8 @@
         <div class="mb-3" [class.has-error]="(sezonaControll.invalid && sezonaControll.touched) || sezone?.length==0">
           <label class="form-label">Sezona</label>
 
-          <select required #sezonaControll="ngModel" class="form-control" [(ngModel)]="obj_sezkol.sezonaId" (click)="getKolekcijeBySezonaIDaktivne(obj_sezkol.sezonaId);" >
-            <option *ngFor="let s of sezone_aktivne " [value]="s?.id"  >{{s.naziv}} </option>
+          <select required #sezonaControll="ngModel" class="form-control" [(ngModel)]="obj_sezkol.sezonaId" (click)="getKolekcijeBySezonaID(obj_sezkol.sezonaId);" >
+            <option *ngFor="let s of sezone " [value]="s?.id"  >{{s.naziv}} - {{s.aktivna?"Aktivna":"Neaktivna"}}</option>
 <!-- - {{s.aktivna?"Aktivna":"Neaktivna"}}--->
           </select>
 
@@ -396,7 +396,7 @@
 
           <select required #kolekcijaControll="ngModel" class="form-control" [(ngModel)]="obj_sezkol.kolekcijaId">
 
-            <option *ngFor="let kol of kolekcije_aktivne " [value]="kol?.id" >{{kol.naziv}} </option>
+            <option *ngFor="let kol of kolekcije " [value]="kol?.id" >{{kol.naziv}} - {{kol.aktivna?"Aktivna":"Neaktivna"}}</option>
 <!-- - {{kol.aktivna?"Aktivna":"Neaktivna"}} --->
           </select>
 

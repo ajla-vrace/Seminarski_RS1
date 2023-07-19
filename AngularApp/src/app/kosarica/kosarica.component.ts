@@ -170,9 +170,13 @@ this.brisano=true;
 
 
   ModifikacijaKorpaStavke(ks:any) {
+
+    console.log("ks: ",ks);
     this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Update", ks)
       .subscribe((povratnaVrijednost:any) =>{
         this.fetchKorpaStavke();
+        console.log("ks: ",ks);
+
        /* this.ngOnInit();*/
       });
 
@@ -202,22 +206,27 @@ this.brisano=true;
     console.log(this.KorpePodaci[0]);*/
    // this.racun();
     //this.fetchKorpaStavke();
+
+
+
+
+
 this.korpa=this.KorpePodaciIme[0];
     console.log("korpa: "+this.korpa.id+" korpa naziv:" +this.korpa.naziv+"total "+this.korpa.total+
       "ukupno proizvoda: "+this.korpa.ukupnoProizvoda);
 
-    this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Update", ks)
+  /*  this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Update", ks)
       .subscribe((a:any) =>{
         /*this.ngOnInit();*/
-      });
-
+    /*  });
+*/
     setTimeout( ()=>{
       this.httpKlijent.post(`${MojConfig.adresa_servera}/Korpa/Add`, this.korpa, MojConfig.http_opcije()).subscribe(x => {
         this.fetchKorpaIme();
 this.korpa=this.KorpePodaciIme[0];
-       /* console.log("korpa update :" +this.korpa);
+        console.log("korpa update :" +this.korpa);
         console.log("korpa poslije: "+this.korpa.id+" korpa naziv:" +this.korpa.naziv+"total "+this.korpa.total+
-          "ukupno proizvoda: "+this.korpa.ukupnoProizvoda);*/
+          "ukupno proizvoda: "+this.korpa.ukupnoProizvoda);
         /*this.ngOnInit();*/
       });
     }, 2000);
@@ -225,10 +234,16 @@ this.korpa=this.KorpePodaciIme[0];
 
   Modifikacija(ks: any) {
     this.odabranaStavka=ks;
+    this.updateKolicina(ks.proizvodId);
     this.fetchDostupneVelicine(ks.proizvodId)
   }
 
-
+  onKeyPress(event: KeyboardEvent) {
+    // Kod za onemogućavanje unosa točke (.)
+    if (event.key === '.') {
+      event.preventDefault();
+    }
+  }
 
 
 
@@ -270,13 +285,19 @@ getProzivodi1(s:any){
   }
 */
 
-  get_slika_base64_FS(s:any) {
+  get_slika_base64_FS3(s:any) {
     if(s!=null && s.slika_postojeca!=null)
       return "data:image/jpg;base64,"+ s?.slika_postojeca;
     return this.noimage;
     // return "data:image/jpg;base64,"+s.slika_postojeca;
   }
 
+  get_slika_base64_FS(slika:any) {
+    if(slika!=null)
+      return "data:image/jpg;base64,"+ slika;
+    return this.noimage;
+// return "data:image/jpg;base64,"+slika;
+  }
   dostupneVelicine:any;
   fetchDostupneVelicine(id:any)
   {

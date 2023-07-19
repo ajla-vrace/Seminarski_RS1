@@ -46,8 +46,8 @@ export class ProizvodiComponent implements OnInit {
     this.getProizvodRastuci();
     this.getProizvodOpadajuci();
     this.getKategorije();
-  //  this.getSezone();
-    this.getSezoneAtkivne();
+    this.getSezone();
+  //  this.getSezoneAtkivne();
     this.getBoje();
     this.getSifre();
     this.getOdjeli();
@@ -282,7 +282,7 @@ export class ProizvodiComponent implements OnInit {
     this.odabrani_proizvod.kolekcijaOpis="";
     this.odabrani_proizvod.sezonaOpis="";
     this.getPodkategorijeByKatID();
-    //this.getKolekcijeBySezonaID();
+   // this.getKolekcijeBySezonaID();
   }
 
   DeleteDugme(p: any) {
@@ -579,19 +579,19 @@ export class ProizvodiComponent implements OnInit {
     if(this.odabrani?.sezonaId!=null && this.odabrani?.kolekcijaId!=null){
       this.naslov="Edituj sezonu i kolekciju za proizvod: "+this.odabrani.sifra;
       this.obj_sezkol.sezonaId=this.odabrani?.sezonaId;
-    //  this.getKolekcijeBySezonaID(this.odabrani?.sezonaId);
-      this.getKolekcijeBySezonaIDaktivne(this.odabrani?.sezonaId);
+      this.getKolekcijeBySezonaID(this.odabrani?.sezonaId);
+    //  this.getKolekcijeBySezonaIDaktivne(this.odabrani?.sezonaId);
      // this.obj_sezkol.kolekcijaId=this.odabrani?.kolekcijaId;
     }
     else{
       this.kliknuo_add_sezkol=true;
-     // this.getSezone();
-      this.getSezoneAtkivne();
+      this.getSezone();
+     // this.getSezoneAtkivne();
       this.naslov="Dodaj sezonu i kolekciju za proizvod: "+this.odabrani.sifra;
      // this.obj_sezkol.sezonaId=this.sezonaDefaultno;
       let sezId=this.sezonaDefaultno;
-     // this.getKolekcijeBySezonaID(sezId);
-      this.getKolekcijeBySezonaIDaktivne(sezId);
+      this.getKolekcijeBySezonaID(sezId);
+     // this.getKolekcijeBySezonaIDaktivne(sezId);
      // this.obj_sezkol.kolekcijaId=this.kolekcijaDefaultno;
     }
     //console.log("sezId:",this.obj_sezkol.sezonaId,"kolId:",this.obj_sezkol.kolekcijaId);
@@ -618,7 +618,7 @@ export class ProizvodiComponent implements OnInit {
   }
 
   jel_dozvoljen_save_sezkol(){
-    if(this.kolekcije_aktivne?.length>0  && this.sezone_aktivne?.length>0)
+    if(this.kolekcije?.length>0  && this.sezone?.length>0)
       return true;
     return false;
   }

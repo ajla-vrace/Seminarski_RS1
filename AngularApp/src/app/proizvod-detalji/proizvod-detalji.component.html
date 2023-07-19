@@ -17,7 +17,7 @@
         <h1 style="text-align: center;">Proizvod detalji</h1>
         <h3> Naziv: {{d.naziv}}</h3>
         <!--<h4> Cijena: {{d.cijena}} KM</h4>-->
-        <h3>Cijena: {{getCijena(d)}} KM</h3>
+        <h3>Cijena: {{d.cijena}} KM</h3>
         <h5> Odjel:  {{d.odjelOpis}}</h5>
         <h5> Boja:  {{d.bojaOpis}}</h5>
         <h5> Kategorija: {{d.kategorijaOpis}}</h5>
@@ -50,6 +50,7 @@
           </button>
 
         </div>
+        <div style="padding: 10%;"></div>
         <p style="margin: 1%;">Ukoliko ne znate koja veličina Vam odgovara, pogledajte naš <a routerLink="/vodiczavelicine">Vodič za veličine</a>.</p>
        <div id="ocjeneProizvoda" (click)="prikaziOcjeneProizvoda()">
 

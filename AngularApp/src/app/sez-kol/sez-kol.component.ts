@@ -85,7 +85,7 @@ export class SezKolComponent implements OnInit {
 
       this.kliknuoEditSezona=false;
       this.getSezone();
-
+      this.getSezoneAktivne();
       this.getKolekcije();
 
       this.obj_sezona=null;

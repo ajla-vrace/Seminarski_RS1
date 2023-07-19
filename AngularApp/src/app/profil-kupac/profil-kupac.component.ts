@@ -590,7 +590,8 @@ getPodatkeZaIzvjestajParametri(){
    /* this.httpKlijent.post(MojConfig.adresa_servera+ "/Komentar/GetById?id="+s.id,MojConfig.http_opcije()).subscribe(x=>{
       this.komentariPodaci1= x;
     });*/
-    alert("Odabrani komentar je obrisan!");
+    /*alert("Odabrani komentar je obrisan!");*/
+    porukaSuccess("Odabrani komentar je obrisan.");
   }
 
   modifikuj(s: any) {

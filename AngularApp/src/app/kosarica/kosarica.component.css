@@ -102,3 +102,8 @@ li{
 #praznaKorpaSlika{
   width: 100%;
 }
+.poruka-validacija{
+  color:red;
+ /* width:60%;*/
+  text-align: center;
+}

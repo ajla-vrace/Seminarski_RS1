@@ -150,7 +150,7 @@
         <div class="mb-3" [class.has-error]="adresa.invalid && adresa.touched">
           <label class="form-label">Adresa stanovanja</label>
           <input class="form-control" placeholder="adresa stanovanja"
-                required pattern="^[A-Za-z\s\d]*$"
+                required pattern="^[A-Za-z\s\d.]*$"
                 #adresa="ngModel" [(ngModel)]="zaposlenik_obj.adresaStanovanja" />
 
           <span class="help-block" *ngIf="adresa.invalid && adresa.touched">
@@ -236,7 +236,7 @@
         <div class="mb-3" [class.has-error]="loz.invalid && loz.touched">
           <label class="form-label">Lozinka</label>
           <input type="password" class="form-control" placeholder="lozinka"
-                 required pattern="^[a-zA-Z\d\s+*!#$%&()=?-_{}@><^ˇ]{3,}$" [disabled]="jel_edit"
+                 required pattern="^[a-zA-Z\d\s!#$%&=@]{3,}$" [disabled]="jel_edit"
                  #loz="ngModel" [(ngModel)]="zaposlenik_obj.lozinka"/>
 
           <span class="help-block" *ngIf="(loz.invalid && loz.touched)">

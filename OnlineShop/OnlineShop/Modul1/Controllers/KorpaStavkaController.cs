@@ -134,7 +134,8 @@ namespace OnlineShop.Modul1.Controllers
                     KorpaIme = s.Korpa.Name,
                     ProizvodId = s.ProizvodId,
                     ProizvodIme = s.Proizvod.Naziv,
-                    Proizvod=s.Proizvod,
+                    //Proizvod=s.Proizvod,
+                    Slika=s.Proizvod.slika_postojeca,
                     Boja = s.Proizvod.boja,
                     Velicina=s.Velicina,
                 })

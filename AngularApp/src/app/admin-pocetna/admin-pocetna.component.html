@@ -99,7 +99,7 @@
 
     <hr>
 
-    <div class="slider-prodavnice">
+    <div class="slider-prodavnice" *ngIf="prodavnice?.length>0">
 
       <div class="prodavnica" *ngFor="let p of prodavnice">
         <h5>Adresa prodavnice: {{p?.prodavnica?.adresa}}</h5>
@@ -108,6 +108,12 @@
       </div>
 
     </div>
+
+
+    <div class="poruka-nema-bestsellera" *ngIf="prodavnice?.length==0">
+      <h6>Još uvijek nema ocjena prodavnice proizvoda!</h6>
+    </div>
+
   </div>
 
 
