@@ -32,6 +32,7 @@
         public byte[]? slika_postojeca { get; set; }
         public string? evidentirao { get; set; }
         public string? modifikovao { get; set; }
+        public bool isSpecijalna { get; set; }
 
     }
 }

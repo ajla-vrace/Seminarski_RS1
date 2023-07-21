@@ -15,9 +15,10 @@
       </div>
       <div class="detaljiTekst">
         <h1 style="text-align: center;">Proizvod detalji</h1>
-        <h3> Naziv: {{d.naziv}}</h3>
+        <h3> Proizvod: {{d.naziv}}</h3>
         <!--<h4> Cijena: {{d.cijena}} KM</h4>-->
-        <h3>Cijena: {{d.cijena}} KM</h3>
+        <h3 *ngIf="d.isSpecijalna==false">Cijena: {{d.cijena}} KM</h3>
+        <h3 *ngIf="d.isSpecijalna==true">Cijena: {{nadjiCijenu(d.id)}} KM</h3>
         <!--<h3>{{getCijena(d)}} KM</h3>-->
         <h5> Odjel:  {{d.odjelOpis}}</h5>
         <h5> Boja:  {{d.bojaOpis}}</h5>

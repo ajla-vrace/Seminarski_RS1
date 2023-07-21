@@ -49,7 +49,13 @@ export class ProizvodDetaljiComponent implements OnInit {
       this.proizvodiPodaciDetalji = x;
     });
   }
-
+  specijalnePonudePodaci:any;
+  fetchSpecijalnePonude() :void
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/api/SpecijalnaPonudaProizvod/Specijalne_ponude_proizvod_aktivne", MojConfig.http_opcije()).subscribe(x=>{
+      this.specijalnePonudePodaci = x;
+    });
+  }
 
   dostupneVelicine:any;
   fetchDostupneVelicine()
@@ -107,6 +113,7 @@ export class ProizvodDetaljiComponent implements OnInit {
       this.proizvod_id=+s["id"];
     })
     //this.fetchFavoriti();
+    this.fetchSpecijalnePonude();
     this.fetchDostupneVelicine();
     this.fetchKorpe();
     this.fetchProizvodiDetalji();
@@ -481,7 +488,13 @@ cijena:any;
   }
 
 
-
+  nadjiCijenu(id: any) {
+   // console.log("id: " + id);
+    const filtriranePonude = this.specijalnePonudePodaci.filter((a: any) => a.proizvodId == id);
+    const cijenaSaPopustom = filtriranePonude[0].cijenaSaPopustom;
+   // console.log("cijena: ", cijenaSaPopustom);
+    return cijenaSaPopustom;
+  }
 
 
 

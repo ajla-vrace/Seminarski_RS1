@@ -344,7 +344,8 @@ namespace OnlineShop.Modul1.Controllers
                 sezonaOpis = x.sezona.Naziv,
                 slika_postojeca = x.slika_postojeca,
                 evidentirao = x.evidentirao,
-                modifikovao = x.modifikovao
+                modifikovao = x.modifikovao,
+                isSpecijalna= (bool)x.isSpecijalna
             });
 
             return data.OrderByDescending(x => x.datum_kreiranja).ToList();
