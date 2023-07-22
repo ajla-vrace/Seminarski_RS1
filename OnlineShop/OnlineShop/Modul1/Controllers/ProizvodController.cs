@@ -388,7 +388,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpDelete]
-        [Autorizacija(Kupac:false,Zaposlenik:true,Admin:true)]
+        //[Autorizacija(Kupac:false,Zaposlenik:true,Admin:true)]
         public ActionResult ObrisiProizvod (int id)
         {
             Proizvod? p = context.Proizvod.Find(id);

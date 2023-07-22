@@ -135,34 +135,34 @@ namespace OnlineShop.Modul1.Controllers
                 foreach (var p in proizvodi)
                 {
 
-                    //    var skladisteProizvodi = context.SkladisteProizvod.Where(x => x.proizvodId == p.Id).ToList();
+                    var skladisteProizvodi = context.SkladisteProizvod.Where(x => x.proizvodId == p.Id).ToList();
 
-                    //    foreach (var sp in skladisteProizvodi)
-                    //    {
-                    //        context.Remove(sp);
-                    //        context.SaveChanges();
-                    //    }
-
-                    //    var specijalnaPonudaProizvodi = context.SpecijalnaPonudaProizvod.Where(x => x.proizvodId == p.Id).ToList();
-
-                    //    foreach (var spp in specijalnaPonudaProizvodi)
-                    //    {
-                    //        context.Remove(spp);
-                    //        context.SaveChanges();
-                    //    }
-
-
-                    //    context.Remove(p);
-                    //    context.SaveChanges();
-
-                    var proizvod = context.Proizvod.Find(p.Id);
-                    if (proizvod != null)
+                    foreach (var sp in skladisteProizvodi)
                     {
-                        proizvod.kolekcijaId = null;
-                      
-                        context.Update(proizvod);
+                        context.Remove(sp);
                         context.SaveChanges();
                     }
+
+                    var specijalnaPonudaProizvodi = context.SpecijalnaPonudaProizvod.Where(x => x.proizvodId == p.Id).ToList();
+
+                    foreach (var spp in specijalnaPonudaProizvodi)
+                    {
+                        context.Remove(spp);
+                        context.SaveChanges();
+                    }
+
+
+                    context.Remove(p);
+                    context.SaveChanges();
+
+                    //var proizvod = context.Proizvod.Find(p.Id);
+                    //if (proizvod != null)
+                    //{
+                    //    proizvod.kolekcijaId = null;
+                      
+                    //    context.Update(proizvod);
+                    //    context.SaveChanges();
+                    //}
                 }
             }
 

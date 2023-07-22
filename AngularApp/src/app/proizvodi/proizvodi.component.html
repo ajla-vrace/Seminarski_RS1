@@ -58,15 +58,15 @@
     <th scope="col">Odjel</th>
     <th scope="col">Kategorija</th>
     <th scope="col">Podkategorija</th>
-  <!--  <th scope="col">Kolekcija</th>
-    <th scope="col">Sezona</th> -->
+    <th scope="col">Kolekcija</th>
+    <th scope="col">Sezona</th>
     <th scope="col">Evidentirao</th>
     <th scope="col">Modifikovao</th>
     <th scope="col">Slika</th>
     <th></th>
     <th></th>
     <th></th>
-    <th></th>
+ <!--   <th></th> -->
   </tr>
   </thead>
   <tbody>
@@ -88,15 +88,15 @@
     <td>{{p.odjelOpis}}</td>
     <td>{{p.kategorijaOpis}}</td>
     <td>{{p.podkategorijaOpis}}</td>
- <!--   <td>{{p.kolekcijaOpis}}</td>
-    <td>{{p.sezonaOpis}}</td> -->
+    <td>{{p.kolekcijaOpis}}</td>
+    <td>{{p.sezonaOpis}}</td>
     <td>{{p.evidentirao}}</td>
     <td>{{p.modifikovao==null? "-" : p.modifikovao}}</td>
     <td> <img style="display:block; max-width: 100%; width:60%; height: 70px" src="{{get_slika_base64_FS(p)}}"></td>
     <td> <img style="display:block; max-width: 100%; height: 40px" src="assets/slike/pencil-square.svg" class="edit-btn" (click)="EditDugme(p)"></td>
     <td> <img style="display:block; max-width: 100%; height: 40px" src="assets/slike/x-square.svg" class="delete-btn" (click)="DeleteDugme(p)"></td>
-    <td> <button class="btn-dodaj-sliku" (click)="dodajSliku(p)">Slike</button></td>
-    <td> <button class="btn-sezkol" (click)="dodajSezonuIKolekcij(p.id, p)">Sezone/kolekcije</button></td>
+    <td> <button class="btn-dodaj-sliku" (click)="dodajSliku(p)">Dodaj sliku</button></td>
+  <!--  <td> <button class="btn-sezkol" (click)="dodajSezonuIKolekcij(p.id, p)">Sezone/kolekcije</button></td> -->
 
   </tr>
 
@@ -235,11 +235,11 @@
 
         </div>
 
-<!--
+
         <div class="mb-3" [class.has-error]="(sezonaControll.invalid && sezonaControll.touched) || sezone?.length==0">
           <label class="form-label">Sezona</label>
 
-          <select required #sezonaControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.sezonaId" (click)="getKolekcijeBySezonaID();" >
+          <select required #sezonaControll="ngModel" class="form-control" [(ngModel)]="odabrani_proizvod.sezonaId" (click)="getKolekcijeBySezonaID2();" >
             <option *ngFor="let s of sezone " [value]="s?.id"  >{{s.naziv}}</option>
 
           </select>
@@ -263,7 +263,7 @@
               Ovo polje je obavezno
           </span>
         </div>
--->
+
         <div class="mb-3">
           <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="odabrani_proizvod.aktivan">
           <label class="form-check-label" for="exampleCheck1" >Aktivan</label>
@@ -302,7 +302,7 @@
 
       </div>
       <div class="modal-footer">
-        <button [disabled]="jelOmogucenSave(sifraControll, sifraInput, nazivControll,cijenaControll,opisControll,bojaControll, podkatControll,katControll)" type="button" class="btn btn-primary" (click)="spasi(odabrani_proizvod)" >Spasi</button>
+        <button [disabled]="jelOmogucenSave(sifraControll, sifraInput, nazivControll,cijenaControll,opisControll,bojaControll, podkatControll,katControll, sezonaControll,kolekcijaControll)" type="button" class="btn btn-primary" (click)="spasi(odabrani_proizvod)" >Spasi</button>
       </div>
     </div>
   </div>

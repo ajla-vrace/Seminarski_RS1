@@ -187,7 +187,7 @@ export class SkladisteComponent implements OnInit {
       &&
       (
         this.kolicinaF?
-          x.kolicina==(this.kolicinaF) : niz
+          x.kolicina.toString().startsWith(this.kolicinaF.toString()) : niz
       )
     );
 
@@ -202,7 +202,7 @@ export class SkladisteComponent implements OnInit {
         return this.getFilterKolicinaNaziv(this.k_p_opadajuci);
       } else if (this.sortirajPoKolicina == "Količina rastući" && this.sortirajPoNaziv == "Proizvod rastući") {
         return this.getFilterKolicinaNaziv(this.k_p_rastuci);
-      } else if (this.sortirajPoNaziv == "Količina opadajući" && this.sortirajPoKolicina == "Proizvod rastući") {
+      } else if (this.sortirajPoKolicina == "Količina opadajući" && this.sortirajPoNaziv == "Proizvod rastući") {
         return this.getFilterKolicinaNaziv(this.k_opadajuci_p_rastuci);
       } else if (this.sortirajPoKolicina == "Količina rastući" && this.sortirajPoNaziv == "Proizvod opadajući") {
         return this.getFilterKolicinaNaziv(this.k_rastuci_p_opadajuci);
@@ -393,6 +393,7 @@ export class SkladisteComponent implements OnInit {
         this.getSkladista();
         this.obj_skladiste=null;
         alert("Uspješno ste sačuvali promjene.");
+
       })
   }
 

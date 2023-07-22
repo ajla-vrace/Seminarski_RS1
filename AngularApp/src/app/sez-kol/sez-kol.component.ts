@@ -88,6 +88,7 @@ export class SezKolComponent implements OnInit {
       this.getSezoneAktivne();
       this.getKolekcije();
 
+
       this.obj_sezona=null;
     })
   }
@@ -126,13 +127,13 @@ export class SezKolComponent implements OnInit {
     this.kliknuoEditSezona=false;
 
     /*
-    Brisanjem ovog zapisa, brišete sve kolekcije i proizvode koje koriste ovaj zapis. " +
-      "Savjetujemo Vam da umjesto brisanja izvršite modifikaciju zapisa. Ako ste sigurni da želite " +
-      "obrisati, molimo Vas da potvrdite sa OK.
+      "Brisanjem ovog zapisa, brišete sve kolekcije i poništava se ova sezona koju imaju neki od proizvoda." +
+      "Jeste li sigurni da želite obrisati ovaj zapis?"
     */
 
-    if(confirm("Brisanjem ovog zapisa, brišete sve kolekcije i poništava se ova sezona koju imaju neki od proizvoda." +
-      "Jeste li sigurni da želite obrisati ovaj zapis?")){
+    if(confirm("Brisanjem ovog zapisa, brišete sve kolekcije i proizvode koje koriste ovaj zapis. " +
+      "Savjetujemo Vam da umjesto brisanja izvršite modifikaciju zapisa. Ako ste sigurni da želite " +
+      "obrisati, molimo Vas da potvrdite sa OK.")){
 
       this.httpKlijent.delete(MojConfig.adresa_servera+"/api/Sezona?id="+s.id,MojConfig.http_opcije())
         .subscribe((x:any)=>{
@@ -151,12 +152,13 @@ export class SezKolComponent implements OnInit {
     this.kliknuoEditKolekcija=false;
 
     /*
-    "Brisanjem ovog zapisa, brišete sve proizvode koje koriste ovaj zapis. " +
-      "Savjetujemo Vam da umjesto brisanja izvršite modifikaciju zapisa. Ako ste sigurni da želite " +
-      "obrisati, molimo Vas da potvrdite sa OK."
+      Brisanjem ovog zapisa, poništava se ova kolekcija koja je zastupljena kod nekih proizvoda. " +
+      "Jeste li sigurni da želite obrisati ovaj zapis?
       */
-    if(confirm("Brisanjem ovog zapisa, poništava se ova kolekcija koja je zastupljena kod nekih proizvoda. " +
-      "Jeste li sigurni da želite obrisati ovaj zapis?"))
+
+    if(confirm("Brisanjem ovog zapisa, brišete sve proizvode koje koriste ovaj zapis. " +
+      "Savjetujemo Vam da umjesto brisanja izvršite modifikaciju zapisa. Ako ste sigurni da želite " +
+      "obrisati, molimo Vas da potvrdite sa OK."))
     {
       this.httpKlijent.delete(MojConfig.adresa_servera+"/api/Kolekcija?id="+k.id,MojConfig.http_opcije())
         .subscribe((x:any)=>{

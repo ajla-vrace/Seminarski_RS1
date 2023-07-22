@@ -136,10 +136,24 @@ export class ProizvodiComponent implements OnInit {
         else
           this.podkategorije=[];
       }
-
-
     })
   }
+
+  getKolekcijeBySezonaID2(){
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/getKolekcije?id="+
+      this.odabrani_proizvod.sezonaId,MojConfig.http_opcije())
+      .subscribe((x:any)=>{
+        this.kolekcije=x;
+        if(this.kliknuoEdit==false) //ako je dodavanje proizvoda, ovo ce bit difoltni kolekcijaID
+        {
+          if(this.kolekcije.length>0)
+            this.odabrani_proizvod.kolekcijaId=this.kolekcije[0]?.id;
+          else
+            this.kolekcije=[];
+        }
+      });
+  }
+
 
   sezonaDefaultno:any;
   kolekcijaDefaultno:any;
@@ -282,7 +296,7 @@ export class ProizvodiComponent implements OnInit {
     this.odabrani_proizvod.kolekcijaOpis="";
     this.odabrani_proizvod.sezonaOpis="";
     this.getPodkategorijeByKatID();
-   // this.getKolekcijeBySezonaID();
+    this.getKolekcijeBySezonaID2();
   }
 
   DeleteDugme(p: any) {
@@ -380,11 +394,11 @@ export class ProizvodiComponent implements OnInit {
     this.getKategorije();
     this.odabrani_proizvod.kategorijaId=this.kategorijaDefault; //difoltna vrijednost
     this.getPodkategorijeByKatID();
-/*
+
     this.getSezone();
-    this.odabrani_proizvod.sezonaId=1; //difotna vrijednost
-    this.getKolekcijeBySezonaID();
-*/
+    this.odabrani_proizvod.sezonaId=this.sezonaDefaultno; //difotna vrijednost
+    this.getKolekcijeBySezonaID2();
+
   }
 
 
@@ -399,11 +413,11 @@ export class ProizvodiComponent implements OnInit {
   jelOmogucenSave(sifraControll: NgModel, sifraInput: HTMLInputElement, nazivControll: NgModel, cijenaControll: NgModel, opisControll: NgModel,
                   bojaControll:NgModel,
                   podkatControll: NgModel, katControll: NgModel,
-  //                sezonaControll:NgModel, kolekcijaControll:NgModel
+                  sezonaControll:NgModel, kolekcijaControll:NgModel
   ) {
     if(this.kliknuoEdit==true){
       if(nazivControll.valid && cijenaControll.valid && opisControll.valid && this.boje?.length>0
-        && this.podkategorije?.length>0 && this.kategorije?.length>0 // && this.kolekcije?.length>0  && this.sezone?.length>0
+        && this.podkategorije?.length>0 && this.kategorije?.length>0 && this.kolekcije?.length>0  && this.sezone?.length>0
       ){
       //  console.log(this.podkategorije?.length);
         return false;
@@ -413,7 +427,7 @@ export class ProizvodiComponent implements OnInit {
     else{
       if(sifraControll.valid && this.dozvoljenaSifra(sifraInput.value) && nazivControll.valid && cijenaControll.valid && opisControll.valid
         && this.boje?.length>0
-        && this.podkategorije?.length>0 && this.kategorije?.length>0 // && this.kolekcije?.length>0  && this.sezone?.length>0
+        && this.podkategorije?.length>0 && this.kategorije?.length>0 && this.kolekcije?.length>0  && this.sezone?.length>0
       ){
         return false;
       }
