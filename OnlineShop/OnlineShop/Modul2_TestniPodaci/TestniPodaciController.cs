@@ -115,6 +115,10 @@ namespace OnlineShop.Modul2_TestniPodaci
             spol.Add(new Spol { Naziv = "Zenski" });
             spol.Add(new Spol { Naziv = "Muski" });
 
+            var datum1 = new DateTime(2023, 5, 3);
+            var datum2 = new DateTime(2023, 6, 4);
+            var datum3 = new DateTime(2023, 6, 12);
+
             proizvod.Add(
                 new Proizvod
                 {
@@ -122,8 +126,8 @@ namespace OnlineShop.Modul2_TestniPodaci
                     Naziv = "Majica sa izrezom",
                     Cijena = 30,
                     Opis = "Pamucna zenska majica" ,
-                    datum_kreiranja = DateTime.Now,
-                    datum_modifikacije = DateTime.Now,
+                    datum_kreiranja = datum1,
+                    datum_modifikacije = datum1,
                     Aktivan = true,
                     boja = boja[0],                 
                     odjel = odjel[0],                   
@@ -133,7 +137,8 @@ namespace OnlineShop.Modul2_TestniPodaci
                     sezona = sezona[0],  
                     slika_postojeca=Ekstenzije.ParsirajBase64(Slike.slika1),
                     evidentirao="nina",
-                    modifikovao="denis"
+                    modifikovao="denis",
+                    isSpecijalna=true
                 });
 
             proizvod.Add(
@@ -143,8 +148,8 @@ namespace OnlineShop.Modul2_TestniPodaci
                  Naziv = "Hlace kratke",
                  Cijena = 20,
                  Opis = "Zenske kratke hlace",
-                 datum_kreiranja = DateTime.Now,
-                 datum_modifikacije = DateTime.Now,
+                 datum_kreiranja = datum2,
+                 datum_modifikacije = datum3,
                  Aktivan = true,
                  boja = boja[2],
                  odjel = odjel[0],
@@ -154,7 +159,8 @@ namespace OnlineShop.Modul2_TestniPodaci
                  sezona = sezona[0],
                  slika_postojeca=Ekstenzije.ParsirajBase64(Slike.slika2),
                  evidentirao = "nina",
-                 modifikovao = "denis"
+                 modifikovao = "denis",
+                 isSpecijalna = true
              });
 
             proizvod.Add(
@@ -164,8 +170,8 @@ namespace OnlineShop.Modul2_TestniPodaci
                 Naziv = "Zenska majica",
                 Cijena = 20,
                 Opis = "Zenske klasicna majica",
-                datum_kreiranja = DateTime.Now,
-                datum_modifikacije = DateTime.Now,
+                datum_kreiranja = datum2,
+                datum_modifikacije = null,
                 Aktivan = true,
                 boja = boja[2],
                 odjel = odjel[0],
@@ -175,7 +181,8 @@ namespace OnlineShop.Modul2_TestniPodaci
                 sezona = sezona[0],
                 slika_postojeca = Ekstenzije.ParsirajBase64(Slike.slika3),
                 evidentirao = "nina",
-                modifikovao = "denis"
+                modifikovao = "",
+                isSpecijalna = false
             });
 
             proizvodSlika.Add(new ProizvodSlika
@@ -206,15 +213,21 @@ namespace OnlineShop.Modul2_TestniPodaci
             popust.Add(new Popust { Opis = 0.2f });
             popust.Add(new Popust { Opis = 0.1f });
 
-            specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Drama dan", datum_pocetka = DateTime.Now, datum_zavrsetka = DateTime.Now, aktivna=true });
-            specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Crni petak", datum_pocetka = DateTime.Now, datum_zavrsetka = DateTime.Now, aktivna=false});
+            var datum4 = new DateTime(2023, 7, 8);
+            var datum5 = new DateTime(2023, 7, 20);
+            var datum6 = new DateTime(2023, 6, 14);
+            var datum7 = new DateTime(2023, 6, 22);
+
+
+            specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Drama dan", datum_pocetka = datum4, datum_zavrsetka = datum5, aktivna=true });
+            specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Crni petak", datum_pocetka = datum6, datum_zavrsetka = datum7, aktivna=false});
           
             specijalnaPonudaProizvod.Add(new SpecijalnaPonudaProizvod { popust = popust[5], proizvod = proizvod[0], specijalnaPonuda = specijalnaPonuda[0], OriginalnaCijena=30, CijenaSaPopustom=18 });
             specijalnaPonudaProizvod.Add(new SpecijalnaPonudaProizvod { popust = popust[6], proizvod = proizvod[1], specijalnaPonuda = specijalnaPonuda[0], OriginalnaCijena=20, CijenaSaPopustom=14 });
 
             skladista.Add(new Skladiste
             {
-                Naziv = "Skladiste1",
+                Naziv = "Skladiste 1",
                 Adresa = "Ulica Bleiburskih zrtava",
                 BrojTelefona = "062333444",
                 grad = grad[0],
@@ -224,7 +237,7 @@ namespace OnlineShop.Modul2_TestniPodaci
 
             prodavnice.Add(new Prodavnica
             {
-                Naziv = "Prodavnica1",
+                Naziv = "Luna 1",
                 Adresa = "Brace Fejica",
                 BrojTelefona = "062555444",
                 grad = grad[0],
@@ -235,7 +248,7 @@ namespace OnlineShop.Modul2_TestniPodaci
 
             prodavnice.Add(new Prodavnica
             {
-                Naziv = "Prodavnica2",
+                Naziv = "Luna 2",
                 Adresa = "Marsala Tita",
                 BrojTelefona = "062444544",
                 grad = grad[1],
@@ -246,7 +259,7 @@ namespace OnlineShop.Modul2_TestniPodaci
 
             prodavnice.Add(new Prodavnica
             {
-                Naziv = "Prodavnica3",
+                Naziv = "Luna 3",
                 Adresa = "Sjeverni logor br 12",
                 BrojTelefona = "062555666",
                 grad = grad[0],
