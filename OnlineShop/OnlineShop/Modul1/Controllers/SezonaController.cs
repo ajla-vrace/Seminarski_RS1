@@ -103,6 +103,7 @@ namespace OnlineShop.Modul1.Controllers
 
             List<Kolekcija> kolekcije = context.Kolekcija.Where(x => x.sezonaId == id).ToList();
             List<Proizvod> proizvodi = context.Proizvod.Where(x => x.sezonaId == id).ToList();
+            
 
             if (kolekcije.Count() > 0)
             {
@@ -131,6 +132,14 @@ namespace OnlineShop.Modul1.Controllers
                     foreach (var spp in specijalnaPonudaProizvodi)
                     {
                         context.Remove(spp);
+                        context.SaveChanges();
+                    }
+
+                    var proizvodSlike = context.ProizvodSlika.Where(x => x.proizvodId == p.Id).ToList();
+                    
+                    foreach (var ps in proizvodSlike)
+                    {
+                        context.Remove(ps);
                         context.SaveChanges();
                     }
 

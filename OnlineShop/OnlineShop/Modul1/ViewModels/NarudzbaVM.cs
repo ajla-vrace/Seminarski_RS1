@@ -20,5 +20,6 @@ namespace OnlineShop.Modul1.ViewModels
         public bool? jel_kliknuo_otkazana { get; set; }
         public bool jel_promijenjen_status { get; set; }
        // public bool? modifikovao { get; set; }
+       public bool jel_poslan_mail { get; set; }
     }
 }

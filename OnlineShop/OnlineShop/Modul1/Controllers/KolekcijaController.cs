@@ -151,6 +151,13 @@ namespace OnlineShop.Modul1.Controllers
                         context.SaveChanges();
                     }
 
+                    var proizvodSlike = context.ProizvodSlika.Where(x => x.proizvodId == p.Id).ToList();
+
+                    foreach (var ps in proizvodSlike)
+                    {
+                        context.Remove(ps);
+                        context.SaveChanges();
+                    }
 
                     context.Remove(p);
                     context.SaveChanges();

@@ -115,6 +115,31 @@ namespace OnlineShop.Modul1.Controllers
             {
                 foreach (var p in list_p)
                 {
+
+                    var skladisteProizvodi = context.SkladisteProizvod.Where(x => x.proizvodId == p.Id).ToList();
+
+                    foreach (var sp in skladisteProizvodi)
+                    {
+                        context.Remove(sp);
+                        context.SaveChanges();
+                    }
+
+                    var specijalnaPonudaProizvodi = context.SpecijalnaPonudaProizvod.Where(x => x.proizvodId == p.Id).ToList();
+
+                    foreach (var spp in specijalnaPonudaProizvodi)
+                    {
+                        context.Remove(spp);
+                        context.SaveChanges();
+                    }
+
+                    var proizvodSlike = context.ProizvodSlika.Where(x => x.proizvodId == p.Id).ToList();
+
+                    foreach (var ps in proizvodSlike)
+                    {
+                        context.Remove(ps);
+                        context.SaveChanges();
+                    }
+
                     context.Remove(p);
                     context.SaveChanges();
                 }

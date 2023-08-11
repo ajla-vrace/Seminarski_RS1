@@ -479,10 +479,20 @@ export class SpecPonComponent implements OnInit {
       if(i.specijalnaPonudaId==this.obj_spp.specijalnaPonudaId)
         brojac++;
     }
-    if(brojac>=4 || (this.pr_rastuci?.length==0 && this.specijalne_ponude?.length==0 && this.popusti?.length==0))
+    if(brojac>=4 || (this.pr_rastuci?.length==0 && this.specijalne_ponude?.length==0 && this.popusti?.length==0) ||
+    this.postojiIstiProizvodZaJednuSP()==true)
       return true;
     else return false;
   }
+
+  postojiIstiProizvodZaJednuSP(){
+    for (let i of this.specijalne_ponude_proizvodi){
+      if(this.obj_spp.specijalnaPonudaId==i.specijalnaPonudaId && this.obj_spp.proizvodId==i.proizvodId)
+        return true;
+    }
+    return false;
+  }
+
 
   SaljiMailSpecijalnePonude() {
     this.httpKlijent.post(MojConfig.adresa_servera + "/api/EmailPretplata/PosaljiSpecijalnePonude", {},

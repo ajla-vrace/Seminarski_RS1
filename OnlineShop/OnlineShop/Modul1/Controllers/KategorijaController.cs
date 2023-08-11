@@ -93,14 +93,37 @@ namespace OnlineShop.Modul1.Controllers
                 }
             }
            
-
             List<Podkategorija> lista_pk = context.Podkategorija.Where(x => x.KategorijaId == id).ToList();
 
             if (lista_pk.Count() > 0)
             {
-                foreach (var item in lista_pk)
+                foreach (var p in lista_pk)
                 {
-                    context.Remove(item);
+                    var skladisteProizvodi = context.SkladisteProizvod.Where(x => x.proizvodId == p.Id).ToList();
+
+                    foreach (var sp in skladisteProizvodi)
+                    {
+                        context.Remove(sp);
+                        context.SaveChanges();
+                    }
+
+                    var specijalnaPonudaProizvodi = context.SpecijalnaPonudaProizvod.Where(x => x.proizvodId == p.Id).ToList();
+
+                    foreach (var spp in specijalnaPonudaProizvodi)
+                    {
+                        context.Remove(spp);
+                        context.SaveChanges();
+                    }
+
+                    var proizvodSlike = context.ProizvodSlika.Where(x => x.proizvodId == p.Id).ToList();
+
+                    foreach (var ps in proizvodSlike)
+                    {
+                        context.Remove(ps);
+                        context.SaveChanges();
+                    }
+
+                    context.Remove(p);
                     context.SaveChanges();
                 }
             }

@@ -410,7 +410,8 @@ namespace OnlineShop.Modul1.Controllers
                     Status = x.Status,
                     PrethodniStatus=x.PrethodniStatus,
                     jel_kliknuo_otkazana=x.jel_kliknuo_otkazana,
-                    jel_promijenjen_status=x.jel_promijenjen_status
+                    jel_promijenjen_status=x.jel_promijenjen_status,
+                    jel_poslan_mail=x.jel_poslana_prouka
                 }).ToList(); 
             else if (status !="Sve")
                 podaci = _dbContext.Narudzba.OrderByDescending(x => x.Id).Where(x => x.Status == status).Select(x => new NarudzbaVM
@@ -428,7 +429,8 @@ namespace OnlineShop.Modul1.Controllers
                     Status = x.Status,
                     PrethodniStatus = x.PrethodniStatus,
                     jel_kliknuo_otkazana = x.jel_kliknuo_otkazana,
-                    jel_promijenjen_status = x.jel_promijenjen_status
+                    jel_promijenjen_status = x.jel_promijenjen_status,
+                    jel_poslan_mail = x.jel_poslana_prouka
                 }).ToList();
             return Ok(podaci);
         }

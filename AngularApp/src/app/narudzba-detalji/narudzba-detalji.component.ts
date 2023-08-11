@@ -86,7 +86,7 @@ export class NarudzbaDetaljiComponent implements OnInit {
   porukaNova:any="Poruka u statusu Nova";
   porukaOtkazana: any="...";
   porukaSpremna:any="Vaša narudžba je spremna za preuzeti već od sutra.";
-  porukaPonistena:any="Vaša narudžba je odgođena jer trenutno nemamo zaliha proizvoda kojeg naručujete.";
+  porukaPonistena:any="Vaša narudžba je poništena jer ...";
   porukaPreuzeta:any="Vaša narudžba je preuzeta!";
   _poruka:any="";
   _naslov:any="Obavještenje o narudžbi";
@@ -125,7 +125,7 @@ export class NarudzbaDetaljiComponent implements OnInit {
   obj_status:any;
   promijeniStatus(){
     this.obj_status={
-      narudzbaId:this.narudzbaDetalji?.narudzba?.id,
+      narudzbaId:this.narudzba_id, // this.narudzbaDetalji?.narudzba?.id,
       status:this.narudzbaDetalji?.narudzba?.status,
       evidentirao:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username,
     }

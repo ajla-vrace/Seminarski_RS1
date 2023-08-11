@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
 import {ActivatedRoute} from "@angular/router";
 
+declare function porukaInfo(a: string):any;
+
 @Component({
   selector: 'app-kat-podkat',
   templateUrl: './kat-podkat.component.html',
@@ -277,16 +279,28 @@ export class KatPodkatComponent implements OnInit {
 
   }
 
+
+  objekat_za_obrisati:any;
+  kliknuoObrisi:boolean=false;
+  jelKategorija:boolean=false;
+  jelPodkategorija:boolean=false;
+
   obrisiPodkat(p:any) {
     this.jel_edit=false;
-    if (confirm("Brisanjem ovog podatka brišete i sve proizvode koji sadrže ovaj podatak." +
-      "Da li želite izvršiti brisanje?")){
+  //  if (confirm("Brisanjem ovog podatka brišete i sve proizvode koji sadrže ovaj podatak." +
+    //  "Da li želite izvršiti brisanje?"))
+    {
       this.httpKlijent.delete(MojConfig.adresa_servera+"/api/Podkategorija?id="+p.id)
         .subscribe((x:any)=>{
           this.getPodkategorije();
-          alert("Uspješno obrisano.");
+          this.getPodkategorijePaged();
+         porukaInfo("Uspješno obrisan zapis.");
         })
     }
+    this.objekat_za_obrisati=null;
+    this.kliknuoObrisi=false;
+    this.jelKategorija=false;
+    this.jelPodkategorija=false;
 
   }
 
@@ -307,14 +321,21 @@ export class KatPodkatComponent implements OnInit {
 
   obrisiKat(p: any) {
     this.jel_edit_kat=false;
-    if (confirm("Brisanjem ovog podatka brišete sve proizvode i podkategorije koje sadrže ovaj podatak." +
-      "Da li želite izvršiti brisanje?")){
+  //  if (confirm("Brisanjem ovog podatka brišete sve proizvode i podkategorije koje sadrže ovaj podatak." +
+    //  "Da li želite izvršiti brisanje?"))
+    {
       this.httpKlijent.delete(MojConfig.adresa_servera+"/api/Kategorija?id="+p.id)
         .subscribe((x:any)=>{
           this.getKategorije();
-          alert("Uspješno obrisano.");
+          this.getKategorijePaged();
+          //alert("Uspješno obrisano.");
+          porukaInfo("Uspješno obrisan zapis.");
         })
     }
+    this.objekat_za_obrisati=null;
+    this.kliknuoObrisi=false;
+    this.jelKategorija=false;
+    this.jelPodkategorija=false;
   }
 
 

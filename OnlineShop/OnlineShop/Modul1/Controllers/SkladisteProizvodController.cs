@@ -343,7 +343,7 @@ namespace OnlineShop.Modul1.Controllers
                         //nece se pojaviti ista stavka u skladistu jer je ogranicenje da se ne moze dva puta dodati ista velicina za jedan proizvod
                         var sk = context.SkladisteProizvod.Where(x => x.proizvodId == stavka.ProizvodId
                         && x.velicina == stavka.Velicina && x.kolicina >= stavka.Kolicina).ToList();
-                        skladiste = sk.Count()==0 ? sk[0] : null;
+                        skladiste = sk.Count()>0 ? sk[0] : null;
                         if (skladiste != null)
                         {
                             skladiste.kolicina = skladiste.kolicina - stavka.Kolicina;
@@ -365,7 +365,7 @@ namespace OnlineShop.Modul1.Controllers
                             //nece se pojaviti ista stavka u skladistu jer je ogranicenje da se ne moze dva puta dodati ista velicina za jedan proizvod
                             var sk = context.SkladisteProizvod.Where(x => x.proizvodId == stavke[i].ProizvodId
                             && x.velicina == stavke[i].Velicina).ToList();
-                            skladiste = sk.Count() == 0 ? sk[0] : null;
+                            skladiste = sk.Count() > 0 ? sk[0] : null;
 
                             if (skladiste!=null)
                             {
