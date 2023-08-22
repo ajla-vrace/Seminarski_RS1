@@ -1,6 +1,13 @@
 #onama{
-  width: 80%;
-  margin:  5% 10%;
-  padding: 5%;
+  width: 100%;
+ /* margin:  7% 10%;*/
+  padding: 5% 20%;
   background-color: lightgray;
+  padding-bottom: 10%;
+  background-image: linear-gradient(lightskyblue, lightpink);
+  text-align: justify;
+}
+#NaslovONama{
+  text-align: center;
+  margin-bottom: 3%;
 }
