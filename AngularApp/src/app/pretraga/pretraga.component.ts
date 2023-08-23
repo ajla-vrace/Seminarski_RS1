@@ -105,7 +105,7 @@ export class PretragaComponent implements OnInit {
     this.fetchFavoriti();
     this.fetchKorpe();
     this.fetchKorpstavke();
-    this.fetchKategorijeByOdjel();
+    //this.fetchKategorijeByOdjel();
     this.fetchBoje();
     this.fetchSezone();
     this.fetchKolekcije();
@@ -165,7 +165,7 @@ export class PretragaComponent implements OnInit {
 
 
   }
-  fetchKategorijeByOdjel(){
+ /* fetchKategorijeByOdjel(){
 
     this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Kategorija/1", MojConfig.http_opcije()).subscribe(x=>{
       this.kategorijePodaci = x;
@@ -173,7 +173,7 @@ export class PretragaComponent implements OnInit {
 
 
   }
-
+*/
   fetchPodkategorijeByKategorija(){
 
     this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Kategorija/GetPodkategorije?katID="+this.idkategorije, MojConfig.http_opcije()).subscribe(x=>{

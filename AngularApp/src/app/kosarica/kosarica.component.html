@@ -7,8 +7,8 @@
 
 <h1 *ngIf="loginInfo().isLogiran==false">Košarica</h1>
 <div id="naslovKosarice">
-  <h2>Košarica</h2>
-  <h5>Pogledajte proizvode koje ste dodali u košaricu.</h5>
+  <h1 style="margin-top: 3%;">Košarica</h1>
+  <h4>Pogledajte proizvode koje ste dodali u košaricu.</h4>
  <!-- <h4 *ngIf="korpaStavkePodaci!=0">Pogledajte proizvode koje ste dodali u košaricu.</h4>-->
 <div *ngIf="korpaStavkePodaci==0">
   <div id="praznaKorpaDiv"><img src="assets/slike/emptycart.png" id="praznaKorpaSlika"> </div>
@@ -52,11 +52,11 @@ kupac id:
     <h3 style="text-align: center;margin-bottom: 10%" >Ukratko o košarici </h3>
     <div *ngIf="KorpePodaciIme!=undefined">
 
-      <h5 style="margin-bottom: 5%" *ngIf="KorpePodaci!=undefined">Imate ukupno proizvoda: {{this.KorpePodaciIme[0].ukupnoProizvoda}}</h5>
+      <h5 style="margin-bottom: 5%" *ngIf="KorpePodaci!=undefined">Imate ukupno proizvoda: {{this.KorpePodaciIme[0]?.ukupnoProizvoda}}</h5>
      <!-- <h5 style="margin-bottom: 5%" *ngIf="KorpePodaciIme!=undefined">Imate ukupno proizvoda: {{racun()}}</h5>-->
 
       <div>
-        <h5 style="display: inline;margin-bottom: 5%" *ngIf="KorpePodaci!=undefined">Suma: {{this.KorpePodaciIme[0].total}} KM</h5>
+        <h5 style="display: inline;margin-bottom: 5%" *ngIf="KorpePodaci!=undefined">Suma: {{this.KorpePodaciIme[0]?.total}} KM</h5>
       </div>
 
     </div>

@@ -1,6 +1,15 @@
 #pravila{
-  width: 80%;
-  margin:  5% 10%;
-  padding: 5%;
+  width: 100%;
+ /* margin:  5% 10%;*/
+  padding: 5% 15%;
+
   background-color: lightgray;
+}
+#izjavaprivatnostNaslov{
+  margin: 1%;
+  text-align: center;
+  margin-bottom: 5%;
+}
+#naslovMali{
+  margin-bottom: 5%;
 }

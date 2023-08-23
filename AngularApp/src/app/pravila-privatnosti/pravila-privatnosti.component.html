@@ -1,6 +1,6 @@
 <app-neregistrovan *ngIf="loginInfo().isLogiran==false"></app-neregistrovan>
 <div id="pravila">
-  <h2 style="margin: 1%; text-align: center;">IZJAVA O PRIVATNOSTI</h2>
+  <h2 id="izjavaprivatnostNaslov">IZJAVA O PRIVATNOSTI</h2>
   <p>
 
     Luna se obvezuje da neće zloupotrebljavati osobne podatke iz obrasca narudžbe. Osobnim podacima smatraju se svi podaci
@@ -36,7 +36,8 @@
     Osim u slučaju elektronske narudžbe, u drugim slučajevima Luna neće kupcu slati elektronske poruke ako na to kupac nije
     izričito pristao.
   </p>
-  <b>Zaštita osobnih podataka - općenito</b>
+  <b id="naslovMali">Zaštita osobnih podataka - općenito</b>
+
   <p>
     Vaša privatnost i sigurnost vaših osobnih podataka su nama važni, zato pratimo načela transparentnosti i postupamo u
     skladu s Općom uredbom o zaštiti osobnih podataka (eng. General Data Protection Regulation – GDPR) i Zakonom o zaštiti
