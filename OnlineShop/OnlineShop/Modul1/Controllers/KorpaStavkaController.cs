@@ -373,7 +373,8 @@ namespace OnlineShop.Modul1.Controllers
         
         public ActionResult GetKategorijeByOdjel(int odjel_id)
         {
-            var data = _dbContext.Proizvod.Where(x => x.odjelId == odjel_id)
+            var data = _dbContext.Proizvod.Where(x => x.odjelId == odjel_id
+            && x.Aktivan==true && x.isSpecijalna==false)
                 .Select(x => new
                 {
                     id = x.kategorijaId,
@@ -388,7 +389,7 @@ namespace OnlineShop.Modul1.Controllers
         {
             var data = _dbContext.Proizvod
                 .Where(x => x.odjelId == odjel_id && x.kategorijaId==kategorija_id
-                && x.Aktivan==true)
+                && x.Aktivan==true && x.isSpecijalna==false)
                 .Select(x => new
                 {
                     id = x.podkategorijaId,
@@ -398,6 +399,24 @@ namespace OnlineShop.Modul1.Controllers
                 }
                 )
                 .Distinct().ToList();
+            return Ok(data);
+        }
+        [HttpGet]
+        //[Autorizacija(Kupac:false,Zaposlenik:false, Admin:true)]
+        public ActionResult GetKolekcije()
+        {
+            var data = _dbContext.Proizvod
+                .Where(x=>x.Aktivan==true && x.isSpecijalna==false
+               )
+                .Select(x => new
+                {
+                    Id = x.Id,
+                    Naziv = x.kolekcija.Naziv,
+                    
+                    sezonaId = x.sezonaId,
+                    sezonaOpis = x.sezona.Naziv,
+                    
+                }).ToList().OrderByDescending(x => x.Id);
             return Ok(data);
         }
 

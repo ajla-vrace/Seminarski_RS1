@@ -92,14 +92,19 @@ odabranaKolekcija:any="";
       this.sezonePodaci = x;
     });
   }
-  fetchKolekcije()
+  fetchKolekcije1()
   {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/api/Kolekcija/aktivna", MojConfig.http_opcije()).subscribe(x=>{
       this.kolekcijePodaci = x;
     });
   }
 
-
+  fetchKolekcije()
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetKolekcije", MojConfig.http_opcije()).subscribe(x=>{
+      this.kolekcijePodaci = x;
+    });
+  }
   idkategorije: any="";
   fetchFavoriti() :void
   {
