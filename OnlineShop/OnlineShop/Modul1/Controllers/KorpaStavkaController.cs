@@ -387,7 +387,8 @@ namespace OnlineShop.Modul1.Controllers
         public ActionResult GetPodkategorijeByOdjel(int odjel_id, int kategorija_id)
         {
             var data = _dbContext.Proizvod
-                .Where(x => x.odjelId == odjel_id && x.kategorijaId==kategorija_id)
+                .Where(x => x.odjelId == odjel_id && x.kategorijaId==kategorija_id
+                && x.Aktivan==true)
                 .Select(x => new
                 {
                     id = x.podkategorijaId,

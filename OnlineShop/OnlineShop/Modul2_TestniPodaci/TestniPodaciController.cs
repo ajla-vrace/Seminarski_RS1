@@ -177,7 +177,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                 odjel = odjel[0],
                 kategorija = kategorija[0],
                 podkategorija = podkategorija[0],
-                kolekcija = kolekcija[2],
+                kolekcija = kolekcija[0],
                 sezona = sezona[0],
                 slika_postojeca = Ekstenzije.ParsirajBase64(Slike.slika3),
                 evidentirao = "nina",

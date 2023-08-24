@@ -3,6 +3,7 @@
   margin: 1%;
   position: relative;
   border: 1px solid grey;
+
 }
 .tekst{
   text-align: center;
@@ -12,11 +13,13 @@
 #slikaFavorit{
   background-color: white;
   width: 100%;
-  height: 100%;
+  height: 200px;
   margin: auto;
 }
 .FavoritSlikaSamo{
-  width: 200px;
+  /*width: 200px;*/
+  width: 100%;
+  height: 200px;
 }
 li{
   list-style: none;

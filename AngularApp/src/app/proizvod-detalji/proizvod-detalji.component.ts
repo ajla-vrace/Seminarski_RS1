@@ -107,7 +107,7 @@ export class ProizvodDetaljiComponent implements OnInit {
   novaKorpa:any;
 
   ngOnInit(): void {
-     this.kupac_id = this.loginInfo().isLogiran ? this.loginInfo().autentifikacijaToken.korisnickiNalogId : 0;
+     this.kupac_id = this.loginInfo().isLogiran==true ? this.loginInfo().autentifikacijaToken.korisnickiNalogId : 0;
 
    this.route.params.subscribe(s=>{
       this.proizvod_id=+s["id"];
