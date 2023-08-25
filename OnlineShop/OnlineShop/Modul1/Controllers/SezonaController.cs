@@ -67,6 +67,22 @@ namespace OnlineShop.Modul1.Controllers
             }).ToList().OrderByDescending(x => x.Id).AsQueryable();
         }
 
+        [HttpGet("sezone_kolekcija")]
+        // [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
+        public IQueryable<SezonaVM> GetAllSezone()
+        {
+            var sezone_koje_imaju_kolekciju = context.Kolekcija.Select(x => x.sezonaId).Distinct().ToList();
+
+            return context.Sezona.Where(x=>sezone_koje_imaju_kolekciju.Contains(x.Id)).Select(x => new SezonaVM
+            {
+                Id = x.Id,
+                Naziv = x.Naziv,
+                Doba = x.Doba,
+                Godina = x.Godina,
+                Aktivna = x.Aktivna
+            }).ToList().OrderByDescending(x => x.Id).AsQueryable();
+        }
+
         [HttpPost]
         [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult Snimi(SezonaVM x)

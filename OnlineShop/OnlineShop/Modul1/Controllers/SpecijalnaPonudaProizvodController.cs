@@ -191,7 +191,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpPost("post_sp")]
-        [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
+       // [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult SnimiSP(SpecijalnePonudeVM x)
         {
             SpecijalnaPonuda? sp;
@@ -275,7 +275,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpPost("post_spp")]
-        [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
+        //[Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult SnimiSPP(SpecijalnePonudeProizvodVM x)
         {
             SpecijalnaPonudaProizvod? spp;
@@ -321,7 +321,7 @@ namespace OnlineShop.Modul1.Controllers
         }
 
         [HttpPost("post_popust")]
-        [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
+      //  [Autorizacija(Kupac: false, Zaposlenik: false, Admin: true)]
         public ActionResult SnimiPopust(PopustVM x)
         {
             Popust? p;

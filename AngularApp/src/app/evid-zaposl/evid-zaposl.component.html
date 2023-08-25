@@ -233,7 +233,7 @@
 
         </div>
 
-        <div class="mb-3" [class.has-error]="loz.invalid && loz.touched">
+        <div *ngIf="jel_edit==false" class="mb-3" [class.has-error]="loz.invalid && loz.touched">
           <label class="form-label">Lozinka</label>
           <input type="password" class="form-control" placeholder="lozinka"
                  required pattern="^[a-zA-Z\d\s!#$%&=@]{3,}$" [disabled]="jel_edit"
@@ -245,7 +245,7 @@
 
         </div>
 
-        <div class="mb-3" [class.has-error]="ponovo_loz!==zaposlenik_obj.lozinka && lozPonovo.touched && lozPonovo.invalid && jel_edit==false">
+        <div class="mb-3"  *ngIf="jel_edit==false" [class.has-error]="ponovo_loz!==zaposlenik_obj.lozinka && lozPonovo.touched && lozPonovo.invalid && jel_edit==false">
           <label class="form-label">Ponovi lozinku</label>
           <input type="password" class="form-control" [disabled]="jel_edit"
                  required #lozPonovo="ngModel" [(ngModel)]="ponovo_loz"
@@ -261,7 +261,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary"
-                [disabled]="!jelDozvoljenSave(ime,prezime,jmbg,dtmRod,adresa,email,tel,dtmZaposl,korIme,loz,lozPonovo)"
+                [disabled]="!jelDozvoljenSave(ime,prezime,jmbg,dtmRod,adresa,email,tel,dtmZaposl,korIme)"
                 (click)="snimiDugme()" >Snimi</button>
       </div>
     </div>

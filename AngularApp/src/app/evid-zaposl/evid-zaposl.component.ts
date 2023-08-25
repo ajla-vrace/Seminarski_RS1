@@ -149,15 +149,12 @@ export class EvidZaposlComponent implements OnInit {
   }
 
   snimiDugme() {
-    this.jel_edit=false;
-
     this.httpKlijent.post(MojConfig.adresa_servera+"/api/Zaposlenik", this.zaposlenik_obj, MojConfig.http_opcije())
       .subscribe((x:any)=>{
       this.getZaposlenike();
       this.zaposlenik_obj=null;
-
+      this.jel_edit=false;
       //this.zaposlnik_obj.datumZaposlenja= this.zaposlnik_obj.datumZaposlenja + "T00:00:00.000"
-
       })
   }
 
@@ -232,16 +229,18 @@ export class EvidZaposlComponent implements OnInit {
 
   //ime.valid, prezime.valid.... to nek budu parametri
   jelDozvoljenSave(ime: NgModel, prezime: NgModel, jmbg: NgModel, dtmRod: NgModel, adresa: NgModel,
-                   email: NgModel, tel:NgModel, dtmZaposl: NgModel, korIme: NgModel, loz: NgModel, lozPonovo: NgModel) {
+                   email: NgModel, tel:NgModel, dtmZaposl: NgModel, korIme: NgModel) {
 
     console.log(ime.valid,prezime.valid,jmbg.valid,!this.postojiJMBG(jmbg.value),dtmRod.valid,
       adresa.valid,email.valid,!this.postojiMail(email.value),
-      tel.valid , !(this.postojiTel(tel.value)), dtmZaposl.valid, korIme.valid , loz.valid ,
-      lozPonovo.valid , !this.postojiKorIme(korIme.value))
+      tel.valid , !(this.postojiTel(tel.value)), dtmZaposl.valid, korIme.valid , this.zaposlenik_obj.lozinka!="",
+      this.ponovo_loz!="", !this.postojiKorIme(korIme.value))
 
     if(this.jel_edit==false){
       if(ime.valid && prezime.valid && jmbg.valid && !this.postojiJMBG(jmbg.value) && dtmRod.valid && adresa.valid && email.valid && !this.postojiMail(email.value)
-        && tel.valid && !(this.postojiTel(tel.value)) && dtmZaposl.valid && korIme.valid && loz.valid && lozPonovo.valid && !this.postojiKorIme(korIme.value)
+        && tel.valid && !(this.postojiTel(tel.value)) && dtmZaposl.valid && korIme.valid && this.zaposlenik_obj.lozinka!="" &&
+        this.ponovo_loz!="" && this.ponovo_loz==this.zaposlenik_obj.lozinka &&
+        !this.postojiKorIme(korIme.value)
       && this.prodavnice?.length>0 && this.spolovi?.length>0){
         return true;
       }

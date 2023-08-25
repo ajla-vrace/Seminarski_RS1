@@ -4,7 +4,7 @@
 
   <div class="filtriranje">
  <div class="pretraga-div">
-  <input class="pretrazi-proizvode" type="text" placeholder="pretrazi po nazivu, opisu, boji, kategoriji, podkategoriji..." #pretraga_proizvoda>
+  <input class="pretrazi-proizvode" type="text" placeholder="pretrazi po nazivu, opisu, boji, kategoriji, podkategoriji..." #pretraga_proizvoda [(ngModel)]="pretraga_vrijednost">
   <img class="img-search" src="assets/slike/search.svg" (click)="kliknuoPretrazi=true">
  </div>
 
@@ -53,15 +53,15 @@
     <th scope="col">Cijena</th>
 <!--    <th scope="col">Opis</th>-->
     <th scope="col">Datum kreiranja</th>
-    <th scope="col">Datum modifikacije</th>
+    <th scope="col">Datum modif.</th>
     <th scope="col">Aktivan</th>
     <th scope="col">Odjel</th>
     <th scope="col">Kategorija</th>
     <th scope="col">Podkategorija</th>
     <th scope="col">Kolekcija</th>
     <th scope="col">Sezona</th>
-    <th scope="col">Evidentirao</th>
-    <th scope="col">Modifikovao</th>
+    <th scope="col">Evident.</th>
+    <th scope="col">Modifik.</th>
     <th scope="col">Slika</th>
     <th></th>
     <th></th>
@@ -70,8 +70,8 @@
   </tr>
   </thead>
   <tbody>
-  <!--proizvodi-->
-  <tr *ngFor="let p of getFilterProizvodi(pretraga_proizvoda.value) | paginate:
+  <!--proizvodi       (pretraga_proizvoda.value)-->
+  <tr *ngFor="let p of getFilterProizvodi() | paginate:
   {
   itemsPerPage: 5,
   currentPage:page,
@@ -112,7 +112,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLiveLabel" > {{naslov}} </h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="odabrani_proizvod=null; getProizvodOpadajuci(); "></button>
+        <button type="button" class="btn-close" aria-label="Close" (click)="odabrani_proizvod=null; getProizvodOpadajuci(); getProizvodRastuci();"></button>
       </div>
       <div class="modal-body">
 
@@ -302,7 +302,8 @@
 
       </div>
       <div class="modal-footer">
-        <button [disabled]="jelOmogucenSave(sifraControll, sifraInput, nazivControll,cijenaControll,opisControll,bojaControll, podkatControll,katControll, sezonaControll,kolekcijaControll)" type="button" class="btn btn-primary" (click)="spasi(odabrani_proizvod)" >Spasi</button>
+        <button [disabled]="jelOmogucenSave(sifraControll, sifraInput, nazivControll,cijenaControll,opisControll,bojaControll, podkatControll,katControll, sezonaControll,kolekcijaControll)" type="button" class="btn btn-primary"
+                (click)="spasi(odabrani_proizvod)" >Spasi</button>
       </div>
     </div>
   </div>

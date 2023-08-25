@@ -122,14 +122,14 @@ namespace OnlineShop.Modul2_TestniPodaci
             proizvod.Add(
                 new Proizvod
                 {
-                    Sifra = 123,
-                    Naziv = "Majica sa izrezom",
+                    Sifra = 132,
+                    Naziv = "Klasicna zenska majica",
                     Cijena = 30,
                     Opis = "Pamucna zenska majica" ,
                     datum_kreiranja = datum1,
                     datum_modifikacije = datum1,
                     Aktivan = true,
-                    boja = boja[0],                 
+                    boja = boja[4],                 
                     odjel = odjel[0],                   
                     kategorija = kategorija[0],                  
                     podkategorija = podkategorija[0],                   
@@ -145,16 +145,16 @@ namespace OnlineShop.Modul2_TestniPodaci
              new Proizvod
              {
                  Sifra = 133,
-                 Naziv = "Hlace kratke",
+                 Naziv = "Muske hlace",
                  Cijena = 20,
-                 Opis = "Zenske kratke hlace",
+                 Opis = "Muske pamucne hlace",
                  datum_kreiranja = datum2,
                  datum_modifikacije = datum3,
                  Aktivan = true,
-                 boja = boja[2],
-                 odjel = odjel[0],
+                 boja = boja[3],
+                 odjel = odjel[1],
                  kategorija = kategorija[1],
-                 podkategorija = podkategorija[2],
+                 podkategorija = podkategorija[4],
                  kolekcija = kolekcija[2],
                  sezona = sezona[0],
                  slika_postojeca=Ekstenzije.ParsirajBase64(Slike.slika2),
@@ -166,14 +166,14 @@ namespace OnlineShop.Modul2_TestniPodaci
             proizvod.Add(
             new Proizvod
             {
-                Sifra = 133,
+                Sifra = 134,
                 Naziv = "Zenska majica",
                 Cijena = 20,
                 Opis = "Zenske klasicna majica",
                 datum_kreiranja = datum2,
                 datum_modifikacije = null,
                 Aktivan = true,
-                boja = boja[2],
+                boja = boja[3],
                 odjel = odjel[0],
                 kategorija = kategorija[0],
                 podkategorija = podkategorija[0],
@@ -378,7 +378,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                 AdresaStanovanja = "Adresa42",
                 JMBG = "3241567483777",
                 Prodavnica = prodavnice[1],
-                jelObavijesten = false
+                jelObavijesten = true
             });
 
             /*

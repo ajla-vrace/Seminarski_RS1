@@ -98,7 +98,7 @@
    <!--     <td>{{formatDatum(n.datumPreuzimanja)}}</td> -->
         <td>{{n.ukupno}}</td>
         <td>{{n.ukupnoProizvoda}}</td>
-        <td>{{n.evidentirao}}</td>
+        <td>{{n.evidentirao!=null?n.evidentirao:"-"}}</td>
         <td>{{n.jel_poslan_mail==true?"Da":"Ne"}}</td>
         <td>{{n.nazivProdavnice}}</td>
         <td><h6><b *ngIf="n.status=='Nova'" style="color:#ffc61c"> {{n.status}}</b></h6> <h6 *ngIf="n.status!='Nova'">{{n.status}}</h6></td>
