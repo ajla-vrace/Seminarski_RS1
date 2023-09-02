@@ -9,6 +9,7 @@ namespace OnlineShop.Modul1.Models
         public string Adresa { get; set; }
         public string BrojTelefona { get; set; }
         public string Povrsina { get; set; }
+        public bool? aktivna { get; set; } = true;
 
         [ForeignKey("gradId")]
         public int? gradId { get; set; }

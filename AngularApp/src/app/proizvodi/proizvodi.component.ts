@@ -348,7 +348,7 @@ export class ProizvodiComponent implements OnInit {
     let aktivnost=this.staJeIzabrano=="Aktivan"?true:false;
 
     if(this.staJeIzabrano=="Sve"){
-      if(this.kliknuoPretrazi){
+     /* if(this.kliknuoPretrazi){
         let data=niz.filter((x:any)=>( this.filtering(x,p)));
         this.totalLength=data?.length>0?data.length:0;
         return data;
@@ -356,10 +356,13 @@ export class ProizvodiComponent implements OnInit {
       else {
         this.totalLength = niz?.length>0 ? niz.length : 0;
         return niz;
-      }
+      } */
+      let data=niz?.filter((x:any)=>( this.filtering(x,p)));
+      this.totalLength=data?.length>0?data.length:0;
+      return data;
     }
     else {
-      if (this.kliknuoPretrazi) {
+     /* if (this.kliknuoPretrazi) {
         let data=niz.filter((x: any) => (((this.filtering(x,p)) && x.aktivan == aktivnost)));
         this.totalLength=data?.length>0?data.length:0;
         return data;
@@ -367,7 +370,10 @@ export class ProizvodiComponent implements OnInit {
         let data2=niz.filter((x:any)=>(x.aktivan==aktivnost));
         this.totalLength=data2?.length>0?data2.length:0;
         return data2;
-      }
+      }*/
+      let data=niz?.filter((x: any) => (((this.filtering(x,p)) && x.aktivan == aktivnost)));
+      this.totalLength=data?.length>0?data.length:0;
+      return data;
     }
   }
 

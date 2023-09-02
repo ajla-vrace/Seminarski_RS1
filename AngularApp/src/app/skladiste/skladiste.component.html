@@ -192,6 +192,7 @@
       <th scope="col">Broj telefona</th>
       <th scope="col">Površina</th>
       <th scope="col">Grad</th>
+      <th scope="col">Aktivna</th>
       <th scope="col">Dugmad</th>
     </tr>
     </thead>
@@ -209,6 +210,7 @@
       <td>{{p.brojTelefona}}</td>
       <td>{{p.povrsina}}</td>
       <td>{{p.gradOpis}}</td>
+      <td>{{p.aktivna==true?"Da":"Ne"}}</td>
       <td>
         <button class="btn-edit" (click)="editProdavnicu(p)">Uredi</button>
    <!--     <button class="btn-delete" (click)="deleteProdavnicu(p)">Obriši</button> -->
@@ -477,6 +479,11 @@
             <option *ngFor="let k of s " [value]="k.id">{{k.naziv}} - {{k.adresa}}</option>
 
           </select>
+        </div>
+
+        <div class="mb-3">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="obj_prodavnica.aktivna">
+          <label class="form-check-label" for="exampleCheck1"> Aktivna </label>
         </div>
 
       </div>

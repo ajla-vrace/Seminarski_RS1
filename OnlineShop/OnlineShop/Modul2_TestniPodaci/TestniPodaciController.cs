@@ -90,7 +90,7 @@ namespace OnlineShop.Modul2_TestniPodaci
             kategorija.Add(new Kategorija { Naziv = "Kosulje" });
             kategorija.Add(new Kategorija { Naziv = "Trenerke" });
             kategorija.Add(new Kategorija { Naziv = "Jakne" });
-            kategorija.Add(new Kategorija { Naziv = "Kaputi" });
+            kategorija.Add(new Kategorija { Naziv = "Haljine" });
 
             podkategorija.Add(new Podkategorija { Naziv = "Kratke", Kategorija = kategorija[0] });
             podkategorija.Add(new Podkategorija { Naziv = "Duge", Kategorija = kategorija[0] });
@@ -100,6 +100,8 @@ namespace OnlineShop.Modul2_TestniPodaci
             podkategorija.Add(new Podkategorija { Naziv = "Baggy", Kategorija = kategorija[1] });
             podkategorija.Add(new Podkategorija { Naziv = "Kozna", Kategorija = kategorija[4] });
             podkategorija.Add(new Podkategorija { Naziv = "Zimska", Kategorija = kategorija[4] });
+            podkategorija.Add(new Podkategorija { Naziv = "Svecana", Kategorija = kategorija[5] });
+            podkategorija.Add(new Podkategorija { Naziv = "Kratka", Kategorija = kategorija[5] });
 
             sezona.Add(new Sezona { Naziv = "Jesen Zima 22/23", Doba="Jesen", Godina="2022", Aktivna=true});
             sezona.Add(new Sezona { Naziv = "Proljece Ljeto 22/23", Doba="Proljece", Godina="2022", Aktivna=false });
@@ -146,7 +148,7 @@ namespace OnlineShop.Modul2_TestniPodaci
              {
                  Sifra = 133,
                  Naziv = "Muske hlace",
-                 Cijena = 20,
+                 Cijena = 45,
                  Opis = "Muske pamucne hlace",
                  datum_kreiranja = datum2,
                  datum_modifikacije = datum3,
@@ -185,6 +187,161 @@ namespace OnlineShop.Modul2_TestniPodaci
                 isSpecijalna = false
             });
 
+            proizvod.Add(
+           new Proizvod
+           {
+               Sifra = 135,
+               Naziv = "Zenska crvena majica",
+               Cijena = 25,
+               Opis = "Pamucna majica",
+               datum_kreiranja = datum2,
+               datum_modifikacije = null,
+               Aktivan = true,
+               boja = boja[2],
+               odjel = odjel[0],
+               kategorija = kategorija[0],
+               podkategorija = podkategorija[0],
+               kolekcija = kolekcija[0],
+               sezona = sezona[0],
+               slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zenskaCrvenaMajica),
+               evidentirao = "nina",
+               modifikovao = "",
+               isSpecijalna = false
+           });
+
+            proizvod.Add(
+            new Proizvod
+            {
+                Sifra = 136,
+                Naziv = "Zenske klasicne hlace",
+                Cijena = 55,
+                Opis = "Poslovne hlace",
+                datum_kreiranja = datum2,
+                datum_modifikacije = datum3,
+                Aktivan = true,
+                boja = boja[3],
+                odjel = odjel[0],
+                kategorija = kategorija[1],
+                podkategorija = podkategorija[4],
+                kolekcija = kolekcija[2],
+                sezona = sezona[0],
+                slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zenskeCrnePantale),
+                evidentirao = "nina",
+                modifikovao = "denis",
+                isSpecijalna = true
+            });
+
+            proizvod.Add(
+            new Proizvod
+            {
+                Sifra = 137,
+                Naziv = "Muska majica",
+                Cijena = 45,
+                Opis = "Pamucna majica",
+                datum_kreiranja = datum2,
+                datum_modifikacije = null,
+                Aktivan = true,
+                boja = boja[0],
+                odjel = odjel[1],
+                kategorija = kategorija[0],
+                podkategorija = podkategorija[0],
+                kolekcija = kolekcija[0],
+                sezona = sezona[0],
+                slika_postojeca = Ekstenzije.ParsirajBase64(Slike.muskaPlavaMajica),
+                evidentirao = "nina",
+                modifikovao = "",
+                isSpecijalna = false
+            });
+
+            proizvod.Add(
+            new Proizvod
+            {
+                Sifra = 138,
+                Naziv = "Svecana haljina",
+                Cijena = 120,
+                Opis = "Haljina za svecane prilike",
+                datum_kreiranja = datum3,
+                datum_modifikacije = null,
+                Aktivan = true,
+                boja = boja[0],
+                odjel = odjel[0],
+                kategorija = kategorija[5],
+                podkategorija = podkategorija[8],
+                kolekcija = kolekcija[0],
+                sezona = sezona[0],
+                slika_postojeca = Ekstenzije.ParsirajBase64(Slike.svecanaPlavaHaljina),
+                evidentirao = "nina",
+                modifikovao = "",
+                isSpecijalna = false
+            });
+
+            proizvod.Add(
+            new Proizvod
+            {
+                Sifra = 139,
+                Naziv = "Kratka haljina",
+                Cijena = 60,
+                Opis = "Kratka ljetna haljina",
+                datum_kreiranja = datum3,
+                datum_modifikacije = null,
+                Aktivan = true,
+                boja = boja[1],
+                odjel = odjel[0],
+                kategorija = kategorija[5],
+                podkategorija = podkategorija[9],
+                kolekcija = kolekcija[0],
+                sezona = sezona[0],
+                slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zelenaHaljina),
+                evidentirao = "nina",
+                modifikovao = "",
+                isSpecijalna = false
+            });
+
+            proizvod.Add(
+            new Proizvod
+            {
+                Sifra = 140,
+                Naziv = "Zenske farmerke",
+                Cijena = 50,
+                Opis = "Udobne farmerke",
+                datum_kreiranja = datum3,
+                datum_modifikacije = null,
+                Aktivan = true,
+                boja = boja[0],
+                odjel = odjel[0],
+                kategorija = kategorija[1],
+                podkategorija = podkategorija[5],
+                kolekcija = kolekcija[0],
+                sezona = sezona[0],
+                slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zenskeFarmerke),
+                evidentirao = "nina",
+                modifikovao = "",
+                isSpecijalna = false
+            });
+
+
+            proizvod.Add(
+            new Proizvod
+            {
+                Sifra = 141,
+                Naziv = "Kratka majica",
+                Cijena = 15.95f,
+                Opis = "Pamucna majica",
+                datum_kreiranja = datum3,
+                datum_modifikacije = null,
+                Aktivan = true,
+                boja = boja[4],
+                odjel = odjel[0],
+                kategorija = kategorija[0],
+                podkategorija = podkategorija[0],
+                kolekcija = kolekcija[0],
+                sezona = sezona[0],
+                slika_postojeca = Ekstenzije.ParsirajBase64(Slike.kratkaZenskaMajica),
+                evidentirao = "nina",
+                modifikovao = "",
+                isSpecijalna = false
+            });
+
             proizvodSlika.Add(new ProizvodSlika
             {
                 proizvod = proizvod[0],
@@ -202,6 +359,49 @@ namespace OnlineShop.Modul2_TestniPodaci
                 proizvod = proizvod[2],
                 slika_postojeca = Ekstenzije.ParsirajBase64(Slike.slika3)
             });
+
+            proizvodSlika.Add(new ProizvodSlika
+            {
+                proizvod = proizvod[3],
+                slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zenskaCrvenaMajica)
+            });
+
+            proizvodSlika.Add(new ProizvodSlika
+            {
+                proizvod = proizvod[4],
+                slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zenskeCrnePantale)
+            });
+
+            proizvodSlika.Add(new ProizvodSlika
+            {
+                proizvod = proizvod[5],
+                slika_postojeca = Ekstenzije.ParsirajBase64(Slike.muskaPlavaMajica)
+            });
+
+            proizvodSlika.Add(new ProizvodSlika
+            {
+                proizvod = proizvod[6],
+                slika_postojeca = Ekstenzije.ParsirajBase64(Slike.svecanaPlavaHaljina)
+            });
+
+            proizvodSlika.Add(new ProizvodSlika
+            {
+                proizvod = proizvod[7],
+                slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zelenaHaljina)
+            });
+
+            proizvodSlika.Add(new ProizvodSlika
+            {
+                proizvod = proizvod[8],
+                slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zenskeFarmerke)
+            });
+
+            proizvodSlika.Add(new ProizvodSlika
+            {
+                proizvod = proizvod[9],
+                slika_postojeca = Ekstenzije.ParsirajBase64(Slike.kratkaZenskaMajica)
+            });
+
 
             popust.Add(new Popust { Opis = 0.9f });
             popust.Add(new Popust { Opis = 0.8f });
@@ -242,7 +442,8 @@ namespace OnlineShop.Modul2_TestniPodaci
                 BrojTelefona = "062555444",
                 grad = grad[0],
                 Povrsina = "3000",
-                skladiste = skladista[0]
+                skladiste = skladista[0],
+                aktivna=true
             });
 
 
@@ -253,7 +454,8 @@ namespace OnlineShop.Modul2_TestniPodaci
                 BrojTelefona = "062444544",
                 grad = grad[1],
                 Povrsina = "3000",
-                skladiste = skladista[0]
+                skladiste = skladista[0],
+                aktivna=true
             });
 
 
@@ -264,12 +466,21 @@ namespace OnlineShop.Modul2_TestniPodaci
                 BrojTelefona = "062555666",
                 grad = grad[0],
                 Povrsina = "3000",
-                skladiste = skladista[0]
+                skladiste = skladista[0],
+                aktivna=true
             });
 
           
             skladisteProizvod.Add(new SkladisteProizvod { proizvod = proizvod[0], skladiste = skladista[0], kolicina = 40, datum_kreiranja = DateTime.Now, velicina="M", evidentirao="nina" });
             skladisteProizvod.Add(new SkladisteProizvod { proizvod = proizvod[1], skladiste = skladista[0], kolicina = 30, datum_kreiranja = DateTime.Now, velicina="S", evidentirao="nina" });
+            skladisteProizvod.Add(new SkladisteProizvod { proizvod = proizvod[2], skladiste = skladista[0], kolicina = 20, datum_kreiranja = DateTime.Now, velicina = "L", evidentirao = "nina" });
+            skladisteProizvod.Add(new SkladisteProizvod { proizvod = proizvod[3], skladiste = skladista[0], kolicina = 33, datum_kreiranja = DateTime.Now, velicina = "S", evidentirao = "denis" });
+            skladisteProizvod.Add(new SkladisteProizvod { proizvod = proizvod[4], skladiste = skladista[0], kolicina = 25, datum_kreiranja = DateTime.Now, velicina = "XS", evidentirao = "nina" });
+            skladisteProizvod.Add(new SkladisteProizvod { proizvod = proizvod[5], skladiste = skladista[0], kolicina = 30, datum_kreiranja = DateTime.Now, velicina = "M", evidentirao = "nina" });
+            skladisteProizvod.Add(new SkladisteProizvod { proizvod = proizvod[6], skladiste = skladista[0], kolicina = 27, datum_kreiranja = DateTime.Now, velicina = "L", evidentirao = "nina" });
+            skladisteProizvod.Add(new SkladisteProizvod { proizvod = proizvod[7], skladiste = skladista[0], kolicina = 36, datum_kreiranja = DateTime.Now, velicina = "S", evidentirao = "denis" });
+            skladisteProizvod.Add(new SkladisteProizvod { proizvod = proizvod[6], skladiste = skladista[0], kolicina = 30, datum_kreiranja = DateTime.Now, velicina = "S", evidentirao = "nina" });
+            skladisteProizvod.Add(new SkladisteProizvod { proizvod = proizvod[7], skladiste = skladista[0], kolicina = 26, datum_kreiranja = DateTime.Now, velicina = "L", evidentirao = "denis" });
 
 
 

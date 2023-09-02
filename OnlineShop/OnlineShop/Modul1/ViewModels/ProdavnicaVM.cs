@@ -12,6 +12,7 @@ namespace OnlineShop.Modul1.ViewModels
         public int? GradId { get; set; }
        
         public string? gradOpis { get; set; }
+        public bool? aktivna { get; set; }
        
     }
 }

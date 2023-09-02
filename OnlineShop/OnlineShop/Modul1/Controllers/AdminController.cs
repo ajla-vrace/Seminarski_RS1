@@ -170,42 +170,50 @@ namespace OnlineShop.Modul1.Controllers
 
             var odabrani = kolicine.OrderByDescending(x => x.kolicina).Take(3).ToList();
 
-            if (odabrani.Count() > 0 && odabrani[0].kolicina>0)
+            if (odabrani.Count() > 0)
             {
                 foreach (var p in odabrani)
                 {
-                    var _proizvod = contex.Proizvod.Where(x => x.Id == p.proizvodId).Select(x => new ProizvodVM
+                    if(p.kolicina > 0)
                     {
-                        Id = x.Id,
-                        Sifra = x.Sifra,
-                        Naziv = x.Naziv,
-                        Cijena = x.Cijena,
-                        Opis = x.Opis,
-                        datum_kreiranja = x.datum_kreiranja,
-                        datum_modifikacije = x.datum_modifikacije,
-                        Aktivan = x.Aktivan,
-                        bojaId = x.bojaId,
-                        bojaOpis = x.boja.Naziv,
-                        odjelId = x.odjelId,
-                        odjelOpis = x.odjel.Naziv,
-                        kategorijaId = x.kategorijaId,
-                        kategorijaOpis = x.kategorija.Naziv,
-                        podkategorijaId = x.podkategorijaId,
-                        podkategorijaOpis = x.podkategorija.Naziv,
-                        kolekcijaId = x.kolekcijaId,
-                        kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
-                        sezonaId = x.sezonaId,
-                        sezonaOpis = x.sezona.Naziv,
-                        slika_postojeca = x.slika_postojeca,
-                        modifikovao = x.modifikovao
-                    }).ToList()[0];
+                        var _proizvod = contex.Proizvod.Where(x => x.Id == p.proizvodId).Select(x => new ProizvodVM
+                        {
+                            Id = x.Id,
+                            Sifra = x.Sifra,
+                            Naziv = x.Naziv,
+                            Cijena = x.Cijena,
+                            Opis = x.Opis,
+                            datum_kreiranja = x.datum_kreiranja,
+                            datum_modifikacije = x.datum_modifikacije,
+                            Aktivan = x.Aktivan,
+                            bojaId = x.bojaId,
+                            bojaOpis = x.boja.Naziv,
+                            odjelId = x.odjelId,
+                            odjelOpis = x.odjel.Naziv,
+                            kategorijaId = x.kategorijaId,
+                            kategorijaOpis = x.kategorija.Naziv,
+                            podkategorijaId = x.podkategorijaId,
+                            podkategorijaOpis = x.podkategorija.Naziv,
+                            kolekcijaId = x.kolekcijaId,
+                            kolekcijaOpis = x.kolekcija.Naziv + " " + x.kolekcija.Godina,
+                            sezonaId = x.sezonaId,
+                            sezonaOpis = x.sezona.Naziv,
+                            slika_postojeca = x.slika_postojeca,
+                            modifikovao = x.modifikovao
+                        }).ToList()[0];
 
-                    proizvodi_kolicine.Add(new Bestseller { ProizvodId = p.proizvodId, proizvod = _proizvod, Kolicina = p.kolicina, datum_kreiranja = _proizvod.datum_kreiranja.ToString("dd/MM/yyyy") });
+                        proizvodi_kolicine.Add(new Bestseller 
+                        { 
+                            ProizvodId = p.proizvodId, 
+                            proizvod = _proizvod, 
+                            Kolicina = p.kolicina, 
+                            datum_kreiranja = _proizvod.datum_kreiranja.ToString("dd/MM/yyyy") 
+                        });
+                    }        
                 }
             }
 
             return proizvodi_kolicine;
-
         }
 
         public class BestProdavnice

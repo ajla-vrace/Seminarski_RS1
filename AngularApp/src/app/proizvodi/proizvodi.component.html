@@ -103,6 +103,10 @@
   </tbody>
 </table>
 
+<div *ngIf="totalLength==0">
+  <h5 style="text-align: center">Nema proizvoda sa takvim nazivom!</h5>
+</div>
+
 <pagination-controls class="text-center my-pagination" (pageChange)="page=$event"></pagination-controls>
 
 

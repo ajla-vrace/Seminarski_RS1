@@ -160,6 +160,7 @@ namespace OnlineShop.Modul1.Controllers
             public string gradOpis { get; set; }
             public int? skladisteId { get; set; }
             public string skladisteOpis { get; set; }
+            public bool? aktivna { get; set; }
         }
 
         [HttpPost("Snimi")]
@@ -185,6 +186,7 @@ namespace OnlineShop.Modul1.Controllers
             p.Povrsina = x.povrsina;
             p.gradId = x.gradId;
             p.skladisteId = x.skladisteId;
+            p.aktivna = x.aktivna;
 
             _dbContext.SaveChanges();
 
@@ -240,7 +242,8 @@ namespace OnlineShop.Modul1.Controllers
                 gradId = x.gradId,
                 gradOpis = x.grad.Naziv,
                 skladisteId=x.skladisteId,
-                skladisteOpis=x.skladiste.Naziv +" - "+x.skladiste.Adresa
+                skladisteOpis=x.skladiste.Naziv +" - "+x.skladiste.Adresa,
+                aktivna=x.aktivna
             }).AsQueryable().OrderByDescending(x=>x.id).ToList();
         }
 
