@@ -167,6 +167,8 @@ namespace OnlineShop.Modul1.Controllers
         public Paginacija<PodkategorijaVM> GetPodkategorijePaged(string? naziv, int trenutnaStr=1, int brojPodataka = 5)
         {
             if (brojPodataka > 5) brojPodataka = 5;
+            if (brojPodataka < 0) brojPodataka = 0;
+            if (trenutnaStr <= 0) trenutnaStr = 1;
 
             var filter = naziv != null ? naziv.ToLower() : null;
 
@@ -206,6 +208,8 @@ namespace OnlineShop.Modul1.Controllers
         public Paginacija<KategorijaVM> GetKategorijePaged(string? naziv, int trenutnaStr = 1, int brojPodataka = 5)
         {
             if (brojPodataka > 5) brojPodataka = 5;
+            if (brojPodataka < 0) brojPodataka = 0;
+            if (trenutnaStr <= 0) trenutnaStr = 1;
 
             var filter = naziv != null ? naziv.ToLower() : null;
 

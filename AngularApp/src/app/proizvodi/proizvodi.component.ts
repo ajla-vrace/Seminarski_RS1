@@ -358,7 +358,7 @@ export class ProizvodiComponent implements OnInit {
         return niz;
       } */
       let data=niz?.filter((x:any)=>( this.filtering(x,p)));
-      this.totalLength=data?.length>0?data.length:0;
+      this.totalLength=data?.length>0?data?.length:0;
       return data;
     }
     else {
@@ -372,7 +372,7 @@ export class ProizvodiComponent implements OnInit {
         return data2;
       }*/
       let data=niz?.filter((x: any) => (((this.filtering(x,p)) && x.aktivan == aktivnost)));
-      this.totalLength=data?.length>0?data.length:0;
+      this.totalLength=data?.length>0?data?.length:0;
       return data;
     }
   }

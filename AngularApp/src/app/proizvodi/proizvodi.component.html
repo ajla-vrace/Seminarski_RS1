@@ -102,12 +102,14 @@
 
   </tbody>
 </table>
+<!--
 
 <div *ngIf="totalLength==0">
-  <h5 style="text-align: center">Nema proizvoda sa takvim nazivom!</h5>
+  <h5 style="text-align: center; margin-top: 7%; margin-bottom: 10%;">Nema proizvoda koji zadovoljavaju filter!</h5>
 </div>
 
-<pagination-controls class="text-center my-pagination" (pageChange)="page=$event"></pagination-controls>
+-->
+<pagination-controls *ngIf="totalLength!=0" class="text-center my-pagination" (pageChange)="page=$event"></pagination-controls>
 
 
 
