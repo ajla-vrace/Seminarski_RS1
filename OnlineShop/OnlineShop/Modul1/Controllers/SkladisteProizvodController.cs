@@ -242,7 +242,7 @@ namespace OnlineShop.Modul1.Controllers
             return data;
         }
         [HttpPost]
-        [Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
+      //  [Autorizacija(Kupac: false, Zaposlenik: true, Admin: true)]
         public ActionResult Snimi(SkladisteProizvodVM x)
         {
             SkladisteProizvod? s;

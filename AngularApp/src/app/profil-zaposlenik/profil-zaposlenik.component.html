@@ -180,7 +180,7 @@ pristupni podaci:
         <td>{{p.sifra}}</td>
         <td>{{formatDatum(p.datum_kreiranja)}}</td>
         <td>{{p.evidentirao}}</td>
-        <td>{{p.modifikovao}}</td>
+        <td>{{p.modifikovao!=null?p.modifikovao:"-"}}</td>
       </tr>
 
       </tbody>
@@ -266,7 +266,7 @@ pristupni podaci:
         <th scope="col">Odjel</th>
         <th scope="col">Veličina</th>
         <th scope="col">Stanje na skladištu</th>
-        <th scope="col">Skladište</th>
+ <!--       <th scope="col">Skladište</th> -->
         <th scope="col">Datum kreiranja</th>
         <th scope="col">Evidentirao</th>
         <th scope="col">Modifikovao</th>
@@ -284,10 +284,10 @@ pristupni podaci:
         <td>{{p.odjel}}</td>
         <td>{{p.velicina}}</td>
         <td>{{p.kolicina}}</td>
-        <td>{{p.skladiste}}</td>
+ <!--       <td>{{p.skladiste}}</td> -->
         <td>{{formatDatum(p.datum_kreiranja)}}</td>
         <td>{{p.evidentirao}}</td>
-        <td>{{p.modifikovao}}</td>
+        <td>{{p.modifikovao!=null?p.modifikovao:"-"}}</td>
       </tr>
 
       </tbody>

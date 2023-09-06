@@ -156,7 +156,8 @@ namespace OnlineShop.Modul1.Controllers
         [HttpGet("slikaKorisnika")]
         public List<FileContentResult> Slika(int id)
         {
-            var z = context.Zaposlenik.Where(x => x.Id == id).ToList()[0];
+         //   var z = context.Zaposlenik.Where(x => x.Id == id).ToList()[0];
+            var z = context.Zaposlenik.Find(id);
 
             //if (z == null)
             //    return BadRequest("ne postoji ovaj zaposlenik");
@@ -215,8 +216,8 @@ namespace OnlineShop.Modul1.Controllers
                     DatumRodjenja = x.DatumRodjenja.ToString("yyyy-MM-dd"),
                     jmbg = x.JMBG,
                     ProdavnicaId = x.ProdavnicaId,
-                    prodavnicaOpis = x.Prodavnica.Naziv,
-                    slika_zaposlenika_postojeca_DB=x.slikaZaposlenikaBajtovi,
+                    prodavnicaOpis = x.Prodavnica.Naziv + " - " + x.Prodavnica.Adresa,
+                    slika_zaposlenika_postojeca_DB =x.slikaZaposlenikaBajtovi,
                     slika_zaposlenika_postojeca_FS=x.slikaZaposlenikaBajtovi
                 }).ToList()[0];
 
@@ -297,7 +298,7 @@ namespace OnlineShop.Modul1.Controllers
                 DatumRodjenja = x.DatumRodjenja.ToString("yyyy-MM-dd"),
                 jmbg = x.JMBG,
                 ProdavnicaId = x.ProdavnicaId,
-                prodavnicaOpis = x.Prodavnica.Naziv,
+                prodavnicaOpis = x.Prodavnica.Naziv + " - " + x.Prodavnica.Adresa,
                 slika_zaposlenika_postojeca_DB=x.slikaZaposlenikaBajtovi,
                 slika_zaposlenika_postojeca_FS=x.slikaZaposlenikaBajtovi,
                 jelObavijesten=x.jelObavijesten
@@ -367,7 +368,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpPost]
-        [Autorizacija(Kupac:false,Zaposlenik:false,Admin:true)]
+      //  [Autorizacija(Kupac:false,Zaposlenik:false,Admin:true)]
         public ActionResult Snimi(ZaposlenikVMSnimi x)
         {
             Zaposlenik? k;

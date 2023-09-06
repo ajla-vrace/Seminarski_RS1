@@ -102,7 +102,7 @@ namespace OnlineShop.Modul1.Controllers
                     Opis = s.Opis,
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.DatumKreiranja,
-                    Prodavnica = s.Prodavnica.Naziv,
+                    Prodavnica = s.Prodavnica.Naziv+" - "+s.Prodavnica.Adresa,
                     KupacId = s.KupacId,
 
                 })

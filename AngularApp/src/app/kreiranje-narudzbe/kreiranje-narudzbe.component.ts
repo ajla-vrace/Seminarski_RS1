@@ -83,7 +83,9 @@ kupac_id:any;
   narudzba_id:any;
   stavkeJedneNarudzbePodaci:any
 
-
+nazivProdavnice(){
+    this.prodavnicaAdresa=this.prodavnicePodaci.filter((a:any)=>a.id==this.prodId);
+}
 
   fetchKorpe() {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByIdKupac/"+this.loginInfo().autentifikacijaToken.korisnickiNalogId, MojConfig.http_opcije()).subscribe(x=>{
@@ -140,7 +142,7 @@ brisiSveIzKorpe(idKorpe:any){
     });
 
 }
-
+  prodavnicaAdresa:any;
   kreirajNarudzbu() {
     this.narudzba={
       id:0,

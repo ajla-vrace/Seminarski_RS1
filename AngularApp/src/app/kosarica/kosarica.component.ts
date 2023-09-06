@@ -111,8 +111,8 @@ this.fetchProizvodi();
   }
   UkloniIzKorpe(s:any) {
     this.korpa=this.KorpePodaciIme[0];
-    console.log("korpa: "+this.korpa.id+" korpa naziv:" +this.korpa.naziv+"total "+this.korpa.total+
-      "ukupno proizvoda: "+this.korpa.ukupnoProizvoda);
+    //console.log("korpa: "+this.korpa.id+" korpa naziv:" +this.korpa.naziv+"total "+this.korpa.total+
+     // "ukupno proizvoda: "+this.korpa.ukupnoProizvoda);
     this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Delete/" + s.id,null, MojConfig.http_opcije())
       .subscribe((povratnaVrijednost:any) =>{
         /*const index = this.korpaStavkePodaci.indexOf(s);
@@ -171,11 +171,11 @@ this.brisano=true;
 
   ModifikacijaKorpaStavke(ks:any) {
 
-    console.log("ks: ",ks);
+    //console.log("ks: ",ks);
     this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Update", ks)
       .subscribe((povratnaVrijednost:any) =>{
         this.fetchKorpaStavke();
-        console.log("ks: ",ks);
+      //  console.log("ks: ",ks);
 
        /* this.ngOnInit();*/
       });
@@ -212,8 +212,8 @@ this.brisano=true;
 
 
 this.korpa=this.KorpePodaciIme[0];
-    console.log("korpa: "+this.korpa.id+" korpa naziv:" +this.korpa.naziv+"total "+this.korpa.total+
-      "ukupno proizvoda: "+this.korpa.ukupnoProizvoda);
+   // console.log("korpa: "+this.korpa.id+" korpa naziv:" +this.korpa.naziv+"total "+this.korpa.total+
+    //  "ukupno proizvoda: "+this.korpa.ukupnoProizvoda);
 
   /*  this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Update", ks)
       .subscribe((a:any) =>{
@@ -224,9 +224,9 @@ this.korpa=this.KorpePodaciIme[0];
       this.httpKlijent.post(`${MojConfig.adresa_servera}/Korpa/Add`, this.korpa, MojConfig.http_opcije()).subscribe(x => {
         this.fetchKorpaIme();
 this.korpa=this.KorpePodaciIme[0];
-        console.log("korpa update :" +this.korpa);
-        console.log("korpa poslije: "+this.korpa.id+" korpa naziv:" +this.korpa.naziv+"total "+this.korpa.total+
-          "ukupno proizvoda: "+this.korpa.ukupnoProizvoda);
+       // console.log("korpa update :" +this.korpa);
+       // console.log("korpa poslije: "+this.korpa.id+" korpa naziv:" +this.korpa.naziv+"total "+this.korpa.total+
+       //   "ukupno proizvoda: "+this.korpa.ukupnoProizvoda);
         /*this.ngOnInit();*/
       });
     }, 2000);
@@ -254,7 +254,7 @@ this.router.navigate(['kreiranje-narudzbe']);
   noimage:any="data:@file/jpeg;base64,/9j/4AAQSkZJRgABAQAAZABkAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/wgALCADIAN8BAREA/8QAGwABAAMBAQEBAAAAAAAAAAAAAAUGBwMBBAL/2gAIAQEAAAAA24AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAi/i8Ak/vAABXbEOf57eQFgAABXbE59M+idX8gLAAACu2Ks5bsEpxjZuAsAAAK7zyHn9mw55Wtd7WAAAFOy3ke+Ouv2QAAEPXgFpkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//EADoQAAEDAQMGCwgCAwEAAAAAAAECAwQFAAYREiEwMUDREBMWF1FUVmGRkrIHFCI1NkFzdCCBFTJScf/aAAgBAQABPwDazth2w7YdsO2HbDth2w6Ks1lNHRHxivSFyHOLQhrDEnDH725SzOzlT8qd9uUs3s5U/KnfblLN7OVPyp325SzezlT8qd9uUs3s5U/KnfblLN7OVPyp325SzezlT8qd9uUszs5U/Knfaj1RFYpyJjbS2kqUpOQvWCDhoTory/MqB+8PSf4vPNR2i684httOtSzgBaNMjTG+MjPtvIGbFtQI4DqNrl/TqPzO+s6E6K8vzKgfvD0nhS+yp9bCXUF1ABUgHOAdWI4PaeZXFQcnK90+LKw1Zf2x/q3s4965Qr4rK934o8d0d3948B1G1y/p1H5nfWdCdFeX5lQP3h6TwXsvY1QY5YYKXJ6x8KdYQOk7rRK3Ph1b/JNyFGSVYrUo45fSD3Wu9eGLeCCHmiEPJzOtE50ndZ5hqS0Wn20ONq1pWMQbNswaVFWptpmKwgZSylISB3m1EvVTq7Jfjx1FLjZOSlebjE/9Cx1G1y/p1H5nfWdCdFeX5lQP3h6Ta9l7GaFHLDBS5PWPhT9kDpO60iQ9KkLffcU46s4qUo5yeCmVOVSZyJcRwocSdX2UOg91qJeeDWKYqXxiWVNJxfQo/wCnf/5a917nK48YsVSkQEHMNRcPSe7utHkPRJCH2HFNuoOKVJOcG11b1tV6NxLxS3ObT8SPssdI3WuX9OI/M76zoTovaBMdp8Wmy2cONaklScRmxyTaRIelyFvvuKcdWcVKUcST/ALUkKCVEBQwIB1jhjyHYj6H2HFNuoOKVJOBBtcRZXdSOtWdSnHCfMdCdFeG77F4YrTD7zjQbXlgoAz5sPvbmxp/X5Pgm3NjT+vyfBNubGn9fk+Cbc2NP6/J8E25saf1+T4JtzY0/r8nwTbmxp/X5Pgm3NjT+vyfBNqLSm6LTG4LTinEIJIUrXnOOhO2HbDth2w7YdsO2HbDtht//9k=";
 
 getProzivodi1(s:any){
-  console.log("s je : ",s);
+  ///console.log("s je : ",s);
 
   return this.proizvodiPodaci.filter((a:any)=> a.id==s);
 }
@@ -262,7 +262,7 @@ getProzivodi1(s:any){
    // console.log("s je : ",s );
 //this.getProzivodi(s);
     setTimeout( ()=>{
-      console.log("proizvod podatak:",this.proizvodiPodaci);
+     // console.log("proizvod podatak:",this.proizvodiPodaci);
       return "data:image/jpg;base64,"+ this.proizvodiPodaci[0]?.slika_postojeca;
     }, 9000);
 
@@ -303,8 +303,8 @@ getProzivodi1(s:any){
   {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetDostupneVelicine?proizvodId="+id, MojConfig.http_opcije()).subscribe(x=>{
       this.dostupneVelicine = x;
-      console.log("proizvod id :"+id);
-      console.log("dostupne velicine:",this.dostupneVelicine);
+     // console.log("proizvod id :"+id);
+      //console.log("dostupne velicine:",this.dostupneVelicine);
     });
   }
 
@@ -313,8 +313,8 @@ dostupnaKolicina:any;
 
       this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetDostupnuKolicinu?proizvodId="+id+"&velicina="+this.odabranaStavka.velicina, MojConfig.http_opcije()).subscribe(x=>{
         this.dostupnaKolicina = x;
-        console.log("proizvod id :"+id+" velicina"+this.odabranaStavka.velicina);
-        console.log("dostupne velicine:",this.dostupnaKolicina);
+       // console.log("proizvod id :"+id+" velicina"+this.odabranaStavka.velicina);
+       // console.log("dostupne velicine:",this.dostupnaKolicina);
       });
       //return this.dostupnaKolicina;
   }

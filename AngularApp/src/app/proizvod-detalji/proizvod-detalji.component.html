@@ -27,7 +27,7 @@
         <h5> Sezona: {{d.sezonaOpis}}</h5>
         <h5> Kolekcija: {{d.kolekcijaOpis}}</h5>
         <div id="velicineBiraj" *ngIf="loginInfo().isLogiran==true;">
-          <br>
+
           <h5>Veličine:</h5>
 
           <button *ngFor="let velicina of dostupneVelicine" type="button" class="dugmeVelicine"
@@ -38,7 +38,7 @@
           <label (click)="this.odabranavelicina='M';napraviIliNadjiKorpu();"  class="velicina">M</label>
           <label (click)="this.odabranavelicina='L';napraviIliNadjiKorpu();"  class="velicina">L</label>-->
         </div>
-        <br>
+
         <div class="dugmad1" *ngIf="loginInfo().isLogiran==true" >
           <button class="dodajUKorpu1" *ngIf="odabranavelicina!=undefined" (click)="dodajUKorpu(d,odabranavelicina)" >Dodaj u korpu</button>
           <button class="dodajUKorpu1" *ngIf="odabranavelicina==undefined" disabled style="background-color: rgb(61,61,61)">Dodaj u korpu</button>
@@ -52,7 +52,7 @@
           </button>
 
         </div>
-        <div style="padding: 10%;"></div>
+       <div style="padding: 14%;" *ngIf="loginInfo().isLogiran==false"></div>
         <p style="margin: 1%;">Ukoliko ne znate koja veličina Vam odgovara, pogledajte naš <a routerLink="/vodiczavelicine">Vodič za veličine</a>.</p>
        <div id="ocjeneProizvoda" (click)="prikaziOcjeneProizvoda()">
 

@@ -412,7 +412,8 @@ export class SkladisteComponent implements OnInit {
       gradId:this.gradID,
       gradOpis:"",
       skladisteId:this.skladisteID,
-      skladisteOpis:""
+      skladisteOpis:"",
+      aktivna:true
     }
   }
 

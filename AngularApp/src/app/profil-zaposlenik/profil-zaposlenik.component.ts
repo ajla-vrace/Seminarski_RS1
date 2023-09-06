@@ -101,7 +101,7 @@ export class ProfilZaposlenikComponent implements OnInit {
 
 
   ukloniSliku(){
-    if("data:@file/jpeg;base64,"+this.slika_zaposlenika_postojeca_fs!=this.noimage ){
+    if("data:@file/jpeg;base64,"+this.slika_zaposlenika_postojeca_fs!=this.noimage || this.slika_zaposlenika_postojeca_db!=null ){
       if (confirm("Da li stvarno želite ukloniti sliku?")) {
         this.slika_obj = {
           idZaposl: this.zaposlenik_id,

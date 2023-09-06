@@ -199,9 +199,9 @@ kupacPodaciNovi:any;
         this.slika_kupca_postojeca_fs=x.slika_kupca_postojeca_FS;
         this.slika_kupca_postojeca_db=x.slika_kupca_postojeca_DB;
 
-         console.log(this.slika_kupca_postojeca_fs,"\n",this.slika_kupca_postojeca_db);
+        // console.log(this.slika_kupca_postojeca_fs,"\n",this.slika_kupca_postojeca_db);
 
-        console.log("PODACI: ",this.kupacPodaciNovi);
+       // console.log("PODACI: ",this.kupacPodaciNovi);
       })
   }
 
@@ -213,7 +213,7 @@ kupacPodaciNovi:any;
       .subscribe((x:any)=>{
         if(x!=null) {
           this.slika_kupca = x;
-          console.log("Slika kupca: "+this.slika_kupca);
+         // console.log("Slika kupca: "+this.slika_kupca);
 
         }
       })
@@ -334,16 +334,16 @@ this.getSlikuKupca();
 
     this.httpKlijent.post(MojConfig.adresa_servera+"/Kupac/PromijeniSlikuKupca/promijeni_sliku", this.slika_obj)
       .subscribe(x=>{
-        console.log("ovo je slika.obj: ",this.slika_obj);
-        console.log("podaci kupca------",this.kupacPodaciNovi);
+       // console.log("ovo je slika.obj: ",this.slika_obj);
+       // console.log("podaci kupca------",this.kupacPodaciNovi);
         this.slika=this.slika_obj.slika_nova;
-        console.log("Slika: "+this.slika);
-        console.log("Slika_obj.slika_nova",this.slika_obj.slika_nova);
+       // console.log("Slika: "+this.slika);
+       // console.log("Slika_obj.slika_nova",this.slika_obj.slika_nova);
         this.getKupcaNovi();
-        console.log("Nakon pozivanja get: ",this.kupacPodaciNovi);
+       // console.log("Nakon pozivanja get: ",this.kupacPodaciNovi);
         this.get_slika_novi_request_FS();
         this.get_slika_base64_FS(this.kupacPodaciNovi);
-        console.log("get_slika_base64_FS:",this.kupacPodaciNovi);
+      //  console.log("get_slika_base64_FS:",this.kupacPodaciNovi);
         // this.reloadPage();
         // this.slika_obj=null;
 
@@ -403,7 +403,7 @@ this.getSlikuKupca();
       reader.onload = function () {
         this2.slika_obj.slika_nova = reader.result?.toString();
       }
-      console.log("file: ", file);
+     // console.log("file: ", file);
       reader.readAsDataURL(file);
     }
   }
@@ -481,7 +481,7 @@ getPodatkeZaIzvjestajParametri(){
 
 
 
-//?odabraniMjesec=7
+
 
   fetchKupci(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/Kupac/GetAll")
@@ -729,7 +729,7 @@ vratiNaFalse(){
       }
     }
     this.promjeniIme=true;
-    console.log("ime: "+this.kupac.ime);
+    //console.log("ime: "+this.kupac.ime);
   }
 
   editPrezimeKupca() {
@@ -810,8 +810,8 @@ this.prikazKomentara=false;
 snimiSliku(){
   this.httpKlijent.post(`${MojConfig.adresa_servera}/Kupac/Add`, this.kupac, MojConfig.http_opcije()).subscribe(x => {
     this.fetchKupci();
-    console.log(this.kupac);
-    console.log(this.kupac.slikaKupca);
+    //console.log(this.kupac);
+   // console.log(this.kupac.slikaKupca);
 
   });
 }
@@ -839,7 +839,7 @@ isPretplacen:any="";
       .subscribe((x:any)=>{
         this.kupac_podaci=x;
         this.ime=this.kupac_podaci.ime;
-        console.log("ime je : "+this.ime);
+       // console.log("ime je : "+this.ime);
         this.prezime=this.kupac_podaci.prezime;
         this.username=this.kupac_podaci.username;
         this.lozinka=this.kupac_podaci.lozinka;
@@ -848,16 +848,16 @@ isPretplacen:any="";
         this.brojTelefona=this.kupac_podaci.brojTelefona;
        /* this.datumRegistracije=formatDate(this.kupac_podaci.datumRegistracije,'dd-MM-yyyy','en-US');*/
         this.isPretplacen=this.kupac_podaci.isPretplacen;
-        console.log("get kupca po id: ",this.kupac_podaci);
+        //console.log("get kupca po id: ",this.kupac_podaci);
         //this.slika_kupca_postojeca_fs=x.slika_kupca_postojeca_FS;
        // this.slika_kupca_postojeca_db=x.slika_kupca_postojeca_DB;
 
       })
 
 
-      console.log(" fs malo: "+this.slika_kupca_postojeca_fs,"\n","db malo: "+this.slika_kupca_postojeca_db);
+     // console.log(" fs malo: "+this.slika_kupca_postojeca_fs,"\n","db malo: "+this.slika_kupca_postojeca_db);
 
-    console.log("PODACI: ",this.kupac_podaci);
+   // console.log("PODACI: ",this.kupac_podaci);
   }
 
   //slika_kupca_postojeca_fs:any;
@@ -1073,18 +1073,7 @@ this.getKupca1();
       porukaError("Nema dostupnih podataka za prikaz grafikona.");
       return;
     }
-/*
-    const labels = this.izvjestaj.map(item => item.mjesec);
-    labels.sort((a, b) => {
-      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-      return months.indexOf(a) - months.indexOf(b);
-    });
 
-    console.log("labels: ", labels);
-
-    const data = this.izvjestaj.map(item => item.ukupnoKomentara);
-    console.log("data: "+data);
-*/
 
 
 
@@ -1150,7 +1139,7 @@ obj_status:any;
         status:"Otkazana",
         evidentirao:"-",
       }
-console.log("obj_status: ",this.obj_status)
+//console.log("obj_status: ",this.obj_status)
     this.httpKlijent.post(MojConfig.adresa_servera+"/Narudzba/PromijeniStatus",this.obj_status,MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.obj_status=null;

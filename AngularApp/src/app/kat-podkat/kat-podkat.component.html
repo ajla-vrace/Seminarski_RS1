@@ -100,11 +100,11 @@
     </nav>
 --->
     <div class="stranice">
-       <button class="pocetak-kraj" (click)="trenutnaStr=1; getPodkategorijePaged();"><<</button>
-          <button class="prethodna-sljedeca" (click)="uslovPrethodnaPodkat();"> < </button>
+       <button class="pocetak-kraj" [disabled]="podkatPaged?.ukupnoStranica==0"  (click)="trenutnaStr=1; getPodkategorijePaged();"><<</button>
+          <button class="prethodna-sljedeca" [disabled]="podkatPaged?.ukupnoStranica==0" (click)="uslovPrethodnaPodkat();"> < </button>
              Stranica {{trenutnaStr}} od {{podkatPaged?.ukupnoStranica}}
-          <button class="prethodna-sljedeca" (click)="uslovSljedecaPodkat()"> > </button>
-      <button class="pocetak-kraj" (click)="trenutnaStr=podkatPaged?.ukupnoStranica; getPodkategorijePaged();"> >> </button>
+          <button class="prethodna-sljedeca" [disabled]="podkatPaged?.ukupnoStranica==0" (click)="uslovSljedecaPodkat()"> > </button>
+      <button class="pocetak-kraj" [disabled]="podkatPaged?.ukupnoStranica==0" (click)="trenutnaStr=podkatPaged?.ukupnoStranica; getPodkategorijePaged();"> >> </button>
     </div>
 
 
@@ -173,11 +173,11 @@
 -->
 
     <div class="stranice">
-      <button class="pocetak-kraj" (click)="trenutnaStr_kat=1; getKategorijePaged();"><<</button>
-        <button class="prethodna-sljedeca" (click)="uslovPrethodnaKat();"> < </button>
+      <button class="pocetak-kraj" [disabled]="katPaged?.ukupnoStranica==0" (click)="trenutnaStr_kat=1; getKategorijePaged();"><<</button>
+        <button class="prethodna-sljedeca" [disabled]="katPaged?.ukupnoStranica==0" (click)="uslovPrethodnaKat();"> < </button>
           Stranica {{trenutnaStr_kat}} od {{katPaged?.ukupnoStranica}}
-        <button class="prethodna-sljedeca" (click)="uslovSljedecaKat()"> > </button>
-      <button class="pocetak-kraj" (click)="trenutnaStr_kat=katPaged?.ukupnoStranica; getKategorijePaged();"> >> </button>
+        <button class="prethodna-sljedeca" [disabled]="katPaged?.ukupnoStranica==0" (click)="uslovSljedecaKat()"> > </button>
+      <button class="pocetak-kraj" [disabled]="katPaged?.ukupnoStranica==0" (click)="trenutnaStr_kat=katPaged?.ukupnoStranica; getKategorijePaged();"> >> </button>
     </div>
 
 

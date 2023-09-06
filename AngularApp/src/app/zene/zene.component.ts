@@ -101,7 +101,7 @@ odabranaKolekcija:any="";
 
   fetchKolekcije()
   {
-    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetKolekcije", MojConfig.http_opcije()).subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetKolekcije?odjel=1", MojConfig.http_opcije()).subscribe(x=>{
       this.kolekcijePodaci = x;
     });
   }
@@ -150,7 +150,7 @@ this.fetchSpecijalnePonudeZene();
     }, 400);*/
 
      setTimeout( ()=>{
-
+//this.kolekcijaPoOdjelu();
 
         }, 400);
 
@@ -521,8 +521,9 @@ brojacProvjera(){
   }
 
 
-
-
+  kolekcijaPoOdjelu() {
+    this.kolekcijePodaci.filter((a:any)=>a.odjelId==1);
+  }
 }
 
 

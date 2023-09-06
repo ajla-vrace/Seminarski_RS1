@@ -52,7 +52,7 @@ export class ProizvodiComponent implements OnInit {
     this.getSifre();
     this.getOdjeli();
 
-    this.getSkladista();
+//    this.getSkladista();
 
     this.route.params.subscribe(s=>{
       this.zaposlenik_id=+s["id"];
@@ -113,7 +113,7 @@ export class ProizvodiComponent implements OnInit {
       this.proizvod_opadajuci.datum_modifikacije=formatDate(this.proizvod_opadajuci.datum_modifikacije,'dd/MM/yyyy',"en-US");
 */
 
-      console.log(this.proizvod_opadajuci);
+      console.log("proizvod opadajuci",this.proizvod_opadajuci);
     })
   }
 
@@ -127,21 +127,24 @@ export class ProizvodiComponent implements OnInit {
 
   getPodkategorijeByKatID(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Kategorija/GetPodkategorije?katID="+
-      this.odabrani_proizvod.kategorijaId,MojConfig.http_opcije()).subscribe((x:any)=>{
+      this.odabrani_proizvod?.kategorijaId,MojConfig.http_opcije()).subscribe((x:any)=>{
       this.podkategorije=x;
+      console.log("getPodkatByKatId, podaci:",this.podkategorije);
       if(this.kliknuoEdit==false) //ako je dodavanje proizvoda, ovo ce bit difoltni podkategorijaID
       {
-        if(this.podkategorije.length>0)
+        if(this.podkategorije?.length>0)
            this.odabrani_proizvod.podkategorijaId=this.podkategorije[0]?.id;
         else
           this.podkategorije=[];
       }
     })
+
+    console.log("getPodkatbyKatId, kliknuoEdit:",this.kliknuoEdit);
   }
 
   getKolekcijeBySezonaID2(){
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/getKolekcije?id="+
-      this.odabrani_proizvod.sezonaId,MojConfig.http_opcije())
+      this.odabrani_proizvod?.sezonaId,MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.kolekcije=x;
         if(this.kliknuoEdit==false) //ako je dodavanje proizvoda, ovo ce bit difoltni kolekcijaID
@@ -159,7 +162,9 @@ export class ProizvodiComponent implements OnInit {
   kolekcijaDefaultno:any;
 
   getSezone(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/sezone",MojConfig.http_opcije())
+
+    // /api/Sezona/sezone
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/sezone_kolekcija",MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.sezone=x;
        // if(this.kliknuo_add_sezkol==true)
@@ -289,14 +294,31 @@ export class ProizvodiComponent implements OnInit {
 
 
   EditDugme(p: any) {
-    this.naslov="Edit proizvoda (ID: "+p.sifra+")";
+    this.naslov="Edit proizvoda (Šifra: "+p.sifra+")";
     this.kliknuoEdit=true;
-    this.odabrani_proizvod=p;
-    this.odabrani_proizvod.modifikovao=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username;
-    this.odabrani_proizvod.kolekcijaOpis="";
-    this.odabrani_proizvod.sezonaOpis="";
-    this.getPodkategorijeByKatID();
-    this.getKolekcijeBySezonaID2();
+  //  this.odabrani_proizvod.kolekcijaOpis="";
+  //  this.odabrani_proizvod.sezonaOpis="";
+
+  //  this.getPodkategorijeByKatID();
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Kategorija/GetPodkategorije?katID="+
+      p?.kategorijaId,MojConfig.http_opcije()).subscribe((x:any)=>{
+        this.podkategorije=x;
+        console.log("podkategorije u edit");
+    });
+
+   // this.getKolekcijeBySezonaID2();
+    this.httpKlijent.get(MojConfig.adresa_servera+"/api/Sezona/getKolekcije?id="+
+      p?.sezonaId,MojConfig.http_opcije()).subscribe((x:any)=>{
+        this.kolekcije=x;
+        console.log("kolekcije u edit");
+    })
+
+    setTimeout(()=>{
+      this.odabrani_proizvod=p;
+      this.odabrani_proizvod.modifikovao=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username;
+      console.log("odabarani proizvod u edit");
+    },500)
+
   }
 
   DeleteDugme(p: any) {
@@ -326,7 +348,7 @@ export class ProizvodiComponent implements OnInit {
     let aktivnost=this.staJeIzabrano=="Aktivan"?true:false;
 
     if(this.staJeIzabrano=="Sve"){
-      if(this.kliknuoPretrazi){
+     /* if(this.kliknuoPretrazi){
         let data=niz.filter((x:any)=>( this.filtering(x,p)));
         this.totalLength=data?.length>0?data.length:0;
         return data;
@@ -334,10 +356,13 @@ export class ProizvodiComponent implements OnInit {
       else {
         this.totalLength = niz?.length>0 ? niz.length : 0;
         return niz;
-      }
+      } */
+      let data=niz?.filter((x:any)=>( this.filtering(x,p)));
+      this.totalLength=data?.length>0?data?.length:0;
+      return data;
     }
     else {
-      if (this.kliknuoPretrazi) {
+     /* if (this.kliknuoPretrazi) {
         let data=niz.filter((x: any) => (((this.filtering(x,p)) && x.aktivan == aktivnost)));
         this.totalLength=data?.length>0?data.length:0;
         return data;
@@ -345,19 +370,24 @@ export class ProizvodiComponent implements OnInit {
         let data2=niz.filter((x:any)=>(x.aktivan==aktivnost));
         this.totalLength=data2?.length>0?data2.length:0;
         return data2;
-      }
+      }*/
+      let data=niz?.filter((x: any) => (((this.filtering(x,p)) && x.aktivan == aktivnost)));
+      this.totalLength=data?.length>0?data?.length:0;
+      return data;
     }
   }
 
 
-  getFilterProizvodi(p: string) {
-    if(p==null) p="";
+  pretraga_vrijednost:any="";
+  getFilterProizvodi() {  //(p: string)
+    //if(p==null) p="";
+    //this.pretraga_vrijednost=p;
 
     if(this.sortirajPo=="Datum opadajući"){
-      return this.filterNiz(this.proizvod_opadajuci,p);
+      return this.filterNiz(this.proizvod_opadajuci,this.pretraga_vrijednost);
     }
     else{
-      return this.filterNiz(this.proizvodi_rastuci,p);
+      return this.filterNiz(this.proizvodi_rastuci,this.pretraga_vrijednost);
     }
 
   }

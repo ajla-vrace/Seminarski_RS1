@@ -6,38 +6,38 @@
 <div class="col-sm-3" [class.has-error]="ime.invalid && ime.touched">
   <label>Ime</label>
   <input id="idime" [(ngModel)]="txtIme" class="form-control"
-         #ime="ngModel" required pattern="^[A-Za-z]{2,}$" >
+         #ime="ngModel" required pattern="^[A-Z][a-z]{2,}$" >
 
 
   <span class="poruka-validacija" *ngIf="ime.invalid && ime.touched">
-         <p>Unesite ispravno ime</p>
+         <p>Unesite ispravno ime(samo slova, početno veliko)</p>
       </span>
 
 </div>
   <div class="col-sm-3" [class.has-error]="prezime.invalid && prezime.touched">
     <label>Prezime</label>
     <input id="idprezime" [(ngModel)]="txtPrezime" class="form-control"
-           #prezime="ngModel" required pattern="^[a-zA-Z]{2,}$" >
+           #prezime="ngModel" required pattern="^[A-Z][a-z]{2,}$" >
 
     <span class="poruka-validacija" *ngIf="prezime.invalid && prezime.touched">
-         <p>Unesite ispravno prezime</p>
+         <p>Unesite ispravno prezime(samo slova, početno veliko)</p>
       </span>
 
   </div>
   <div class="col-sm-3" [class.has-error]="email.invalid && email.touched">
     <label>Email</label>
-    <input id="idemail" [(ngModel)]="txtEmail" class="form-control"
+    <input id="idemail" [(ngModel)]="txtEmail" class="form-control" placeholder="nesto@gmail.com"
            #email="ngModel" required pattern="^[a-z]{1,}[a-z0-9]{1,}[._]{0,1}[a-z0-9]{1,}@gmail.com$" >
 
     <span class="poruka-validacija" *ngIf="email.invalid && email.touched">
-         <p>Unesite ispravno email</p>
+         <p>Unesite ispravno email(treba početi sa slovom)</p>
       </span>
 
   </div>
   <div class="col-sm-3" [class.has-error]="username.invalid && username.touched">
     <label>Username</label>
     <input id="idusername" [(ngModel)]="txtUsername" class="form-control"
-           #username="ngModel" required pattern="^[a-zA-Z]{3,}$" value="">
+           #username="ngModel" required pattern="^[a-z][a-zA-Z0-9]{3,}$" value="">
 
     <span class="poruka-validacija" *ngIf="username.invalid && username.touched">
          <p>Unesite ispravno username</p>
@@ -47,10 +47,10 @@
   <div class="col-sm-3" [class.has-error]="lozinka.invalid && lozinka.touched">
     <label>Lozinka</label>
     <input id="idlozinka" [(ngModel)]="txtLozinkaR" class="form-control" type="password"
-           #lozinka="ngModel" required pattern="^[a-zA-Z0-9]{3,}$" >
+           #lozinka="ngModel" required pattern="^[^\s]{3,}$" >
 
     <span class="poruka-validacija" *ngIf="lozinka.invalid && lozinka.touched">
-         <p>Unesite ispravno lozinku</p>
+         <p>Unesite ispravno lozinku(min 3 karaktera)</p>
       </span>
 
   </div>

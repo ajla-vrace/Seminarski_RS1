@@ -62,8 +62,8 @@ export class ProizvodDetaljiComponent implements OnInit {
   {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/KorpaStavka/GetDostupneVelicine?proizvodId="+this.proizvod_id, MojConfig.http_opcije()).subscribe(x=>{
       this.dostupneVelicine = x;
-      console.log("proizvod id :"+this.proizvod_id);
-      console.log("dostupne velicine:",this.dostupneVelicine);
+     // console.log("proizvod id :"+this.proizvod_id);
+     // console.log("dostupne velicine:",this.dostupneVelicine);
     });
   }
   fetchProizvodSlika(idSlika:any){
@@ -172,13 +172,13 @@ this.fetchKorpaIme();
   korpaIme:any;
   dodanaStavkaVec:any=false;
 provjeraStavkeKorpe(p:any,velicina:any){
-  console.log("ID KORPE JE NA POCETKU FUNKCIJE PROVJERASTAVKI :"+this.korpaID);
-  console.log("u korpestavkepodaci je",this.korpaStavkePodaci);
+ // console.log("ID KORPE JE NA POCETKU FUNKCIJE PROVJERASTAVKI :"+this.korpaID);
+ // console.log("u korpestavkepodaci je",this.korpaStavkePodaci);
   this.korpaIme="Korpa"+this.kupac_id;
   for (let ks of this.korpaStavkePodaci) {
-console.log("USAO U PETLJU ZA PROVJERU");
-    console.log(" prije ifa: proizvodid: " + ks.proizvodId + " korpaid: " + this.korpaIme +
-      " ks.korpa id : " + ks.korpaIme + " velicina: " + velicina);
+   // console.log("USAO U PETLJU ZA PROVJERU");
+  //  console.log(" prije ifa: proizvodid: " + ks.proizvodId + " korpaid: " + this.korpaIme +
+     // " ks.korpa id : " + ks.korpaIme + " velicina: " + velicina);
 /*
     console.log(" prije ifa: proizvodid: " + ks.proizvodId + " korpaid: " + this.korpaID +
       " ks.korpa id : " + ks.korpaId + " velicina: " + velicina);*/
@@ -190,11 +190,11 @@ console.log("USAO U PETLJU ZA PROVJERU");
       return;
     }
     else{
-      console.log("petlja je u else, nije ispunjen uslov");
+     // console.log("petlja je u else, nije ispunjen uslov");
       this.dodanaStavkaVec=false;
     }
   }
-  console.log("isao iz etlje za vec dodane");
+  //console.log("isao iz etlje za vec dodane");
 }
 
 
@@ -207,13 +207,13 @@ console.log("USAO U PETLJU ZA PROVJERU");
       console.log("korpa prijavljenog kupca: (hvatamo korpe))",this.korpaPrijavljenogKupca);
     });
 */
-    console.log("dodaj u korpu funkcija pocetak");
+   // console.log("dodaj u korpu funkcija pocetak");
 this.provjeraStavkeKorpe(p,velicina);
 
 
   setTimeout( ()=>{
     if(this.dodanaStavkaVec==true) {
-      console.log("nece se dodati , jer vec postoji, u if sulovu smo dodoaj u korpu funkcije");
+      //console.log("nece se dodati , jer vec postoji, u if sulovu smo dodoaj u korpu funkcije");
     }
     else{
       this.korpaStavka = {
@@ -230,8 +230,8 @@ this.provjeraStavkeKorpe(p,velicina);
         this.fetchStavkeKorpe();
         this.korpastavkaId = x.id;
         this.prikaziDivKorpa = true;
-        console.log("ova stavka je dodana", this.korpaStavka);
-        console.log("korpa stavka dodano:" + this.korpastavkaId);
+       // console.log("ova stavka je dodana", this.korpaStavka);
+       // console.log("korpa stavka dodano:" + this.korpastavkaId);
       });
     }
   }, 2000);
@@ -241,16 +241,16 @@ this.provjeraStavkeKorpe(p,velicina);
 
 
   napraviIliNadjiKorpu() {
-    console.log("odabrana velcina je "+this.odabranavelicina);
+   // console.log("odabrana velcina je "+this.odabranavelicina);
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Korpa/GetByIdKupac/"+this.kupac_id, MojConfig.http_opcije()).subscribe(x=>{
       this.korpaPrijavljenogKupca = x;
-      console.log("korpa prijavljenog kupca: ovdje ",this.korpaPrijavljenogKupca);
+    //  console.log("korpa prijavljenog kupca: ovdje ",this.korpaPrijavljenogKupca);
     });
 
     setTimeout( ()=>{
       if(this.korpaPrijavljenogKupca?.length==0){
-        console.log("nema korpe, pravimo je sada");
-        console.log("u if pocetak: ");
+       // console.log("nema korpe, pravimo je sada");
+       // console.log("u if pocetak: ");
         this.novaKorpa = {
           id: 0,
           naziv: "Korpa" + this.loginInfo().autentifikacijaToken.korisnickiNalogId,
@@ -262,7 +262,7 @@ this.provjeraStavkeKorpe(p,velicina);
           this.fetchKorpe();
           this.korpaID=x.id;
           //this.korpaID = this.novaKorpa.id;
-          console.log("ID NAPRAVLJENE KORPE JE "+this.korpaID);
+          //console.log("ID NAPRAVLJENE KORPE JE "+this.korpaID);
         });
 
         // this.korpaID = this.novaKorpa.id;
@@ -271,9 +271,9 @@ this.provjeraStavkeKorpe(p,velicina);
       }
 
       else{
-        console.log("u else ovdje bi trebala biti napravljena korpa : ",this.korpaPrijavljenogKupca);
+       // console.log("u else ovdje bi trebala biti napravljena korpa : ",this.korpaPrijavljenogKupca);
         this.korpaID=this.korpaPrijavljenogKupca[0]?.id;
-        console.log("korpa id u else u napraviilinadjikorpu: "+this.korpaID);
+        //console.log("korpa id u else u napraviilinadjikorpu: "+this.korpaID);
       }
 
     }, 900);
@@ -337,12 +337,12 @@ this.provjeraStavkeKorpe(p,velicina);
         if(this.favoritiPodaci[i].proizvodId==proizvodId &&
           this.favoritiPodaci[i].kupacId==this.loginInfo().autentifikacijaToken.korisnickiNalogId){
           this.isFavorit=true;
-          console.log("fp:"+ this.favoritiPodaci[i].proizvodId+ " fp kupacid: "+ this.favoritiPodaci[i].kupacId);
+         // console.log("fp:"+ this.favoritiPodaci[i].proizvodId+ " fp kupacid: "+ this.favoritiPodaci[i].kupacId);
           return;
         }
       }
     }
-console.log("ptovjera favorita");
+//console.log("ptovjera favorita");
 
 
   }
@@ -379,7 +379,7 @@ cijena:any;
     this.httpKlijent.get(MojConfig.adresa_servera+"/api/SkladisteProizvod/provjeri_stanje?proizvodId="+this.proizvod_id)
       .subscribe((x:any)=>{
         this.stanje_na_skladistu=x;
-        console.log("STANJE NA SKLADISTU: ",this.stanje_na_skladistu);
+        //console.log("STANJE NA SKLADISTU: ",this.stanje_na_skladistu);
       })
   }
 
