@@ -188,6 +188,7 @@ namespace OnlineShop.Modul2_TestniPodaci
             });
 
 
+
             proizvod.Add(
          new Proizvod
          {
@@ -209,6 +210,7 @@ namespace OnlineShop.Modul2_TestniPodaci
              modifikovao = "",
              isSpecijalna = false
          });
+
 
             proizvod.Add(
             new Proizvod
@@ -302,17 +304,21 @@ namespace OnlineShop.Modul2_TestniPodaci
             new Proizvod
             {
                 Sifra = 140,
+
                 Naziv = "Muske farmerke",
+
                 Cijena = 50,
                 Opis = "Udobne farmerke",
                 datum_kreiranja = datum3,
                 datum_modifikacije = null,
                 Aktivan = true,
                 boja = boja[0],
+
                 odjel = odjel[1],
                 kategorija = kategorija[1],
                 podkategorija = podkategorija[5],
                 kolekcija = kolekcija[1],
+
                 sezona = sezona[0],
                 slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zenskeFarmerke),
                 evidentirao = "nina",
@@ -342,8 +348,6 @@ namespace OnlineShop.Modul2_TestniPodaci
                 modifikovao = "",
                 isSpecijalna = false
             });
-
-
 
 
             proizvodSlika.Add(new ProizvodSlika
