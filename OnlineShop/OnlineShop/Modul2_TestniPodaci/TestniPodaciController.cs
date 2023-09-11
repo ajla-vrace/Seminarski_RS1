@@ -187,7 +187,6 @@ namespace OnlineShop.Modul2_TestniPodaci
                 isSpecijalna = false
             });
 
-
             proizvod.Add(
          new Proizvod
          {
@@ -209,6 +208,7 @@ namespace OnlineShop.Modul2_TestniPodaci
              modifikovao = "",
              isSpecijalna = false
          });
+
 
             proizvod.Add(
             new Proizvod
@@ -312,7 +312,8 @@ namespace OnlineShop.Modul2_TestniPodaci
                 odjel = odjel[1],
                 kategorija = kategorija[1],
                 podkategorija = podkategorija[5],
-                kolekcija = kolekcija[0],
+                kolekcija = kolekcija[1],
+
                 sezona = sezona[0],
                 slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zenskeFarmerke),
                 evidentirao = "nina",
@@ -342,8 +343,6 @@ namespace OnlineShop.Modul2_TestniPodaci
                 modifikovao = "",
                 isSpecijalna = false
             });
-
-
 
 
             proizvodSlika.Add(new ProizvodSlika
