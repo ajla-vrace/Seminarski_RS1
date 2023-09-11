@@ -106,9 +106,9 @@ namespace OnlineShop.Modul2_TestniPodaci
             sezona.Add(new Sezona { Naziv = "Jesen Zima 22/23", Doba="Jesen", Godina="2022", Aktivna=true});
             sezona.Add(new Sezona { Naziv = "Proljece Ljeto 22/23", Doba="Proljece", Godina="2022", Aktivna=false });
 
-            kolekcija.Add(new Kolekcija { Naziv = "Kolekcija 1", Godina = "2022", sezona = sezona[0], Aktivna=true });
-            kolekcija.Add(new Kolekcija { Naziv = "Kolekcija 2", Godina = "2022", sezona = sezona[0], Aktivna=true });
-            kolekcija.Add(new Kolekcija { Naziv = "Kolekcija 3", Godina = "2022", sezona = sezona[0], Aktivna=false });
+            kolekcija.Add(new Kolekcija { Naziv = "Basic kolekcija", Godina = "2022", sezona = sezona[0], Aktivna=true });
+            kolekcija.Add(new Kolekcija { Naziv = "Kolekcija poslovne odjece", Godina = "2022", sezona = sezona[0], Aktivna=false });
+            kolekcija.Add(new Kolekcija { Naziv = "Kolekcija svecane odjece", Godina = "2022", sezona = sezona[0], Aktivna=true });
 
 
             odjel.Add(new Odjel { Naziv = "Zenski" });
@@ -148,7 +148,7 @@ namespace OnlineShop.Modul2_TestniPodaci
              {
                  Sifra = 133,
                  Naziv = "Muske hlace",
-                 Cijena = 45,
+                 Cijena = 20,
                  Opis = "Muske pamucne hlace",
                  datum_kreiranja = datum2,
                  datum_modifikacije = datum3,
@@ -157,7 +157,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                  odjel = odjel[1],
                  kategorija = kategorija[1],
                  podkategorija = podkategorija[4],
-                 kolekcija = kolekcija[2],
+                 kolekcija = kolekcija[0],
                  sezona = sezona[0],
                  slika_postojeca=Ekstenzije.ParsirajBase64(Slike.slika2),
                  evidentirao = "nina",
@@ -187,27 +187,28 @@ namespace OnlineShop.Modul2_TestniPodaci
                 isSpecijalna = false
             });
 
+
             proizvod.Add(
-           new Proizvod
-           {
-               Sifra = 135,
-               Naziv = "Zenska crvena majica",
-               Cijena = 25,
-               Opis = "Pamucna majica",
-               datum_kreiranja = datum2,
-               datum_modifikacije = null,
-               Aktivan = true,
-               boja = boja[2],
-               odjel = odjel[0],
-               kategorija = kategorija[0],
-               podkategorija = podkategorija[0],
-               kolekcija = kolekcija[0],
-               sezona = sezona[0],
-               slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zenskaCrvenaMajica),
-               evidentirao = "nina",
-               modifikovao = "",
-               isSpecijalna = false
-           });
+         new Proizvod
+         {
+             Sifra = 135,
+             Naziv = "Zenska crvena majica",
+             Cijena = 25,
+             Opis = "Pamucna majica",
+             datum_kreiranja = datum2,
+             datum_modifikacije = null,
+             Aktivan = true,
+             boja = boja[2],
+             odjel = odjel[0],
+             kategorija = kategorija[0],
+             podkategorija = podkategorija[0],
+             kolekcija = kolekcija[0],
+             sezona = sezona[0],
+             slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zenskaCrvenaMajica),
+             evidentirao = "nina",
+             modifikovao = "",
+             isSpecijalna = false
+         });
 
             proizvod.Add(
             new Proizvod
@@ -223,7 +224,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                 odjel = odjel[0],
                 kategorija = kategorija[1],
                 podkategorija = podkategorija[4],
-                kolekcija = kolekcija[2],
+                kolekcija = kolekcija[1],
                 sezona = sezona[0],
                 slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zenskeCrnePantale),
                 evidentirao = "nina",
@@ -267,7 +268,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                 odjel = odjel[0],
                 kategorija = kategorija[5],
                 podkategorija = podkategorija[8],
-                kolekcija = kolekcija[0],
+                kolekcija = kolekcija[2],
                 sezona = sezona[0],
                 slika_postojeca = Ekstenzije.ParsirajBase64(Slike.svecanaPlavaHaljina),
                 evidentirao = "nina",
@@ -289,7 +290,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                 odjel = odjel[0],
                 kategorija = kategorija[5],
                 podkategorija = podkategorija[9],
-                kolekcija = kolekcija[0],
+                kolekcija = kolekcija[2],
                 sezona = sezona[0],
                 slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zelenaHaljina),
                 evidentirao = "nina",
@@ -301,14 +302,14 @@ namespace OnlineShop.Modul2_TestniPodaci
             new Proizvod
             {
                 Sifra = 140,
-                Naziv = "Zenske farmerke",
+                Naziv = "Muske farmerke",
                 Cijena = 50,
                 Opis = "Udobne farmerke",
                 datum_kreiranja = datum3,
                 datum_modifikacije = null,
                 Aktivan = true,
                 boja = boja[0],
-                odjel = odjel[0],
+                odjel = odjel[1],
                 kategorija = kategorija[1],
                 podkategorija = podkategorija[5],
                 kolekcija = kolekcija[0],
@@ -341,6 +342,9 @@ namespace OnlineShop.Modul2_TestniPodaci
                 modifikovao = "",
                 isSpecijalna = false
             });
+
+
+
 
             proizvodSlika.Add(new ProizvodSlika
             {
@@ -419,7 +423,7 @@ namespace OnlineShop.Modul2_TestniPodaci
             var datum7 = new DateTime(2023, 6, 22);
 
 
-            specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Drama dan", datum_pocetka = datum4, datum_zavrsetka = datum5, aktivna=true });
+            specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Drama dan", datum_pocetka = DateTime.Now, datum_zavrsetka = DateTime.Now.AddDays(10), aktivna=true });
             specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Crni petak", datum_pocetka = datum6, datum_zavrsetka = datum7, aktivna=false});
           
             specijalnaPonudaProizvod.Add(new SpecijalnaPonudaProizvod { popust = popust[5], proizvod = proizvod[0], specijalnaPonuda = specijalnaPonuda[0], OriginalnaCijena=30, CijenaSaPopustom=18 });
@@ -519,7 +523,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                 Ime = "Iris",
                 Prezime = "Memic",
                 Email = "testkupac7@gmail.com",
-                Username = "iris",
+                Username = "kupacdrugi",
                 Lozinka = "test",
                 BrojTelefona = "062666433",
                 DatumRegistracije = DateTime.Now,
@@ -537,7 +541,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                 Ime = "Kemal",
                 Prezime = "Maric",
                 Email = "kemal@gmail.com",
-                Username = "kemal",
+                Username = "kupacprvi",
                 Lozinka = "test",
                 BrojTelefona = "062777333",
                 DatumRegistracije = DateTime.Now,
@@ -563,9 +567,9 @@ namespace OnlineShop.Modul2_TestniPodaci
                 isAdmin = false,
                 isKupac = false,
                 isZaposlenik = true,
-                DatumRodjenja=DateTime.Now,
-                DatumZaposlenja=DateTime.Now,
-                AdresaStanovanja="Adresa12",
+                DatumRodjenja=new DateTime(1999, month: 2, day: 22),
+                DatumZaposlenja =DateTime.Now,
+                AdresaStanovanja="Trg Ivana Krndelja 1",
                 JMBG="3241567483592",
                 Prodavnica = prodavnice[0],
                 jelObavijesten=false
@@ -584,9 +588,9 @@ namespace OnlineShop.Modul2_TestniPodaci
                 isAdmin = false,
                 isKupac = false,
                 isZaposlenik = true,
-                DatumRodjenja = DateTime.Now,
+                DatumRodjenja = new DateTime(1998, month: 3, day: 15),
                 DatumZaposlenja = DateTime.Now,
-                AdresaStanovanja = "Adresa42",
+                AdresaStanovanja = "Alekse Santica 15",
                 JMBG = "3241567483777",
                 Prodavnica = prodavnice[1],
                 jelObavijesten = true

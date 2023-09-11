@@ -368,7 +368,7 @@ namespace OnlineShop.Modul1.Controllers
 
 
         [HttpPost]
-        [Autorizacija(Kupac:false,Zaposlenik:false,Admin:true)]
+      //  [Autorizacija(Kupac:false,Zaposlenik:false,Admin:true)]
         public ActionResult Snimi(ZaposlenikVMSnimi x)
         {
             Zaposlenik? k;

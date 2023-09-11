@@ -111,7 +111,7 @@
 -->
 <pagination-controls *ngIf="totalLength!=0" class="text-center my-pagination" (pageChange)="page=$event"></pagination-controls>
 
-
+<br><br>
 
 <div *ngIf="odabrani_proizvod!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog modal-dialog modal-dialog-scrollable">
@@ -149,10 +149,10 @@
 
         <div class="mb-3" [class.has-error]="cijenaControll.invalid && cijenaControll.touched">
           <label class="form-label">cijena</label>
-          <input required #cijenaControll="ngModel" pattern="^[0-9]+\.?[0-9]+$" #cijena class="form-control" placeholder="Cijena" [(ngModel)]="odabrani_proizvod.cijena"/>
+          <input required #cijenaControll="ngModel" pattern="^[0-9]+\.?[0-9]{0,2}$" #cijena class="form-control" placeholder="Cijena" [(ngModel)]="odabrani_proizvod.cijena"/>
 
           <span class="help-block" *ngIf="(cijenaControll.invalid && cijenaControll.touched) || jelUnesenaNula(cijena.value)">
-              Ovo polje je obavezno
+              Ovo polje je obavezno. Stavite validnu cijenu sa max dvije decimale.
           </span>
         </div>
 

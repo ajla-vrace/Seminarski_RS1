@@ -256,7 +256,7 @@ export class SkladisteComponent implements OnInit {
 
   btnEdit(p: any) {
     this.kliknuoEdit=true;
-    this.naslov="Modifikacija stavke: "+p.id;
+    this.naslov="Modifikacija stavke: "+p.sifra;
     this.odabrana_stavka=p;
     this.odabrana_stavka.modifikovao=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username;
 

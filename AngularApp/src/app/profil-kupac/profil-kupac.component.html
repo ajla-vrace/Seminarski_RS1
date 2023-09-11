@@ -184,9 +184,9 @@ KUPAC ID: {{kupac_id}}
      <!-- <h6>Datum registracije: </h6>
       <input value=" {{datumRegistracije | date:'dd-MM-yyyy'}}" disabled class="kupacpodaci">
 -->
-      <h6 *ngIf="isPretplacen==false">Pretplata: Ne </h6>
+     <!-- <h6 *ngIf="isPretplacen==false">Pretplata: Ne </h6>
       <h6 *ngIf="isPretplacen==true">Pretplata: Da</h6>
-
+-->
       <button (click)="promjenaLozinke()" id="promjenaLozinke">Promjeni lozinku</button>
 
     </div>
@@ -234,7 +234,7 @@ KUPAC ID: {{kupac_id}}
           <thead style="background-color: black;">
           <tr style="background-color: black;">
             <th>Opis</th>
-            <th>Kupac</th>
+          <!--  <th>Kupac</th>-->
             <th>Prodavnica</th>
             <th>Datum</th>
             <th>Modifikacija</th>
@@ -245,7 +245,7 @@ KUPAC ID: {{kupac_id}}
           <tbody>
           <tr *ngFor="let s of prikaziMojeKomentare()">
             <td>{{s.opis}}</td>
-            <td>{{s.kupac}}</td>
+           <!-- <td>{{s.kupac}}</td>-->
             <td>{{s.prodavnica}}</td>
             <td>{{s.datumKreiranja | date:'dd-MM-yyyy'}}</td>
             <td>
@@ -269,7 +269,7 @@ KUPAC ID: {{kupac_id}}
           <thead style="background-color: black;">
           <tr style="background-color: black;">
             <th>Ocjena</th>
-            <th>Kupac</th>
+           <!-- <th>Kupac</th>-->
             <th>Prodavnica</th>
             <th>Datum</th>
             <th>Brisanje</th>
@@ -279,7 +279,7 @@ KUPAC ID: {{kupac_id}}
           <tbody>
           <tr *ngFor="let o of prikaziMojeOcjeneProdavnica()">
             <td>{{o.ocjena}}</td>
-            <td>{{o.kupac}}</td>
+           <!-- <td>{{o.kupac}}</td>-->
             <td>{{o.prodavnica}}</td>
             <td>{{o.datumKreiranja | date:'dd-MM-yyyy'}}</td>
             <td>
@@ -301,7 +301,7 @@ KUPAC ID: {{kupac_id}}
           <thead style="background-color: black;">
           <tr style="background-color: black;">
             <th>Ocjena</th>
-            <th>Kupac</th>
+           <!-- <th>Kupac</th>-->
             <th>Proizvod</th>
             <th>Datum</th>
             <th>Brisanje</th>
@@ -311,7 +311,7 @@ KUPAC ID: {{kupac_id}}
           <tbody>
           <tr *ngFor="let op of prikaziMojeOcjeneProizvoda()">
             <td>{{op.ocjena}}</td>
-            <td>{{op.kupac}}</td>
+           <!-- <td>{{op.kupac}}</td>-->
             <td>{{op.proizvod}}</td>
             <td>{{op.datumKreiranja | date:'dd-MM-yyyy'}}</td>
             <td>

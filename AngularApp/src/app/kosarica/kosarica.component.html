@@ -37,8 +37,11 @@ kupac id:
         <h6> Kolicina: {{kst.kolicina}}</h6>
         <h6>Velicina: {{kst.velicina}}</h6>
         <div id="upravljanjeStavkama">
-          <button (click)="Modifikacija(kst)" id="dugmeModifikuj" >Modifikuj</button>
-
+         <!-- <button (click)="Modifikacija(kst)" id="dugmeModifikuj" >Modifikuj</button>-->
+         <!-- <button (click)="Modifikacija(kst)" id="dugmeModifikuj" >
+            <img src="assets/slike/edit.png" style="width: 10px;">
+          </button>-->
+          <img src="assets/slike/edit.png" style="width: 20px;color: black;" (click)="Modifikacija(kst)" id="edituj">
          <!-- <label (click)="UkloniIzKorpe(kst)" id="ukloniStavkuIzKorpe">Ukloni iz korpe</label>-->
           <img src="assets/slike/trash.png" style="width: 20px" id="ukloniStavkuIzKorpe"  (click)="UkloniIzKorpe(kst)">
         </div>

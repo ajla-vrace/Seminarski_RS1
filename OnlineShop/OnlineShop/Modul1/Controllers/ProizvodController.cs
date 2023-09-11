@@ -171,7 +171,7 @@ namespace OnlineShop.Modul1.Controllers
             }
 
             p.Naziv = x.Naziv;
-            p.Cijena = x.Cijena;
+            p.Cijena = (float)Math.Round(x.Cijena,2);
             p.Opis = x.Opis;
             p.Aktivan = x.Aktivan;
             p.bojaId = x.bojaId;

@@ -139,7 +139,7 @@ export class PretragaComponent implements OnInit {
 
     if (this.pretragaPoNazivu.trim() !== '') {
       this.filtriraniProizvodi = this.filtriraniProizvodi.filter((a: any) =>
-        a.naziv.toLowerCase().startsWith(this.pretragaPoNazivu.toLowerCase())
+        a.naziv.toLowerCase().includes(this.pretragaPoNazivu.toLowerCase())
       );
     }
 
@@ -226,6 +226,7 @@ this.dodanoUFavorite=true;
 */
   prikaziDetaljeProizvoda(proizvod:any) {
     this.proizvod_id=proizvod;
+    if (this.loginInfo().isLogiran==true)
     this.napraviIliNadjiKorpu();
     this.router.navigate(['proizvod-detalji',this.proizvod_id]);
   }

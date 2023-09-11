@@ -267,9 +267,15 @@
         </div>
 
 
-        <div class="mb-3">
+        <div class="mb-3" [class.has-error]="(kol.invalid && kol.touched) || kol.value<=0">
           <label class="form-label">Količina</label>
-          <input class="form-control" placeholder="količina" type="number" [(ngModel)]="odabrana_stavka.kolicina">
+          <input class="form-control" placeholder="količina" type="number" [(ngModel)]="odabrana_stavka.kolicina"
+          #kol="ngModel">
+
+          <span *ngIf="(kol.invalid && kol.touched) || kol.value<=0">
+            Trebate unijeti ispravnu količinu.
+          </span>
+
         </div>
 
 
@@ -297,7 +303,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary"
-                [disabled]="!(vel.valid && !(postojiIstaVelicina(vel.value) && skl.valid))"
+                [disabled]="!(vel.valid && !(postojiIstaVelicina(vel.value) && skl.valid) && kol.valid)"
                 (click)="spasi()" >Spasi promjene</button>
       </div>
     </div>

@@ -403,20 +403,20 @@ namespace OnlineShop.Modul1.Controllers
         }
         [HttpGet]
         //[Autorizacija(Kupac:false,Zaposlenik:false, Admin:true)]
-        public ActionResult GetKolekcije()
+        public ActionResult GetKolekcije(int odjel)
         {
             var data = _dbContext.Proizvod
                 .Where(x=>x.Aktivan==true && x.isSpecijalna==false
+                && x.odjelId==odjel
                )
                 .Select(x => new
                 {
-                    Id = x.Id,
+                    //Id = x.Id,
                     Naziv = x.kolekcija.Naziv,
-                    
                     sezonaId = x.sezonaId,
                     sezonaOpis = x.sezona.Naziv,
                     
-                }).ToList().OrderByDescending(x => x.Id);
+                }).Distinct().ToList();
             return Ok(data);
         }
 

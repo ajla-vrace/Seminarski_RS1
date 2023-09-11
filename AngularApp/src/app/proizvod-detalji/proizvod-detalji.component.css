@@ -32,6 +32,7 @@ padding: 3%;
 
 .slikaDetalja{
 width: 40%;
+  max-height: 620px;
   /*height: fit-content;*/
   flex: 1;
 
@@ -43,6 +44,8 @@ width: 40%;
 .detaljiTekst{
 width: 50%;
   padding: 2%;
+  padding-left: 5%;
+  padding-right: 5%;
   background-color: #fdf7e2;
   /*height: fit-content;*/
   flex: 1;
