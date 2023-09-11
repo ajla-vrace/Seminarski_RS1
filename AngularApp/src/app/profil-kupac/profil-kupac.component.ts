@@ -8,6 +8,7 @@ import {NgModel} from "@angular/forms";
 import {SignalRService} from "../_servisi/SignalRServis";
 import { CategoryScale, LinearScale, BarController, BarElement } from 'chart.js';
 import {Chart} from 'chart.js'
+import {AngularFireDatabase} from "@angular/fire/compat/database";
 
 
 declare function porukaSuccess(a: string):any;
@@ -33,7 +34,8 @@ interface IzvjestajKomentari {
 export class ProfilKupacComponent implements OnInit {
 
 
-
+  notifikacija:any;
+  brojacFirebase:number=0;
 
 
 //mjeseci
@@ -112,11 +114,14 @@ poruka1:any;
 
   slikaUrl: string | null = null;
    stavkeJedneNarudzbePodaci: any;
+   prikazSignalR:any=false;
+   notifikacijaa:string="Dodana je nova specijalna ponuda. Pogledajte je!";
   constructor(private route: ActivatedRoute, private httpKlijent:HttpClient,private router:Router,
-              private signalRService: SignalRService ) {
+              private signalRService: SignalRService , private afDB:AngularFireDatabase ) {
     //a.otvoriKanalWebSocket();
     this.signalRService.porukaReceived$.subscribe((poruka: string) => {
       this.primljenaPoruka = poruka;
+      this.prikazSignalR=true;
     });
 
 
@@ -257,6 +262,7 @@ kupacPodaciNovi:any;
 
       })*/
   }
+  vrijednostNotifikacije:any;
   ngOnInit(): void {
     this.kupac_id=this.loginInfo().autentifikacijaToken.korisnickiNalogId;
     this.getKupcaNovi();
@@ -295,6 +301,27 @@ this.getSlikuKupca();
        this.prikaziGrafikon();
       });
 */
+    this.notifikacija=this.afDB.object("/notifikacija").valueChanges();
+
+    console.log("notifikacija"+this.notifikacija);
+    this.notifikacija.subscribe((vrijednost:any) => {
+      this.vrijednostNotifikacije=vrijednost;
+      console.log('Vrijednost notifikacije:', vrijednost);
+
+
+    });
+
+
+    /* if (vrijednost === 1 && this.brojacFirebase==0) {
+            porukaSuccess('Dodan je nova specijalna ponuda. Pogledajte je!');
+            this.brojacFirebase++;
+            setTimeout(() => {
+              this.brojacFirebase--;
+            }, 10000);
+          }*/
+
+
+
   }
 
 
@@ -1149,7 +1176,15 @@ obj_status:any;
   }
 
 
-
-
+pogledano(){
+  this.afDB.object('/notifikacija').set(0).then(() => {
+    console.log('Vrijednost cvora notifikacija promijenjena na 0.');
+  });
+}
+  pogledanSignalR:any=false;
+pogledanoSignalR(){
+   this.prikazSignalR=false;
+   console.log("Sada je "+this.prikazSignalR);
+}
 
 }

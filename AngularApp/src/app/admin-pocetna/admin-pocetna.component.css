@@ -4,7 +4,7 @@
 }
 
 .statistika{
-  margin-top:5%;
+  margin-top:4%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -346,4 +346,26 @@ h3{
   font-style: italic;
   font-weight: 800;
   color: rgba(255,0,46,0.56);
+}
+
+.notifikacije{
+  background-color: #95e4ff;
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2%;
+  border-radius: 10px;
+  margin-left: 59%;
+  margin-top: 3%;
+}
+
+.btn-notif{
+  background-color: #95e4ff;
+  border-color:black;
+  border-radius: 10px;
+}
+
+.btn-notif:hover{
+  color:rgba(0,0,0,0.71)
 }

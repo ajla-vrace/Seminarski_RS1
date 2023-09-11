@@ -252,12 +252,25 @@ color: white;
   color: #980909;
   font-size: x-large;
   font-weight: bold;
-  margin: 0 30%;
+  margin: 0 20%;
   background-color: #f6d0d4;
   border-radius: 20px;
 
   text-align: center;
-  width: 40%;
+  width: 60%;
+}
+
+.user-message1 {
+  color: #980909;
+  font-size: x-large;
+  font-weight: bold;
+  margin: 0 20%;
+  background-color: #f6d0d4;
+  border-radius: 20px;
+margin-bottom: 2%;
+  text-align: center;
+  width: 60%;
+
 }
 
 
@@ -369,4 +382,12 @@ color: white;
   border-radius: 100%;
   margin: auto;
   cursor: pointer;
+}
+.x{
+ border: 0;
+  margin-left: 2%;
+  background-color: #f6d0d4;
+}
+#divbijeli{
+  padding: 2%;
 }

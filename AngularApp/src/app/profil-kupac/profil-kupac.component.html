@@ -96,11 +96,15 @@
 
 
 
-<div class="user-message">
-  {{primljenaPoruka}}
+<div class="user-message" *ngIf="prikazSignalR==true;">
+  <label style="padding: 2%;"> {{primljenaPoruka}}</label>
+  <button (click)="pogledanoSignalR()" class="x">X</button>
 </div>
 
-
+<div   class="user-message1" *ngIf="vrijednostNotifikacije==1" >
+  <label style="padding: 2%;">{{notifikacijaa}}</label>
+   <button (click)="pogledano()" class="x">X</button>
+</div>
 
 
 

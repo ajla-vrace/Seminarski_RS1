@@ -5,6 +5,7 @@ import {MojConfig} from "../moj-config";
 import {NgModel} from "@angular/forms";
 import {DatePipe, formatDate} from "@angular/common";
 import {SignalRService} from "../_servisi/SignalRServis";
+import {AngularFireDatabase} from "@angular/fire/compat/database";
 
 
 @Component({
@@ -16,7 +17,8 @@ export class SpecPonComponent implements OnInit {
   poruka: string = '';
 
   constructor(private route:ActivatedRoute, private router:Router, private httpKlijent:HttpClient, private datePipe:DatePipe,
-              private signalRService: SignalRService   ) {
+              private signalRService: SignalRService, private afDB:AngularFireDatabase
+              ) {
 
 
   }
@@ -27,8 +29,21 @@ export class SpecPonComponent implements OnInit {
     this.poruka="Dodana nova specijalna ponuda.";
     this.signalRService.posaljiPoruku(this.poruka);
   }
+posaljiNotifikaciju(){
+  this.afDB.object('/notifikacija').set(1).then(() => {
+    console.log('Vrijednost cvora notifikacija promijenjena na 1.');
+  });
 
+  setTimeout(() => {
+   //this.vratiNaNula();
+  }, 5000);
 
+}
+  vratiNaNula(){
+    this.afDB.object('/notifikacija').set(0).then(() => {
+      console.log('Vrijednost cvora notifikacija promijenjena na 0.');
+    });
+  }
 
 
 

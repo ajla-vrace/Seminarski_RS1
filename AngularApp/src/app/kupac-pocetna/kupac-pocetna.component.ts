@@ -23,6 +23,7 @@ export class KupacPocetnaComponent implements OnInit {
 
   brojPosjetaUpdate:any;
   brojPregled:any;
+  brojNoviPregledi:any;
   brojPosjetaRef?:any;
   counter:any=0;
 
@@ -30,6 +31,7 @@ export class KupacPocetnaComponent implements OnInit {
     console.log("update se desio");
     if(this.counter<1) {
       this.afDB.object('Varijable/').update({brojPregleda:++this.brojPregled});
+      this.afDB.object('Varijable/').update({noviPregledi:++this.brojNoviPregledi});
       this.counter++;
     }
   }
@@ -40,7 +42,8 @@ export class KupacPocetnaComponent implements OnInit {
       this.brojPosjetaUpdate=x;
       console.log("brojposjeta:",this.brojPosjetaUpdate);
       this.brojPregled=this.brojPosjetaUpdate.brojPregleda;
-      console.log(this.brojPregled);
+      this.brojNoviPregledi=this.brojPosjetaUpdate.noviPregledi;
+      console.log(this.brojPregled, this.brojNoviPregledi);
       console.log("kupac pocetna");
       this.update_varijable();
     });

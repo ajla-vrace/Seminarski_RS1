@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
-
+import {AngularFireDatabase} from "@angular/fire/compat/database";
+//import {firebaseServis} "../_servisi/firebaseServis";
+declare function porukaSuccess(a: string):any;
+declare function porukaError(a: string):any;
 @Component({
   selector: 'app-nav-kupac',
   templateUrl: './nav-kupac.component.html',
@@ -20,7 +23,8 @@ export class NavKupacComponent implements OnInit {
   prikaz: any=false;
   boldirano: any=false;
 
-  constructor(private router: Router, private httpKlijent: HttpClient, private route:ActivatedRoute) {
+  constructor(private router: Router, private httpKlijent: HttpClient, private route:ActivatedRoute,
+              private afDB:AngularFireDatabase) {
   }
   prikaziKategorije(){
 
@@ -43,8 +47,17 @@ export class NavKupacComponent implements OnInit {
     });
     /*console.log(this.podkategorijePodaci.length);*/
   }
+
   ngOnInit(): void {
 
+
+
+
+/*
+if(this.notifikacija==1){
+  porukaSuccess("Dodan je nova specijalna ponuda. Pogledajte je!");
+}*/
+//porukaSuccess("Dodan je nova specijalna ponuda. Pogledajte je!");
    /* this.route.params.subscribe(s=>{
       this.kupac_id=+s["id"];
     })*/
@@ -54,7 +67,18 @@ this.prikaziPodkat1();
   reloadPage() {
     window.location.reload()
   }
+promjeniNaJedan(){
+  this.afDB.object('/notifikacija').set(1).then(() => {
+    console.log('Vrijednost cvora notifikacija promijenjena na 1.');
+  });
+  porukaSuccess("Dodana je nova specijalna ponuda. Pogledajte je!");
+}
+  promjeniNaNula(){
+    this.afDB.object('/notifikacija').set(0).then(() => {
+      console.log('Vrijednost cvora notifikacija promijenjena na 0.');
+    });
 
+  }
 
   otvoriFaq() {
     this.potvrda = true;

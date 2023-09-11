@@ -41,6 +41,18 @@ export class AdminPocetnaComponent implements OnInit {
   brojPosjetaUpdate:any;
   brojPregleda:any;
   brojPosjetaRef?:any;
+  brojNovihPregleda:any;
+
+
+  counter:any=0;
+
+  update_varijable(){
+    console.log("update se desio");
+    if(this.counter<1) {
+      this.afDB.object('Varijable/').update({noviPregledi:0});
+      this.counter++;
+    }
+  }
 
   getBrojPosjeta(){
     this.brojPosjetaRef=this.afDB.object('Varijable').valueChanges().subscribe
@@ -48,6 +60,7 @@ export class AdminPocetnaComponent implements OnInit {
       this.brojPosjetaUpdate=x;
       console.log("brojposjeta:",this.brojPosjetaUpdate);
       this.brojPregleda=this.brojPosjetaUpdate.brojPregleda;
+      this.brojNovihPregleda=this.brojPosjetaUpdate.noviPregledi;
       console.log(this.brojPregleda);
     });
   }
