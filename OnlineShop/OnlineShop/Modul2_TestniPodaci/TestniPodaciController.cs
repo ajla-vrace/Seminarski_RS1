@@ -199,7 +199,10 @@ namespace OnlineShop.Modul2_TestniPodaci
                 isSpecijalna = false
             });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1dd4931ca434d5c73e97a29150c5dd73e369ac15
             proizvod.Add(
          new Proizvod
          {
@@ -435,6 +438,10 @@ namespace OnlineShop.Modul2_TestniPodaci
             var datum7 = new DateTime(2023, 6, 22);
            */
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1dd4931ca434d5c73e97a29150c5dd73e369ac15
             specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Drama dan", datum_pocetka = DateTime.Now, datum_zavrsetka = DateTime.Now.AddDays(10), aktivna=true });
             specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Crni petak", datum_pocetka = datum6, datum_zavrsetka = datum7, aktivna=false});
           
