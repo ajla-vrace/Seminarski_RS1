@@ -41,9 +41,9 @@ export class RecenzijeComponent implements OnInit {
     { value: "7", label: "July" },
     { value: "8", label: "August" },
     { value: "9", label: "September" },
-    { value: "10", label: "October" },
+   /* { value: "10", label: "October" },
     { value: "11", label: "November" },
-    { value: "12", label: "December" }
+    { value: "12", label: "December" }*/
     // Dodajte ostale mjesece
   ];
 
@@ -263,8 +263,8 @@ mjesec:any='';
     this.httpKlijent.get<IzvjestajKomentari[]>(MojConfig.adresa_servera+"/Komentar/GetIzvjestajKomentari")
       .subscribe(data => {
         this.izvjestaj = data;
-        console.log("Izvjesta podaci: "+this.izvjestaj);
-        console.log(JSON.stringify(this.izvjestaj));
+        //console.log("Izvjesta podaci: "+this.izvjestaj);
+        //console.log(JSON.stringify(this.izvjestaj));
         /*setTimeout( ()=>{
           this.prikaziGrafikon();
         }, 5000);*/
@@ -277,8 +277,8 @@ mjesec:any='';
     (MojConfig.adresa_servera+"/Komentar/GetIzvjestajKomentariParametar?mjesec="+this.mjesec)
       .subscribe(data => {
         this.izvjestaj = data;
-        console.log("izvjestaj",this.izvjestaj);
-        console.log("mjesec je : "+this.mjesec);
+       // console.log("izvjestaj",this.izvjestaj);
+      //  console.log("mjesec je : "+this.mjesec);
         this.prikaziGrafikon();
       });
   }

@@ -42,17 +42,24 @@ namespace OnlineShop.Modul1.Controllers
         {
             List<string> pretplaceni = _context.Kupac
                 .Where(s=>s.isPretplacen==true)
-                .Select(S=>S.Email).ToList();  
-            
+                .Select(S=>S.Email).ToList();
 
-            foreach (var email in pretplaceni)
+            if (pretplaceni.Count > 0)
             {
-               
-                string message = $"Dodana nova kolekcija. Budite prvi koji će je pogledati. Pozdrav Luna";
-                EmailSender.EmailSpecijalnePonude(email, subject, message);
-            }
+                foreach (var email in pretplaceni)
+                {
 
-            return Ok("Uspjesno poslano.");
+                    string message = $"Dodana nova kolekcija. Budite prvi koji će je pogledati. Pozdrav Luna";
+                    EmailSender.EmailSpecijalnePonude(email, subject, message);
+                }
+
+                return Ok("Uspjesno poslano.");
+            }
+            else
+            {
+                return Ok("Nema pretplacenih korisnika.");
+            }
+           
         }
         [HttpPost]
         public IActionResult PosaljiSpecijalnePonude()

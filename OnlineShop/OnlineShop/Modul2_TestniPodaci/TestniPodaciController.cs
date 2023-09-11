@@ -43,6 +43,7 @@ namespace OnlineShop.Modul2_TestniPodaci
             data.Add("SkladisteProizvod", _dbContext.SkladisteProizvod.Count());
             data.Add("Narudzbe", _dbContext.Narudzba.Count());
             data.Add("NarudzbaStavka", _dbContext.NarudzbaStavka.Count());
+            data.Add("Komentar", _dbContext.Komentar.Count());
             return Ok(data);
         }
 
@@ -74,6 +75,8 @@ namespace OnlineShop.Modul2_TestniPodaci
             var narudzbe = new List<Narudzba>();
             var narudzbaStavka = new List<NarudzbaStavka>();
 
+
+            var komentar = new List<Komentar>();
 
             boja.Add(new Boja { Naziv = "plava" });
             boja.Add(new Boja { Naziv = "zelena" });
@@ -117,9 +120,18 @@ namespace OnlineShop.Modul2_TestniPodaci
             spol.Add(new Spol { Naziv = "Zenski" });
             spol.Add(new Spol { Naziv = "Muski" });
 
-            var datum1 = new DateTime(2023, 5, 3);
-            var datum2 = new DateTime(2023, 6, 4);
-            var datum3 = new DateTime(2023, 6, 12);
+            var datum1 = new DateTime(2023, 1, 3);
+            var datum2 = new DateTime(2023, 2, 4);
+            var datum3 = new DateTime(2023, 3, 12);
+            var datum4 = new DateTime(2023, 4, 3);
+            var datum5 = new DateTime(2023, 5, 4);
+            var datum6 = new DateTime(2023, 6, 12);
+            var datum7 = new DateTime(2023, 7, 3);
+            var datum8 = new DateTime(2023, 8, 4);
+            var datum9 = new DateTime(2023, 9, 12);
+            var datum10 = new DateTime(2023, 10, 3);
+            var datum11 = new DateTime(2023, 11, 4);
+            var datum12 = new DateTime(2023, 12, 12);
 
             proizvod.Add(
                 new Proizvod
@@ -187,6 +199,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                 isSpecijalna = false
             });
 
+
             proizvod.Add(
          new Proizvod
          {
@@ -208,7 +221,6 @@ namespace OnlineShop.Modul2_TestniPodaci
              modifikovao = "",
              isSpecijalna = false
          });
-
 
             proizvod.Add(
             new Proizvod
@@ -312,8 +324,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                 odjel = odjel[1],
                 kategorija = kategorija[1],
                 podkategorija = podkategorija[5],
-                kolekcija = kolekcija[1],
-
+                kolekcija = kolekcija[0],
                 sezona = sezona[0],
                 slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zenskeFarmerke),
                 evidentirao = "nina",
@@ -343,6 +354,8 @@ namespace OnlineShop.Modul2_TestniPodaci
                 modifikovao = "",
                 isSpecijalna = false
             });
+
+
 
 
             proizvodSlika.Add(new ProizvodSlika
@@ -416,11 +429,11 @@ namespace OnlineShop.Modul2_TestniPodaci
             popust.Add(new Popust { Opis = 0.2f });
             popust.Add(new Popust { Opis = 0.1f });
 
-            var datum4 = new DateTime(2023, 7, 8);
+           /* var datum4 = new DateTime(2023, 7, 8);
             var datum5 = new DateTime(2023, 7, 20);
             var datum6 = new DateTime(2023, 6, 14);
             var datum7 = new DateTime(2023, 6, 22);
-
+           */
 
             specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Drama dan", datum_pocetka = DateTime.Now, datum_zavrsetka = DateTime.Now.AddDays(10), aktivna=true });
             specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Crni petak", datum_pocetka = datum6, datum_zavrsetka = datum7, aktivna=false});
@@ -530,7 +543,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                 isAdmin = false,
                 isKupac = true,
                 isZaposlenik = false,
-                isPretplacen=false,
+                isPretplacen=true,
                 AdresaIsporuke="Adresa1",
                 DatumPretplate=DateTime.Now
             });
@@ -595,6 +608,120 @@ namespace OnlineShop.Modul2_TestniPodaci
                 jelObavijesten = true
             });
 
+
+
+
+
+            komentar.Add(new Komentar()
+            {
+                Opis = "super",
+                DatumKreiranja = datum1,
+                KupacId = 2,
+                ProdavnicaId=2
+            }) ;
+            komentar.Add(new Komentar()
+            {
+                Opis = "super prodavnica",
+                DatumKreiranja = datum2,
+                KupacId = 2,
+                ProdavnicaId = 2
+            });
+            komentar.Add(new Komentar()
+            {
+                Opis = "super2",
+                DatumKreiranja = datum3,
+                KupacId = 2,
+                ProdavnicaId = 2
+            });
+            komentar.Add(new Komentar()
+            {
+                Opis = "super prodavnica 1",
+                DatumKreiranja = datum4,
+                KupacId = 2,
+                ProdavnicaId = 2
+            });
+            komentar.Add(new Komentar()
+            {
+                Opis = "super10",
+                DatumKreiranja = datum5,
+                KupacId = 2,
+                ProdavnicaId = 2
+            });
+            komentar.Add(new Komentar()
+            {
+                Opis = "super prodavnica 2",
+                DatumKreiranja = datum6,
+                KupacId = 2,
+                ProdavnicaId = 2
+            });
+            komentar.Add(new Komentar()
+            {
+                Opis = "super3",
+                DatumKreiranja = datum6,
+                KupacId = 2,
+                ProdavnicaId = 2
+            });
+            komentar.Add(new Komentar()
+            {
+                Opis = "super prodavnica 3",
+                DatumKreiranja = datum7,
+                KupacId = 2,
+                ProdavnicaId = 2
+            });
+            komentar.Add(new Komentar()
+            {
+                Opis = "super prodavnica4",
+                DatumKreiranja = datum7,
+                KupacId = 2,
+                ProdavnicaId = 2
+            });
+            komentar.Add(new Komentar()
+            {
+                Opis = "super5",
+                DatumKreiranja = datum7,
+                KupacId = 2,
+                ProdavnicaId = 2
+            });
+            komentar.Add(new Komentar()
+            {
+                Opis = "super6",
+                DatumKreiranja = datum8,
+                KupacId = 2,
+                ProdavnicaId = 2
+            });
+            komentar.Add(new Komentar()
+            {
+                Opis = "super7",
+                DatumKreiranja = datum8,
+                KupacId = 2,
+                ProdavnicaId = 2
+            });
+            komentar.Add(new Komentar()
+            {
+                Opis = "super6 prodavnica",
+                DatumKreiranja = datum9,
+                KupacId = 2,
+                ProdavnicaId = 1
+            });
+            komentar.Add(new Komentar()
+            {
+                Opis = "super7 prodavnica",
+                DatumKreiranja = datum9,
+                KupacId = 2,
+                ProdavnicaId = 1
+            });
+            komentar.Add(new Komentar()
+            {
+                Opis = "super7 prodavnica 7",
+                DatumKreiranja = datum9,
+                KupacId = 2,
+                ProdavnicaId = 1
+            });
+
+
+
+
+
             /*
             narudzbaStavka.Add(new NarudzbaStavka()
             {
@@ -650,8 +777,12 @@ namespace OnlineShop.Modul2_TestniPodaci
             _dbContext.AddRange(admin);
 
             _dbContext.AddRange(proizvodSlika);
-
+           
             _dbContext.SaveChanges();
+
+            _dbContext.AddRange(komentar);
+            _dbContext.SaveChanges();
+
 
             return Count();
         }

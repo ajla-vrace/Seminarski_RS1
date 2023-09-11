@@ -50,6 +50,8 @@ kupac_id:any;
     }, 300)*/
     setTimeout( ()=>{
       this.prodId=this.prodavnicePodaci[0]?.id;
+      this.prodavnicaAdresa=this.prodavnicePodaci.filter((a:any)=>a.id==this.prodId);
+      console.log("adrwsa je ngoninit"+this.prodavnicaAdresa[0]?.adresa);
     }, 400);
   }
    fetchKorpaStavke() {
@@ -200,7 +202,12 @@ this.kreiranaNarudzba=true;
   }
 
   ispisi() {
+this.prodavnicaAdresa=this.prodavnicePodaci.filter((a:any)=>a.id==this.prodId);
+
     console.log("Vrijednost proId: "+this.prodId);
     console.log("lenght: "+this.prodavnicePodaci?.length);
+   // this.prodavnicaAdresa=this.prodavnicePodaci?.filter((a:any)=>a.id==this.prodId);
+   // console.log("adresa je "+this.prodavnicaAdresa[0]?.adresa);
+
   }
 }

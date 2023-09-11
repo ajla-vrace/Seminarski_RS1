@@ -13,7 +13,16 @@
 
   <hr>
 -->
+
+
+
+  <div class="notifikacije" *ngIf="brojNovihPregleda>0">
+    <h4>Imate {{brojNovihPregleda}} novih pregleda!</h4>
+    <button class="btn-notif" (click)="update_varijable()">OK</button>
+  </div>
+
   <div class="statistika">
+
     <h5 class="reg-kor">Broj registriranih korisnika: {{brojReg}}</h5>
     <h5 class="pretpl-kor">Broj pretplaćenih na newsletter: {{brojPretpl}}</h5>
     <h5 class="br-narudzbi">Broj narudžbi danas: {{brNar}}</h5>
@@ -23,8 +32,11 @@
   </div>
 
   <br>
-  <br>
+
   <hr>
+
+
+
 <!--
 
   <div class="katalog">
