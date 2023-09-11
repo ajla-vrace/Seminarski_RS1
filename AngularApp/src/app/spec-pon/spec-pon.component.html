@@ -304,6 +304,14 @@
 -->
       </div>
 
+        <p style="font-style: italic; color:cornflowerblue; font-size: smaller">
+          NAPOMENA:
+          Datum početka mora biti veći ili jednak od sadašnjeg datuma i <br>
+          veći od datuma završetka najmlađe specijalne ponude. <br>
+          Datum završetka treba biti veći od datuma početka.
+          Može postojati samo jedna specijalna ponuda u jednom vremenskom okviru.
+        </p>
+
       <div class="mb-3" [class.has-error]="dateStart.touched && dateStart.invalid">
         <label class="form-label">Datum početka</label>
         <input type="date" class="form-control" #dateStart="ngModel" [(ngModel)]="obj_sp.datum_pocetka" />

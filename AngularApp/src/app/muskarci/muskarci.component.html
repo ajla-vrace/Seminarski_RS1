@@ -15,8 +15,8 @@
     </div>
     <div class="tekstSpecijalnaPonuda" >
       <h5>{{sp.proizvod.naziv}}</h5>
-      <h6 style="text-decoration: line-through;">{{sp.proizvod.cijena}} KM</h6>
-      <h6 style="color: red;">{{sp.proizvod.cijena-(sp.popust.opis*sp.proizvod.cijena)}} KM</h6>
+      <h6 style="text-decoration: line-through;">{{sp.proizvod.cijena | number:'1.2-2'}} KM</h6>
+      <h6 style="color: red;">{{sp.proizvod.cijena-(sp.popust.opis*sp.proizvod.cijena) | number:'1.2-2'}} KM</h6>
     </div>
   </div>
 </div>
@@ -137,7 +137,7 @@
 
         <div class="tekst" >
           <h5>{{p.naziv}}</h5>
-          <h6>{{p.cijena}} KM</h6>
+          <h6>{{p.cijena | number:'1.2-2'}} KM</h6>
         </div>
 
 

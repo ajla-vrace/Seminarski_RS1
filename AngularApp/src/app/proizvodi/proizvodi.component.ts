@@ -538,6 +538,7 @@ export class ProizvodiComponent implements OnInit {
     }
 
     //this.getSlikeByProizvodId(this.proizvod_id);
+    this.listaobjekataProizvodSlike=null;
     this.getSlikeByProizvodId_2nacin(this.proizvod_id);
   }
 

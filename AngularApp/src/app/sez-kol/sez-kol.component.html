@@ -199,7 +199,7 @@
                  minlength="3" #nazivControll="ngModel" class="form-control" placeholder="Naziv" [(ngModel)]="obj_sezona.naziv" >
 
           <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">
-            Ovo polje je obavezno. Prvo slovo mora biti veliko. Najmanje 3 karaktera. Bez dijakritičkih znakova.
+            Ovo polje je obavezno. Najmanje 3 karaktera. Bez dijakritičkih znakova.
           </span>
 
           <span class="help-block" *ngIf="postojiIstaSezona(nazivControll.value)">
@@ -264,7 +264,7 @@
                  minlength="3" #nazivControll="ngModel" class="form-control" placeholder="Naziv" [(ngModel)]="obj_kolekcija.naziv" >
 
           <span class="help-block" *ngIf="nazivControll.invalid && nazivControll.touched">
-            Ovo polje je obavezno. Prvo slovo mora biti veliko. Najmanje 3 karaktera.
+            Ovo polje je obavezno. Najmanje 3 karaktera. Bez dijakritičkih znakova.
           </span>
 
           <span class="help-block" *ngIf="postojiIstaKolekcija(nazivControll.value)">

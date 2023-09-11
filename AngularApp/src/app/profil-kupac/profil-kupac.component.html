@@ -211,13 +211,13 @@ KUPAC ID: {{kupac_id}}
 
           <tbody>
           <tr *ngFor="let s of narudzbeKupcaPodaci">
-            <td>{{s.prodavnica}}</td>
+            <td>{{s.prodavnica}} - {{s.prodavnicaAdresa}}</td>
             <td>{{s.datumKreiranja | date:'dd-MM-yyyy'}}</td>
             <td>{{s.datumPreuzimanja | date:'dd-MM-yyyy'}}</td>
             <td>{{s.total}}</td>
             <td>{{s.ukupnoProizvoda}}</td>
             <td>{{s.status}}</td>
-            <td><button (click)="otkaziNarudzbu(s.id)" [disabled]="s.status=='Ponistena'">Otkaži</button></td>
+            <td><button (click)="otkaziNarudzbu(s.id)" [disabled]="s.status=='Ponistena' || s.status=='Otkazana'">Otkaži</button></td>
 
 
           </tr>
@@ -370,7 +370,7 @@ KUPAC ID: {{kupac_id}}
         <div class="mb-3" [class.has-error]="brojTelefona.invalid && brojTelefona.touched">
           <label class="form-label">Broj telefona: </label><br>
           <input class="form-control" type="text" #brojTelefona="ngModel" [(ngModel)]="kupac.brojTelefona"
-                 required pattern="^[0-9]{3}[-][0-9]{3}[-][0-9]{3}$" placeholder="000-000-000">
+                 required pattern="^[0-9]{9}$" placeholder="123456789">
           <span class="poruka-validacija" *ngIf="brojTelefona.invalid && brojTelefona.touched">
              <p>Unesite broj u ispravnom formatu!</p>
           </span>
