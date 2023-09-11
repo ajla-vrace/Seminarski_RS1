@@ -199,7 +199,6 @@ namespace OnlineShop.Modul2_TestniPodaci
                 isSpecijalna = false
             });
 
-
             proizvod.Add(
          new Proizvod
          {
@@ -429,14 +428,16 @@ namespace OnlineShop.Modul2_TestniPodaci
             popust.Add(new Popust { Opis = 0.2f });
             popust.Add(new Popust { Opis = 0.1f });
 
-           /* var datum4 = new DateTime(2023, 7, 8);
-            var datum5 = new DateTime(2023, 7, 20);
-            var datum6 = new DateTime(2023, 6, 14);
-            var datum7 = new DateTime(2023, 6, 22);
-           */
+            /* var datum4 = new DateTime(2023, 7, 8);
+             var datum5 = new DateTime(2023, 7, 20);
+             var datum6 = new DateTime(2023, 6, 14);
+             var datum7 = new DateTime(2023, 6, 22);
+            */
+            var datum6drugi = new DateTime(2023, 6, 14);
+            var datum7drugi = new DateTime(2023, 6, 22);
 
             specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Drama dan", datum_pocetka = DateTime.Now, datum_zavrsetka = DateTime.Now.AddDays(10), aktivna=true });
-            specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Crni petak", datum_pocetka = datum6, datum_zavrsetka = datum7, aktivna=false});
+            specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Crni petak", datum_pocetka = datum6drugi, datum_zavrsetka = datum7drugi, aktivna=false});
           
             specijalnaPonudaProizvod.Add(new SpecijalnaPonudaProizvod { popust = popust[5], proizvod = proizvod[0], specijalnaPonuda = specijalnaPonuda[0], OriginalnaCijena=30, CijenaSaPopustom=18 });
             specijalnaPonudaProizvod.Add(new SpecijalnaPonudaProizvod { popust = popust[6], proizvod = proizvod[1], specijalnaPonuda = specijalnaPonuda[0], OriginalnaCijena=20, CijenaSaPopustom=14 });
