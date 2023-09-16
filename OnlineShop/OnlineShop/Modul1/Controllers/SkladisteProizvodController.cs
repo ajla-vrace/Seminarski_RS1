@@ -349,13 +349,13 @@ namespace OnlineShop.Modul1.Controllers
                             skladiste.kolicina = skladiste.kolicina - stavka.Kolicina;
                             context.Update(skladiste);
                             context.SaveChanges();
-                            return Ok(); //kolicina je smanjena
+                            //return Ok(); //kolicina je smanjena
                         }
                         else
                             return BadRequest ("uslov Spremna nije true");
                     }
                 }
-                else if((nar.PrethodniStatus=="Spremna" && nar.Status=="Otkazana") || nar.Status=="Ponistena" )
+                else if((nar.PrethodniStatus=="Spremna" && nar.Status=="Otkazana") || (nar.PrethodniStatus=="Spremna" && nar.Status=="Ponistena") )
                 {
                     //povecava se stanje na skladistu
                   //  if(nar.jel_poslana_prouka)
@@ -372,7 +372,7 @@ namespace OnlineShop.Modul1.Controllers
                                 skladiste.kolicina = skladiste.kolicina + stavke[i].Kolicina;
                                 context.Update(skladiste);
                                 context.SaveChanges();
-                                return Ok();//"kolicina je povecana"
+                                //return Ok();//"kolicina je povecana"
                             }
                             else
                                 return BadRequest("uslov Otkazana/Ponistena nije true");

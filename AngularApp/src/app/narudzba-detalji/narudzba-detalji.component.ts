@@ -122,11 +122,25 @@ export class NarudzbaDetaljiComponent implements OnInit {
       })
   }
 
+  statusi:any;
+  getOptionsStatuse(){
+    if(this.narudzbaDetalji?.narudzba?.status=="Nova")
+    {
+      this.statusi=["Spremna","Ponistena"];
+      return this.statusi;
+    }
+    else if(this.narudzbaDetalji?.narudzba?.status=="Spremna" && this.narudzbaDetalji?.narudzba?.prethodniStatus=="Nova"){
+      this.statusi=["Ponistena","Preuzeta"];
+      return this.statusi;
+    }
+    else return [];
+  }
+
   obj_status:any;
   promijeniStatus(){
     this.obj_status={
       narudzbaId:this.narudzba_id, // this.narudzbaDetalji?.narudzba?.id,
-      status:this.narudzbaDetalji?.narudzba?.status,
+      status:"",//this.narudzbaDetalji?.narudzba?.status,
       evidentirao:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickiNalog.username,
     }
   }

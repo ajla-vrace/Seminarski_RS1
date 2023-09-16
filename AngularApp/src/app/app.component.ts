@@ -116,21 +116,21 @@ export class AppComponent implements OnInit{
 
 
 
-  email: string = '';
+ // email: string = '';
   isSubscribed: boolean = false;
   errorMessage: string = '';
   successMessage:string='';
+  txtEmail:any;
   urlNewsletter='https://localhost:7043/api/EmailPretplata/Pretplata?email=';
-   encodedEmail = encodeURIComponent(this.email);
+  // encodedEmail = encodeURIComponent(this.email);
   submit_newsletter() {
-    if (this.email) {
-
-      this.httpKlijent.post(this.urlNewsletter+this.email, {}, { responseType: 'text' }).subscribe(
+    if (this.txtEmail) {
+      this.httpKlijent.post(this.urlNewsletter+this.txtEmail, {}, { responseType: 'text' }).subscribe(
         () => {
           this.isSubscribed = true;
           this.errorMessage = '';
           this.successMessage = 'Uspješna pretplata.';
-console.log("Uspjesan jedan mail");
+//console.log("Uspjesan jedan mail");
         },
         (error) => {
           this.isSubscribed = false;
@@ -140,8 +140,12 @@ console.log("nesupjesna pretplata.");
       );
     }
     setTimeout( ()=>{
-     this.email='';
-    }, 400);
+      var inputPolje = document.getElementById("idEmail") as HTMLInputElement;
+
+      // Postavite vrijednost input polja na prazan string
+      inputPolje.value = "";
+    // this.txtEmail="";
+    }, 800);
   }
 
   subscribe() {/*

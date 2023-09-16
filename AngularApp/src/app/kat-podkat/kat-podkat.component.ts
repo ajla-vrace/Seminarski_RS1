@@ -235,11 +235,16 @@ export class KatPodkatComponent implements OnInit {
         this.getKategorije();
         this.getKategorijePaged();
 
+        if(this.jel_edit_kat==false)
+          porukaInfo("Uspješno ste dodali kategoriju.");
+        else porukaInfo("Uspješno ste modifikovali zapis.");
+
         this.nova_kategorija=null;
 
         console.log(this.nova_kategorija);
 
         console.log(this.podaci_kategorije);
+
         this.jel_edit_kat=false;
 
       })
@@ -270,9 +275,14 @@ export class KatPodkatComponent implements OnInit {
         this.getPodkategorije();
         this.getPodkategorijePaged();
 
+        if(this.jel_edit==false)
+          porukaInfo("Uspješno ste dodali podkategoriju.");
+        else porukaInfo("Uspješno ste modifikovali zapis.");
+
         this.nova_podkategorija=null;
 
         this.jel_edit=false;
+
         console.log(this.nova_podkategorija);
       })
 

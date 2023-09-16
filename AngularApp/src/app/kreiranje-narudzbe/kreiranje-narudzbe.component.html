@@ -42,7 +42,7 @@
           <p><b>{{x.proizvodIme}}</b> </p>
           <p>Cijena: {{x.cijena}}</p>
           <p>Količina: {{x.kolicina}}</p>
-          <p>Količina: {{x.velicina}}</p>
+          <p>Veličina: {{x.velicina}}</p>
         </div>
       </div>
       </div>
@@ -104,7 +104,7 @@
         </tr>
         <td colspan="4" ></td>
         <td ><h6>Ukupna cijena:</h6></td>
-        <td ><h6>{{korpePodaci[0].total}}</h6></td>
+        <td ><h6>{{korpePodaci[0].total | number:'1.2-2'}}</h6></td>
        <!-- <td style="text-align: right;">Ukupna cijena: {{korpePodaci[0].total}} </td>-->
         </tbody>
       </table>
@@ -127,8 +127,8 @@
     </div>
     <hr>
     <div class="dugmadZaKretanje">
-      <button class="dugmeNazad" (click)="odabirProdavnice=true;zakljucivanjeNarudzbe=false;">Nazad</button>
-      <button class="dugmeDalje" (click)="SveOkoNarudzbe()" >Dalje</button>
+      <button class="dugmeNazad1" (click)="odabirProdavnice=true;zakljucivanjeNarudzbe=false;">Nazad</button>
+      <button class="dugmeDalje2" (click)="SveOkoNarudzbe()" >Zaključi narudžbu</button>
     </div>
 
   </div>

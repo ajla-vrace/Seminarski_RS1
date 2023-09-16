@@ -87,7 +87,7 @@ namespace OnlineShop.Modul2_TestniPodaci
             grad.Add(new Grad { Naziv = "Mostar" });
             grad.Add(new Grad { Naziv = "Sarajevo" });
             
-
+            
             kategorija.Add(new Kategorija { Naziv = "Majice", });
             kategorija.Add(new Kategorija { Naziv = "Hlace" });
             kategorija.Add(new Kategorija { Naziv = "Kosulje" });
@@ -199,6 +199,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                 isSpecijalna = false
             });
 
+
             proizvod.Add(
          new Proizvod
          {
@@ -240,7 +241,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                 slika_postojeca = Ekstenzije.ParsirajBase64(Slike.zenskeCrnePantale),
                 evidentirao = "nina",
                 modifikovao = "denis",
-                isSpecijalna = true
+                isSpecijalna = false
             });
 
             proizvod.Add(
@@ -428,16 +429,14 @@ namespace OnlineShop.Modul2_TestniPodaci
             popust.Add(new Popust { Opis = 0.2f });
             popust.Add(new Popust { Opis = 0.1f });
 
-            /* var datum4 = new DateTime(2023, 7, 8);
-             var datum5 = new DateTime(2023, 7, 20);
-             var datum6 = new DateTime(2023, 6, 14);
-             var datum7 = new DateTime(2023, 6, 22);
-            */
-            var datum6drugi = new DateTime(2023, 6, 14);
-            var datum7drugi = new DateTime(2023, 6, 22);
+           /* var datum4 = new DateTime(2023, 7, 8);
+            var datum5 = new DateTime(2023, 7, 20);
+            var datum6 = new DateTime(2023, 6, 14);
+            var datum7 = new DateTime(2023, 6, 22);
+           */
 
             specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Drama dan", datum_pocetka = DateTime.Now, datum_zavrsetka = DateTime.Now.AddDays(10), aktivna=true });
-            specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Crni petak", datum_pocetka = datum6drugi, datum_zavrsetka = datum7drugi, aktivna=false});
+            specijalnaPonuda.Add(new SpecijalnaPonuda { Naziv = "Rodjendanski popust", datum_pocetka = new DateTime(2023, 6, 14), datum_zavrsetka = new DateTime(2023, 6, 22), aktivna=false});
           
             specijalnaPonudaProizvod.Add(new SpecijalnaPonudaProizvod { popust = popust[5], proizvod = proizvod[0], specijalnaPonuda = specijalnaPonuda[0], OriginalnaCijena=30, CijenaSaPopustom=18 });
             specijalnaPonudaProizvod.Add(new SpecijalnaPonudaProizvod { popust = popust[6], proizvod = proizvod[1], specijalnaPonuda = specijalnaPonuda[0], OriginalnaCijena=20, CijenaSaPopustom=14 });
@@ -533,8 +532,8 @@ namespace OnlineShop.Modul2_TestniPodaci
 
             korisnici.Add(new Kupac()
             {
-                Ime = "Iris",
-                Prezime = "Memic",
+                Ime = "Kupac",
+                Prezime = "Drugi",
                 Email = "testkupac7@gmail.com",
                 Username = "kupacdrugi",
                 Lozinka = "test",
@@ -551,9 +550,9 @@ namespace OnlineShop.Modul2_TestniPodaci
 
             korisnici.Add(new Kupac()
             {
-                Ime = "Kemal",
-                Prezime = "Maric",
-                Email = "kemal@gmail.com",
+                Ime = "Kupac",
+                Prezime = "Prvi",
+                Email = "kupac1prvi@gmail.com",
                 Username = "kupacprvi",
                 Lozinka = "test",
                 BrojTelefona = "062777333",
@@ -569,10 +568,10 @@ namespace OnlineShop.Modul2_TestniPodaci
 
             zaposlenici.Add(new Zaposlenik()
             {
-                Ime = "Nina",
-                Prezime = "Bijedic",
-                Email = "nina@gmail.com",
-                Username = "nina",
+                Ime = "Zaposlenik",
+                Prezime = "Prvi",
+                Email = "zaposlenikprvi@gmail.com",
+                Username = "zaposlenik",
                 Lozinka = "test",
                 BrojTelefona = "062566222",
                 DatumRegistracije = DateTime.Now,
@@ -590,10 +589,10 @@ namespace OnlineShop.Modul2_TestniPodaci
 
             zaposlenici.Add(new Zaposlenik()
             {
-                Ime = "Denis",
-                Prezime = "Music",
-                Email = "denis@gmail.com",
-                Username = "denis",
+                Ime = "Zaposlenik",
+                Prezime = "Drugi",
+                Email = "zaposelnikdrugi@gmail.com",
+                Username = "zaposlenikdrugi",
                 Lozinka = "test",
                 BrojTelefona = "062566552",
                 DatumRegistracije = DateTime.Now,
@@ -716,7 +715,7 @@ namespace OnlineShop.Modul2_TestniPodaci
                 Opis = "super7 prodavnica 7",
                 DatumKreiranja = datum9,
                 KupacId = 2,
-                ProdavnicaId = 1
+                ProdavnicaId = 3
             });
 
 

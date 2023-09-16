@@ -24,6 +24,7 @@ namespace OnlineShop.Modul1.Controllers
             if (kupac != null)
             {
                 kupac.isPretplacen = true;
+                kupac.DatumPretplate = DateTime.Now;
                 _context.SaveChanges();
 
                 EmailSender.UspjesnaPretplata(email);
@@ -32,7 +33,8 @@ namespace OnlineShop.Modul1.Controllers
             }
             else
             {
-                return NotFound("Email nije pronadjen.");
+                EmailSender.UspjesnaPretplata(email);
+                return Ok("Email nije pronadjen.");
             }
         }
 
@@ -79,7 +81,7 @@ namespace OnlineShop.Modul1.Controllers
             }
             else
             {
-                return BadRequest("Nema pretplacenih korisnika.");
+                return Ok("Nema pretplacenih korisnika.");
             }
         }
 

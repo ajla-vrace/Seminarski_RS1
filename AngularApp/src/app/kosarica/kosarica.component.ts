@@ -171,9 +171,15 @@ this.brisano=true;
 
   ModifikacijaKorpaStavke(ks:any) {
 
-    //console.log("ks: ",ks);
+   // console.log("ks: ",ks);
+
+
+
+
+
     this.httpKlijent.post(MojConfig.adresa_servera+ "/KorpaStavka/Update", ks)
       .subscribe((povratnaVrijednost:any) =>{
+      //  console.log("modifikacija stavka je "+ks);
         this.fetchKorpaStavke();
       //  console.log("ks: ",ks);
 
@@ -234,7 +240,10 @@ this.korpa=this.KorpePodaciIme[0];
 
   Modifikacija(ks: any) {
     this.odabranaStavka=ks;
+   // console.log("odabrana stavka"+this.odabranaStavka);
+   // console.log("stavka je: "+ks);
     this.updateKolicina(ks.proizvodId);
+
     this.fetchDostupneVelicine(ks.proizvodId)
   }
 

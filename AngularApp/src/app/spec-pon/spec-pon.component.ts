@@ -5,7 +5,9 @@ import {MojConfig} from "../moj-config";
 import {NgModel} from "@angular/forms";
 import {DatePipe, formatDate} from "@angular/common";
 import {SignalRService} from "../_servisi/SignalRServis";
+import {AngularFireDatabase} from "@angular/fire/compat/database";
 
+declare function porukaInfo(a: string):any;
 
 @Component({
   selector: 'app-spec-pon',
@@ -16,7 +18,8 @@ export class SpecPonComponent implements OnInit {
   poruka: string = '';
 
   constructor(private route:ActivatedRoute, private router:Router, private httpKlijent:HttpClient, private datePipe:DatePipe,
-              private signalRService: SignalRService   ) {
+              private signalRService: SignalRService, private afDB:AngularFireDatabase
+              ) {
 
 
   }
@@ -27,8 +30,21 @@ export class SpecPonComponent implements OnInit {
     this.poruka="Dodana nova specijalna ponuda.";
     this.signalRService.posaljiPoruku(this.poruka);
   }
+posaljiNotifikaciju(){
+  this.afDB.object('/notifikacija').set(1).then(() => {
+    console.log('Vrijednost cvora notifikacija promijenjena na 1.');
+  });
 
+  setTimeout(() => {
+   //this.vratiNaNula();
+  }, 5000);
 
+}
+  vratiNaNula(){
+    this.afDB.object('/notifikacija').set(0).then(() => {
+      console.log('Vrijednost cvora notifikacija promijenjena na 0.');
+    });
+  }
 
 
 
@@ -175,7 +191,10 @@ export class SpecPonComponent implements OnInit {
 
         this.getSpecijalnePonudeProizvod();
 
-        alert("Uspješno spašeno.");
+        if(this.kliknuoEditSPP==false)
+           porukaInfo("Uspješno dodana stavka.");
+        else
+          porukaInfo("Uspješno modifikovan popust stavke.");
 
         this.obj_spp=null;
 
@@ -185,6 +204,7 @@ export class SpecPonComponent implements OnInit {
   }
 
   snimi_sp(){
+  /*
     this.httpKlijent.get(MojConfig.adresa_servera+
       "/api/SpecijalnaPonudaProizvod/uporediDatume?datumUnosPocetak="+this.obj_sp.datum_pocetka
       +"&datumUnosZavrsetak="+this.obj_sp.datum_zavrsetka+"&sp_id="+this.obj_sp.id).subscribe((x:any)=>{
@@ -197,7 +217,7 @@ export class SpecPonComponent implements OnInit {
         this.getSpecijalnePonudeProizvod();
         return;
       }
-      else{
+      else */{
         this.httpKlijent.post(MojConfig.adresa_servera+"/api/SpecijalnaPonudaProizvod/post_sp"
           ,this.obj_sp, MojConfig.http_opcije())
           .subscribe((x:any)=>
@@ -209,7 +229,10 @@ export class SpecPonComponent implements OnInit {
             this.getSpecijalnePonudeRastuci();
             this.getSpecijalnePonudeProizvod();
 
-            alert("Uspješno spašeno.");
+            if(this.kliknuoEditSP==false)
+              porukaInfo("Uspješno dodana stavka.");
+            else
+              porukaInfo("Uspješno modifikovana stavka.");
 
             this.obj_sp=null;
 
@@ -218,7 +241,7 @@ export class SpecPonComponent implements OnInit {
 
       }
 
-    });
+   // });
 
 
   }
@@ -310,10 +333,17 @@ export class SpecPonComponent implements OnInit {
 
 
   jelDisabledSnimiSP(nazivSP: NgModel, dateStart: NgModel, dateEnd: NgModel) {
-    if(nazivSP.valid && dateStart.valid && dateEnd.valid //&& !this.postojiSP(nazivSP.value)
-    )
-      return true;
-    return false;
+    if(this.kliknuoEditSP==false){
+      if(nazivSP.valid && dateStart.valid && dateEnd.valid //&& !this.postojiSP(nazivSP.value)
+        && this.jel_disabled_sp()
+      ) return true;
+      return false;
+    }
+    else {
+      if(nazivSP.valid && dateStart.valid && dateEnd.valid)
+        return true;
+      return false;
+    }
   }
 
 
@@ -480,15 +510,16 @@ export class SpecPonComponent implements OnInit {
         brojac++;
     }
     if(brojac>=4 || (this.pr_rastuci?.length==0 && this.specijalne_ponude?.length==0 && this.popusti?.length==0) ||
-    this.postojiIstiProizvodZaJednuSP()==true)
+    this.postojiIstiProizvodZaJednuSP()==true && this.kliknuoEditSPP==false)
       return true;
     else return false;
   }
 
   postojiIstiProizvodZaJednuSP(){
     for (let i of this.specijalne_ponude_proizvodi){
-      if(this.obj_spp.specijalnaPonudaId==i.specijalnaPonudaId && this.obj_spp.proizvodId==i.proizvodId)
+      if(this.obj_spp.specijalnaPonudaId==i.specijalnaPonudaId && this.obj_spp.proizvodId==i.proizvodId){
         return true;
+      }
     }
     return false;
   }
@@ -508,6 +539,25 @@ export class SpecPonComponent implements OnInit {
 
 
 
+  jel_disabled_sp(){
+    let dateNow=new Date();
+    let mostRecentDate = new Date(Math.max.apply(null, this.specijalne_ponude.map((e:any) => {
+      return new Date(e.datum_zavrsetka);
+    })));
+
+    console.log("date now",this.formatDatum(dateNow) );
+    console.log("most recent date",this.formatDatum(mostRecentDate));
+
+    if(this.formatDatum(this.obj_sp.datum_pocetka)>=this.formatDatum(dateNow)
+      && this.formatDatum(this.obj_sp.datum_pocetka)>this.formatDatum(mostRecentDate) &&
+     this.formatDatum(this.obj_sp.datum_zavrsetka)> this.formatDatum(this.obj_sp.datum_pocetka)){
+      return true;
+    }
+    return false;
+
+
+
+  }
 
 
 }

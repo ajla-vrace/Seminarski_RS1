@@ -96,11 +96,15 @@
 
 
 
-<div class="user-message">
-  {{primljenaPoruka}}
+<div class="user-message" *ngIf="prikazSignalR==true;">
+  <label style="padding: 2%;"> {{primljenaPoruka}}</label>
+  <button (click)="pogledanoSignalR()" class="x">X</button>
 </div>
 
-
+<div   class="user-message1" *ngIf="vrijednostNotifikacije==1" >
+  <label style="padding: 2%;">{{notifikacijaa}}</label>
+   <button (click)="pogledano()" class="x">X</button>
+</div>
 
 
 
@@ -215,7 +219,7 @@ KUPAC ID: {{kupac_id}}
             <td>{{s.datumKreiranja | date:'dd-MM-yyyy'}}</td>
             <td>{{s.datumPreuzimanja | date:'dd-MM-yyyy'}}</td>
             <td>{{s.total}}</td>
-            <td>{{s.ukupnoProizvoda}}</td>
+            <td style="text-align: center;">{{s.ukupnoProizvoda}}</td>
             <td>{{s.status}}</td>
             <td><button (click)="otkaziNarudzbu(s.id)" [disabled]="s.status=='Ponistena' || s.status=='Otkazana'">Otkaži</button></td>
 

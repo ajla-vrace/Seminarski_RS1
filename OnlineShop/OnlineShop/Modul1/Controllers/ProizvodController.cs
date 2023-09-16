@@ -170,6 +170,21 @@ namespace OnlineShop.Modul1.Controllers
                 p.modifikovao = x.modifikovao;
             }
 
+            if (p.Cijena != x.Cijena)
+            {
+                var cijena = x.Cijena;
+                var specijalnaPonudaProizvod = context.SpecijalnaPonudaProizvod.Where(x => x.proizvodId == p.Id).ToList();
+                foreach (var spp in specijalnaPonudaProizvod)
+                {
+                    var popust = context.SpecijalnaPonudaProizvod.Where(x => x.Id == spp.Id).Select(x => x.popust.Opis).ToList()[0];
+                    spp.OriginalnaCijena = MathF.Round(cijena, 2);
+                    spp.CijenaSaPopustom = MathF.Round((cijena - (cijena * popust)), 2);
+
+                    context.SpecijalnaPonudaProizvod.Update(spp);
+                    context.SaveChanges();
+                }
+            }
+
             p.Naziv = x.Naziv;
             p.Cijena = (float)Math.Round(x.Cijena,2);
             p.Opis = x.Opis;
