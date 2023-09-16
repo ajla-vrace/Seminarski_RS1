@@ -60,7 +60,7 @@ export class MuskarciComponent implements OnInit {
   {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/api/SpecijalnaPonudaProizvod/Specijalne_ponude_proizvod_aktivne", MojConfig.http_opcije()).subscribe(x=>{
       this.specijalnePonudeMuskarciPodaci = x;
-      console.log("specijale M",this.specijalnePonudeMuskarciPodaci);
+     // console.log("specijale M",this.specijalnePonudeMuskarciPodaci);
     });
   }
   fetchBoje()
@@ -155,7 +155,7 @@ export class MuskarciComponent implements OnInit {
         this.odabraneBoje.includes(a.bojaOpis)
 
       );
-      console.log("filter boje: ",this.odabraneBoje);
+    //  console.log("filter boje: ",this.odabraneBoje);
     }
 
 
@@ -184,7 +184,7 @@ export class MuskarciComponent implements OnInit {
       filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
         a.kolekcijaOpis === this.odabranaKolekcija
       );
-      console.log("odabran kolkecija:" ,this.odabranaKolekcija);
+    //  console.log("odabran kolkecija:" ,this.odabranaKolekcija);
     }
     if (this.pretragaPoNazivu.trim() !== '') {
       filtriraniProizvodi = filtriraniProizvodi.filter((a: any) =>
@@ -327,14 +327,14 @@ this.korpastavkaId=this.korpaStavka.id;
 */
   napraviIliNadjiKorpu() {
     this.kupac_id =this.loginInfo().autentifikacijaToken.korisnickiNalogId;
-    console.log("id kupca je : "+this.loginInfo().autentifikacijaToken.korisnickiNalogId);
+  //  console.log("id kupca je : "+this.loginInfo().autentifikacijaToken.korisnickiNalogId);
     for(let k of this.korpePodaci) {
       if (k.naziv.startsWith("Korpa" + this.loginInfo().autentifikacijaToken.korisnickiNalogId)) {
         this.korpaID = k.id;
         this.nadjenaKorpa=true;
         /*alert("nasao korpu i id korpe je " + this.korpaID);*/
 
-        console.log("nasao korpu a njen id je " + this.korpaID);
+       // console.log("nasao korpu a njen id je " + this.korpaID);
         /* console.log("ima ovoliko korpa do sada: " + this.korpePodaci.length);
          console.log("ovo je naziv nadjene korpe" + k.naziv);
          console.log("nadjenjakorpa bool:"+this.nadjenaKorpa);
@@ -356,7 +356,7 @@ this.korpastavkaId=this.korpaStavka.id;
 
       });
       this.korpaID = this.novaKorpa.id;
-      console.log("korpa id nove je : " + this.korpaID);
+    //  console.log("korpa id nove je : " + this.korpaID);
       /* alert("napravljena korpa");*/
     }
   }
@@ -382,7 +382,7 @@ this.korpastavkaId=this.korpaStavka.id;
         this.odabraneBoje.splice(index, 1);
       }
     }
-    console.log("boje: "+this.odabraneBoje);
+   // console.log("boje: "+this.odabraneBoje);
     this.filterByColor();
   }
 
@@ -426,7 +426,7 @@ this.korpastavkaId=this.korpaStavka.id;
 
   updateSelectedCollection(collection: any) {
     this.odabranaKolekcija=collection;
-console.log("odabrana kolkeicja: "+this.odabranaKolekcija);
+//console.log("odabrana kolkeicja: "+this.odabranaKolekcija);
     this.getMProizvodi();
   }
 
@@ -451,7 +451,7 @@ console.log("odabrana kolkeicja: "+this.odabranaKolekcija);
     checkboxes.forEach((checkbox: HTMLInputElement) => {
       checkbox.checked = false;
     });
-    console.log("boje: "+this.odabraneBoje);
+   // console.log("boje: "+this.odabraneBoje);
 
     this.getMProizvodi();
 

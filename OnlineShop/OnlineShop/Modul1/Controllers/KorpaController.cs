@@ -54,7 +54,7 @@ namespace OnlineShop.Modul1.Controllers
                     brojProizvoda += stavkeKorpe[i].Kolicina;
                 }
                 objekat.UkupnoProizvoda = brojProizvoda;
-                objekat.Total = totalSvega;
+                objekat.Total = (float)Math.Round(totalSvega,2);
             }  
             objekat.KupacId = x.KupacId;
             objekat.datum_kreiranja = DateTime.Now;
@@ -89,7 +89,7 @@ namespace OnlineShop.Modul1.Controllers
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.datum_kreiranja,
                     DatumModifikacije = s.datum_modifikacije,
-                    Total=s.Total,
+                    Total=(float)Math.Round(s.Total,2),
                     UkupnoProizvoda=s.UkupnoProizvoda,
                       
                 })
@@ -145,7 +145,7 @@ namespace OnlineShop.Modul1.Controllers
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.datum_kreiranja,
                     DatumModifikacije = s.datum_modifikacije,
-                    Total = totalSvega,
+                    Total = (float)Math.Round(totalSvega,2),
                     UkupnoProizvoda = stavkeTeKorpe.Count,
 
                 })
@@ -184,7 +184,7 @@ namespace OnlineShop.Modul1.Controllers
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.datum_kreiranja,
                     DatumModifikacije = s.datum_modifikacije,
-                    Total = totalSvega,
+                    Total =(float)Math.Round(totalSvega,2),
                     UkupnoProizvoda = brojProizvoda,
 
                 }).AsQueryable()
@@ -218,7 +218,7 @@ namespace OnlineShop.Modul1.Controllers
                     Kupac = s.Kupac.Username,
                     DatumKreiranja = s.datum_kreiranja,
                     DatumModifikacije = s.datum_modifikacije,
-                    Total = totalSvega,
+                    Total =(float)Math.Round(totalSvega,2),
                     UkupnoProizvoda = brojProizvoda,
 
                 })
@@ -247,7 +247,7 @@ namespace OnlineShop.Modul1.Controllers
             {
                 return BadRequest("ne postoji takav id");
             }
-            objekat.Total = totalSvega;
+            objekat.Total = (float)Math.Round(totalSvega,2);
             objekat.UkupnoProizvoda = stavkeTeKorpe.Count;
             objekat.datum_modifikacije = DateTime.Now;
             _dbContext.SaveChanges();

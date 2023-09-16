@@ -194,7 +194,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLiveLabel1" > {{naslov}}</h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="this.nova_podkategorija=null; getPodkategorije();"></button>
+        <button type="button" class="btn-close" aria-label="Close" (click)="this.nova_podkategorija=null; getPodkategorijePaged();"></button>
       </div>
       <div class="modal-body">
 
@@ -245,7 +245,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLiveLabel2" > Izmjena podataka </h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="nova_kategorija=null; getKategorije();"></button>
+        <button type="button" class="btn-close" aria-label="Close" (click)="nova_kategorija=null; getKategorijePaged();"></button>
       </div>
       <div class="modal-body">
 

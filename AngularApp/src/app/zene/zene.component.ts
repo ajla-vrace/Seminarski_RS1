@@ -176,7 +176,7 @@ this.fetchSpecijalnePonudeZene();
           this.odabraneBoje.includes(a.bojaOpis)
 
         );
-console.log("nakon boje: treba prikazati",filtriraniProizvodi);
+      // console.log("nakon boje: treba prikazati",filtriraniProizvodi);
 
       }
 
@@ -363,14 +363,14 @@ this.korpastavkaId=this.korpaStavka.id;
 */
   napraviIliNadjiKorpu() {
    this.kupac_id =this.loginInfo().autentifikacijaToken.korisnickiNalogId;
-   console.log("id kupca je : "+this.loginInfo().autentifikacijaToken.korisnickiNalogId);
+  // console.log("id kupca je : "+this.loginInfo().autentifikacijaToken.korisnickiNalogId);
     for(let k of this.korpePodaci) {
       if (k.naziv.startsWith("Korpa" + this.loginInfo().autentifikacijaToken.korisnickiNalogId)) {
         this.korpaID = k.id;
         this.nadjenaKorpa=true;
         /*alert("nasao korpu i id korpe je " + this.korpaID);*/
 
-       console.log("nasao korpu a njen id je " + this.korpaID);
+      // console.log("nasao korpu a njen id je " + this.korpaID);
        /* console.log("ima ovoliko korpa do sada: " + this.korpePodaci.length);
         console.log("ovo je naziv nadjene korpe" + k.naziv);
         console.log("nadjenjakorpa bool:"+this.nadjenaKorpa);
@@ -392,7 +392,7 @@ this.korpastavkaId=this.korpaStavka.id;
 
         });
         this.korpaID = this.novaKorpa.id;
-        console.log("korpa id nove je : " + this.korpaID);
+       // console.log("korpa id nove je : " + this.korpaID);
       /* alert("napravljena korpa");*/
   }
   }
@@ -419,12 +419,12 @@ this.prikaziDiv=false;
           this.odabraneBoje.splice(index, 1);
         }
       }
-      console.log("updateSelectedColors: BOJE------------------"+this.odabraneBoje);
+     // console.log("updateSelectedColors: BOJE------------------"+this.odabraneBoje);
       this.filterByColor();
   //  },200)
 
     setTimeout(()=>{
-      console.log("updateSelectedColors: BOJE--u timeru----------------"+this.odabraneBoje);
+     // console.log("updateSelectedColors: BOJE--u timeru----------------"+this.odabraneBoje);
       this.filterByColor();
     },400)
 
@@ -488,7 +488,7 @@ this.odabranaKolekcija=collection;
     checkboxes.forEach((checkbox: HTMLInputElement) => {
       checkbox.checked = false;
     });
-    console.log("boje: "+this.odabraneBoje);
+   // console.log("boje: "+this.odabraneBoje);
 
       this.getZProizvodi();
 

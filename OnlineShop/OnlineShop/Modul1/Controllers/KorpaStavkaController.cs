@@ -182,18 +182,42 @@ namespace OnlineShop.Modul1.Controllers
             {
                 return BadRequest("ne postoji takav id");
             }
+            /* var proizvod = _dbContext.Proizvod.Find(objekat.ProizvodId);
+             float samoCijena;
+             if (proizvod != null)
+             {
+                 samoCijena = proizvod.Cijena;
+                 objekat.Total = samoCijena * x.Kolicina;
+             }
+             objekat.Kolicina = x.Kolicina;
+             if(x.Velicina!="")
+                 objekat.Velicina = x.Velicina;
+
+             _dbContext.SaveChanges();*/
             var proizvod = _dbContext.Proizvod.Find(objekat.ProizvodId);
-            float samoCijena;
+
             if (proizvod != null)
             {
-                samoCijena = proizvod.Cijena;
-                objekat.Total = samoCijena * x.Kolicina;
-            }
-            objekat.Kolicina = x.Kolicina;
-            if(x.Velicina!="")
-                objekat.Velicina = x.Velicina;
+                //objekat.Cijena = proizvod.Cijena;
 
+                // Provjerite da li proizvod ima popust i dobijte cijenu s popustom ako postoji
+                float cijenaSPopustom = ProvjeriPopustProizvoda(proizvod.Id);
+                objekat.Kolicina = x.Kolicina;
+                objekat.Velicina = x.Velicina;
+                if (cijenaSPopustom > 0)
+                {
+                    objekat.Cijena =(float)Math.Round( cijenaSPopustom,2);
+                }
+                else
+                {
+                    objekat.Cijena = (float)Math.Round(proizvod.Cijena,2);
+                }
+                objekat.Total = (float)Math.Round(objekat.Cijena * x.Kolicina,2);
+            }
+            
             _dbContext.SaveChanges();
+            AzurirajUkupniTotalIKolicinuKorpe((int)x.KorpaId);
+
             return Ok(objekat);
         }
 

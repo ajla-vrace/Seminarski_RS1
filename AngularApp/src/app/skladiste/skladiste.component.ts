@@ -5,6 +5,8 @@ import {MojConfig} from "../moj-config";
 import {DatePipe, formatDate} from "@angular/common";
 import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 
+declare function porukaInfo(a: string):any;
+
 @Component({
   selector: 'app-skladiste',
   templateUrl: './skladiste.component.html',
@@ -285,11 +287,15 @@ export class SkladisteComponent implements OnInit {
   }
 
   spasi() {
-    this.kliknuoEdit=false;
+
     console.log(this.odabrana_stavka);
     this.httpKlijent.post(MojConfig.adresa_servera+"/api/SkladisteProizvod", this.odabrana_stavka,MojConfig.http_opcije())
       .subscribe((x:any)=>{
         this.odabrana_stavka=null;
+        if(this.kliknuoEdit==false)
+          porukaInfo("Uspješno ste dodali stavku.");
+        else   porukaInfo("Uspješno ste modifikovali stavku.");
+        this.kliknuoEdit=false;
         this.getSkladisteProizvod_k_rastuci_p_opadajuci();
         this.getSkladisteProizvod_k_opadajuci_p_rastuci();
         this.getSkladisteProizvod_k_p_rastuci();
@@ -298,6 +304,7 @@ export class SkladisteComponent implements OnInit {
         this.getProizvodOpadajuci();
         this.getKolicinaRastuci();
         this.getKolicinaOpadajuci();
+
     })
   }
 
@@ -392,8 +399,8 @@ export class SkladisteComponent implements OnInit {
       .subscribe((x:any)=>{
         this.getSkladista();
         this.obj_skladiste=null;
-        alert("Uspješno ste sačuvali promjene.");
-
+      //  alert("Uspješno ste sačuvali promjene.");
+      porukaInfo("Uspješno ste spasili promjene.");
       })
   }
 
@@ -441,7 +448,8 @@ export class SkladisteComponent implements OnInit {
       .subscribe((x:any)=>{
         this.getProdavnice();
         this.obj_prodavnica=null;
-        alert("Uspješno ste spasili promjene.");
+        //alert("Uspješno ste spasili promjene.");
+        porukaInfo("Uspješno ste spasili promjene.");
       })
 
   }

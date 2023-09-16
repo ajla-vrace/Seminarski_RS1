@@ -51,7 +51,7 @@ kupac_id:any;
     setTimeout( ()=>{
       this.prodId=this.prodavnicePodaci[0]?.id;
       this.prodavnicaAdresa=this.prodavnicePodaci.filter((a:any)=>a.id==this.prodId);
-      console.log("adrwsa je ngoninit"+this.prodavnicaAdresa[0]?.adresa);
+      //console.log("adrwsa je ngoninit"+this.prodavnicaAdresa[0]?.adresa);
     }, 400);
   }
    fetchKorpaStavke() {
@@ -124,7 +124,7 @@ nazivProdavnice(){
       this.httpKlijent.post(`${MojConfig.adresa_servera}/NarudzbaStavka/Add`, this.narudzbaStavka, MojConfig.http_opcije()).subscribe(x => {
         this.fetchNarudzbaStavke();
 
-        console.log("narudzba stavka dodano:" +this.narudzbaStavka.id);
+       // console.log("narudzba stavka dodano:" +this.narudzbaStavka.id);
         /*this.ngOnInit();*/
       });
     }
@@ -155,7 +155,7 @@ brisiSveIzKorpe(idKorpe:any){
       prodavnicaId:this.prodId,
       evidentirao:"",
     }
-    console.log(this.narudzba);
+   // console.log(this.narudzba);
     this.httpKlijent.post(`${MojConfig.adresa_servera}/Narudzba/Add`, this.narudzba, MojConfig.http_opcije()).subscribe(x => {
       this.fetchNarudzbe();
 
@@ -167,7 +167,7 @@ funkcija(){
   this.kreirajNarudzbu();
   this.fetchNarudzbe();
   this.narudzbaID=this.narudzbaPodaci[0].id;
-  console.log("narudzba id:"+this.narudzbaID);
+ // console.log("narudzba id:"+this.narudzbaID);
   this.pretvoriStavkeKorpeUStavkeNarudzbe(this.narudzbaID);
   this.fetchNarudzbaStavke();
   this.brisiSveIzKorpe(2);
@@ -180,10 +180,10 @@ funkcija(){
      setTimeout( ()=>{
        this.fetchNarudzbe();
        this.narudzbaID=this.narudzbaPodaci[0].id;
-       console.log("narudzba id:"+this.narudzbaID);
+      // console.log("narudzba id:"+this.narudzbaID);
        this.pretvoriStavkeKorpeUStavkeNarudzbe(this.narudzbaID);
        this.fetchNarudzbaStavke();
-       console.log("id korpe: "+this.korpePodaci[0].id);
+      // console.log("id korpe: "+this.korpePodaci[0].id);
        this.brisiSveIzKorpe(this.korpePodaci[0].id);
      }, 1000);
 
@@ -204,8 +204,8 @@ this.kreiranaNarudzba=true;
   ispisi() {
 this.prodavnicaAdresa=this.prodavnicePodaci.filter((a:any)=>a.id==this.prodId);
 
-    console.log("Vrijednost proId: "+this.prodId);
-    console.log("lenght: "+this.prodavnicePodaci?.length);
+   // console.log("Vrijednost proId: "+this.prodId);
+  //  console.log("lenght: "+this.prodavnicePodaci?.length);
    // this.prodavnicaAdresa=this.prodavnicePodaci?.filter((a:any)=>a.id==this.prodId);
    // console.log("adresa je "+this.prodavnicaAdresa[0]?.adresa);
 

@@ -69,6 +69,18 @@ tbody{
  /* height: 500px;*/
 }
 
+.card-header{
+  padding: 3%;
+}
+
+
+.card border-0 wow fadeInUp{
+  background-color: lightblue;
+}
+
+
+
+
 
 #myChart {
  /* width: 100%;
@@ -76,7 +88,7 @@ tbody{
 */
 }
 .PrikazDugme{
-  background-color: #a9a8a8;
+  background-color: #9ad8ec;
   border-radius: 20px;
   padding: 1%;
   margin: 10px;

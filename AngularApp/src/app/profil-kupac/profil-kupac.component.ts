@@ -303,10 +303,10 @@ this.getSlikuKupca();
 */
     this.notifikacija=this.afDB.object("/notifikacija").valueChanges();
 
-    console.log("notifikacija"+this.notifikacija);
+   // console.log("notifikacija"+this.notifikacija);
     this.notifikacija.subscribe((vrijednost:any) => {
       this.vrijednostNotifikacije=vrijednost;
-      console.log('Vrijednost notifikacije:', vrijednost);
+     // console.log('Vrijednost notifikacije:', vrijednost);
 
 
     });
@@ -649,7 +649,8 @@ this.odabranikomentar=null;
       this.ocjeneProdavnica= x;
     });
     */
-    alert("Odabrani ocjena je obrisana!");
+   // alert("Odabrani ocjena je obrisana!");
+    porukaSuccess("Odabrana ocjena je obrisana!");
   }
 
   prikazOcjeneProizvoda() {
@@ -676,7 +677,8 @@ this.odabranikomentar=null;
       this.ocjeneProizvodaMoje= x;
     });*/
    // this.fetchOcjeneProizvodaMoje();
-    alert("Odabrani ocjena je obrisana!");
+    //alert("Odabrani ocjena je obrisana!");
+    porukaSuccess("Odabrana ocjena je obrisana!");
   }
 
 
@@ -1040,7 +1042,8 @@ this.getKupca1();
 
     this.httpKlijent.post(MojConfig.adresa_servera + "/api/Autentifikacija", null, token)
       .subscribe((x: any) => {
-        alert("Uspješno ste se odjavili.");
+        //alert("Uspješno ste se odjavili.");
+        porukaSuccess("Uspjesno ste se odjavili.");
       });
     //this.router.navigateByUrl("/neregistrovan");
     this.router.navigate(["/pocetna"]);
@@ -1172,13 +1175,14 @@ obj_status:any;
         this.obj_status=null;
         this.update_stanje_na_skladistu(id);
         this.fetchNarudzbeKupca();
+        porukaSuccess("Odabrana narudzba je otkazana!");
       })
   }
 
 
 pogledano(){
   this.afDB.object('/notifikacija').set(0).then(() => {
-    console.log('Vrijednost cvora notifikacija promijenjena na 0.');
+    //console.log('Vrijednost cvora notifikacija promijenjena na 0.');
   });
 }
   pogledanSignalR:any=false;

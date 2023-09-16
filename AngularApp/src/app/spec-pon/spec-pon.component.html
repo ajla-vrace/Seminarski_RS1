@@ -68,7 +68,7 @@
 
 <div class="tabela1">
 <button (click)="SaljiMailSpecijalnePonude()" class="dugmeSaljiMail" style="background: transparent; padding: 1%; border-radius: 20px; margin-right: 2%;">Obavijesti korisnike mailom</button>
-  <button (click)="posaljiPoruku()" class="dugmeSaljiPoruku" style="background: transparent; padding: 1%; border-radius: 20px;">Obavijesti korisnike porukom</button>
+  <button (click)="posaljiPoruku()" class="dugmeSaljiPoruku" style="background: transparent; padding: 1%; border-radius: 20px; margin-right: 2%;">Obavijesti korisnike porukom</button>
   <button (click)="posaljiNotifikaciju()" class="dugmeSaljiPoruku" style="background: transparent; padding: 1%; border-radius: 20px;">Obavijesti korisnike notifikacijom</button>
 <!--  <button (click)="SaljiObavijestSpecijalnePonude()" class="dugmeSaljiMail">Obavijesti korisnike</button>
 
@@ -245,7 +245,7 @@
         <div class="mb-3">
           <label class="form-label">Proizvod</label>
 
-          <select class="form-select" size="5" [(ngModel)]="obj_spp.proizvodId">
+          <select class="form-select" size="5" [(ngModel)]="obj_spp.proizvodId" [disabled]="kliknuoEditSPP">
 
             <option *ngFor="let o of pr_rastuci" [value]="o.id" > {{o.naziv}} - {{o.sifra}} </option>
 
@@ -254,7 +254,7 @@
 
       <div class="mb-3">
         <label class="form-label">Specijalna ponuda</label>
-        <select class="form-select" size="5" [(ngModel)]="obj_spp.specijalnaPonudaId">
+        <select class="form-select" size="5" [(ngModel)]="obj_spp.specijalnaPonudaId" [disabled]="kliknuoEditSPP">
           <option *ngFor="let o of specijalne_ponude" [value]="o.id" > {{o.naziv}} </option>
         </select>
       </div>
@@ -287,7 +287,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLiveLabel1">{{naslov}}</h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="obj_sp=null; getSpecijalnePonudeOpadajuci();"></button>
+        <button type="button" class="btn-close" aria-label="Close" (click)="obj_sp=null; kliknuoEditSP=false; getSpecijalnePonudeOpadajuci();"></button>
       </div>
 
       <div class="modal-body">

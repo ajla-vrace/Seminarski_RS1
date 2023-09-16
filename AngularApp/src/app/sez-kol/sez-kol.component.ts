@@ -81,9 +81,9 @@ export class SezKolComponent implements OnInit {
 
     this.httpKlijent.post(MojConfig.adresa_servera+"/api/Sezona",this.obj_sezona,MojConfig.http_opcije()).subscribe((x:any)=>{
       if(this.kliknuoEditSezona==false)
-        alert("Uspješno ste dodali sezonu.");
+        porukaInfo("Uspješno ste dodali sezonu.");
       else
-        alert("Uspješno ste izmijenili sezonu.");
+        porukaInfo("Uspješno ste izmijenili sezonu.");
 
       this.kliknuoEditSezona=false;
       this.getSezone();
@@ -101,9 +101,9 @@ export class SezKolComponent implements OnInit {
 
     this.httpKlijent.post(MojConfig.adresa_servera+"/api/Kolekcija",this.obj_kolekcija,MojConfig.http_opcije()).subscribe((x:any)=>{
       if(this.kliknuoEditKolekcija==false)
-         alert("Uspješno ste dodali kolekciju.");
+         porukaInfo("Uspješno ste dodali kolekciju.");
       else
-        alert("Uspješno ste izmijenili kolekciju.");
+        porukaInfo("Uspješno ste izmijenili kolekciju.");
 
       this.kliknuoEditKolekcija=false;
       this.getKolekcije();

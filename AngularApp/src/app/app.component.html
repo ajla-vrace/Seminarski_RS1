@@ -43,12 +43,34 @@
       <a href="https://www.tiktok.com/@mango" class="drustvenemreze">Tik Tok</a>
     </div>
 
-    <div>
+    <div >
       <h6>Pretplatite se na newsletter</h6>
+      <!--
       <input type="text" id="newsletter1"  style="width: 100%" placeholder="Unesite vasu email adresu" [(ngModel)]="email"><br><br>
+    -->
      <!-- <p *ngIf="isSubscribed">Uspjesno</p>
       <p *ngIf="errorMessage">Neuspjesno.</p>-->
-      <input type="submit" value="Submit" style="background-color: darkslateblue; color: white" (click)="submit_newsletter()" [disabled]="loginInfo().isLogiran==false">
+      <div class="col-sm-3" [class.has-error]="email.invalid && email.touched" style="margin: 0;width: 100%">
+        <!--<label>Lozinka</label>-->
+        <input id="idEmail" [(ngModel)]="txtEmail" class="form-control"  style="width:100%; "
+               #email="ngModel" required pattern="^[a-z]{1,}[a-z0-9]{1,}[._]{0,1}[a-z0-9]{1,}@gmail.com$" placeholder="nesto@gmail.com">
+
+        <span class="poruka-validacija" *ngIf="email.invalid && email.touched" style="color: red;margin-top: 1%;text-align: center;">
+         <p>Unesite ispravan email </p>
+      </span>
+
+      </div>
+      <input type="submit"   id="dugme_submit" value="Submit" style="background-color: darkslateblue; color: white; " (click)="submit_newsletter()"
+               [disabled]="!(email.valid )" >
+<!--[disabled]="loginInfo().isLogiran==false"-->
+
+
+
+
+
+
+
+
     </div>
   </div>
 

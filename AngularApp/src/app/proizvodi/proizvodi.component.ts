@@ -330,7 +330,8 @@ export class ProizvodiComponent implements OnInit {
         .subscribe((x: any) => {
           this.getProizvodOpadajuci();
           this.getProizvodRastuci();
-          alert("Zapis uspješno obrisan");
+        //  alert("Zapis uspješno obrisan");
+          porukaInfo("Zapis je uspješno obrisan.");
         })
 
   }
@@ -470,6 +471,10 @@ export class ProizvodiComponent implements OnInit {
   spasi(o: any) {
     this.httpKlijent.post(MojConfig.adresa_servera+"/api/Proizvod",o,MojConfig.http_opcije()).subscribe(
       (x:any)=>{
+        if(this.kliknuoEdit==false)
+          porukaInfo("Uspješno ste spasili dodali proizvod.");
+        else
+          porukaInfo("Uspješno ste modifikovali proizvod.");
         this.getProizvodOpadajuci();
         this.getProizvodRastuci();
      //   this.getSkladistaProizvod();
