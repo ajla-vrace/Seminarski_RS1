@@ -355,7 +355,6 @@ namespace OnlineShop.Modul1.Controllers
                             return BadRequest ("uslov Spremna nije true");
                     }
                 }
-
                 else if((nar.PrethodniStatus=="Spremna" && nar.Status=="Otkazana") || (nar.PrethodniStatus=="Spremna" && nar.Status=="Ponistena") )
                 {
                     //povecava se stanje na skladistu

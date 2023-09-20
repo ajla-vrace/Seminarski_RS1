@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {LoginInformacije} from "../helpers/login-informacije";
+import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 
 @Component({
   selector: 'app-help1',
@@ -8,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 export class Help1Component implements OnInit {
 
   constructor() { }
-
+  loginInfo():LoginInformacije {
+    return AutentifikacijaHelper.getLoginInfo();
+  }
   ngOnInit(): void {
   }
 
