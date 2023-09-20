@@ -8,11 +8,11 @@ import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
   styleUrls: ['./faq.component.css']
 })
 export class FaqComponent implements OnInit {
-
-  constructor() { }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
   }
+  constructor() { }
+
   ngOnInit(): void {
   }
 
