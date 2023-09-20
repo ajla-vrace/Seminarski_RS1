@@ -10,10 +10,10 @@ import {AutentifikacijaHelper} from "../helpers/autentifikacija-helper";
 export class FaqComponent implements OnInit {
 
   constructor() { }
+
+  ngOnInit(): void {
+  }
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();
   }
-  ngOnInit(): void {
-  }
-
 }
