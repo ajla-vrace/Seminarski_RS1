@@ -162,7 +162,7 @@ namespace OnlineShop.Modul1.Controllers
             var proizvodi_kolicine = new List<Bestseller>();
 
             foreach (var p_id in proizvodi_id)
-            {            
+            {
                 var kolicine_proizvodaId = 
                     contex.NarudzbaStavka.Where(x => x.ProizvodId == p_id).Sum(x => x.Kolicina);
                 kolicine.Add(new ProizvodKolicina { proizvodId=p_id, kolicina = kolicine_proizvodaId });

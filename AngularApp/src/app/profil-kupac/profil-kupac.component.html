@@ -143,7 +143,7 @@ KUPAC ID: {{kupac_id}}
      <!-- <p (click)="dodajSliku()">Dodaj sliku</p>-->
       <p (click)="ukloniSliku()" style="color: red;cursor: pointer;">Ukloni sliku</p>
       <img style="display:block;max-width: 100%; height: 200px" src="{{get_slika_base64_FS(kupacPodaciNovi)}}"
-           class="img-profilna" (click)="dodajSliku()" >
+           class="img-profilna" (click)="dodajSliku()" alt="profilna">
 
 
 
@@ -253,10 +253,10 @@ KUPAC ID: {{kupac_id}}
             <td>{{s.prodavnica}}</td>
             <td>{{s.datumKreiranja | date:'dd-MM-yyyy'}}</td>
             <td>
-              <button (click)="modifikuj(s)">Modifikacija</button>
+              <button (click)="modifikuj(s)" class="dugmeDeleteIEdit"><img src="assets/slike/edit.png" class="ikonica" alt="edit"></button>
             </td>
             <td>
-              <button (click)="brisikomm(s)">Obrisi</button>
+              <button (click)="brisikomm(s)" class="dugmeDeleteIEdit"><img src="assets/slike/delete.png" class="ikonica" alt="delete"></button>
             </td>
 
           </tr>
@@ -287,7 +287,7 @@ KUPAC ID: {{kupac_id}}
             <td>{{o.prodavnica}}</td>
             <td>{{o.datumKreiranja | date:'dd-MM-yyyy'}}</td>
             <td>
-              <button (click)="brisiOcjenu(o)">Obrisi</button>
+              <button (click)="brisiOcjenu(o)" class="dugmeDeleteIEdit" style="width: 40%;"><img src="assets/slike/delete.png" class="ikonica" alt="delete"></button>
             </td>
 
           </tr>
@@ -319,7 +319,7 @@ KUPAC ID: {{kupac_id}}
             <td>{{op.proizvod}}</td>
             <td>{{op.datumKreiranja | date:'dd-MM-yyyy'}}</td>
             <td>
-              <button (click)="brisiOcjenuProizvoda(op)">Obrisi</button>
+              <button (click)="brisiOcjenuProizvoda(op)" class="dugmeDeleteIEdit" style="width: 40%;"><img src="assets/slike/delete.png" class="ikonica" alt="delete"></button>
             </td>
 
           </tr>
@@ -608,7 +608,7 @@ KUPAC ID: {{kupac_id}}
         <div class="mb-3">
           <label class="form-label">Nova slika</label>
           <input class="form-control" id="slika-input" type="file"  accept="image/jpg" (change)="generisi_preview()" />
-          <img style="max-width: 100%; height: 200px" src="{{slika_obj.slika_nova}}" >
+          <img style="max-width: 100%; height: 200px" src="{{slika_obj.slika_nova}}" alt="slika">
         </div>
 
 

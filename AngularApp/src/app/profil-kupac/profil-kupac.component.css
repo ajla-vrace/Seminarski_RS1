@@ -272,7 +272,17 @@ margin-bottom: 2%;
   width: 60%;
 
 }
+.ikonica
+{
+  width: 22px;
 
+}
+.dugmeDeleteIEdit{
+  width: 50%;
+  background-color: transparent;
+  border: 0;
+  text-align: center;
+}
 
 
 

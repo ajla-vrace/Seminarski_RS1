@@ -130,7 +130,7 @@
   <br>
 
   <div class="dugmad">
-    <div class="status-okvir" *ngIf="narudzbaDetalji?.narudzba?.status!='Otkazana'" >
+    <div class="status-okvir" *ngIf="narudzbaDetalji?.narudzba?.status!='Otkazana' && narudzbaDetalji?.narudzba?.status!='Ponistena' && narudzbaDetalji?.narudzba?.status!='Preuzeta'" >
       <button class="btn-status" (click)="kliknuoPromijeniStatus=true; promijeniStatus();">Promijeni status</button>
     </div>
 
@@ -148,7 +148,7 @@
 
 
 <!--zaposlenik ne moze mijenjati status narudzbe koja je Otkazana (jer je kupac postavio na taj status)-->
-<div *ngIf="kliknuoPromijeniStatus==true && narudzbaDetalji?.narudzba?.status!='Otkazana'" class="modal fade show" id="exampleModalLive2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+<div *ngIf="kliknuoPromijeniStatus==true && narudzbaDetalji?.narudzba?.status!='Otkazana' && narudzbaDetalji?.narudzba?.status!='Ponistena' && narudzbaDetalji?.narudzba?.status!='Preuzeta'" class="modal fade show" id="exampleModalLive2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg modal-dialog-scrollable" id="modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -165,17 +165,18 @@
 
         <div class="mb-3">
           <label class="col-form-label">Novi status:</label>
-          <select class="form-control" [(ngModel)]="obj_status.status">
-            <option>Nova</option>
-            <option>Spremna</option>
-            <option>Ponistena</option>
-            <option>Preuzeta</option>
+          <select class="form-control" placeholder="Izaberi status" [(ngModel)]="obj_status.status">
+         <!--   <option>Nova</option> -->
+            <option *ngIf="narudzbaDetalji?.narudzba?.status=='Nova'">Spremna</option>
+            <option *ngIf="narudzbaDetalji?.narudzba?.status=='Spremna' || narudzbaDetalji?.narudzba?.status=='Nova'">Ponistena</option>
+            <option *ngIf="narudzbaDetalji?.narudzba?.status=='Spremna'">Preuzeta</option>
           </select>
         </div>
       </div>
 
+
       <div class="modal-footer">
-        <button  type="button" class="btn btn-spasi btn-primary" (click)="changeStatus()">Promijeni status</button>
+        <button  type="button" class="btn btn-spasi btn-primary" [disabled]="obj_status.status==''" (click)="changeStatus()">Promijeni status</button>
       </div>
     </div>
   </div>

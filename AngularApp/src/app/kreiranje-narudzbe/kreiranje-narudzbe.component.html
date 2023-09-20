@@ -37,7 +37,7 @@
     <div id="SveStavke">
       <div *ngFor="let x of korpaStavkePodaci" class="jednaStavka">
 
-        <div class="slikaStavka"><img src="{{get_slika_base64_FS(x.slika)}}" class="slikaStavkeSama"> </div>
+        <div class="slikaStavka"><img src="{{get_slika_base64_FS(x.slika)}}" class="slikaStavkeSama" alt="stavka"> </div>
         <div class="tekstStavke">
           <p><b>{{x.proizvodIme}}</b> </p>
           <p>Cijena: {{x.cijena}}</p>
@@ -136,7 +136,7 @@
 </div>
 
 <div *ngIf="kreiranaNarudzba==true;" id="uspjesnoKreiranaNarudzba">
-  <img src="assets/slike/plavaTacnica.png" id="slikaPlavaTacnica">
+  <img src="assets/slike/plavaTacnica.png" id="slikaPlavaTacnica" alt="plavaTacnica">
   <h1>Narudžba je uspješno kreirana!</h1>
   <h6 style="cursor: pointer;" (click)="otvoriProfilKupca()">Provjeri status</h6>
 </div>
