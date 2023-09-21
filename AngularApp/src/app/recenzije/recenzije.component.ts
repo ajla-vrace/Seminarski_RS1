@@ -119,11 +119,23 @@ export class RecenzijeComponent implements OnInit {
         if (index > -1) {
           this.komentariPodaci.splice(index, 1);
         }
+       // this.getKomentare();
+
+        // Proverite da li je korisnik na poslednjoj stranici i nema komentara
+        if (this.page > 1 && this.komentariPodaci.length === 0) {
+          // Ako jeste, prebacite korisnika na prethodnu stranicu
+          this.page--;
+          this.getKomentare(); // Ponovno učitajte komentare na prethodnoj stranici
+        }
+
+
+
       });
-    this.httpKlijent.post(MojConfig.adresa_servera+ "/Komentar/GetAll",MojConfig.http_opcije()).subscribe(x=>{
+   /* this.httpKlijent.post(MojConfig.adresa_servera+ "/Komentar/GetAll",MojConfig.http_opcije()).subscribe(x=>{
       this.komentariPodaci = x;
-    });
-    alert("Odabrani komentar je obrisan!");
+    });*/
+    //alert("Odabrani komentar je obrisan!");
+    porukaSuccess("Odabrani komentar je obrisan!");
   }
 
   getBrojKom(){
@@ -155,10 +167,11 @@ export class RecenzijeComponent implements OnInit {
           this.ocjenePodaci.splice(index, 1);
         }
       });
-    this.httpKlijent.post(MojConfig.adresa_servera+ "/Ocjens/GetAll",MojConfig.http_opcije()).subscribe(x=>{
+    /*this.httpKlijent.post(MojConfig.adresa_servera+ "/Ocjens/GetAll",MojConfig.http_opcije()).subscribe(x=>{
       this.ocjenePodaci = x;
-    });
-    alert("Odabrani ocjena je obrisana!");
+    });*/
+   // alert("Odabrani ocjena je obrisana!");
+    porukaSuccess("Odabran ocjena je obrisana!");
   }
 
 
@@ -185,10 +198,11 @@ export class RecenzijeComponent implements OnInit {
           this.ocjeneProizvodaPodaci.splice(index, 1);
         }
       });
-    this.httpKlijent.post(MojConfig.adresa_servera+ "/Zvjezdica/GetAll",MojConfig.http_opcije()).subscribe(x=>{
+   /* this.httpKlijent.post(MojConfig.adresa_servera+ "/Zvjezdica/GetAll",MojConfig.http_opcije()).subscribe(x=>{
       this.ocjeneProizvodaPodaci = x;
-    });
-    alert("Odabrani ocjena je obrisana!");
+    });*/
+    //alert("Odabrani ocjena je obrisana!");
+    porukaSuccess("Odabrana ocjena je obrisana");
   }
 
 
@@ -213,6 +227,7 @@ export class RecenzijeComponent implements OnInit {
    // const url = `/api/Komentar/komentar?page=${this.page}&pageSize=${this.pageSize}`;
     this.httpKlijent.get<any>(MojConfig.adresa_servera+`/Komentar/GetKomentare/komentar?page=${this.page}&pageSize=${this.pageSize}`)
       .subscribe(data => {
+      //  this.fetchKomentari1();
       this.totalCount = data.totalCount;
       this.totalPages = data.totalPages;
       this.komentariPodaci = data.komentari;
